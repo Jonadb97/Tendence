@@ -1,11 +1,11 @@
 <template>
-    <div id="main-container">
+    <div id="MainContainer">
       <head> <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"></head>
         <h2 id="tab">Nuevo Turno</h2> 
         <br>
-        <div id="page-container" class="flex flex-row my-72 justify-center items-center">
+        <div id="PageContainer" class="flex flex-row my-72 justify-center items-center">
           <span><i class="mx-2 my-auto fa-3x far fa-calendar-check"></i></span>
-          <NuxtLink to="/nuevoTurno/tipoCorte"><b-button
+          <NuxtLink to="/NuevoTurno/NuevoTurnoForm"><b-button
           label="Agendar nuevo turno" 
           size="is-large"
           type="is-dark"
@@ -32,7 +32,7 @@ export default {
   color: rgb(34, 34, 34);
 }
 
-#firstForm {
+#FirstForm {
   margin: 6rem;
 }
 
@@ -41,7 +41,7 @@ export default {
     to {size: 150%;}
 }
 
-#page-container:hover{
+#PageContainer:hover{
     animation-name: buttonanimation;
     animation-duration: 0.5s;
     animation-timing-function: ease-in-out;

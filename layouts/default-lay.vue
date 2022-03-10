@@ -11,7 +11,7 @@
 </template>
 
 <style>
-#main-container {
+#MainContainer {
   /* TOP | RIGHT | BOTTOM | LEFT */
   margin: 0.5rem 8rem 2rem 8rem;
 }

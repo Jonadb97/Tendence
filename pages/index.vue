@@ -1,5 +1,5 @@
 <template>
-<div id="main-container">
+<div id="MainContainer">
   <h1>Home</h1>
 </div>
 </template>
@@ -20,7 +20,7 @@ export default {
   src: url("../static/fonts/AkiraExpandedDemo.otf")format("otf");
 }
 
-#main-container {
+#MainContainer {
   /* TOP | RIGHT | BOTTOM | LEFT */
   margin: 0.5rem 8rem 2rem 8rem;
 }

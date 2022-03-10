@@ -1,15 +1,12 @@
 <template>
-    <div id="main-container">
-        <h2>Login</h2>
+    <div id="MainContainer">
+        <h2>Perfil</h2>
     </div>
 </template>
 
 <script>
 export default {
-  name: 'LoginPage',
+  name: 'PerfilPage',
   layout: 'default-lay',
 }
 </script>
-
-<style>
-</style>

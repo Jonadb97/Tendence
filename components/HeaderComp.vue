@@ -1,12 +1,12 @@
 <template>
-    <div id="header-container" class="inline-flex">
+    <div id="HeaderContainer" class="inline-flex">
         <NuxtLink to="/" class=" inline-flex my-auto mx-1"><div ><TendenceLogo id="LOGO" class="flex my-4"  /></div> <img id="BT" src="../static/svg/BarberTendenceTextWhite.svg" alt="Barber Tendence" class="my-auto py-auto"></NuxtLink>
-        <div id="nav-container" class="absolute inset-y-8 right-4">
-        <b-button type="is-dark"><NuxtLink id="nav-link" to="/">Home</NuxtLink></b-button>
-         <b-button type="is-dark"><NuxtLink id="nav-link" to="/login-page">Login</NuxtLink></b-button>
+        <div id="NavContainer" class="absolute inset-y-8 right-4">
+        <b-button type="is-dark"><NuxtLink id="NavLink" to="/">Home</NuxtLink></b-button>
+         <b-button type="is-dark"><NuxtLink id="NavLink" to="/LoginPage">Login</NuxtLink></b-button>
         <!--<NuxtLink class="my-auto text-white place-content-end" to="/perfil-page">Perfil</NuxtLink> 
-        <NuxtLink id="nav-link" class="my-auto text-white place-content-end" to="/turnos-page">Turnos</NuxtLink> -->
-        <b-button type="is-dark"><NuxtLink id="nav-link" class="my-auto text-white place-content-end" to="/nuevoTurno-page">Nuevo Turno</NuxtLink></b-button>
+        <NuxtLink id="NavLink" class="my-auto text-white place-content-end" to="/turnos-page">Turnos</NuxtLink> -->
+        <b-button type="is-dark"><NuxtLink id="NavLink" class="my-auto text-white place-content-end" to="/NuevoTurnoPage">Nuevo Turno</NuxtLink></b-button>
         </div>
     </div>
 </template>
@@ -24,21 +24,21 @@
 
 }
 
-#nav-link {
+#NavLink {
     margin-left: 0.5rem;
     margin-right: 0.5rem;
 }
 
-#nav-link:hover {
+#NavLink:hover {
     color: white;
 }
 
-#nav-container {
+#NavContainer {
     /* TOP | RIGHT | BOTTOM | LEFT */
     margin: auto 2rem auto auto;
 }
 
-#header-container {
+#HeaderContainer {
     background-image: linear-gradient(to right ,rgb(40, 40, 40), rgb(20, 20, 20));
     width: 100%;
     

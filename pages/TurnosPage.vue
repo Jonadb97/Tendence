@@ -1,12 +1,12 @@
 <template>
-    <div id="main-container">
-        <h2>Perfil</h2>
+    <div id="MainContainer">
+        <h2>Tus turnos</h2>
     </div>
 </template>
 
 <script>
 export default {
-  name: 'PerfilPage',
+  name: 'TusTurnosPage',
   layout: 'default-lay',
 }
 </script>
