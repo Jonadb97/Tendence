@@ -8,13 +8,26 @@
 <!-- Gottta add v-model to all the inputs -->
               <div class="flex-row mx-auto">
               <b-field label="Nombre">
-              <b-input id="name" type="text" value="Fulanito" maxlength="20" rounded expanded="0"></b-input>
+              <b-input id="name" type="text" value="Fulanito" maxlength="20" rounded expanded></b-input>
                </b-field>
 
               <b-field label="Número de teléfono">
-              <b-input id="localcod" type="phone" value="291" maxlength="3" rounded expanded="0"></b-input>
+              <b-input 
+              id="localcod"          
+              v-model="areaCode"
+              type="phone" 
+              value="291" 
+              maxlength="3"              
+              rounded expanded
+              ></b-input>
               <p class="my-auto mx-2">15</p>
-              <b-input id ="numerotel" type="phone" value="" maxlength="7" rounded expanded="0"></b-input>
+              <b-input 
+              id ="numerotel" 
+              type="phone" 
+              value="" 
+              maxlength="7" 
+              rounded expanded
+              ></b-input>
                </b-field>
 <!-- type="is-danger"
      message="Este mail no es válido"> -->
@@ -56,6 +69,7 @@
                 type="is-success"
                 icon-right="check"
                 outlined
+                v-on:click= "login()"
                 >
                 
 
@@ -99,18 +113,36 @@
 // 291 4448626 - 7 carácteres
 
 <script>
+import axios from "@nuxtjs/axios"
 import TendenceLogo from "~/components/TendenceLogo.vue";
 export default {
     name: "RegisterPage",
     components: { TendenceLogo },
     layout: "default-lay",
-
     data: () => ({
-        LoginForm: {
-          numberPlaceholder1: '',
-          numberPlaceholder2: ''
-        },
+        userName: "",
+        email: "",
+        password: "",
+        phoneNumber: "",
+        areaCode:""
+
     }),
+    methods:{
+      login(){
+          axios({
+            url: '"http://localhost:3000/auth/login',
+            method: 'post',
+            headers: {
+              'username': this.userName,
+              'email': this.email,
+              'password': this.password,
+              'phoneNumber': this.phoneNumber,
+              'areaCode':this.areaCode
+
+              },
+            }).then(OkCallback, ErrorCallback)
+      }
+    }
     
 }
 </script>
