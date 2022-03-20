@@ -58,15 +58,15 @@
 
           <div>
             <label class="label">Tipo de corte</label>
-            <div class="flex flex-row">
-              <button @click="TurnoForm.tipoCorte = 'Solo pelo' " ><div class="p-4 m-4"><img class="w-32 rounded-full" src="../static/img/cortePelo.png" alt="Pelo"> <br> <p class="flex flex-row justify-center items-center text-center text-xs">Corte de pelo</p></div></button>
+            <div class="flex flex-row text-black">
+              <button class="text-black" @click="TurnoForm.tipoCorte = 'Solo pelo' "  ><div class="p-4 m-4"><img class="w-32 rounded-full" src="../static/img/cortePelo.png" alt="Pelo"> <br> <p class="flex flex-row justify-center items-center text-center text-xs">Corte de pelo</p></div></button>
               <button @click="TurnoForm.tipoCorte = 'Pelo y barba' " ><div class="p-4 m-4"><img class="w-32 rounded-full" src="../static/img/cortePeloyBarba.png" alt="Pelo y Barba"> <br> <p class="flex flex-row justify-center items-center text-center text-xs">Corte de Pelo y Barba</p></div></button>
             </div>
           </div>
           
           <!-- Turno flotador -->
 
-          <div id="TurnoFlotador" class="border bg-gray-300 rounded-lg m-2 p-2 text-left">
+          <div id="TurnoFlotador" class="border rounded-lg m-2 p-2 text-left">
               <h1 class="font-bold m-1 p-1">Turno:</h1>
                 <p class="m-1 p-1">Nombre y apellido: {{ TurnoForm.nombre + ' ' + TurnoForm.apellido }} </p>
                 <p class="m-1 p-1">Mail: {{ TurnoForm.mail }}</p>
@@ -80,9 +80,10 @@
 </template>
 
 <script>
-import CalendarComponent from "./CalendarComponent.vue";
+import CalendarComponent from "./FormComponents/CalendarComponent.vue";
+import HoraComponent from "./FormComponents/HoraComponent.vue";
 export default {
-    components: { CalendarComponent },
+    components: { CalendarComponent, HoraComponent }, 
 
     data: () => ({
         TurnoForm: {
@@ -104,6 +105,8 @@ export default {
 #TurnoFlotador {
     margin-right: 20%;
     border-color: rgb(48, 48, 48);
+    background-color: #2E2E2E;
+    color: white;
 }
 
 .TurnoForm {
@@ -124,8 +127,12 @@ label > input {
     width: 1.2rem;
 }
 
+button {
+     color: rgb(49, 25, 25);
+}
+
 button:hover{
-    color: darkgrey;
+    color: rgb(44, 44, 44);
 }
 
 @keyframes imganimation {

@@ -3,7 +3,8 @@
         <b-field label="Seleccionar hora">
         <b-timepicker
             v-model="FechaHour"
-            placeholder="Click para seleccionar..."
+            placeholder="Click para seleccionar..."  
+            :increment-minutes="incrementMinutes" 
             :min-time="minTime"
             :max-time="maxTime">
             <b-button
@@ -31,6 +32,7 @@
             return {
                 minTime: min,
                 maxTime: max,
+                incrementMinutes: 60,
                 FechaHour,
                 Hoy
             }

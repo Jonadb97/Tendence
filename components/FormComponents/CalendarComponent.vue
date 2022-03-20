@@ -40,6 +40,7 @@ export default {
             return {
                 minDatetime: min,
                 maxDatetime: max,
+                minutesGranularity: 30,
                 FechaCalendar
         }}
 }
