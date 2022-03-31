@@ -1,70 +1,72 @@
 <template>
-  <div id="main-form-container" class="flex flex-col justify-center items-center text-center">
+  <div
+    id="main-form-container"
+    class="flex flex-col justify-center items-center text-center"
+  >
     <!-- Servicios -->
 
     <div id="service-main-container" class="flex-col flex">
       <h1 class="font-bold">Qué te gustaría hacerte?</h1>
       <ul id="service-list-container" class="flex flex-row text-black">
         <li id="service-item">
-        <button class="hover:animate-pulse text-black">
-          <div class="p-4 m-4">
-            <img
-              class="w-32 rounded-full"
-              src="../static/img/cortePelo.png"
-              alt="Pelo"
-            />
-            <br />
-            <p
-              class="flex flex-row justify-center items-center text-center text-xs"
-            >
-              Corte de pelo
-            </p>
-          </div>
-        </button>
+          <button class="hover:animate-pulse text-black">
+            <div class="p-4 m-4">
+              <img
+                class="w-32 rounded-full"
+                src="../static/img/cortePelo.png"
+                alt="Pelo"
+              />
+              <br />
+              <p
+                class="flex flex-row justify-center items-center text-center text-xs"
+              >
+                Corte de pelo
+              </p>
+            </div>
+          </button>
         </li>
 
         <li id="service-item">
-        <button class="animate-none hover:animate-pulse text-black">
-          <div class="p-4 m-4">
-            <img
-              class="w-32 rounded-full"
-              src="../static/img/cortePeloyBarba.png"
-              alt="Pelo y Barba"
-            />
-            <br />
-            <p
-              class="flex flex-row justify-center items-center text-center text-xs"
-            >
-              Corte de Pelo y Barba
-            </p>
-          </div>
-        </button>
+          <button class="animate-none hover:animate-pulse text-black">
+            <div class="p-4 m-4">
+              <img
+                class="w-32 rounded-full"
+                src="../static/img/cortePeloyBarba.png"
+                alt="Pelo y Barba"
+              />
+              <br />
+              <p
+                class="flex flex-row justify-center items-center text-center text-xs"
+              >
+                Corte de Pelo y Barba
+              </p>
+            </div>
+          </button>
         </li>
 
         <li id="service-item">
-        <button class="animate-none hover:animate-pulse text-black">
-          <div class="p-4 m-4">
-            <img
-              class="w-32 rounded-full"
-              src="../static/img/cortePeloyBarbaConBrillito.png"
-              alt="Pelo y Barba"
-            />
-            <br />
-            <p
-              class="flex flex-row justify-center items-center text-center text-xs"
-            >
-              Shot de Keratina
-            </p>
-          </div>
-        </button>
+          <button class="animate-none hover:animate-pulse text-black">
+            <div class="p-4 m-4">
+              <img
+                class="w-32 rounded-full"
+                src="../static/img/cortePeloyBarbaConBrillito.png"
+                alt="Pelo y Barba"
+              />
+              <br />
+              <p
+                class="flex flex-row justify-center items-center text-center text-xs"
+              >
+                Shot de Keratina
+              </p>
+            </div>
+          </button>
         </li>
-
       </ul>
     </div>
     <br />
 
     <!--  Barberos  -->
-
+    <!--
     <h1 class="font-bold inline-flex flex-row flex my-2">Con quién?</h1>
     <div class="flex-row inline-flex flex">
       <button class="flex flex-row">
@@ -163,6 +165,21 @@
         </div>
       </button>
     </div>
+    -->
+
+    <b-carousel-list
+             id="carrousel-barberos"
+             v-model="values"
+             class="my-4 h-auto"
+            :data="barberos"
+            :arrow="arrow"
+            :arrow-hover="arrowHover"
+            :items-to-show="perList"
+            :items-to-list="increment"
+            :repeat="repeat"
+            :has-drag="drag"
+            :has-grayscale="gray"
+            :has-opacity="opacity" />
 
     <!-- Componentes calendar -->
 
@@ -193,19 +210,18 @@
     <!-- Botón agendar turno -->
 
     <div class="flex-row items-center justify-center self-center mx-auto py-4">
-              <b-button
-              class="flex mx-auto py-2"
-              type="is-dark"
-              outlined icon-right="check"
-              label="Agendar turno"
-              @click="confirm"
-              />
+      <b-button
+        class="flex mx-auto py-2"
+        type="is-dark"
+        outlined
+        icon-right="check"
+        label="Agendar turno"
+        @click="confirm"
+      />
     </div>
 
     <!-- Separador para que haya espacio y se vea lindo -->
     <div id="footer-space" class="h-48"></div>
-
-
   </div>
 </template>
 
@@ -217,34 +233,71 @@ export default {
   components: { CalendarComponent, HoraComponent },
 
   // Habría que fetchear la data y ponerla en esos arrays para mandarla a los componentes
-  
-  data: () => ({
-    TurnoForm: {
-      FechaTurno: '',
-      Empleados: [],
-      Servicios: [],
-    },
-    HoySeen: false,
-    OtroDiaSeen: false,
-  }),
-    async fetch() {
+  data() {
+    return {
+      TurnoForm: {
+        FechaTurno: '',
+        Empleados: [],
+        Servicios: [],
+      },
+      HoySeen: false,
+      OtroDiaSeen: false,
+      arrow: true,
+      arrowHover: false,
+      drag: true,
+      gray: false,
+      opacity: false,
+      values: 1,
+      perList: 3,
+      increment: 1,
+      repeat: false,
+      barberos: [
+        {
+                    title: 'El del bombín',
+                    image: require('../static/img/barberos/bombin.png')
+                },
+                {
+                    title: 'El negro',
+                    image: require('../static/img/barberos/elnegro.png')
+                },
+                {
+                    title: 'Juan',
+                    image: require('../static/img/barberos/juan.png')
+                },
+                {
+                    title: 'Manuel',
+                    image: require('../static/img/barberos/manuel.png')
+                },
+                {
+                    title: 'Martincito',
+                    image: require('../static/img/barberos/martincito.png')
+                },
+                {
+                    title: 'Pancho',
+                    image: require('../static/img/barberos/pancho.png')
+                }
+      ]
+    }
+  },
+  async fetch() {
     this.Empleados = await this.$http.$get('https://api.nuxtjs.dev/posts')
   },
   methods: {
-      confirm() {
-        this.$buefy.dialog.confirm({
-          message: 'Deseas confirmar el turno?',
-          onConfirm: () => this.$buefy.toast.open('Turno confirmado!')
-        })
-      }
+    confirm() {
+      this.$buefy.dialog.confirm({
+        message: 'Deseas confirmar el turno?',
+        onConfirm: () => this.$buefy.toast.open('Turno confirmado!'),
+      })
+    },
   },
-
 }
 </script>
 
 <style>
 
-
+#carrousel-barberos {
+  width: 50%;
+}
 
 /*
 #TurnoFlotador {

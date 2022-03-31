@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 <template>
   <div id="MainContainer">
     <h2>Login</h2>
@@ -52,7 +53,7 @@
             pack="mdi"
             outlined
             icon-right="account-arrow-right"
-            @click="Vue.methods.login()"
+            @click="methods.login()"
           >
             Ingresar
           </b-button>
@@ -74,12 +75,22 @@
 
 // 291 4448626 - 7 carácteres
 
+//const body = 'body: { 
+                'phonenumber': this.codArea + '' + this.numTel,
+                'password' : this.inputPassword
+                
+            }';
+
 <script>
+import axios from 'axios'
 import TendenceLogo from '~/components/TendenceLogo.vue'
 export default {
   name: 'LoginPage',
   components: { TendenceLogo },
   layout: 'default-lay',
+
+  
+
 
   data: () => ({
     LoginForm: {
@@ -87,14 +98,15 @@ export default {
       numTel: '',
       inputPassword: '',
       url: 'http://localhost:3000',
+      body: "{'phonenumber': 123000001, 'password': userpassword}"
     },
     methods: {
       login() {
-        const token = this.$axios.$post(this.url + '/auth/login', {
-          numberphone: this.codArea + this.numTel,
-          password: this.inputPassword,
-        })
-        this.console.log(token)
+        axios.post('http://localhost:3000' + '/auth/login', this.body,
+        {
+        }).then(function (response) {
+    console.log(response);
+})
       },
     },
   }),
