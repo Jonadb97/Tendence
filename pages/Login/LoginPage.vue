@@ -17,7 +17,7 @@
             value="291"
             maxlength="3"
             rounded
-            expanded="0"
+            expanded
           ></b-input>
           <p class="my-auto mx-2">15</p>
           <b-input
@@ -27,7 +27,7 @@
             value=""
             maxlength="7"
             rounded
-            expanded="0"
+            expanded
           ></b-input>
         </b-field>
 
@@ -35,7 +35,7 @@
         <div class="flex-row mx-auto">
           <b-field label="Contraseña">
             <b-input
-              v-model="varPassword"
+              v-model="inputPassword"
               type="password"
               value="Thisisapasswordlolxd"
               password-reveal
@@ -53,7 +53,7 @@
             pack="mdi"
             outlined
             icon-right="account-arrow-right"
-            @click="methods.login()"
+            @click="login()"
           >
             Ingresar
           </b-button>
@@ -68,18 +68,28 @@
             >
           </p>
         </div>
+
+        <b-field label="Prueba de reactividad">
+          <b-input
+            id="why"
+            v-model="why"
+            type="phone"
+            value="000"
+            maxlength="100"
+            rounded
+            expanded
+          ></b-input> </b-field
+        ><br />
+        <p>{{ why }}</p>
       </div>
     </div>
   </div>
 </template>
 
-// 291 4448626 - 7 carácteres
-
-//const body = 'body: { 
-                'phonenumber': this.codArea + '' + this.numTel,
-                'password' : this.inputPassword
-                
-            }';
+// 291 4448626 - 7 carácteres //const body = 'body: { 'phonenumber':
+this.codArea + '' + this.numTel, 'password' : this.inputPassword }'; // login()
+{ const body = { 'phonenumber': this.$data.codArea + '' + this.$data.numTel,
+'password': this.$data.inputPassword }
 
 <script>
 import axios from 'axios'
@@ -89,27 +99,32 @@ export default {
   components: { TendenceLogo },
   layout: 'default-lay',
 
-  
-
-
-  data: () => ({
-    LoginForm: {
+  data() {
+    return {
+      why: '',
       codArea: '',
       numTel: '',
       inputPassword: '',
       url: 'http://localhost:3000',
-      body: "{'phonenumber': 123000001, 'password': userpassword}"
+    }
+  },
+  methods: {
+    login() {
+      const body = {
+        phonenumber: this.$data.codArea + '' + this.$data.numTel,
+        password: this.$data.inputPassword,
+      }
+      console.log(body)
+
+      axios
+        .post('http://localhost:3000' + '/auth/login', body)
+        .then(function (response) {
+          console.log(response)
+          
+        })
+      console.log(this.url)
     },
-    methods: {
-      login() {
-        axios.post('http://localhost:3000' + '/auth/login', this.body,
-        {
-        }).then(function (response) {
-    console.log(response);
-})
-      },
-    },
-  }),
+  },
 }
 </script>
 

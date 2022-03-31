@@ -1,82 +1,89 @@
 <template>
-    <div id="MainContainer">
-        <h2>Registrarse</h2>
-        <div id="Layout" class="flex flex-col">
+  <div id="MainContainer">
+    <h2>Registrarse</h2>
+    <div id="Layout" class="flex flex-col">
+      <!-- Logo -->
+      <TendenceLogo id="TendenceLogo" class="flex mx-auto my-12" />
+      <!-- Gottta add v-model to all the inputs -->
+      <div class="flex-row mx-auto">
+        <b-field label="Nombre">
+          <b-input
+            id="name"
+            type="text"
+            value="Fulanito"
+            maxlength="20"
+            rounded
+            expanded
+          ></b-input>
+        </b-field>
 
-            <!-- Logo -->
-              <TendenceLogo id="TendenceLogo" class="flex mx-auto my-12" />
-<!-- Gottta add v-model to all the inputs -->
-              <div class="flex-row mx-auto">
-              <b-field label="Nombre">
-              <b-input id="name" type="text" value="Fulanito" maxlength="20" rounded expanded></b-input>
-               </b-field>
-
-              <b-field label="Número de teléfono">
-              <b-input 
-              id="localcod"          
-              v-model="areaCode"
-              type="phone" 
-              value="291" 
-              maxlength="3"              
-              rounded expanded
-              ></b-input>
-              <p class="my-auto mx-2">15</p>
-              <b-input 
-              id ="numerotel" 
-              type="phone" 
-              value="" 
-              maxlength="7" 
-              rounded expanded
-              ></b-input>
-               </b-field>
-<!-- type="is-danger"
+        <b-field label="Número de teléfono">
+          <b-input
+            id="localcod"
+            v-model="areaCode"
+            type="phone"
+            value="291"
+            maxlength="3"
+            rounded
+            expanded
+          ></b-input>
+          <p class="my-auto mx-2">15</p>
+          <b-input
+            id="numerotel"
+            type="phone"
+            value=""
+            maxlength="7"
+            rounded
+            expanded
+          ></b-input>
+        </b-field>
+        <!-- type="is-danger"
      message="Este mail no es válido"> -->
-              <b-field 
-              label="Email"
-              
-              >
-               <b-input
-                type="email"
-                value="fulanito@gmail.com"
-                maxlength="30"
-                rounded>
-               </b-input>
-               </b-field>
+        <b-field label="Email">
+          <b-input
+            type="email"
+            value="fulanito@gmail.com"
+            maxlength="30"
+            rounded
+          >
+          </b-input>
+        </b-field>
 
-               <b-field label="Contraseña">
-                <b-input 
-                type="password"
-                value="contraseñaocultalolxD"
-                password-reveal
-                min-length="8"
-                rounded>
-               </b-input>
-                </b-field>
-                <b-field label="Confirmar Contraseña">
-                <b-input 
-                type="password"
-                value="contraseñaocultalolxD"
-                password-reveal
-                min-length="8"
-                rounded>
-               </b-input>
-                </b-field>
+        <b-field label="Contraseña">
+          <b-input
+            type="password"
+            value="contraseñaocultalolxD"
+            password-reveal
+            min-length="8"
+            rounded
+          >
+          </b-input>
+        </b-field>
+        <b-field label="Confirmar Contraseña">
+          <b-input
+            type="password"
+            value="contraseñaocultalolxD"
+            password-reveal
+            min-length="8"
+            rounded
+          >
+          </b-input>
+        </b-field>
 
-                <div class="flex-row text-center justify-center items-center mx-auto py-4">
-                <b-button
-                
-                label="Registrarse"
-                type="is-success"
-                icon-right="check"
-                outlined
-                v-on:click= "login()"
-                >
-                
-
-                </b-button>
-                </div>
-               </div>
-<!-- LoginPage
+        <div
+          class="flex-row text-center justify-center items-center mx-auto py-4"
+        >
+          <b-button
+            label="Registrarse"
+            type="is-success"
+            icon-right="check"
+            outlined
+            v-on:click="login()"
+          >
+          </b-button>
+        </div>
+      </div>
+      <!-- LoginPage
           
               <div class="flex-row mx-auto">
               <b-field label="Número de teléfono">
@@ -104,10 +111,8 @@
             </div>
               </div>
               -->
-
-
-        </div>
     </div>
+  </div>
 </template>
 
 // 291 4448626 - 7 carácteres
@@ -119,31 +124,33 @@ export default {
     name: "RegisterPage",
     components: { TendenceLogo },
     layout: "default-lay",
-    data: () => ({
-        userName: "",
-        email: "",
-        password: "",
-        phoneNumber: "",
-        areaCode:""
-
-    }),
-    methods:{
-      login(){
-          axios({
-            url: '"http://localhost:3000/auth/login',
-            method: 'post',
-            headers: {
-              'username': this.userName,
-              'email': this.email,
-              'password': this.password,
-              'phoneNumber': this.phoneNumber,
-              'areaCode':this.areaCode
-
-              },
-            }).then(OkCallback, ErrorCallback)
-      }
+  data() {
+    return {
+      why: '',
+      codArea: '',
+      numTel: '',
+      inputPassword: '',
+      url: 'http://localhost:3000',
     }
-    
+  },
+  methods: {
+    login() {
+      const body = {
+        phonenumber: this.$data.codArea + '' + this.$data.numTel,
+        password: this.$data.inputPassword,
+      }
+      console.log(body)
+
+      axios
+        .post('http://localhost:3000' + '/auth/login', body)
+        .then(function (response) {
+          console.log(response)
+
+        })
+      console.log(this.url)
+    },
+
+  }
 }
 </script>
 
