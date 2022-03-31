@@ -4,19 +4,22 @@
         <h2 id="tab">Nuevo Turno</h2> 
         <br>
         <div id="PageContainer" class="flex flex-row my-72 justify-center items-center">
-          <span><i class="mx-2 my-auto fa-3x far fa-calendar-check"></i></span>
-          <NuxtLink to="/NuevoTurno/NuevoTurnoForm"><b-button
-          label="Agendar nuevo turno" 
-          size="is-large"
-          type="is-dark"
-          >
-          </b-button>
+          <NuxtLink to="/NuevoTurno/NuevoTurnoForm">
+          <b-button
+              class="flex mx-auto py-2"
+              type="is-dark"
+              pack="mdi"
+              size="is-large"
+              outlined icon-right="clipboard-plus-outline"
+              label="Agendar turno"
+              />
           </NuxtLink>
+          
         </div>
 
         
 
-    </div>
+    </div>  
 </template>
 
 <script>
