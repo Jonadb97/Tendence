@@ -7,6 +7,7 @@
         placeholder="Click para seleccionar..."
         :min-datetime="minDatetime"
         :max-datetime="maxDatetime"
+        :default-minutes='0'
         :locale="es-AR"
         >
         

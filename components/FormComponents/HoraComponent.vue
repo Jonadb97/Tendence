@@ -5,6 +5,7 @@
             v-model="FechaHour"
             placeholder="Click para seleccionar..."  
             :increment-minutes="incrementMinutes" 
+            :default-minutes='0'
             :min-time="minTime"
             :max-time="maxTime">
             <b-button

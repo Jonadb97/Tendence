@@ -6,7 +6,7 @@
       <h1 class="font-bold">Qué te gustaría hacerte?</h1>
       <ul id="service-list-container" class="flex flex-row text-black">
         <li id="service-item">
-        <button class="hover:animate-jump text-black">
+        <button class="hover:animate-pulse text-black">
           <div class="p-4 m-4">
             <img
               class="w-32 rounded-full"
