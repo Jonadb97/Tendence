@@ -127,7 +127,7 @@ export default {
           if(response.status === 200) {
             localStorage.setItem('userToken', response.data.token);
 
-            
+            this.$router.push({ path: '/TurnosPage' });
             console.log(response);
           }
          }) .catch( (error) => {
