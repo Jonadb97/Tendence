@@ -93,13 +93,16 @@ this.codArea + '' + this.numTel, 'password' : this.inputPassword }'; // login()
 
 <script>
 import axios from 'axios'
+import Router from 'vue-router'
 import TendenceLogo from '~/components/TendenceLogo.vue'
 
+const router = Router;
 
 export default {
   name: 'LoginPage',
   components: { TendenceLogo },
   layout: 'default-lay',
+
 
   data() {
     return {
@@ -127,7 +130,7 @@ export default {
           if(response.status === 200) {
             localStorage.setItem('userToken', response.data.token);
 
-            this.$router.push({ path: '/TurnosPage' });
+            router.push( '/TurnosPage')
             console.log(response);
           }
          }) .catch( (error) => {
