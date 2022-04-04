@@ -66,125 +66,32 @@
     <br />
 
     <!--  Barberos  -->
-    <!--
     <h1 class="font-bold inline-flex flex-row flex my-2">Con quién?</h1>
-    <div class="flex-row inline-flex flex">
-      <button class="flex flex-row">
-        <div class="p-2 m-2">
-          <img
-            class="w-64 rounded-lg"
-            src="../static/img/barberos/bombin.png"
-            alt="Pelo y Barba"
-          />
-          <br />
-          <p
-            class="flex flex-row justify-center items-center text-center text-xl text-white font-bold transform -translate-y-16"
-          >
-            EL DEL BOMBÍN
-          </p>
-        </div>
-      </button>
-
-      <button class="flex flex-row">
-        <div class="p-2 m-2">
-          <img
-            class="w-64 rounded-lg"
-            src="../static/img/barberos/elnegro.png"
-            alt="Pelo y Barba"
-          />
-          <br />
-          <p
-            class="flex flex-row justify-center items-center text-center text-xl text-white font-bold transform -translate-y-16"
-          >
-            EL NEGRO
-          </p>
-        </div>
-      </button>
-
-      <button class="flex flex-row">
-        <div class="p-2 m-2">
-          <img
-            class="w-64 rounded-lg"
-            src="../static/img/barberos/juan.png"
-            alt="Pelo y Barba"
-          />
-          <br />
-          <p
-            class="flex flex-row justify-center items-center text-center text-xl text-white font-bold transform -translate-y-16"
-          >
-            JUANCITO
-          </p>
-        </div>
-      </button>
-
-      <button class="flex flex-row">
-        <div class="p-2 m-2">
-          <img
-            class="w-64 rounded-lg"
-            src="../static/img/barberos/manuel.png"
-            alt="Pelo y Barba"
-          />
-          <br />
-          <p
-            class="flex flex-row justify-center items-center text-center text-xl text-white font-bold transform -translate-y-16"
-          >
-            MANU
-          </p>
-        </div>
-      </button>
-
-      <button class="flex flex-row">
-        <div class="p-2 m-2">
-          <img
-            class="w-64 rounded-lg"
-            src="../static/img/barberos/martincito.png"
-            alt="Pelo y Barba"
-          />
-          <br />
-          <p
-            class="flex flex-row justify-center items-center text-center text-xl text-white font-bold transform -translate-y-16"
-          >
-            MARTINCITO
-          </p>
-        </div>
-      </button>
-
-      <button class="flex flex-row">
-        <div class="p-2 m-2">
-          <img
-            class="w-64 rounded-lg"
-            src="../static/img/barberos/pancho.png"
-            alt="Pelo y Barba"
-          />
-          <br />
-          <p
-            class="flex flex-row justify-center items-center text-center text-xl text-white font-bold transform -translate-y-16"
-          >
-            PANCHO
-          </p>
-        </div>
-      </button>
-    </div>
-    -->
-
-    <b-carousel-list
-             id="carrousel-barberos"
-             v-model="values"
-             class="my-4 h-auto"
-            :data="barberos"
-            :arrow="arrow"
-            :arrow-hover="arrowHover"
-            :items-to-show="perList"
-            :items-to-list="increment"
-            :repeat="repeat"
+      <div class="h-64 w-64">
+      <b-carousel
+            v-model="carousel"
+            :animated="animated"
             :has-drag="drag"
-            :has-grayscale="gray"
-            :has-opacity="opacity" />
+            :autoplay="autoPlay"
+            :pause-hover="pauseHover"
+            :pause-info="pauseInfo"
+            :pause-info-type="pauseType"
+            :interval="interval"
+            :repeat="repeat"
+            >
+            <b-carousel-item v-for="(carousel, i) in carousels" :key="i">
+                <b-image class="rounded-lg image" :src="carousel.image"></b-image>
+                    <div class="hero-body has-text-centered absolute">
+                        <a><p class="border mx-auto px-1 translate-x-6 rounded-md text-white -translate-y-24 object-center">{{carousel.title}}</p></a>
+                    </div>
+            </b-carousel-item>
+        </b-carousel>
+        </div>
 
     <!-- Componentes calendar -->
 
     <div class="flex-col flex">
-      <h1 class="font-bold flex-row flex">Cuándo?</h1>
+      <h1 class="font-bold flex-row flex my-4">Cuándo?</h1>
     </div>
 
     <div class="field">
@@ -242,41 +149,24 @@ export default {
       },
       HoySeen: false,
       OtroDiaSeen: false,
-      arrow: true,
-      arrowHover: false,
-      drag: true,
-      gray: false,
-      opacity: false,
-      values: 1,
-      perList: 3,
-      increment: 1,
-      repeat: false,
-      barberos: [
-        {
-                    title: 'El del bombín',
-                    image: require('../static/img/barberos/bombin.png')
-                },
-                {
-                    title: 'El negro',
-                    image: require('../static/img/barberos/elnegro.png')
-                },
-                {
-                    title: 'Juan',
-                    image: require('../static/img/barberos/juan.png')
-                },
-                {
-                    title: 'Manuel',
-                    image: require('../static/img/barberos/manuel.png')
-                },
-                {
-                    title: 'Martincito',
-                    image: require('../static/img/barberos/martincito.png')
-                },
-                {
-                    title: 'Pancho',
-                    image: require('../static/img/barberos/pancho.png')
-                }
-      ]
+      carousel: 0,
+            animated: 'slide',
+            drag: true,
+            autoPlay: false,
+            pauseHover: false,
+            pauseInfo: false,
+            repeat: false,
+            pauseType: 'is-primary',
+            interval: 3000,
+            carousels: [
+                { title: 'El del bombín', color: 'dark', image: require('../static/img/barberos/bombin.png') },
+                { title: 'El negro', color: 'primary', image: require('../static/img/barberos/elnegro.png') },
+                { title: 'Juan', color: 'info', image: require('../static/img/barberos/juan.png') },
+                { title: 'Manuel', color: 'success', image: require('../static/img/barberos/manuel.png') },
+                { title: 'Martincito', color: 'warning', image: require('../static/img/barberos/martincito.png') },
+                { title: 'Pancho', color: 'danger', image: require('../static/img/barberos/pancho.png') }
+            ]
+
     }
   },
   async fetch() {
@@ -291,6 +181,8 @@ export default {
     },
   },
 }
+
+     
 </script>
 
 <style>

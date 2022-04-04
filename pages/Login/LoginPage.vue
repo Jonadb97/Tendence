@@ -12,7 +12,7 @@
         <b-field label="Número de teléfono">
           <b-input
             id="localcod"
-            v-model="codArea"
+            v-model="logindata.codArea"
             type="phone"
             value="291"
             maxlength="3"
@@ -22,7 +22,7 @@
           <p class="my-auto mx-2">15</p>
           <b-input
             id="numerotel"
-            v-model="numTel"
+            v-model="logindata.numTel"
             type="phone"
             value=""
             maxlength="7"
@@ -35,7 +35,7 @@
         <div class="flex-row mx-auto">
           <b-field label="Contraseña">
             <b-input
-              v-model="inputPassword"
+              v-model="logindata.inputPassword"
               type="password"
               value="Thisisapasswordlolxd"
               password-reveal
@@ -53,7 +53,7 @@
             pack="mdi"
             outlined
             icon-right="account-arrow-right"
-            @click="login()"
+            @click="login(), confirm()"
           >
             Ingresar
           </b-button>
@@ -94,6 +94,8 @@ this.codArea + '' + this.numTel, 'password' : this.inputPassword }'; // login()
 <script>
 import axios from 'axios'
 import TendenceLogo from '~/components/TendenceLogo.vue'
+
+
 export default {
   name: 'LoginPage',
   components: { TendenceLogo },
@@ -102,27 +104,35 @@ export default {
   data() {
     return {
       why: '',
+      logindata: {
       codArea: '',
       numTel: '',
       inputPassword: '',
       url: 'http://localhost:3000',
+      }
     }
   },
   methods: {
+    confirm() {
+      this.$buefy.toast.open('Login exitoso!')
+    },
     login() {
       const body = {
-        phonenumber: this.$data.codArea + '' + this.$data.numTel,
-        password: this.$data.inputPassword,
+        phonenumber: this.$data.logindata.codArea + '' + this.$data.logindata.numTel,
+        password: this.$data.logindata.inputPassword,
       }
-      console.log(body)
-
       axios
-        .post('http://localhost:3000' + '/auth/login', body)
+        .post(this.$data.logindata.url + '/auth/login', body)
         .then(function (response) {
-          console.log(response)
-          
-        })
-      console.log(this.url)
+          if(response.status === 200) {
+            localStorage.setItem('userToken', response.data.token);
+
+            
+            console.log(response);
+          }
+         }) .catch( (error) => {
+           console.log(error);
+         })
     },
   },
 }

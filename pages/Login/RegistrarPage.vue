@@ -20,7 +20,7 @@
         <b-field label="Número de teléfono">
           <b-input
             id="localcod"
-            v-model="areaCode"
+            v-model="login.areaCode"
             type="phone"
             value="291"
             maxlength="3"
@@ -30,6 +30,7 @@
           <p class="my-auto mx-2">15</p>
           <b-input
             id="numerotel"
+            v-model="login.numTel"
             type="phone"
             value=""
             maxlength="7"
@@ -52,6 +53,7 @@
         <b-field label="Contraseña">
           <b-input
             type="password"
+            v-model="logindata.inputPassowrd"
             value="contraseñaocultalolxD"
             password-reveal
             min-length="8"
@@ -127,17 +129,19 @@ export default {
   data() {
     return {
       why: '',
-      codArea: '',
-      numTel: '',
-      inputPassword: '',
-      url: 'http://localhost:3000',
+      logindata: {
+        codArea: '',
+        numTel: '',
+        inputPassword: '',
+        url: 'http://localhost:3000',
+      }
     }
   },
   methods: {
     login() {
       const body = {
-        phonenumber: this.$data.codArea + '' + this.$data.numTel,
-        password: this.$data.inputPassword,
+        phonenumber: this.$data.logindata.codArea + '' + this.$data.logindata.numTel,
+        password: this.$data.logindata.inputPassword,
       }
       console.log(body)
 
@@ -145,6 +149,9 @@ export default {
         .post('http://localhost:3000' + '/auth/login', body)
         .then(function (response) {
           console.log(response)
+          if(response.status === 200) {
+            console.log(response)
+          }
 
         })
       console.log(this.url)
