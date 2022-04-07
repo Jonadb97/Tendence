@@ -93,10 +93,12 @@ this.codArea + '' + this.numTel, 'password' : this.inputPassword }'; // login()
 
 <script>
 import axios from 'axios'
-import Router from 'vue-router'
+// import Vue from 'vue'
+// import VueRouter from 'vue-router'
 import TendenceLogo from '~/components/TendenceLogo.vue'
 
-const router = Router;
+// const app = Vue;
+// const router = new VueRouter;
 
 export default {
   name: 'LoginPage',
@@ -120,20 +122,22 @@ export default {
       this.$buefy.toast.open('Login exitoso!')
     },
     login() {
+      const router = window.$nuxt.$router
+
       const body = {
         phonenumber: this.$data.logindata.codArea + '' + this.$data.logindata.numTel,
         password: this.$data.logindata.inputPassword,
       }
-      axios
+      axios 
         .post(this.$data.logindata.url + '/auth/login', body)
         .then(function (response) {
           if(response.status === 200) {
             localStorage.setItem('userToken', response.data.token);
 
-            router.push( '/TurnosPage')
-            console.log(response);
+            router.push('/TurnosPage')
           }
          }) .catch( (error) => {
+           // eslint-disable-next-line no-console
            console.log(error);
          })
     },
