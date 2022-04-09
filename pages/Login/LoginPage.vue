@@ -131,9 +131,8 @@ export default {
       const auth = window.$nuxt.$auth
 
       const body = {
-        phonenumber:
-          this.$data.logindata.codArea + '' + this.$data.logindata.numTel,
-        password: this.$data.logindata.inputPassword,
+          phonenumber: this.$data.logindata.codArea + '' + this.$data.logindata.numTel,
+          password: this.$data.logindata.inputPassword,
       }
       axios
         .post(this.$data.logindata.url + '/auth/login', body)
@@ -156,8 +155,8 @@ export default {
         })
     },
     beforeMount() {
-     this.checkIfLogged()
-  },
+      this.checkIfLogged()
+    },
   },
 }
 </script>

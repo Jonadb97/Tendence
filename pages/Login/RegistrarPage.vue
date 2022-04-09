@@ -9,6 +9,7 @@
         <b-field label="Nombre">
           <b-input
             id="name"
+            v-model="logindata.userName"
             type="text"
             value="Fulanito"
             maxlength="20"
@@ -20,7 +21,7 @@
         <b-field label="Número de teléfono">
           <b-input
             id="localcod"
-            v-model="login.areaCode"
+            v-model="logindata.areaCode"
             type="phone"
             value="291"
             maxlength="3"
@@ -30,7 +31,7 @@
           <p class="my-auto mx-2">15</p>
           <b-input
             id="numerotel"
-            v-model="login.numTel"
+            v-model="logindata.numTel"
             type="phone"
             value=""
             maxlength="7"
@@ -42,6 +43,7 @@
      message="Este mail no es válido"> -->
         <b-field label="Email">
           <b-input
+            v-model="logindata.userEmail"
             type="email"
             value="fulanito@gmail.com"
             maxlength="30"
@@ -52,8 +54,8 @@
 
         <b-field label="Contraseña">
           <b-input
+            v-model="logindata.inputPassword"
             type="password"
-            v-model="logindata.inputPassowrd"
             value="contraseñaocultalolxD"
             password-reveal
             min-length="8"
@@ -80,7 +82,7 @@
             type="is-success"
             icon-right="check"
             outlined
-            v-on:click="login()"
+            @click="login()"
           >
           </b-button>
         </div>
@@ -120,7 +122,7 @@
 // 291 4448626 - 7 carácteres
 
 <script>
-import axios from "@nuxtjs/axios"
+import axios from "axios"
 import TendenceLogo from "~/components/TendenceLogo.vue";
 export default {
     name: "RegisterPage",
@@ -130,7 +132,9 @@ export default {
     return {
       why: '',
       logindata: {
-        codArea: '',
+        userName: '',
+        userEmail: '',
+        areaCode: '',
         numTel: '',
         inputPassword: '',
         url: 'http://localhost:3000',
@@ -140,19 +144,32 @@ export default {
   methods: {
     login() {
       const body = {
-        phonenumber: this.$data.logindata.codArea + '' + this.$data.logindata.numTel,
+        username: this.$data.logindata.userName,
+        email: this.$data.logindata.userEmail,
+        areacode: this.$data.logindata.areaCode,
+        phonenumber: this.$data.logindata.numTel,
         password: this.$data.logindata.inputPassword,
       }
       console.log(body)
 
+      const headers = {
+            key: "",
+						value: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsInVzZXJuYW1lIjoidXNlciIsImlhdCI6MTY0NzU1NDU3NH0.s77rXwrbvaTYVtAf-iOT0eH7PEWTKjgj9x6AxsjtRTo",
+						type: "text"
+
+      }
+
       axios
-        .post('http://localhost:3000' + '/auth/login', body)
+        .post('http://localhost:3000' + '/users', body, headers)
         .then(function (response) {
           console.log(response)
           if(response.status === 200) {
             console.log(response)
           }
 
+        }).catch((error) => {
+          // eslint-disable-next-line no-console
+          console.log(error)
         })
       console.log(this.url)
     },

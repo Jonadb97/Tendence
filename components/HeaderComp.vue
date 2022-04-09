@@ -88,8 +88,9 @@ export default {
           if(auth.user){
           auth.setUser('anon')
           auth.isLogged = false
-          window.location.reload(true)
           this.$buefy.toast.open('Has salido de tu sesión!')
+          window.location.reload(true)
+          
           }
       }
   },
