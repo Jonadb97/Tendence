@@ -132,7 +132,10 @@ export default {
 
   // Hay que fetchear la fecha y hora para ponerlos reactivos en el card de turnos pendientes y los anteriores
 
-  data() {},
+  data() {
+    return {
+    }
+  },
 }
 </script>
 

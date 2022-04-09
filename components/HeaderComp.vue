@@ -6,12 +6,17 @@
             <NuxtLink to="/" class=" inline-flex my-auto mx-1"><div ><TendenceLogo id="LOGO" class="flex my-4"  /></div> <img id="BT" src="../static/svg/BarberTendenceTextWhite.svg" alt="Barber Tendence" class="my-auto py-auto"></NuxtLink>
             <div id="NavContainer" class="absolute inset-y-8 right-4">
             <b-button type="is-dark"><NuxtLink id="NavLink" to="/">Home</NuxtLink></b-button>
-            <b-button type="is-dark"><NuxtLink id="NavLink" to="/Login/LoginPage">Login</NuxtLink></b-button>
+            <!-- <b-button  type="is-dark" @click="showauth()"><NuxtLink id="NavLink" to="/">Test</NuxtLink></b-button> -->
+            <b-button type="is-dark"><NuxtLink id="NavLink" class="my-auto text-white place-content-end" to="/NuevoTurnoPage">Nuevo Turno</NuxtLink></b-button>
+            <b-button  v-if="$auth.loggedIn" type="is-dark" @click="logOut()"><NuxtLink id="NavLink" to="/"> {{ $auth.user }} | Logout </NuxtLink></b-button>
+            <b-button v-else type="is-dark"><NuxtLink id="NavLink" to="/Login/LoginPage">Login</NuxtLink></b-button>
+            
+            
             <!--<NuxtLink class="my-auto text-white place-content-end" to="/perfil-page">Perfil</NuxtLink> 
             <NuxtLink id="NavLink" class="my-auto text-white place-content-end" to="/turnos-page">Turnos</NuxtLink> -->
-            <b-button type="is-dark"><NuxtLink id="NavLink" class="my-auto text-white place-content-end" to="/NuevoTurnoPage">Nuevo Turno</NuxtLink></b-button>
+            
             </div>
-        </div>
+    </div>
         <!-- Mobile version -->
 <!--       <div id="HeaderContainerMobile" class="inline-flex" media="(min-width: 800px)">
             <NuxtLink to="/" class=" inline-flex my-auto mx-1"><div ><TendenceLogo id="LOGO" class="flex my-4"  /></div> <img id="BT" src="../static/svg/BarberTendenceTextWhite.svg" alt="Barber Tendence" class="my-auto py-auto"></NuxtLink>
@@ -51,15 +56,45 @@
 
 <script>
 export default {
+    
   data() {
     return {
       open: false,
       overlay: true,
       fullheight: true,
       fullwidth: false,
-      right: false
+      right: false,
     };
-  }
+  },
+  methods: {
+      showauth(){
+          const auth = window.$nuxt.$auth
+          const log = auth.isLogged
+          console.log(log)
+          return{}
+      },
+      isLogged(){
+          if(this.localStorage){
+              let user = this.userName
+              this.userName = this.localStorage.userName
+              user = this.localStorage.userName
+              return{user}
+
+          }
+      },
+      logOut(){
+          const auth = window.$nuxt.$auth
+
+          if(auth.user){
+          auth.setUser('anon')
+          auth.isLogged = false
+          window.location.reload(true)
+          this.$buefy.toast.open('Has salido de tu sesión!')
+          }
+      }
+  },
+  
+    
 };
 </script>
 

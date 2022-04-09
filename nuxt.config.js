@@ -39,7 +39,6 @@ export default {
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
     '@nuxtjs/fontawesome',
-    '@nuxtjs/router',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -48,6 +47,7 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/tailwindcss',
     'nuxt-buefy',
+    '@nuxtjs/auth'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -63,6 +63,17 @@ export default {
   fontawesome: {
     icons: {
       solid: []
+    }
+  },
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: '/login', method: 'post', propertyName: 'token' },
+          logout: { url: '/', method: 'post' },
+          user: { url: 'TurnosPage', method: 'get', propertyName: 'user' }
+        }
+      }
     }
   }
 

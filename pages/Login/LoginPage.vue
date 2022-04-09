@@ -96,7 +96,6 @@ import axios from 'axios'
 // import Vue from 'vue'
 // import VueRouter from 'vue-router'
 import TendenceLogo from '~/components/TendenceLogo.vue'
-
 // const app = Vue;
 // const router = new VueRouter;
 
@@ -105,42 +104,60 @@ export default {
   components: { TendenceLogo },
   layout: 'default-lay',
 
-
   data() {
     return {
       why: '',
       logindata: {
-      codArea: '',
-      numTel: '',
-      inputPassword: '',
-      url: 'http://localhost:3000',
-      }
+        codArea: '',
+        numTel: '',
+        inputPassword: '',
+        url: 'http://localhost:3000',
+      },
     }
   },
   methods: {
+    checkIfLogged() {
+      if (localStorage.isLogged) {
+        this.isLogged = true
+        this.userName = this.localStorage.username
+        return { value: 'true' }
+      }
+    },
     confirm() {
       this.$buefy.toast.open('Login exitoso!')
     },
     login() {
       const router = window.$nuxt.$router
+      const auth = window.$nuxt.$auth
 
       const body = {
-        phonenumber: this.$data.logindata.codArea + '' + this.$data.logindata.numTel,
+        phonenumber:
+          this.$data.logindata.codArea + '' + this.$data.logindata.numTel,
         password: this.$data.logindata.inputPassword,
       }
-      axios 
+      axios
         .post(this.$data.logindata.url + '/auth/login', body)
         .then(function (response) {
-          if(response.status === 200) {
-            localStorage.setItem('userToken', response.data.token);
+          if (response.status === 200) {
+            localStorage.setItem('userName', response.data.username)
+            localStorage.setItem('userToken', response.data.token)
+            localStorage.setItem('isLogged', 'true')
+            auth.isLogged = true
+
+            auth.setUser(response.data.username)
 
             router.push('/TurnosPage')
+            console.log(response)
           }
-         }) .catch( (error) => {
-           // eslint-disable-next-line no-console
-           console.log(error);
-         })
+        })
+        .catch((error) => {
+          // eslint-disable-next-line no-console
+          console.log(error)
+        })
     },
+    beforeMount() {
+     this.checkIfLogged()
+  },
   },
 }
 </script>
