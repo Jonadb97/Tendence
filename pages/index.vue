@@ -9,19 +9,20 @@ export default {
   name: 'IndexPage',
   layout: 'default-lay',
 
-  beforeMount() {
-    this.initLocalStorage();
-  },
+  
   methods: {
-    initLocalStorage() {
-    localStorage.setItem('isLogged', 'false')
-    localStorage.setItem('userName', 'anon')
+    checkIfLogged() {
+      if (localStorage.isLogged) {
+        this.isLogged = true
+        this.userName = this.localStorage.username
+        return { value: 'true' }
+      }
+  },
+  beforeMount() {
+      this.checkIfLogged()
     }
   }
 }
-
-
-
 </script>
 
 <style>

@@ -11,7 +11,6 @@
             id="name"
             v-model="logindata.userName"
             type="text"
-            value="Fulanito"
             maxlength="20"
             rounded
             expanded
@@ -23,8 +22,7 @@
             id="localcod"
             v-model="logindata.areaCode"
             type="phone"
-            value="291"
-            maxlength="3"
+            maxlength="4"
             rounded
             expanded
           ></b-input>
@@ -45,7 +43,6 @@
           <b-input
             v-model="logindata.userEmail"
             type="email"
-            value="fulanito@gmail.com"
             maxlength="30"
             rounded
           >
@@ -56,7 +53,6 @@
           <b-input
             v-model="logindata.inputPassword"
             type="password"
-            value="contraseñaocultalolxD"
             password-reveal
             min-length="8"
             rounded
@@ -66,7 +62,6 @@
         <b-field label="Confirmar Contraseña">
           <b-input
             type="password"
-            value="contraseñaocultalolxD"
             password-reveal
             min-length="8"
             rounded
@@ -151,7 +146,7 @@ export default {
         password: this.$data.logindata.inputPassword,
       }
       console.log(body)
-
+      const router = window.$nuxt.$router
       const headers = {
             key: "",
 						value: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsInVzZXJuYW1lIjoidXNlciIsImlhdCI6MTY0NzU1NDU3NH0.s77rXwrbvaTYVtAf-iOT0eH7PEWTKjgj9x6AxsjtRTo",
@@ -160,10 +155,13 @@ export default {
       }
 
       axios
-        .post('http://localhost:3000' + '/users', body, headers)
+      
+        .post(this.url + '/users', body, headers)
         .then(function (response) {
           console.log(response)
           if(response.status === 200) {
+
+            router.push('/TurnosPage')
             console.log(response)
           }
 

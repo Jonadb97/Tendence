@@ -5,6 +5,7 @@
       id="main-content"
       class="flex flex-col justify-center items-center text-center"
     >
+      <h1 class="font-bold text-2xl my-6"> {{ $auth.user }} </h1>
       <!-- Card turno pendiente actual -->
       <h1 class="font-bold text-xl">Turno pendiente:</h1>
 

@@ -133,8 +133,10 @@
 </template>
 
 <script>
+import axios from "axios"
 import CalendarComponent from './FormComponents/CalendarComponent.vue'
 import HoraComponent from './FormComponents/HoraComponent.vue'
+
 
 export default {
   components: { CalendarComponent, HoraComponent },
@@ -144,8 +146,9 @@ export default {
     return {
       TurnoForm: {
         FechaTurno: '',
-        Empleados: [],
-        Servicios: [],
+        Empleados: [''],
+        Servicios: [''],
+        url: 'http://localhost:3000',
       },
       HoySeen: false,
       OtroDiaSeen: false,
@@ -169,8 +172,8 @@ export default {
 
     }
   },
-  async fetch() {
-    this.Empleados = await this.$http.$get('https://api.nuxtjs.dev/posts')
+    mounted() {
+    this.fetchEmployees()
   },
   methods: {
     confirm() {
@@ -179,9 +182,30 @@ export default {
         onConfirm: () => this.$buefy.toast.open('Turno confirmado!'),
       })
     },
-  },
-}
+      asignar(datos) {
+        this.TurnoForm.Empleados = datos
+        console.log(this.TurnoForm.url)
+      },
 
+    fetchEmployees() {
+
+      axios
+      
+        .get(this.TurnoForm.url + '/employee')
+        .then(function (response) {
+          console.log(response.data)
+          if(response.status === 200) {
+            this.asignar(response.data)
+          }
+          console.log(this.TurnoForm.Empleados)
+        }).catch((error) => {
+          // eslint-disable-next-line no-console
+          console.log(error)
+        })
+      console.log(this.url)
+    },
+  }
+}
      
 </script>
 

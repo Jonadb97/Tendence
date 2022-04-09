@@ -15,7 +15,7 @@
             v-model="logindata.codArea"
             type="phone"
             value="291"
-            maxlength="3"
+            maxlength="4"
             rounded
             expanded
           ></b-input>
@@ -63,10 +63,8 @@
         <div class="flex-row text-center mx-auto py-4">
           <p>
             No tenés cuenta? Registrate
-            <NuxtLink class="text-blue-600 font-bold" to="/Login/RegistrarPage"
-              >acá</NuxtLink
-            >
-          </p>
+          </p> <NuxtLink class="text-blue-600 font-bold text-lg" to="/Login/RegistrarPage"
+              >acá </NuxtLink>
         </div>
 
         <b-field label="Prueba de reactividad">
@@ -125,6 +123,7 @@ export default {
     },
     confirm() {
       this.$buefy.toast.open('Login exitoso!')
+      window.$nuxt.$router.push('/TurnosPage')
     },
     login() {
       const router = window.$nuxt.$router
@@ -144,8 +143,8 @@ export default {
             auth.isLogged = true
 
             auth.setUser(response.data.username)
-
             router.push('/TurnosPage')
+            
             console.log(response)
           }
         })
