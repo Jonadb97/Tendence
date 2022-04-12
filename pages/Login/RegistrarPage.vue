@@ -156,7 +156,7 @@ export default {
 
       axios
       
-        .post(this.url + '/users', body, headers)
+        .post('http://localhost:3000' + '/users', body, headers)
         .then(function (response) {
           console.log(response)
           if(response.status === 200) {

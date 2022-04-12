@@ -1,3 +1,4 @@
+/* eslint-disable vue/no-template-shadow */
 <template>
   <div
     id="main-form-container"
@@ -6,90 +7,95 @@
     <!-- Servicios -->
 
     <div id="service-main-container" class="flex-col flex">
-      <h1 class="font-bold">Qué te gustaría hacerte?</h1>
+      <h1 class="font-bold inline-flex flex-row flex my-2 text-xl">Qué te gustaría hacerte?</h1>
       <ul id="service-list-container" class="flex flex-row text-black">
-        <li id="service-item">
+
+        <li v-for="service in services" id="service-item" :key="service">
           <button class="hover:animate-pulse text-black">
             <div class="p-4 m-4">
-              <img
-                class="w-32 rounded-full"
-                src="../static/img/cortePelo.png"
-                alt="Pelo"
-              />
+              <img class="w-32 rounded-full mx-auto" :src="url + service.imageroute" />
               <br />
               <p
-                class="flex flex-row justify-center items-center text-center text-xs"
+                class="flex flex-row justify-center font-bold items-center text-center text-lg"
               >
-                Corte de pelo
+                {{ service.servicename }}
+              </p>
+              <p
+                class="flex flex-row justify-center font-bold items-center text-gray-700 text-center text-xs"
+              >
+                {{ service.description }}
+              </p>
+              <p
+                class="flex flex-row justify-center items-center text-center text-black -translatey-6 text-xs"
+              >
+                {{ service.duration }} min.
               </p>
             </div>
           </button>
         </li>
-
-        <li id="service-item">
-          <button class="animate-none hover:animate-pulse text-black">
-            <div class="p-4 m-4">
-              <img
-                class="w-32 rounded-full"
-                src="../static/img/cortePeloyBarba.png"
-                alt="Pelo y Barba"
-              />
-              <br />
-              <p
-                class="flex flex-row justify-center items-center text-center text-xs"
-              >
-                Corte de Pelo y Barba
-              </p>
-            </div>
-          </button>
-        </li>
-
-        <li id="service-item">
-          <button class="animate-none hover:animate-pulse text-black">
-            <div class="p-4 m-4">
-              <img
-                class="w-32 rounded-full"
-                src="../static/img/cortePeloyBarbaConBrillito.png"
-                alt="Pelo y Barba"
-              />
-              <br />
-              <p
-                class="flex flex-row justify-center items-center text-center text-xs"
-              >
-                Shot de Keratina
-              </p>
-            </div>
-          </button>
-        </li>
+        
       </ul>
     </div>
     <br />
 
     <!--  Barberos  -->
-    <h1 class="font-bold inline-flex flex-row flex my-2">Con quién?</h1>
-      <div class="h-64 w-64">
+    <h1 class="font-bold inline-flex flex-row flex my-2 text-xl">Con quién?</h1>
+    <div class="h-64 w-64">
       <b-carousel
-            v-model="carousel"
-            :animated="animated"
-            :has-drag="drag"
-            :autoplay="autoPlay"
-            :pause-hover="pauseHover"
-            :pause-info="pauseInfo"
-            :pause-info-type="pauseType"
-            :interval="interval"
-            :repeat="repeat"
+        v-model="carousel"
+        :animated="animated"
+        :has-drag="drag"
+        :autoplay="autoPlay"
+        :pause-hover="pauseHover"
+        :pause-info="pauseInfo"
+        :pause-info-type="pauseType"
+        :interval="interval"
+        :repeat="repeat"
+      >
+        <b-carousel-item v-for="(carousel, i) in carousels" :key="i">
+          <b-image class="rounded-lg image" :src="carousel.image"></b-image>
+          <div class="hero-body has-text-centered absolute">
+            <a
+              ><p
+                class="border mx-auto px-1 translate-x-6 rounded-md text-white -translate-y-24 object-center"
+              >
+                {{ carousel.title }}
+              </p></a
             >
-            <b-carousel-item v-for="(carousel, i) in carousels" :key="i">
-                <b-image class="rounded-lg image" :src="carousel.image"></b-image>
-                    <div class="hero-body has-text-centered absolute">
-                        <a><p class="border mx-auto px-1 translate-x-6 rounded-md text-white -translate-y-24 object-center">{{carousel.title}}</p></a>
-                    </div>
-            </b-carousel-item>
-        </b-carousel>
-        </div>
+          </div>
+        </b-carousel-item>
+      </b-carousel>
+    </div>
 
     <!-- Componentes calendar -->
 
+    <br>
+    <h1 class="font-bold inline-flex flex-row flex my-2 text-xl">Para cuando?</h1>
+    <div id="calendar-component">
+    <no-ssr>
+      <v-date-picker
+        v-model="selectedDate"
+        mode="dateTime"
+        :min-date="new Date()"
+        :max-date="new Date().setDate(new Date().getDate() + 7)"
+        :valid-hours="[16, 17, 18, 19, 20]"
+        :minute-increment="60"
+        color="purple"
+        show-caps
+        is24hr
+        is-dark
+      />
+    </no-ssr>
+  </div>
+  <br>
+  <div>
+    <h1>Calendar Test</h1>
+    <p> {{ selectedDate }} </p>
+
+  </div>
+
+
+    <!-- Old Calendar
     <div class="flex-col flex">
       <h1 class="font-bold flex-row flex my-4">Cuándo?</h1>
     </div>
@@ -114,6 +120,11 @@
       </div>
     </div>
 
+    -->
+
+
+
+
     <!-- Botón agendar turno -->
 
     <div class="flex-row items-center justify-center self-center mx-auto py-4">
@@ -130,50 +141,44 @@
     <!-- Separador para que haya espacio y se vea lindo -->
     <div id="footer-space" class="h-48"></div>
   </div>
+
 </template>
 
 <script>
-import axios from "axios"
-import CalendarComponent from './FormComponents/CalendarComponent.vue'
-import HoraComponent from './FormComponents/HoraComponent.vue'
+import axios from 'axios'
+// import CalendarComponent from './FormComponents/CalendarComponent.vue'
+// import HoraComponent from './FormComponents/HoraComponent.vue'
 
 
 export default {
-  components: { CalendarComponent, HoraComponent },
+  // components: { CalendarComponent, HoraComponent },
 
   // Habría que fetchear la data y ponerla en esos arrays para mandarla a los componentes
   data() {
     return {
-      TurnoForm: {
-        FechaTurno: '',
-        Empleados: [''],
-        Servicios: [''],
-        url: 'http://localhost:3000',
-      },
+      maxDate: null,
+      selectedDate: null,
+      empleados: [],
+      services: [],
+      url: 'http://localhost:3000',
+      fechaTurno: '',
       HoySeen: false,
       OtroDiaSeen: false,
       carousel: 0,
-            animated: 'slide',
-            drag: true,
-            autoPlay: false,
-            pauseHover: false,
-            pauseInfo: false,
-            repeat: false,
-            pauseType: 'is-primary',
-            interval: 3000,
-            carousels: [
-                { title: 'El del bombín', color: 'dark', image: require('../static/img/barberos/bombin.png') },
-                { title: 'El negro', color: 'primary', image: require('../static/img/barberos/elnegro.png') },
-                { title: 'Juan', color: 'info', image: require('../static/img/barberos/juan.png') },
-                { title: 'Manuel', color: 'success', image: require('../static/img/barberos/manuel.png') },
-                { title: 'Martincito', color: 'warning', image: require('../static/img/barberos/martincito.png') },
-                { title: 'Pancho', color: 'danger', image: require('../static/img/barberos/pancho.png') }
-            ]
-
+      animated: 'slide',
+      drag: true,
+      autoPlay: false,
+      pauseHover: false,
+      pauseInfo: false,
+      repeat: false,
+      pauseType: 'is-primary',
+      interval: 3000,
+      carousels: [],
     }
   },
-    mounted() {
+  mounted() {
     this.fetchEmployees()
+    this.fetchServices()
   },
   methods: {
     confirm() {
@@ -182,34 +187,45 @@ export default {
         onConfirm: () => this.$buefy.toast.open('Turno confirmado!'),
       })
     },
-      asignar(datos) {
-        this.TurnoForm.Empleados = datos
-        console.log(this.TurnoForm.url)
-      },
-
     fetchEmployees() {
-
-      axios
-      
-        .get(this.TurnoForm.url + '/employee')
-        .then(function (response) {
-          console.log(response.data)
-          if(response.status === 200) {
-            this.asignar(response.data)
-          }
-          console.log(this.TurnoForm.Empleados)
-        }).catch((error) => {
-          // eslint-disable-next-line no-console
-          console.log(error)
-        })
-      console.log(this.url)
+      axios.get(this.url + '/employee').then(this.asignar)
     },
-  }
+    asignar(response) {
+      console.log(response)
+      this.empleados = response.data
+      if (response.status === 200) {
+        console.log('aca estoy entrando')
+        this.empleados = response.data
+        this.empleados.forEach((empleado) => {
+          this.carousels.push({
+            title: empleado.name,
+            image: this.url + empleado.imageroute,
+          })
+        })
+      }
+      console.log(this.empleados)
+    },
+    fetchServices() {
+      axios.get(this.url + '/services').then(this.asignarservices)
+    },
+    asignarservices(response) {
+      console.log(response)
+      this.services = response.data
+      if (response.status === 200) {
+        console.log('aca estoy entrando')
+        this.services = response.data
+      }
+      console.log(this.empleados)
+    },
+  },
 }
-     
 </script>
 
 <style>
+
+#service-list-item {
+  height: 32px;
+}
 
 #carrousel-barberos {
   width: 50%;

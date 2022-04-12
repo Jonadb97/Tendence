@@ -153,8 +153,9 @@ export default {
     confirmLogout() {
       this.$buefy.dialog.confirm({
         message: 'Deseas salir de la sesión?',
+        onConfirm: () => this.logOut()
       })
-      this.logOut()
+      
     },
     logOut() {
       const auth = window.$nuxt.$auth
