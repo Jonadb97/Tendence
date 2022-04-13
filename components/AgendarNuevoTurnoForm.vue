@@ -2,7 +2,7 @@
 <template>
   <div
     id="main-form-container"
-    class="flex flex-col justify-center items-center text-center"
+    class="text-white flex flex-col justify-center items-center text-center"
   >
     <!-- Servicios -->
 
@@ -83,7 +83,6 @@
         color="purple"
         show-caps
         is24hr
-        is-dark
       />
     </no-ssr>
   </div>
