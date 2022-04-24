@@ -7,8 +7,8 @@
     <!-- Servicios -->
 
     <div id="service-main-container" class="flex-col flex">
-      <h1 class="font-bold inline-flex flex-row flex my-2 text-xl">Qué te gustaría hacerte?</h1>
-      <ul id="service-list-container" class="flex flex-row text-black">
+      <h1 class="font-bold inline-flex flex-row flex my-2 text-xl text-white">Qué te gustaría hacerte?</h1>
+      <ul id="service-list-container" class="flex flex-row text-white">
 
         <li v-for="service in services" id="service-item" :key="service">
           <button class="hover:animate-pulse text-black">
@@ -16,17 +16,17 @@
               <img class="w-32 rounded-full mx-auto" :src="url + service.imageroute" />
               <br />
               <p
-                class="flex flex-row justify-center font-bold items-center text-center text-lg"
+                class="flex flex-row justify-center font-bold items-center text-center text-lg text-white"
               >
                 {{ service.servicename }}
               </p>
               <p
-                class="flex flex-row justify-center font-bold items-center text-gray-700 text-center text-xs"
+                class="flex flex-row justify-center font-bold items-center text-gray-400 text-center text-xs"
               >
                 {{ service.description }}
               </p>
               <p
-                class="flex flex-row justify-center items-center text-center text-black -translatey-6 text-xs"
+                class="flex flex-row justify-center items-center text-center -translatey-6 text-xs text-white"
               >
                 {{ service.duration }} min.
               </p>
@@ -129,7 +129,7 @@
     <div class="flex-row items-center justify-center self-center mx-auto py-4">
       <b-button
         class="flex mx-auto py-2"
-        type="is-dark"
+        type="is-light"
         outlined
         icon-right="check"
         label="Agendar turno"
@@ -183,7 +183,11 @@ export default {
     confirm() {
       this.$buefy.dialog.confirm({
         message: 'Deseas confirmar el turno?',
-        onConfirm: () => this.$buefy.toast.open('Turno confirmado!'),
+        type: 'is-dark',
+        onConfirm: () => this.$buefy.toast.open({
+          message: 'Turno confirmado!',
+          type: 'is-dark'
+        }),
       })
     },
     fetchEmployees() {
@@ -221,6 +225,10 @@ export default {
 </script>
 
 <style>
+
+#tab {
+  color: white;
+}
 
 #service-list-item {
   height: 32px;

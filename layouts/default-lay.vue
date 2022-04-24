@@ -20,5 +20,13 @@
   margin: 0.5rem 8rem 2rem 8rem;
 }
 
+. {
+  color: white;
+}
+
+.label {
+  color: white;
+}
+
 
 </style>

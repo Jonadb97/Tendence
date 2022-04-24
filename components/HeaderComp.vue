@@ -1,6 +1,6 @@
 <template>
   <!-- Desktop version -->
-  <div>
+  <div id="root-container" class="m-0 p-0">
     <div
       id="HeaderContainerDesktop"
       class="inline-flex"
@@ -15,11 +15,23 @@
           class="my-auto py-auto"
       /></NuxtLink>
       <div id="NavContainer" class="absolute inset-y-8 right-4">
+        <b-tag class="my-auto px-2 translate-y-1 h-4" type="is-success">{{ $auth.user }}</b-tag>
+        <b-button v-if="$auth.user != 'anon'" type="is-dark"
+          ><NuxtLink
+            id="NavLink"
+            class="my-auto text-white place-content-end"
+            to="/Dash/DashPage"
+            > <b-icon
+            icon="clipboard"
+            size="is-small"
+            ></b-icon> </NuxtLink
+          ></b-button
+        >
         <b-button type="is-dark"
           ><NuxtLink id="NavLink" to="/">Home</NuxtLink></b-button
         >
         <!-- <b-button  type="is-dark" @click="showauth()"><NuxtLink id="NavLink" to="/">Test</NuxtLink></b-button> -->
-        <b-button v-if="$auth.user && $auth.user != 'anon' " type="is-dark"
+        <b-button v-if="$auth.user != 'anon'" type="is-dark"
           ><NuxtLink
             id="NavLink"
             class="my-auto text-white place-content-end"
@@ -27,14 +39,17 @@
             >Nuevo Turno</NuxtLink
           ></b-button
         >
-        <b-button v-if="$auth.user || userName" type="is-dark"
+        <b-button v-if="$auth.user != 'anon'" type="is-dark"
           ><NuxtLink id="NavLink" to="/TurnosPage"
             >Mis Turnos</NuxtLink
           ></b-button
         >
-        <b-button v-if="$auth.user || userName" type="is-dark" @click="confirmLogout()"
+        <b-button
+          v-if="$auth.user != 'anon'"
+          type="is-dark"
+          @click="confirmLogout()"
           ><NuxtLink id="NavLink" to="/">
-            {{ $auth.user }} | Logout
+            Logout
           </NuxtLink></b-button
         >
         <b-button v-else type="is-dark"
@@ -119,21 +134,25 @@ export default {
       fullheight: true,
       fullwidth: false,
       right: false,
-      userName: ''
+      userName: '',
+      localStorage: this.localStorage
     }
   },
   methods: {
     checkIfLogged() {
-      if (localStorage.isLogged) {
+      if (window.$nuxt.$auth.isLogged) {
         this.$auth.user = localStorage.userName
         this.data.userName = localStorage.userName
+        this.userName = localStorage.userName
         this.isLogged = true
         return {}
       }
     },
-    Mounted() {
+    beforeCreate() {
       this.checkIfLogged()
+      this.isLogged()
       console.log(this.userName)
+      
     },
     showauth() {
       const auth = window.$nuxt.$auth
@@ -141,33 +160,27 @@ export default {
       console.log(log)
       return {}
     },
-    isLogged() {
-      if (localStorage) {
-        const user = localStorage.userName
-        this.data.userName = localStorage.userName
-        this.$auth.user = user
-        this.data.userName = user
-        return { user }
+    checkName() {
+      if (this.$auth.isLogged) {
+        return(this.$auth.user)
       }
     },
     confirmLogout() {
       this.$buefy.dialog.confirm({
         message: 'Deseas salir de la sesión?',
-        onConfirm: () => this.logOut()
+        onConfirm: () => this.logOut(),
       })
-      
     },
     logOut() {
       const auth = window.$nuxt.$auth
-
-      if (auth.user) {
-        auth.setUser('anon')
-        auth.isLogged = false
-        localStorage.isLogged = false
-        localStorage.userName = 'anon'
-        this.$buefy.toast.open('Has salido de tu sesión!')
-        window.location.reload(true)
-      }
+      auth.setUser('anon')
+      this.$auth.isLogged = false
+      localStorage.isLogged = false
+      localStorage.userName = 'anon'
+      this.$buefy.toast.open({
+        message: 'Has salido de tu sesión!',
+        type: 'is-dark'
+      })
     },
   },
 }
@@ -230,6 +243,8 @@ export default {
   width: 100%;
   border-bottom: 12rem;
   border-color: linear-gradient(to right, #216cb4, #8a2184);
+  margin: 0;
+  padding: 0;
 }
 
 #HeaderContainerMobile {
@@ -243,9 +258,17 @@ export default {
   }
 }
 
+#root-container {
+  background-image: linear-gradient(to right, rgb(40, 40, 40), rgb(20, 20, 20));
+  z-index: 3;
+}
+
 @media (min-width: 800px) {
   #HeaderContainerMobile {
     display: none;
+    margin: 0;
+    padding: 0;
   }
 }
+
 </style>

@@ -41,15 +41,15 @@ export default {
   color: white;
 }
 
-#MainContainer {
-  /* TOP | RIGHT | BOTTOM | LEFT */
+body, html {
   background-image: url('../static/img/barberbackground.jpg');
-  background-size: 100%;
+  background-size: cover;
+  background-position: center;
   background-repeat: repeat-y;
-  transform: translateX(-8rem);
-  height: 1080px;
+  height: 100%;
   width: 100%;
-
+  margin: 0;
+  padding: 0;
 }
 
 #BT-home {

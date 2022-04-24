@@ -1,24 +1,63 @@
 <template>
-  <div id="root-component">
-    <h2 class="my-2 text-white">Tus turnos</h2>
+  <div id="root-component" class="grid grid-cols-2 m-0 p-0">
+    <div id="admin-nav" class="w-4/12 flex-col rounded-lg">
+      <br class="my-4">
+      <b-button
+      type="is-dark"
+      inverted 
+      class="my-2 mx-12"
+      icon-left="home"
+      >Panel Principal</b-button>
+      <b-button
+      type="is-dark"
+      inverted 
+      class="my-2 mx-12"
+      pack="mdi"
+      icon-left="calendar"
+      >Calendario</b-button>
+      <b-button
+      type="is-dark"
+      inverted 
+      class="my-2 mx-12"
+      icon-left="account-cash"
+      >Gestión de Servicios</b-button>
+      <b-button
+      type="is-dark"
+      inverted 
+      class="my-2 mx-12"
+      icon-left="account-group"
+      >Gestión de Empleados</b-button>
+      <b-button
+      type="is-dark"
+      inverted 
+      class="my-2 mx-12"
+      icon-left="alarm"
+      >Gestión de Horarios</b-button>
+      <b-button
+      type="is-dark"
+      inverted 
+      class="my-2 mx-12"
+      icon-left="account"
+      >Mi Perfil</b-button>
+    </div>
     <div
-      id="main-content-turnospage"
+      id="main-content"
       class="flex flex-col justify-center items-center text-center"
     >
-      <h1 class="font-bold text-2xl my-6 text-white"> {{ $auth.user }} </h1>
-      <!-- Card turno pendiente actual -->
-      <h1 class="font-bold text-xl text-white">Turno pendiente:</h1>
+      <h1 class="font-bold text-2xl my-6 text-white">{{ $auth.user }}</h1>
+      <!-- Card turnos para hoy -->
+      <h1 class="flex flex-col font-bold text-xl text-white text-center object-center self-center align-center">Próximos Turnos Hoy:</h1>
 
       <div id="card-turno-actual" class="card">
         <div class="flex align-content-center items-center">
           <img
             id="service-img"
             class="w-1/2 rounded-full m-2 mx-auto"
-            src="../static/img/cortePelo.png"
+            src="../../static/img/cortePelo.png"
             alt="Pelo"
           />
         </div>
-        
+
         <header class="card-header">
           <p class="card-header-title">Corte de pelo</p>
         </header>
@@ -29,37 +68,23 @@
           <h2 class="font-bold my-1">Hora:</h2>
           <p id="hora-turno" class="my-1">18:00</p>
         </div>
-
-        <b-button class="m-4 p-4" type="is-dark">
-          Editar
-        </b-button>
+        <b-button type="is-dark" class="m-4 p-4"
+          >Editar</b-button
+        >
       </div>
 
-      <!-- Botón nuevo turno -->
-      <nuxt-link to="/NuevoTurno/NuevoTurnoForm">
-        <b-button
-          class="flex mx-auto py-2 my-4"
-          type="is-light"
-          pack="mdi"
-          size="is-large"
-          outlined
-          icon-right="clipboard-plus-outline"
-          label="Agendar nuevo turno"
-        />
-      </nuxt-link>
+      <!-- Carrousel turnos recientes -->
 
-      <!-- Carrousel turnos anteriores -->
-
-      <h1 class="my-6 font-bold text-white text-xl">Turnos anteriores:</h1>
+      <h1 class="my-6 font-bold text-xl text-white">Turnos recientes:</h1>
 
       <ul class="inline-flex">
         <li>
           <div id="card-turno-actual" class="card">
-            <div class="flex align-content-center items-center drop-shadow-lg">
+            <div class="flex align-content-center items-center">
               <img
                 id="service-img"
-                class="w-1/2 rounded-full m-2 mx-auto drop-shadow-md"
-                src="../static/img/cortePeloyBarbaConBrillito.png"
+                class="w-1/2 rounded-full m-2 mx-auto"
+                src="../../static/img/cortePeloyBarbaConBrillito.png"
                 alt="Pelo"
               />
             </div>
@@ -73,15 +98,18 @@
               <h2 class="font-bold my-1">Hora:</h2>
               <p id="hora-turno" class="my-1">20:00</p>
             </div>
+            <b-button type="is-success" class="m-4 p-4" icon-right="check"
+              >Confirmar</b-button
+            >
           </div>
         </li>
         <li>
           <div id="card-turno-actual" class="card">
-            <div class="flex align-content-center items-center drop-shadow-lg">
+            <div class="flex align-content-center items-center">
               <img
                 id="service-img"
-                class="w-1/2 rounded-full m-2 mx-auto drop-shadow-lg"
-                src="../static/img/cortePeloyBarba.png"
+                class="w-1/2 rounded-full m-2 mx-auto"
+                src="../../static/img/cortePeloyBarba.png"
                 alt="Pelo"
               />
             </div>
@@ -95,15 +123,18 @@
               <h2 class="font-bold my-1">Hora:</h2>
               <p id="hora-turno" class="my-1">19:00</p>
             </div>
+            <b-button type="is-success" class="m-4 p-4" icon-right="check"
+              >Confirmar</b-button
+            >
           </div>
         </li>
         <li>
           <div id="card-turno-actual" class="card">
-            <div class="flex align-content-center items-center drop-shadow-lg">
+            <div class="flex align-content-center items-center">
               <img
                 id="service-img"
-                class="w-1/2 rounded-full m-2 mx-auto drop-shadow-lg"
-                src="../static/img/cortePeloyBarbaConBrillito.png"
+                class="w-1/2 rounded-full m-2 mx-auto"
+                src="../../static/img/cortePeloyBarbaConBrillito.png"
                 alt="Pelo"
               />
             </div>
@@ -117,6 +148,9 @@
               <h2 class="font-bold my-1">Hora:</h2>
               <p id="hora-turno" class="my-1">19:00</p>
             </div>
+            <b-button type="is-success" class="m-4 p-4" icon-right="check"
+              >Confirmar</b-button
+            >
           </div>
         </li>
       </ul>
@@ -126,19 +160,40 @@
 
 <script>
 export default {
-  name: 'TusTurnosPage',
+  name: 'DashPage',
   layout: 'default-lay',
 
   // Hay que fetchear la fecha y hora para ponerlos reactivos en el card de turnos pendientes y los anteriores
 
   data() {
     return {
+      open: true,
+      overlay: false,
+      fullheight: true,
+      fullwidth: false,
+      right: false
     }
   },
 }
 </script>
 
 <style>
+#main-content {
+  margin-right: 32rem;
+}
+
+.panel-tabs {
+  background-color: white;
+}
+
+.panel-tabs > a {
+  margin-left: 4rem;
+  margin-right: 4rem;
+  color: black;
+  font-weight:500;
+
+}
+
 #footer-item-style {
   background-color: rgb(46, 46, 46);
   color: white;
@@ -158,12 +213,34 @@ export default {
   margin: 0.5rem 8rem 2rem 8rem;
 }
 
+#sidebar {
+  z-index: -1;
+}
+
+#root-container {
+  z-index: 3;
+}
+
 .card {
   width: 15rem;
+  border-radius: 2rem;
 }
 
 .card-header-title {
   text-align: center;
   justify-content: center;
 }
+
+#admin-nav {
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.486);
+  background-color: #363636;
+  margin-top: 5%;
+  margin-left: 5%;
+  height: 31%;
+  max-height: 100%;
+
+}
+
+
+
 </style>

@@ -7,7 +7,7 @@
           <NuxtLink to="/NuevoTurno/NuevoTurnoForm">
           <b-button
               class="flex mx-auto py-2"
-              type="is-dark"
+              type="is-light"
               pack="mdi"
               size="is-large"
               outlined icon-right="clipboard-plus-outline"

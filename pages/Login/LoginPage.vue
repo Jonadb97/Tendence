@@ -8,8 +8,8 @@
       <!-- Gottta add v-model to all the inputs -->
 
       <!-- Tel  -->
-      <div class="flex-row mx-auto">
-        <b-field label="Número de teléfono">
+      <div class="flex-row mx-auto text-white">
+        <b-field label="Número de teléfono" type="is-light">
           <b-input
             id="localcod"
             v-model="logindata.codArea"
@@ -19,10 +19,11 @@
             rounded
             expanded
           ></b-input>
-          <p class="my-auto mx-2">15</p>
+          <p class="my-auto mx-2 text-white">15</p>
           <b-input
             id="numerotel"
             v-model="logindata.numTel"
+            class="text-white"
             type="phone"
             value=""
             maxlength="7"
@@ -32,10 +33,11 @@
         </b-field>
 
         <!--- Pass  -->
-        <div class="flex-row mx-auto">
-          <b-field label="Contraseña">
+        <div class="flex-row mx-auto text-white">
+          <b-field class="text-white" label="Contraseña">
             <b-input
               v-model="logindata.inputPassword"
+              class="text-white"
               type="password"
               value="Thisisapasswordlolxd"
               password-reveal
@@ -45,11 +47,11 @@
 
         <!-- Ingresar -->
         <div
-          class="flex-row items-center justify-center self-center mx-auto py-4"
+          class="flex-row items-center justify-center self-center mx-auto py-4 text-white"
         >
           <b-button
-            class="flex mx-auto py-2"
-            type="is-dark"
+            class="flex mx-auto py-2 text-white"
+            type="is-light"
             pack="mdi"
             outlined
             icon-right="account-arrow-right"
@@ -71,6 +73,7 @@
           <b-input
             id="why"
             v-model="why"
+            class="text-white"
             type="phone"
             value="000"
             maxlength="100"
@@ -122,6 +125,7 @@ export default {
       }
     },
     confirm() {
+      this.$auth.isLogged = true
       this.$buefy.toast.open('Login exitoso!')
       window.$nuxt.$router.push('/TurnosPage')
     },
@@ -161,6 +165,10 @@ export default {
 </script>
 
 <style>
+body, html {
+  color: white;
+}
+
 #TendenceLogo {
   height: 15rem;
 }
