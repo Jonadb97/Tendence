@@ -6,22 +6,33 @@
         
     </head>
     
-    <header-comp />
-    <Nuxt />
-    <footer-comp />
+    <header-comp class="hero" />
+    <Nuxt class="container" />
+    <footer-comp class="footer" />
     <script src="https://cdn.tailwindcss.com"></script>
 </div>
 
 </template>
 
 <style>
-#MainContainer {
-  /* TOP | RIGHT | BOTTOM | LEFT */
-  margin: 0.5rem 8rem 2rem 8rem;
+
+body {
+  margin: 0;
+  padding: 0;
+  max-height: max-content;
 }
 
-. {
-  color: white;
+#FooterContainer {
+  height: 200px;
+  z-index: 10;
+
+}
+
+#admin-nav {
+  height: 100%;
+}
+#root-component {
+  height: 100%;
 }
 
 .label {

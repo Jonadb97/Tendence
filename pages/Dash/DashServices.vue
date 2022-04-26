@@ -39,37 +39,12 @@
       class="flex flex-col justify-center items-center text-center"
     >
       <h1 class="font-bold text-2xl my-6 text-white">{{ $auth.user }}</h1>
-      <!-- Card turnos para hoy -->
-      <h1 class="flex flex-col font-bold text-xl text-white text-center object-center self-center align-center">Próximos Turnos Hoy:</h1>
 
-      <div id="card-turno-actual" class="card">
-        <div class="flex align-content-center items-center">
-          <img
-            id="service-img"
-            class="w-1/2 rounded-full m-2 mx-auto"
-            src="../../static/img/cortePelo.png"
-            alt="Pelo"
-          />
-        </div>
 
-        <header class="card-header">
-          <p class="card-header-title">Corte de pelo</p>
-        </header>
-
-        <div class="card-content">
-          <h2 class="my-1 font-bold">Fecha:</h2>
-          <p id="fecha-turno" class="my-1">23-4-2022</p>
-          <h2 class="font-bold my-1">Hora:</h2>
-          <p id="hora-turno" class="my-1">18:00</p>
-        </div>
-        <b-button type="is-dark" class="m-4 p-4"
-          >Editar</b-button
-        >
-      </div>
 
       <!-- Carrousel turnos recientes -->
 
-      <h1 class="my-6 font-bold text-xl text-white">Turnos recientes:</h1>
+      <h1 class="my-6 font-bold text-xl text-white">Servicios:</h1>
 
       <ul class="inline-flex">
         <li>
@@ -87,42 +62,15 @@
             </header>
 
             <div class="card-content">
-              <h2 class="my-1 font-bold">Fecha:</h2>
-              <p id="fecha-turno" class="my-1">12-3-2022</p>
-              <h2 class="font-bold my-1">Hora:</h2>
-              <p id="hora-turno" class="my-1">20:00</p>
+              <h2 class="my-1 font-bold">Descripción:</h2>
+              <p id="fecha-turno" class="my-1 text-xs">Shot de keratina directo a las raíces más profundas de tus pelos</p>
             </div>
-            <b-button type="is-success" class="m-4 p-4" icon-right="check"
-              >Confirmar</b-button
+            <b-button type="is-dark" class="m-4 p-4"
+              >Editar</b-button
             >
           </div>
         </li>
-        <li>
-          <div id="card-turno-actual" class="card">
-            <div class="flex align-content-center items-center">
-              <img
-                id="service-img"
-                class="w-1/2 rounded-full m-2 mx-auto"
-                src="../../static/img/cortePeloyBarba.png"
-                alt="Pelo"
-              />
-            </div>
-            <header class="card-header">
-              <p class="card-header-title">Corte de pelo y barba</p>
-            </header>
-
-            <div class="card-content">
-              <h2 class="my-1 font-bold">Fecha:</h2>
-              <p id="fecha-turno" class="my-1">10-2-2022</p>
-              <h2 class="font-bold my-1">Hora:</h2>
-              <p id="hora-turno" class="my-1">19:00</p>
-            </div>
-            <b-button type="is-success" class="m-4 p-4" icon-right="check"
-              >Confirmar</b-button
-            >
-          </div>
-        </li>
-        <li>
+                <li>
           <div id="card-turno-actual" class="card">
             <div class="flex align-content-center items-center">
               <img
@@ -137,13 +85,34 @@
             </header>
 
             <div class="card-content">
-              <h2 class="my-1 font-bold">Fecha:</h2>
-              <p id="fecha-turno" class="my-1">16-3-2022</p>
-              <h2 class="font-bold my-1">Hora:</h2>
-              <p id="hora-turno" class="my-1">19:00</p>
+              <h2 class="my-1 font-bold">Descripción:</h2>
+              <p id="fecha-turno" class="my-1 text-xs">Shot de keratina directo a las raíces más profundas de tus pelos</p>
             </div>
-            <b-button type="is-success" class="m-4 p-4" icon-right="check"
-              >Confirmar</b-button
+            <b-button type="is-dark" class="m-4 p-4"
+              >Editar</b-button
+            >
+          </div>
+        </li>
+                <li>
+          <div id="card-turno-actual" class="card">
+            <div class="flex align-content-center items-center">
+              <img
+                id="service-img"
+                class="w-1/2 rounded-full m-2 mx-auto"
+                src="../../static/img/cortePeloyBarbaConBrillito.png"
+                alt="Pelo"
+              />
+            </div>
+            <header class="card-header">
+              <p class="card-header-title">Shot keratínico</p>
+            </header>
+
+            <div class="card-content">
+              <h2 class="my-1 font-bold">Descripción:</h2>
+              <p id="fecha-turno" class="my-1 text-xs">Shot de keratina directo a las raíces más profundas de tus pelos</p>
+            </div>
+            <b-button type="is-dark" class="m-4 p-4"
+              >Editar</b-button
             >
           </div>
         </li>
@@ -154,7 +123,7 @@
 
 <script>
 export default {
-  name: 'DashPage',
+  name: 'DashServices',
   layout: 'default-lay',
 
   // Hay que fetchear la fecha y hora para ponerlos reactivos en el card de turnos pendientes y los anteriores
@@ -172,6 +141,7 @@ export default {
 </script>
 
 <style>
+
 .panel-tabs {
   background-color: white;
 }
@@ -196,9 +166,9 @@ export default {
 }
 
 #card-turno-actual {
-  margin-left: 2rem;
-  margin-right: 2rem;
+  margin: 2rem;
 }
+
 
 
 #sidebar {
@@ -223,8 +193,9 @@ export default {
 #admin-nav {
   box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.486);
   background-color: #363636;
-  min-width: 320px;
+  height: 120%;
 }
+
 
 
 </style>

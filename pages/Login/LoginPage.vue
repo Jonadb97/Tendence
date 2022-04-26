@@ -131,7 +131,7 @@ export default {
     },
     login() {
       const router = window.$nuxt.$router
-      const auth = window.$nuxt.$auth
+      const auth = this.$auth
 
       const body = {
           phonenumber: this.$data.logindata.codArea + '' + this.$data.logindata.numTel,
@@ -144,6 +144,9 @@ export default {
             localStorage.setItem('userName', response.data.username)
             localStorage.setItem('userToken', response.data.token)
             localStorage.setItem('isLogged', 'true')
+            localStorage.setItem('role', response.data.role)
+            this.$auth.user = response.data.username
+            auth.role = response.data.role
             auth.isLogged = true
 
             auth.setUser(response.data.username)

@@ -31,6 +31,8 @@ export default {
 </script>
 
 <style>
+
+
 .fa-calendar-check {
   color: rgb(34, 34, 34);
 }

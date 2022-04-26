@@ -14,8 +14,9 @@
           alt="Barber Tendence"
           class="my-auto py-auto"
       /></NuxtLink>
-      <div id="NavContainer" class="absolute inset-y-8 right-4">
-        <b-tag class="my-auto px-2 translate-y-1 h-4" type="is-success">{{ $auth.user }}</b-tag>
+      <div id="NavContainer" class="inset-y-8 right-4">
+        <b-tag v-if="$auth.user != 'anon'" class="my-auto px-2 translate-y-1 h-4" type="is-success">{{ $auth.user }}</b-tag>
+        <b-tag v-else class="my-auto px-2 translate-y-1 h-4" type="is-primary">{{ $auth.user }}</b-tag>
         <b-button v-if="$auth.user != 'anon'" type="is-dark"
           ><NuxtLink
             id="NavLink"
@@ -126,6 +127,8 @@
 </template>
 
 <script>
+
+
 export default {
   data() {
     return {
@@ -135,7 +138,7 @@ export default {
       fullwidth: false,
       right: false,
       userName: '',
-      localStorage: this.localStorage
+      userRole: ''
     }
   },
   methods: {
@@ -148,35 +151,22 @@ export default {
         return {}
       }
     },
-    beforeCreate() {
-      this.checkIfLogged()
-      this.isLogged()
-      console.log(this.userName)
-      
+    created() {
+      this.userRole = this.localStorage.role
+      this.$auth.setUser('anon')
     },
-    showauth() {
-      const auth = window.$nuxt.$auth
-      const log = auth.isLogged
-      console.log(log)
-      return {}
-    },
-    checkName() {
-      if (this.$auth.isLogged) {
-        return(this.$auth.user)
-      }
-    },
-    confirmLogout() {
+     confirmLogout() {
       this.$buefy.dialog.confirm({
         message: 'Deseas salir de la sesión?',
         onConfirm: () => this.logOut(),
       })
     },
     logOut() {
-      const auth = window.$nuxt.$auth
-      auth.setUser('anon')
+      this.$auth.setUser('anon')
       this.$auth.isLogged = false
       localStorage.isLogged = false
       localStorage.userName = 'anon'
+      localStorage.role = 'anon'
       this.$buefy.toast.open({
         message: 'Has salido de tu sesión!',
         type: 'is-dark'

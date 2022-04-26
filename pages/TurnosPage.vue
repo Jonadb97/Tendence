@@ -154,10 +154,6 @@ export default {
   margin: 2rem;
 }
 
-#root-component {
-  margin: 0.5rem 8rem 2rem 8rem;
-}
-
 .card {
   width: 15rem;
 }

@@ -52,7 +52,7 @@
         :interval="interval"
         :repeat="repeat"
       >
-        <b-carousel-item v-for="(carousel, i) in carousels" :key="i">
+        <b-carousel-item v-for="(carousel, i) in carousels" :key='i'>
           <b-image class="rounded-lg image" :src="carousel.image"></b-image>
           <div class="hero-body has-text-centered absolute">
             <a
