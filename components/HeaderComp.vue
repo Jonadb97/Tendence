@@ -15,9 +15,9 @@
           class="my-auto py-auto"
       /></NuxtLink>
       <div id="NavContainer" class="inset-y-8 right-4">
-        <b-tag v-if="$auth.user != 'anon'" class="my-auto px-2 translate-y-1 h-4" type="is-success">{{ $auth.user }}</b-tag>
-        <b-tag v-else class="my-auto px-2 translate-y-1 h-4" type="is-primary">{{ $auth.user }}</b-tag>
-        <b-button v-if="$auth.user != 'anon'" type="is-dark"
+        <b-tag v-if="auth.isLogged" class="my-auto px-2 translate-y-1 h-4" type="is-success">{{ auth.user }}</b-tag>
+        <b-tag v-else class="my-auto px-2 translate-y-1 h-4" type="is-primary">{{ auth.user }}</b-tag>
+        <b-button v-if="auth.isLogged" type="is-dark"
           ><NuxtLink
             id="NavLink"
             class="my-auto text-white place-content-end"
@@ -32,7 +32,7 @@
           ><NuxtLink id="NavLink" to="/">Home</NuxtLink></b-button
         >
         <!-- <b-button  type="is-dark" @click="showauth()"><NuxtLink id="NavLink" to="/">Test</NuxtLink></b-button> -->
-        <b-button v-if="$auth.user != 'anon'" type="is-dark"
+        <b-button v-if="auth.isLogged" type="is-dark"
           ><NuxtLink
             id="NavLink"
             class="my-auto text-white place-content-end"
@@ -40,13 +40,13 @@
             >Nuevo Turno</NuxtLink
           ></b-button
         >
-        <b-button v-if="$auth.user != 'anon'" type="is-dark"
+        <b-button v-if="auth.isLogged" type="is-dark"
           ><NuxtLink id="NavLink" to="/TurnosPage"
             >Mis Turnos</NuxtLink
           ></b-button
         >
         <b-button
-          v-if="$auth.user != 'anon'"
+          v-if="auth.isLogged"
           type="is-dark"
           @click="confirmLogout()"
           ><NuxtLink id="NavLink" to="/">
@@ -137,24 +137,12 @@ export default {
       fullheight: true,
       fullwidth: false,
       right: false,
-      userName: '',
-      userRole: ''
+      auth: this.$auth,
+      userName: this.$auth.user,
+      userRole: this.$auth.role
     }
   },
   methods: {
-    checkIfLogged() {
-      if (window.$nuxt.$auth.isLogged) {
-        this.$auth.user = localStorage.userName
-        this.data.userName = localStorage.userName
-        this.userName = localStorage.userName
-        this.isLogged = true
-        return {}
-      }
-    },
-    created() {
-      this.userRole = this.localStorage.role
-      this.$auth.setUser('anon')
-    },
      confirmLogout() {
       this.$buefy.dialog.confirm({
         message: 'Deseas salir de la sesión?',
@@ -162,11 +150,8 @@ export default {
       })
     },
     logOut() {
-      this.$auth.setUser('anon')
-      this.$auth.isLogged = false
-      localStorage.isLogged = false
-      localStorage.userName = 'anon'
-      localStorage.role = 'anon'
+      this.auth.setUser('anon')
+      this.auth.isLogged = false
       this.$buefy.toast.open({
         message: 'Has salido de tu sesión!',
         type: 'is-dark'

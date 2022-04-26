@@ -117,22 +117,14 @@ export default {
     }
   },
   methods: {
-    checkIfLogged() {
-      if (localStorage.isLogged) {
-        this.isLogged = true
-        this.userName = this.localStorage.username
-        return { value: 'true' }
-      }
-    },
     confirm() {
-      this.$auth.isLogged = true
+    
       this.$buefy.toast.open('Login exitoso!')
       window.$nuxt.$router.push('/TurnosPage')
     },
     login() {
       const router = window.$nuxt.$router
       const auth = this.$auth
-
       const body = {
           phonenumber: this.$data.logindata.codArea + '' + this.$data.logindata.numTel,
           password: this.$data.logindata.inputPassword,
@@ -141,17 +133,10 @@ export default {
         .post(this.$data.logindata.url + '/auth/login', body)
         .then(function (response) {
           if (response.status === 200) {
-            localStorage.setItem('userName', response.data.username)
-            localStorage.setItem('userToken', response.data.token)
-            localStorage.setItem('isLogged', 'true')
-            localStorage.setItem('role', response.data.role)
-            this.$auth.user = response.data.username
-            auth.role = response.data.role
-            auth.isLogged = true
-
             auth.setUser(response.data.username)
+            auth.role = response.data.role
             router.push('/TurnosPage')
-            
+            auth.isLogged = true
             console.log(response)
           }
         })
