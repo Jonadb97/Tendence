@@ -38,15 +38,17 @@
       id="main-content"
       class="flex flex-col justify-center items-center text-center m-6 p-6"
     >
-     <b-datepicker
-        id="calendarpicker"
-        v-model="date" 
-        inline 
-        :unselectable-days-of-week="[0, 6]"
-        class=""
-        size="is-large"
-        >
-    </b-datepicker>
+     <no-ssr>
+      <v-date-picker
+        v-model="selectedDate"
+        class="m-32"
+        is-expanded
+        mode="date"
+        color="purple"
+        show-caps
+        is24hr
+      />
+    </no-ssr>
     </div>
   </div>
 </template>
@@ -118,16 +120,5 @@ export default {
   text-align: center;
   justify-content: center;
 }
-
-#admin-nav {
-  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.486);
-  background-color: #363636;
-  height: 125%;
-}
-
-#FooterContainer {
-  transform: translateY(9rem);
-}
-
 
 </style>

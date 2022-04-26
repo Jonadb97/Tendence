@@ -34,6 +34,8 @@
       icon-left="alarm"
       ><NuxtLink to="/Dash/DashHorarios">Gestión de Horarios</NuxtLink></b-button>
     </div>
+
+
     <div
       id="main-content"
       class="flex flex-col justify-center items-center text-center "
@@ -42,43 +44,86 @@
       <!-- Card turnos para hoy -->
       <h1 class="flex flex-col font-bold text-xl text-white text-center justify-self-start">Empleados:</h1>
 
+
+      <ul class="inline-flex">
+      <li v-for="empleado in empleados" id="service-item" :key="empleado.id">
       <div id="card-turno-actual" class="card">
-        <div class="flex align-content-center items-center">
+        <div class="flex align-content-center items-center text-white">
           <img
             id="service-img"
             class="w-1/2 rounded-full m-2 mx-auto"
-            src="../../static/img/barberos/bombin.png"
+            :src="url + empleado.imageroute"
             alt="Pelo"
           />
         </div>
 
         <header class="card-header">
-          <p class="card-header-title">Bombin</p>
+          <p class="card-header-title">{{ empleado.name }}</p>
         </header>
 
         <div class="card-content">
           <h2 class="my-1 font-bold">Servicios:</h2>
-          <p id="fecha-turno" class="my-1 text-xs">Corte de pelo</p><p id="fecha-turno" class="my-1 text-xs">Corte de pelo y barba</p>
+          <ul>
+          <li v-for="servicio in empleado.services" id="servicios-empleados" :key="servicio" class="my-1 text-xs">
+          <p> {{ servicio.servicename }} </p>
+          </li>
+          </ul>
         </div>
         <b-button type="is-dark" class="m-4 p-4"
           >Editar</b-button
         >
       </div>
+      </li>
+      </ul>
+
+<!--
+      <ul id="service-list-container" class="flex flex-row text-white">
+
+        <li v-for="empleado in empleados" id="service-item" :key="empleado">
+          <button class="hover:animate-pulse text-black">
+            <div class="p-4 m-4">
+              <img class="w-32 rounded-full mx-auto" :src="url + empleado.imageroute" />
+              <br />
+              <p
+                class="flex flex-row justify-center font-bold items-center text-center text-lg text-white"
+              >
+                {{ empleado.servicename }}
+              </p>
+              <p
+                class="flex flex-row justify-center font-bold items-center text-gray-400 text-center text-xs"
+              >
+                {{ empleado.description }}
+              </p>
+              <p
+                class="flex flex-row justify-center items-center text-center -translatey-6 text-xs text-white"
+              >
+                {{ service.duration }} min.
+              </p>
+            </div>
+          </button>
+        </li>
+        
+      </ul>
+-->
       <div>
+        <br>
         <b-button
         type="is-success"
         icon-right="plus"
         outlined
-        class="m-auto"
+        class="m-8 p-8 text-lg font-bold"
         >
           Nuevo Empleado
         </b-button>
+        <br>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'DashEmpleados',
   layout: 'default-lay',
@@ -91,9 +136,28 @@ export default {
       overlay: false,
       fullheight: true,
       fullwidth: false,
-      right: false
+      right: false,
+      url: 'http://localhost:3000',
+      empleados: []
     }
   },
+  mounted() {
+    this.fetchEmployees()
+    },
+  methods: {
+     fetchEmployees() {
+      axios.get(this.url + '/employee').then(this.asignar)
+     },
+      asignar(response) {
+      console.log(response)
+      this.empleados = response.data
+      if (response.status === 200) {
+        console.log('aca estoy entrando')
+        this.empleados = response.data
+      }
+      console.log(this.empleados)
+    }
+  }
 }
 </script>
 
@@ -148,16 +212,6 @@ export default {
 .card-header-title {
   text-align: center;
   justify-content: center;
-}
-
-#admin-nav {
-  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.486);
-  background-color: #363636;
-  height: 120%;
-}
-
-#FooterContainer {
-  transform: translateY(7rem);
 }
 
 

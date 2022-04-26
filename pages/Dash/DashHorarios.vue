@@ -45,7 +45,7 @@
       <b-table 
       :data="data"
       :columns="columns"
-      class="m-2 p-2"
+      class="m-24 p-24"
       size="is-large"
       ></b-table>
 
@@ -153,17 +153,6 @@ export default {
   text-align: center;
   justify-content: center;
 }
-
-#admin-nav {
-  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.486);
-  background-color: #363636;
-  height: 250%;
-}
-
-#FooterContainer {
-  transform: translateY(25.5rem);
-}
-
 
 
 </style>

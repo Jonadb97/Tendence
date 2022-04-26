@@ -150,8 +150,10 @@ export default {
       })
     },
     logOut() {
-      this.auth.setUser('anon')
+      const router = window.$nuxt.$router
+      this.auth.setUser('')
       this.auth.isLogged = false
+      router.push('/')
       this.$buefy.toast.open({
         message: 'Has salido de tu sesión!',
         type: 'is-dark'

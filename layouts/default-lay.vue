@@ -22,15 +22,7 @@ body {
   max-height: max-content;
 }
 
-#FooterContainer {
-  height: 200px;
-  z-index: 10;
 
-}
-
-#admin-nav {
-  height: 100%;
-}
 #root-component {
   height: 100%;
 }

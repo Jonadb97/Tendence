@@ -55,7 +55,7 @@
             pack="mdi"
             outlined
             icon-right="account-arrow-right"
-            @click="login(), confirm()"
+            @click="login()"
           >
             Ingresar
           </b-button>
@@ -117,11 +117,6 @@ export default {
     }
   },
   methods: {
-    confirm() {
-    
-      this.$buefy.toast.open('Login exitoso!')
-      window.$nuxt.$router.push('/TurnosPage')
-    },
     login() {
       const router = window.$nuxt.$router
       const auth = this.$auth
@@ -137,6 +132,10 @@ export default {
             auth.role = response.data.role
             router.push('/TurnosPage')
             auth.isLogged = true
+            this.$buefy.toast.open({
+              message: 'Has iniciado sesión!',
+              type: 'is-dark'
+            })
             console.log(response)
           }
         })

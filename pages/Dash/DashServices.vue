@@ -190,11 +190,6 @@ export default {
   justify-content: center;
 }
 
-#admin-nav {
-  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.486);
-  background-color: #363636;
-  height: 120%;
-}
 
 
 

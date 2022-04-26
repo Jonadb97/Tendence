@@ -1,4 +1,5 @@
 <template>
+<div class="footer">
   <div id="FooterContainer" class="inline-flex w-full bg-white m-auto p-auto inset-x-0 bottom-0">
     <NuxtLink to="/" class="inline-flex my-auto mx-1"
       ><div><TendenceLogo id="LOGO" class="flex my-auto" /></div>
@@ -24,6 +25,7 @@
         </li>
       </ul>
     </div>
+  </div>
   </div>
 </template>
 
