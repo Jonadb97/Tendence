@@ -1,6 +1,6 @@
 <template>
   <!-- Desktop version -->
-  <div id="root-container" class="m-0 p-0">
+  <div id="root-container" class="hero">
     <div
       id="HeaderContainerDesktop"
       class="inline-flex"
@@ -15,8 +15,8 @@
           class="my-auto py-auto"
       /></NuxtLink>
       <div id="NavContainer" class="inset-y-8 right-4">
-        <b-tag v-if="auth.loggedIn" class="my-auto px-2 translate-y-1 h-4" type="is-success">{{ auth.user }}</b-tag>
-        <b-tag v-else class="my-auto px-2 translate-y-1 h-4" type="is-primary">{{ auth.user }}</b-tag>
+        <b-tag v-if="auth.loggedIn" id="user-tag" class="px-2 h-4" type="is-success">{{ auth.user }}</b-tag>
+        <b-tag v-else id="user-tag-non" class="my-auto px-2 translate-y-1 h-4" type="is-primary">{{ auth.user }}</b-tag>
         <b-button v-if="auth.loggedIn" type="is-dark"
           ><NuxtLink
             id="NavLink"
@@ -159,8 +159,8 @@ export default {
       this.$auth.$storage.removeLocalStorage('user')
       this.$auth.$storage.removeLocalStorage('role')
       this.auth.setUser('')
-      router.push('/')
       window.location.reload(true)
+      router.push('/')
       this.$buefy.toast.open({
         message: 'Has salido de tu sesión!',
         type: 'is-dark'
@@ -189,13 +189,13 @@ export default {
 
 #LOGO {
   /* TOP | RIGHT | BOTTOM | LEFT */
-  transform: translateY(-0.1rem);
+  height: 6rem;
+  transform: translateY(-0.5rem);
 }
 
 #BT {
-  height: 6rem;
+  height: 8rem;
   /* TOP | RIGHT | BOTTOM | LEFT */
-  margin: 0 2rem 0 0;
 }
 
 .a {
@@ -253,6 +253,20 @@ export default {
     margin: 0;
     padding: 0;
   }
+}
+
+.hero {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+#user-tag {
+  height: 38px;
+  font-size: 16px;
+  font-weight: bold;
+  transform: translateY(-0.01rem)
 }
 
 </style>

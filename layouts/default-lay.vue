@@ -22,6 +22,9 @@ body {
   max-height: max-content;
 }
 
+.media.content {
+  color: black;
+}
 
 #root-component {
   height: 100%;

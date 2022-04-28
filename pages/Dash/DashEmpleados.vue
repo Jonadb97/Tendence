@@ -109,7 +109,10 @@
         <br>
         <b-button
         type="is-success"
+        size="is-large"
+        pack="mdi"
         icon-right="plus"
+        icon-left="account-group"
         outlined
         class="m-8 p-8 text-lg font-bold"
         >

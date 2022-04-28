@@ -33,15 +33,17 @@
 #LOGOfooter {
   /* TOP | RIGHT | BOTTOM | LEFT */
   margin: auto;
-  transform: translateY(1rem);
+  height: 6rem;
+  transform: translateY(0.5rem);
 }
 
 #BT-footer {
-  height: 6rem;
+  height: 8rem;
   /* TOP | RIGHT | BOTTOM | LEFT */
 }
 
 #FooterContainer {
   transform: translateY(1.2rem);
+  background-color: #FAFAFA;
 }
 </style>

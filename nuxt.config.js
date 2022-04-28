@@ -41,8 +41,6 @@ export default {
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
     '@nuxtjs/fontawesome',
-    '@nuxtjs/composition-api/module',
-    '@pinia/nuxt',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules

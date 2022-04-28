@@ -114,9 +114,23 @@
             <b-button type="is-dark" class="m-4 p-4"
               >Editar</b-button
             >
+            
           </div>
         </li>
       </ul>
+              <br>
+        <b-button
+        type="is-success"
+        size="is-large"
+        pack="mdi"
+        icon-right="plus"
+        icon-left="account-cash"
+        outlined
+        class="m-8 p-8 text-lg font-bold"
+        >
+          Nuevo Servicio
+        </b-button>
+        <br>
     </div>
   </div>
 </template>
