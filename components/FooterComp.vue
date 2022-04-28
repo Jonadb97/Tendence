@@ -2,9 +2,9 @@
 <div class="footer">
   <div id="FooterContainer" class="inline-flex w-full bg-white m-auto p-auto inset-x-0 bottom-0">
     <NuxtLink to="/" class="inline-flex my-auto mx-1"
-      ><div><TendenceLogo id="LOGO" class="flex my-auto" /></div>
+      ><div><TendenceLogo id="LOGOfooter" class="" /></div>
       <img
-        id="BT"
+        id="BT-footer"
         src="../static/svg/BarberTendenceTextGray.svg"
         alt="Barber Tendence"
         class="my-auto py-auto"
@@ -30,14 +30,18 @@
 </template>
 
 <style>
-#LOGO {
+#LOGOfooter {
   /* TOP | RIGHT | BOTTOM | LEFT */
-  margin: 1.2rem 0 0.5rem 2rem;
+  margin: auto;
+  transform: translateY(1rem);
 }
 
-#BT {
+#BT-footer {
   height: 6rem;
   /* TOP | RIGHT | BOTTOM | LEFT */
-  margin: 0 2rem 0 0;
+}
+
+#FooterContainer {
+  transform: translateY(1.2rem);
 }
 </style>

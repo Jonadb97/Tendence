@@ -132,6 +132,10 @@ export default {
             auth.role = response.data.role
             router.push('/TurnosPage')
             auth.isLogged = true
+            auth.$storage.setLocalStorage('token', response.data.token)
+            auth.$storage.setLocalStorage('user', response.data.username)
+            auth.$storage.setLocalStorage('role', response.data.role)
+            auth.strategy.token.set(response.data.token)
             this.$buefy.toast.open({
               message: 'Has iniciado sesión!',
               type: 'is-dark'

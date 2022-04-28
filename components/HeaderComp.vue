@@ -15,9 +15,9 @@
           class="my-auto py-auto"
       /></NuxtLink>
       <div id="NavContainer" class="inset-y-8 right-4">
-        <b-tag v-if="auth.isLogged" class="my-auto px-2 translate-y-1 h-4" type="is-success">{{ auth.user }}</b-tag>
+        <b-tag v-if="auth.loggedIn" class="my-auto px-2 translate-y-1 h-4" type="is-success">{{ auth.user }}</b-tag>
         <b-tag v-else class="my-auto px-2 translate-y-1 h-4" type="is-primary">{{ auth.user }}</b-tag>
-        <b-button v-if="auth.isLogged" type="is-dark"
+        <b-button v-if="auth.loggedIn" type="is-dark"
           ><NuxtLink
             id="NavLink"
             class="my-auto text-white place-content-end"
@@ -32,7 +32,7 @@
           ><NuxtLink id="NavLink" to="/">Home</NuxtLink></b-button
         >
         <!-- <b-button  type="is-dark" @click="showauth()"><NuxtLink id="NavLink" to="/">Test</NuxtLink></b-button> -->
-        <b-button v-if="auth.isLogged" type="is-dark"
+        <b-button v-if="auth.loggedIn" type="is-dark"
           ><NuxtLink
             id="NavLink"
             class="my-auto text-white place-content-end"
@@ -40,13 +40,13 @@
             >Nuevo Turno</NuxtLink
           ></b-button
         >
-        <b-button v-if="auth.isLogged" type="is-dark"
+        <b-button v-if="auth.loggedIn" type="is-dark"
           ><NuxtLink id="NavLink" to="/TurnosPage"
             >Mis Turnos</NuxtLink
           ></b-button
         >
         <b-button
-          v-if="auth.isLogged"
+          v-if="auth.loggedIn"
           type="is-dark"
           @click="confirmLogout()"
           ><NuxtLink id="NavLink" to="/">
@@ -128,7 +128,6 @@
 
 <script>
 
-
 export default {
   data() {
     return {
@@ -138,9 +137,14 @@ export default {
       fullwidth: false,
       right: false,
       auth: this.$auth,
-      userName: this.$auth.user,
-      userRole: this.$auth.role
+      userName: '',
+      userRole: ''
     }
+  },
+  mounted() {
+    this.$auth.setUser(this.$auth.$storage.getLocalStorage('user'))
+    this.$auth.role = this.$auth.$storage.getLocalStorage('role')
+
   },
   methods: {
      confirmLogout() {
@@ -151,9 +155,12 @@ export default {
     },
     logOut() {
       const router = window.$nuxt.$router
+      this.$auth.$storage.removeLocalStorage('token')
+      this.$auth.$storage.removeLocalStorage('user')
+      this.$auth.$storage.removeLocalStorage('role')
       this.auth.setUser('')
-      this.auth.isLogged = false
       router.push('/')
+      window.location.reload(true)
       this.$buefy.toast.open({
         message: 'Has salido de tu sesión!',
         type: 'is-dark'
@@ -182,7 +189,7 @@ export default {
 
 #LOGO {
   /* TOP | RIGHT | BOTTOM | LEFT */
-  margin: 0 0 0.5rem 2rem;
+  transform: translateY(-0.1rem);
 }
 
 #BT {
