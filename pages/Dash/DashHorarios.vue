@@ -1,44 +1,11 @@
 <template>
   <div id="root-component" class="grid grid-cols-2 m-0 p-0">
-    <div id="admin-nav" class="w-4/12 flex-col h-max">
-      <br class="my-4">
-      <b-button
-      type="is-dark"
-      inverted 
-      class="my-2 mx-12"
-      icon-left="home"
-      ><NuxtLink to="/Dash/DashPage">Panel Principal</NuxtLink></b-button>
-      <b-button
-      type="is-dark"
-      inverted 
-      class="my-2 mx-12"
-      pack="mdi"
-      icon-left="calendar"
-      ><NuxtLink to="/Dash/DashCalendar">Calendario</NuxtLink></b-button>
-      <b-button
-      type="is-dark"
-      inverted 
-      class="my-2 mx-12"
-      icon-left="account-cash"
-      ><NuxtLink to="/Dash/DashServices">Gestión de Servicios</NuxtLink></b-button>
-      <b-button
-      type="is-dark"
-      inverted 
-      class="my-2 mx-12"
-      icon-left="account-group"
-      ><NuxtLink to="/Dash/DashEmpleados">Gestión de Empleados</NuxtLink></b-button>
-      <b-button
-      type="is-dark"
-      inverted 
-      class="my-2 mx-12"
-      icon-left="alarm"
-      ><NuxtLink to="/Dash/DashHorarios">Gestión de Horarios</NuxtLink></b-button>
-    </div>
+    <DashNav />
     <div
       id="main-content"
       class="flex flex-col justify-center items-center text-center"
     >
-      <h1 class="text-white font-bold text-lg">Gestión de horarios:</h1>
+      <h1 class="text-white my-8 font-bold text-lg">Gestión de horarios:</h1>
 
       <!--- Tabla de horarios -->
 

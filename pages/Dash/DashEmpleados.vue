@@ -1,40 +1,7 @@
+/* eslint-disable vue/v-on-style */
 <template>
   <div id="root-component" class="grid grid-cols-2 m-0 p-0">
-    <div id="admin-nav" class="w-4/12  flex-col h-max">
-      <br class="my-4">
-      <b-button
-      type="is-dark"
-      inverted 
-      class="my-2 mx-12"
-      icon-left="home"
-      ><NuxtLink to="/Dash/DashPage">Panel Principal</NuxtLink></b-button>
-      <b-button
-      type="is-dark"
-      inverted 
-      class="my-2 mx-12"
-      pack="mdi"
-      icon-left="calendar"
-      ><NuxtLink to="/Dash/DashCalendar">Calendario</NuxtLink></b-button>
-      <b-button
-      type="is-dark"
-      inverted 
-      class="my-2 mx-12"
-      icon-left="account-cash"
-      ><NuxtLink to="/Dash/DashServices">Gestión de Servicios</NuxtLink></b-button>
-      <b-button
-      type="is-dark"
-      inverted 
-      class="my-2 mx-12"
-      icon-left="account-group"
-      ><NuxtLink to="/Dash/DashEmpleados">Gestión de Empleados</NuxtLink></b-button>
-      <b-button
-      type="is-dark"
-      inverted 
-      class="my-2 mx-12"
-      icon-left="alarm"
-      ><NuxtLink to="/Dash/DashHorarios">Gestión de Horarios</NuxtLink></b-button>
-    </div>
-
+    <DashNav />
 
     <div
       id="main-content"
@@ -64,7 +31,7 @@
         <div class="card-content">
           <h2 class="my-1 font-bold">Servicios:</h2>
           <ul>
-          <li v-for="servicio in empleado.services" id="servicios-empleados" :key="servicio" class="my-1 text-xs">
+          <li v-for="servicio in empleado.services" id="servicios-empleados" :key="servicio.id" class="my-1 text-xs">
           <p> {{ servicio.servicename }} </p>
           </li>
           </ul>
@@ -105,6 +72,7 @@
         
       </ul>
 -->
+<!-- Botón nuevo empleado -->
       <div>
         <br>
         <b-button
@@ -115,11 +83,95 @@
         icon-left="account-group"
         outlined
         class="m-8 p-8 text-lg font-bold"
+        v-on:click="showModal()"
         >
           Nuevo Empleado
         </b-button>
         <br>
       </div>
+<!-- Modal Nuevo Empleado -->
+<div v-if="showEmployeeModal" id="modal-newemployee" class="absolute object-center bg-white m-4 p-4 drop-shadow-lg">
+      <b-button
+        label=""
+        class="m-1 left-0 top-0 -translate-x-16"
+        pack="mdi"
+        icon-right="arrow-left-circle"
+        type="is-primary"
+        v-on:click="closeModal()"
+        ></b-button>
+  <div class="inline-flex"><h2 id="nombre-empleado" class="text-black my-auto mx-4"> Jorgelito </h2> <a href="#"> <img src="../../static/img/cortePelo.png" alt="#" class="rounded-full h-24 my-auto mx-4 p-2"> </a></div>
+  <br>
+  <div class="flex flex-col">
+    <ul id="lista-servicios">
+        <li class="inline-flex border-2 hover:bg-slate-300 m-1 rounded-lg">
+          <p class="my-auto mx-6"> - Servicio 1 </p> <a href=""><b-icon class="text-red-700 my-auto mx-2" type="is-danger" inverted pack="mdi" size="is-medium" icon="delete"></b-icon></a>
+        </li>
+         <li class="inline-flex border-2 hover:bg-slate-300 m-1 rounded-lg">
+          <p class="my-auto mx-6"> - Servicio 2 </p> <a href=""><b-icon class="text-red-700 my-auto mx-2" type="is-danger" inverted pack="mdi" size="is-medium" icon="delete"></b-icon></a>
+        </li>
+         <li class="inline-flex border-2 hover:bg-slate-300 m-1  rounded-lg">
+          <p class="my-auto mx-6"> - Servicio 3 </p> <a href=""><b-icon class="text-red-700 my-auto mx-2" type="is-danger" inverted pack="mdi" size="is-medium" icon="delete"></b-icon></a>
+        </li>
+    </ul>
+    <br>
+    <div class="inline-flex">
+      <p class="content" size="is-small"><b>Servicios seleccionados</b>: {{ selectedOptions }}</p>
+        <b-dropdown
+            v-model="selectedOptions"
+            multiple
+            class="m-2"
+            aria-role="list">
+            
+            <template #trigger>
+                <b-button
+                    type="is-primary"
+                    class="m-2 text-xs"
+                    size="is-small"
+                    icon-right="menu-down">
+                    Seleccionados: {{ selectedOptions.length }}
+                </b-button>
+            </template>
+
+
+            <b-dropdown-item value="Servicio 1" aria-role="listitem">
+                <span>Servicio 1</span>
+            </b-dropdown-item>
+
+            <b-dropdown-item value="Servicio 2" aria-role="listitem">
+                <span>Servicio 2</span>
+            </b-dropdown-item>
+
+            <b-dropdown-item value="Servicio 3" aria-role="listitem">
+                <span>Servicio 3</span>
+            </b-dropdown-item>
+        </b-dropdown>
+        <br>
+        <div class="flex inline-flex">
+        <b-button 
+        type="is-primary"
+        label=""
+        size="is-small"
+        icon-right="plus"
+        class="m-4"
+        >
+        </b-button>
+        </div>
+        <br>
+        <div class="flex inline-flex m-1">
+  
+        <b-button
+        label=""
+        class="m-1 my-auto"
+        pack="mdi"
+        icon-right="check-bold"
+        type="is-primary"
+        ></b-button>
+        </div>
+        </div>
+  </div>
+
+</div>
+
     </div>
   </div>
 </template>
@@ -135,6 +187,8 @@ export default {
 
   data() {
     return {
+      showEmployeeModal: false,
+      selectedOptions: [],
       open: true,
       overlay: false,
       fullheight: true,
@@ -148,6 +202,12 @@ export default {
     this.fetchEmployees()
     },
   methods: {
+    closeModal() {
+      this.$data.showEmployeeModal = false
+    },
+    showModal() {
+      this.$data.showEmployeeModal = true
+    },
      fetchEmployees() {
       axios.get(this.url + '/employee').then(this.asignar)
      },
