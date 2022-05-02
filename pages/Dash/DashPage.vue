@@ -14,8 +14,14 @@
         Próximos Turnos Hoy:
       </h1>
       <br>
+
+
       <ul class="inline-flex">
+
+      <carousel>
+
         <li v-for="appointment in nextappointments" :key="appointment.id">
+        <slide>
           <div id="card-turnos-siguientes" class="card">
             <div class="flex align-content-center items-center">
               <img
@@ -39,8 +45,13 @@
               <p id="hora-turno" class="my-1"> {{ appointment.time }} </p>
             </div>
           </div>
+          </slide>
         </li>
+
+        </carousel>
       </ul>
+
+
       <!-- Carrousel turnos recientes -->
 
       <h1 class="my-6 font-bold text-xl text-white">Turnos recientes:</h1>

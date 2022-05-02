@@ -22,15 +22,6 @@ body {
   max-height: max-content;
 }
 
-#background {
-  color:rgba(15, 23, 42, 0.3);
-  background-color: rgba(15, 23, 42, 0.3);
-  height: 100%;
-  width: 100%;
-
-  
-}
-
 .media.content {
   color: black;
 }

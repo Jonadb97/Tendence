@@ -100,11 +100,10 @@
         </b-button>
         <br>
         <!-- Modal Nuevo Servicio -->
-<div v-if="showServiceModal" id="modal-newemployee" class="absolute object-center bg-white m-4 p-4 drop-shadow-lg">
-<div id="background" class="fixed h-full w-full"></div>
+<div v-if="showServiceModal" id="modal-newservice" class="absolute object-center bg-white m-4 p-4 drop-shadow-lg">
       <b-button
         label=""
-        class="m-1 left-0 top-0 -translate-x-16"
+        class="m-1 left-0 top-0 -translate-x-24"
         pack="mdi"
         icon-right="arrow-left-circle"
         type="is-primary"
@@ -192,6 +191,7 @@ export default {
 #root-container {
   z-index: 3;
 }
+
 
 .card {
   min-width: 15rem;
