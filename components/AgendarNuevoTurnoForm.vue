@@ -70,62 +70,77 @@
     <!-- Componentes calendar -->
 
     <br>
-    <h1 class="font-bold inline-flex flex-row flex my-2 text-xl">Para cuando?</h1>
-    <div id="calendar-component">
-    <no-ssr>
-      <v-date-picker
-        v-model="selectedDate"
-        mode="dateTime"
-        :min-date="new Date()"
-        :max-date="new Date().setDate(new Date().getDate() + 7)"
-        :valid-hours="[16, 17, 18, 19, 20]"
-        :minute-increment="60"
-        color="purple"
-        show-caps
-        is24hr
-      />
-    </no-ssr>
-  </div>
-  <br>
-  <div>
-    <h1>Calendar Test</h1>
-    <p> {{ selectedDate }} </p>
-
-  </div>
-
-
-    <!-- Old Calendar
-    <div class="flex-col flex">
-      <h1 class="font-bold flex-row flex my-4">Cuándo?</h1>
-    </div>
-
-    <div class="field">
-      <div class="CalendarCheckBox">
-        <div v-if="HoySeen || !OtroDiaSeen" id="HoyDiv" class="inline-flex">
-          <label class="checkbox">
-            <input id="Hoy" v-model="HoySeen" type="checkbox" />
-            Hoy
-            <HoraComponent />
-          </label>
-        </div>
-
-        <div v-if="OtroDiaSeen || !HoySeen" id="OtroDiaDiv" class="inline-flex">
-          <label class="checkbox">
-            <input id="OtroDia" v-model="OtroDiaSeen" type="checkbox" />
-            Otro día
-            <CalendarComponent />
-          </label>
-        </div>
+    
+      <h1 class="font-bold inline-flex flex-row flex my-2 text-xl">Para cuando?</h1>
+      <div id="calendar-component">
+        <no-ssr>
+          <v-date-picker
+            v-model="selectedDate"
+            :min-date="new Date()"
+            :max-date="new Date().setDate(new Date().getDate() + 7)"
+            :valid-hours="[16, 17, 18, 19, 20]"
+            :minute-increment="60"
+            color="purple"
+            show-caps
+            is24hr
+          />
+        </no-ssr>
       </div>
-    </div>
+    <br>
 
-    -->
+    <h1 class="font-bold inline-flex flex-row flex my-2 text-xl">A que hora?</h1>
+    <section>
+      <b-dropdown
+            :scrollable="isScrollable"
+            :max-height="maxHeight"
+            v-model="selectedMinutes"
+            aria-role="list"
+        >
+            <template #trigger>
+                <b-button
+                    :label="selectedHour"
+                    type="is-light" 
+                    icon-right="menu-down"/>
+            </template>
 
+            <b-dropdown-item
+                v-for="(hour) in hours"
+                :key="hour"
+                :value="menu" aria-role="listitem">
+                <div class="media">
+                    <div class="media-content">
+                        <h3>{{hour}}</h3>
+                    </div>
+                </div>
+            </b-dropdown-item>
+      </b-dropdown>
+      <p class="font-bold inline-flex flex-row flex my-2 text-xl">:</p>
+      <b-dropdown
+            :scrollable="isScrollable"
+            :max-height="maxHeight"
+            v-model="selectedMinutes"
+            aria-role="list"
+        >
+            <template #trigger>
+                <b-button
+                    :label="selectedMinutes"
+                    type="is-light" 
+                    icon-right="menu-down"/>
+            </template>
 
-
-
-    <!-- Botón agendar turno -->
-
+            <b-dropdown-item
+                v-for="minute in minutes"
+                :key="minute"
+                :value="menu" aria-role="listitem">
+                <div class="media">
+                    <div class="media-content">
+                        <h3>{{minute}}</h3>
+                    </div>
+                </div>
+            </b-dropdown-item>
+        </b-dropdown>
+    </section>
+    
     <div class="flex-row items-center justify-center self-center mx-auto py-4">
       <b-button
         class="flex mx-auto py-2"
@@ -145,14 +160,9 @@
 
 <script>
 import axios from 'axios'
-// import CalendarComponent from './FormComponents/CalendarComponent.vue'
-// import HoraComponent from './FormComponents/HoraComponent.vue'
 
 
 export default {
-  // components: { CalendarComponent, HoraComponent },
-
-  // Habría que fetchear la data y ponerla en esos arrays para mandarla a los componentes
   data() {
     return {
       maxDate: null,
@@ -173,6 +183,13 @@ export default {
       pauseType: 'is-primary',
       interval: 3000,
       carousels: [],
+      isScrollable: true,
+      maxHeight: 200,
+      selectedMinutes: "--",
+      selectedHour: "--",
+      hours:["08","09","10","11"],
+      minutes:["00","15","30","45"],
+      
     }
   },
   mounted() {
