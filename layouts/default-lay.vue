@@ -22,6 +22,7 @@ body {
   max-height: max-content;
 }
 
+
 .media.content {
   color: black;
 }
