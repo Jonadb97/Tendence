@@ -1,39 +1,6 @@
 <template>
   <div id="root-component" class="grid grid-cols-2 m-0 p-0">
-    <div id="admin-nav" class="w-4/12 flex-col h-max">
-      <br class="my-4">
-      <b-button
-      type="is-dark"
-      inverted 
-      class="my-2 mx-12"
-      icon-left="home"
-      ><NuxtLink to="/Dash/DashPage">Panel Principal</NuxtLink></b-button>
-      <b-button
-      type="is-dark"
-      inverted 
-      class="my-2 mx-12"
-      pack="mdi"
-      icon-left="calendar"
-      ><NuxtLink to="/Dash/DashCalendar">Calendario</NuxtLink></b-button>
-      <b-button
-      type="is-dark"
-      inverted 
-      class="my-2 mx-12"
-      icon-left="account-cash"
-      ><NuxtLink to="/Dash/DashServices">Gestión de Servicios</NuxtLink></b-button>
-      <b-button
-      type="is-dark"
-      inverted 
-      class="my-2 mx-12"
-      icon-left="account-group"
-      ><NuxtLink to="/Dash/DashEmpleados">Gestión de Empleados</NuxtLink></b-button>
-      <b-button
-      type="is-dark"
-      inverted 
-      class="my-2 mx-12"
-      icon-left="alarm"
-      ><NuxtLink to="/Dash/DashHorarios">Gestión de Horarios</NuxtLink></b-button>
-    </div>
+    <DashNav />
     <div
       id="main-content"
       class="flex flex-col justify-center items-center text-center"
@@ -127,12 +94,35 @@
         icon-left="account-cash"
         outlined
         class="m-8 p-8 text-lg font-bold"
+        v-on:click="showModal()"
         >
           Nuevo Servicio
         </b-button>
         <br>
-    </div>
+        <!-- Modal Nuevo Servicio -->
+<div v-if="showServiceModal" id="modal-newservice" class="absolute object-center bg-white m-4 p-4 drop-shadow-lg">
+      <b-button
+        label=""
+        class="m-1 left-0 top-0 -translate-x-24"
+        pack="mdi"
+        icon-right="arrow-left-circle"
+        type="is-primary"
+        v-on:click="closeModal()"
+        ></b-button>
+  <div class="inline-flex"><h2 id="nombre-servicio" class="text-black my-auto mx-4"> Servicio 1 </h2></div>
+  <br>
+  <div class="inline-flex"><h2 id="nombre-servicio" class="text-black my-auto mx-4"> Descripción del servicio:</h2> <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum id minus doloribus quis facilis corporis laboriosam sapiente enim provident impedit molestiae, est porro. Dolorem reprehenderit iusto sequi vitae neque tenetur? </p>  </div>
+        <b-button
+        label=""
+        class="m-1 my-auto"
+        pack="mdi"
+        icon-right="check-bold"
+        type="is-primary"
+        ></b-button>
+        </div>
+        </div>
   </div>
+
 </template>
 
 <script>
@@ -144,6 +134,7 @@ export default {
 
   data() {
     return {
+      showServiceModal: false,
       open: true,
       overlay: false,
       fullheight: true,
@@ -151,6 +142,14 @@ export default {
       right: false
     }
   },
+  methods: {
+    closeModal() {
+      this.$data.showServiceModal = false
+    },
+    showModal() {
+      this.$data.showServiceModal = true
+    }
+  }
 }
 </script>
 
@@ -192,6 +191,7 @@ export default {
 #root-container {
   z-index: 3;
 }
+
 
 .card {
   min-width: 15rem;
