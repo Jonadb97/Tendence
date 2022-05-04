@@ -101,11 +101,6 @@ export default {
   margin: 2rem;
 }
 
-
-#sidebar {
-  z-index: -1;
-}
-
 #root-container {
   z-index: 3;
 }

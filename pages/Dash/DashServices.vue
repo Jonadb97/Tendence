@@ -111,10 +111,10 @@
         ></b-button>
   <div class="inline-flex"><h2 id="nombre-servicio" class="text-black my-auto mx-4"> Servicio 1 </h2></div>
   <br>
-  <div class="inline-flex"><h2 id="nombre-servicio" class="text-black my-auto mx-4"> Descripción del servicio:</h2> <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum id minus doloribus quis facilis corporis laboriosam sapiente enim provident impedit molestiae, est porro. Dolorem reprehenderit iusto sequi vitae neque tenetur? </p>  </div>
+  <div class="inline-flex"><h2 id="nombre-servicio" class="text-black my-auto mx-4 text-left"> Descripción del servicio:</h2> <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum id minus doloribus quis facilis corporis laboriosam sapiente enim provident impedit molestiae, est porro. Dolorem reprehenderit iusto sequi vitae neque tenetur? </p>  </div>
         <b-button
         label=""
-        class="m-1 my-auto"
+        class="m-1 py-1 my-auto"
         pack="mdi"
         icon-right="check-bold"
         type="is-primary"
@@ -183,10 +183,6 @@ export default {
 }
 
 
-
-#sidebar {
-  z-index: -1;
-}
 
 #root-container {
   z-index: 3;

@@ -15,19 +15,28 @@
           class="my-auto py-auto"
       /></NuxtLink>
       <div id="NavContainer" class="inset-y-8 right-4">
-        <b-tag v-if="auth.loggedIn" id="user-tag" class="px-2 h-4" type="is-success">{{ auth.user }}</b-tag>
-        <b-tag v-else id="user-tag-non" class="my-auto px-2 translate-y-1 h-4" type="is-primary">{{ auth.user }}</b-tag>
+        <b-tag
+          v-if="auth.loggedIn"
+          id="user-tag"
+          class="px-2 h-4"
+          type="is-success"
+          >{{ auth.user }}</b-tag
+        >
+        <b-tag
+          v-else
+          id="user-tag-non"
+          class="my-auto px-2 translate-y-1 h-4"
+          type="is-primary"
+          >{{ auth.user }}</b-tag
+        >
         <b-button v-if="auth.loggedIn" type="is-dark"
           ><NuxtLink
             id="NavLink"
             class="my-auto text-white place-content-end"
             to="/Dash/DashPage"
-            > <b-icon
-            icon="clipboard"
-            size="is-small"
-            ></b-icon> </NuxtLink
-          ></b-button
-        >
+          >
+            <b-icon icon="clipboard" size="is-small"></b-icon> </NuxtLink
+        ></b-button>
         <b-button type="is-dark"
           ><NuxtLink id="NavLink" to="/">Home</NuxtLink></b-button
         >
@@ -45,13 +54,8 @@
             >Mis Turnos</NuxtLink
           ></b-button
         >
-        <b-button
-          v-if="auth.loggedIn"
-          type="is-dark"
-          @click="confirmLogout()"
-          ><NuxtLink id="NavLink" to="/">
-            Logout
-          </NuxtLink></b-button
+        <b-button v-if="auth.loggedIn" type="is-dark" @click="confirmLogout()"
+          ><NuxtLink id="NavLink" to="/"> Logout </NuxtLink></b-button
         >
         <b-button v-else type="is-dark"
           ><NuxtLink id="NavLink" to="/Login/LoginPage"
@@ -73,14 +77,15 @@
             </div>
         </div> -->
     <div id="HeaderContainerMobile">
-      <section>
+      <section class="flex flex-row-reverse">
         <b-sidebar
           v-model="open"
+          class="flex"
           type="is-light"
           :fullheight="fullheight"
           :fullwidth="fullwidth"
           :overlay="overlay"
-          :right="right"
+          :right="false"
         >
           <div class="p-1">
             <NuxtLink to="/" class="my-auto"
@@ -100,20 +105,57 @@
             /></NuxtLink>
             <b-menu>
               <b-menu-list label="Menu">
+                <b-tag
+                  v-if="auth.loggedIn"
+                  id="user-tag"
+                  class="px-2 h-4"
+                  type="is-success"
+                  >{{ auth.user }}</b-tag
+                >
+                <b-tag
+                  v-else
+                  id="user-tag-non"
+                  class="my-auto px-2 translate-y-1 h-4"
+                  type="is-primary"
+                  >{{ auth.user }}</b-tag
+                >
+                <b-button v-if="auth.loggedIn" type="is-dark"
+                  ><NuxtLink
+                    id="NavLink"
+                    class="my-auto text-white place-content-end"
+                    to="/Dash/DashPage"
+                  >
+                    <b-icon
+                      icon="clipboard"
+                      size="is-small"
+                    ></b-icon> </NuxtLink
+                ></b-button>
                 <b-button type="is-dark"
                   ><NuxtLink id="NavLink" to="/">Home</NuxtLink></b-button
                 >
-                <b-button type="is-dark"
-                  ><NuxtLink id="NavLink" to="/Login/LoginPage"
-                    >Login</NuxtLink
-                  ></b-button
-                >
-                <b-button type="is-dark"
+                <!-- <b-button  type="is-dark" @click="showauth()"><NuxtLink id="NavLink" to="/">Test</NuxtLink></b-button> -->
+                <b-button v-if="auth.loggedIn" type="is-dark"
                   ><NuxtLink
                     id="NavLink"
                     class="my-auto text-white place-content-end"
                     to="/NuevoTurnoPage"
                     >Nuevo Turno</NuxtLink
+                  ></b-button
+                >
+                <b-button v-if="auth.loggedIn" type="is-dark"
+                  ><NuxtLink id="NavLink" to="/TurnosPage"
+                    >Mis Turnos</NuxtLink
+                  ></b-button
+                >
+                <b-button
+                  v-if="auth.loggedIn"
+                  type="is-dark"
+                  @click="confirmLogout()"
+                  ><NuxtLink id="NavLink" to="/"> Logout </NuxtLink></b-button
+                >
+                <b-button v-else type="is-dark"
+                  ><NuxtLink id="NavLink" to="/Login/LoginPage"
+                    >Login</NuxtLink
                   ></b-button
                 >
               </b-menu-list>
@@ -127,7 +169,6 @@
 </template>
 
 <script>
-
 export default {
   data() {
     return {
@@ -138,16 +179,15 @@ export default {
       right: false,
       auth: this.$auth,
       userName: '',
-      userRole: ''
+      userRole: '',
     }
   },
   mounted() {
     this.$auth.setUser(this.$auth.$storage.getLocalStorage('user'))
     this.$auth.role = this.$auth.$storage.getLocalStorage('role')
-
   },
   methods: {
-     confirmLogout() {
+    confirmLogout() {
       this.$buefy.dialog.confirm({
         message: 'Deseas salir de la sesión?',
         onConfirm: () => this.logOut(),
@@ -163,7 +203,7 @@ export default {
       router.push('/')
       this.$buefy.toast.open({
         message: 'Has salido de tu sesión!',
-        type: 'is-dark'
+        type: 'is-dark',
       })
     },
   },
@@ -266,7 +306,6 @@ export default {
   height: 38px;
   font-size: 16px;
   font-weight: bold;
-  transform: translateY(-0.01rem)
+  transform: translateY(-0.01rem);
 }
-
 </style>

@@ -13,7 +13,10 @@
 
 
       <ul class="inline-flex">
+
+      <carousel>
       <li v-for="empleado in empleados" id="service-item" :key="empleado.id">
+      <slide>
       <div id="card-turno-actual" class="card">
         <div class="flex align-content-center items-center text-white">
           <img
@@ -40,7 +43,10 @@
           >Editar</b-button
         >
       </div>
+      </slide>
       </li>
+
+      </carousel>
       </ul>
 
 <!--
@@ -104,13 +110,13 @@
   <div class="flex flex-col">
     <ul id="lista-servicios">
         <li class="inline-flex border-2 hover:bg-slate-300 m-1 rounded-lg">
-          <p class="my-auto mx-6"> - Servicio 1 </p> <a href=""><b-icon class="text-red-700 my-auto mx-2" type="is-danger" inverted pack="mdi" size="is-medium" icon="delete"></b-icon></a>
+          <p class="my-auto mx-6"> - Servicio 1 </p> <a href=""><b-icon class="text-red-700 my-auto mx-2" type="is-danger" inverted pack="mdi" size="is-small" icon="delete"></b-icon></a>
         </li>
          <li class="inline-flex border-2 hover:bg-slate-300 m-1 rounded-lg">
-          <p class="my-auto mx-6"> - Servicio 2 </p> <a href=""><b-icon class="text-red-700 my-auto mx-2" type="is-danger" inverted pack="mdi" size="is-medium" icon="delete"></b-icon></a>
+          <p class="my-auto mx-6"> - Servicio 2 </p> <a href=""><b-icon class="text-red-700 my-auto mx-2" type="is-danger" inverted pack="mdi" size="is-small" icon="delete"></b-icon></a>
         </li>
          <li class="inline-flex border-2 hover:bg-slate-300 m-1  rounded-lg">
-          <p class="my-auto mx-6"> - Servicio 3 </p> <a href=""><b-icon class="text-red-700 my-auto mx-2" type="is-danger" inverted pack="mdi" size="is-medium" icon="delete"></b-icon></a>
+          <p class="my-auto mx-6"> - Servicio 3 </p> <a href=""><b-icon class="text-red-700 my-auto mx-2" type="is-danger" inverted pack="mdi" size="is-small" icon="delete"></b-icon></a>
         </li>
     </ul>
     <br>
@@ -161,7 +167,7 @@
   
         <b-button
         label=""
-        class="m-1 my-auto"
+        class="m-1 my-auto -translate-y-5"
         pack="mdi"
         icon-right="check-bold"
         type="is-primary"
@@ -256,10 +262,6 @@ export default {
 
 #card-turno-actual {
   margin: 2rem;
-}
-
-#sidebar {
-  z-index: -1;
 }
 
 #root-container {

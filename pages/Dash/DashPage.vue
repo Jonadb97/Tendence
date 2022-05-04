@@ -57,7 +57,9 @@
       <h1 class="my-6 font-bold text-xl text-white">Turnos recientes:</h1>
 
           <ul class="inline-flex">
+        <carousel>
         <li v-for="appointment in previousappointments" :key="appointment.id">
+        <slide>
           <div id="card-turnos-anteriores" class="card">
             <div class="flex align-content-center items-center">
               <img
@@ -81,7 +83,9 @@
               <p id="hora-turno" class="my-1"> {{ appointment.time }} </p>
             </div>
           </div>
+          </slide>
         </li>
+        </carousel>
       </ul>
 
 
