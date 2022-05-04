@@ -1,9 +1,8 @@
 export default {
   // Server host
   server: {
-    port: '8000' 
+    port: '8000',
   },
-
 
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
@@ -28,7 +27,9 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    { src: '~plugins/v-calendar.js', ssr: false }, { src: '~/plugins/axios', ssr: false }, { src:'~/plugins/vuecarousel.js', ssr: false }
+    { src: '~plugins/v-calendar.js', ssr: false },
+    { src: '~/plugins/axios', ssr: false },
+    { src: '~/plugins/vuecarousel.js', ssr: false, mode: 'client' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -49,7 +50,7 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/tailwindcss',
     'nuxt-buefy',
-    '@nuxtjs/auth'
+    '@nuxtjs/auth',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -64,8 +65,8 @@ export default {
   // Font Awesome Configuration:
   fontawesome: {
     icons: {
-      solid: []
-    }
+      solid: [],
+    },
   },
   auth: {
     strategies: {
@@ -73,11 +74,9 @@ export default {
         endpoints: {
           login: { url: '/login', method: 'post', propertyName: 'token' },
           logout: { url: '/', method: 'post' },
-          user: { url: 'TurnosPage', method: 'get', propertyName: 'user' }
-        }
-      }
-    }
-  }
-
+          user: { url: 'TurnosPage', method: 'get', propertyName: 'user' },
+        },
+      },
+    },
+  },
 }
-
