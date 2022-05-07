@@ -50,6 +50,11 @@ body {
 }
 
 @media screen and (max-width: 600px) {
+  .li {
+    transform: scale(0.5);
+    margin: 1.2rem;
+    padding: 0;
+  }
   .card {
     transform: scale(0.5);
     margin: 1px;
