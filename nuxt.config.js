@@ -29,7 +29,8 @@ export default {
   plugins: [
     { src: '~plugins/v-calendar.js', ssr: false },
     { src: '~/plugins/axios', ssr: false },
-    { src: '~/plugins/vuecarousel.js', ssr: false, mode: 'client' },
+    { src: '~/plugins/vuecarousel.client.js', ssr: false, mode: 'client' },
+    { src: '~/plugins/mq', ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -60,7 +61,9 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    vendor: ['vue-carousel'],
+  },
 
   // Font Awesome Configuration:
   fontawesome: {

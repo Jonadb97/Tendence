@@ -1,5 +1,5 @@
 <template>
-  <div id="root-component" class="grid grid-cols-2 m-0 p-0">
+  <div id="root-component" class="">
     <DashNav />
     <div
       id="main-content"
@@ -13,91 +13,100 @@
       >
         Próximos Turnos Hoy:
       </h1>
-      <br>
+      <br />
 
+      <ul class="inline-flex h-64">
+        <carousel>
+          <li v-for="appointment in nextappointments" :key="appointment.id">
+            <slide>
+              <div id="card-turnos-siguientes" class="card">
+                <div class="flex align-content-center items-center">
+                  <img
+                    id="service-img"
+                    class="w-1/2 rounded-full m-2 mx-auto"
+                    :src="url + appointment.service.imageroute"
+                    alt="Pelo"
+                  />
+                </div>
 
-      <ul class="inline-flex">
+                <header class="card-header">
+                  <p class="card-header-title">
+                    {{ appointment.service.servicename }}
+                  </p>
+                </header>
 
-      <carousel>
-
-        <li v-for="appointment in nextappointments" :key="appointment.id">
-        <slide>
-          <div id="card-turnos-siguientes" class="card">
-            <div class="flex align-content-center items-center">
-              <img
-                id="service-img"
-                class="w-1/2 rounded-full m-2 mx-auto"
-                :src=" url + appointment.service.imageroute"
-                alt="Pelo"
-              />
-            </div>
-
-            <header class="card-header">
-              <p class="card-header-title"> {{ appointment.service.servicename }} </p>
-            </header>
-
-            <div class="card-content">
-              <h2 class="font-bold my-1">Nombre de empleado:</h2>
-              <p id="hora-turno" class="my-1"> {{ appointment.employee.name }} </p>
-              <h2 class="my-1 font-bold">Fecha:</h2>
-              <p id="fecha-turno" class="my-1"> {{ appointment.date }} </p>
-              <h2 class="font-bold my-1">Hora:</h2>
-              <p id="hora-turno" class="my-1"> {{ appointment.time }} </p>
-            </div>
-          </div>
-          </slide>
-        </li>
-
+                <div class="card-content">
+                  <h2 class="font-bold my-1">Nombre de empleado:</h2>
+                  <p id="hora-turno" class="my-1">
+                    {{ appointment.employee.name }}
+                  </p>
+                  <h2 class="my-1 font-bold">Fecha:</h2>
+                  <p id="fecha-turno" class="my-1">{{ appointment.date }}</p>
+                  <h2 class="font-bold my-1">Hora:</h2>
+                  <p id="hora-turno" class="my-1">{{ appointment.time }}</p>
+                </div>
+              </div>
+            </slide>
+          </li>
         </carousel>
       </ul>
-
 
       <!-- Carrousel turnos recientes -->
 
       <h1 class="my-6 font-bold text-xl text-white">Turnos recientes:</h1>
 
-          <ul class="inline-flex">
+      <ul class="inline-flex h-64">
         <carousel>
-        <li v-for="appointment in previousappointments" :key="appointment.id">
-        <slide>
-          <div id="card-turnos-anteriores" class="card">
-            <div class="flex align-content-center items-center">
-              <img
-                id="service-img"
-                class="w-1/2 rounded-full m-2 mx-auto"
-                :src=" url + appointment.service.imageroute"
-                alt="Pelo"
-              />
-            </div>
+          <li v-for="appointment in previousappointments" :key="appointment.id">
+            <slide>
+              <div id="card-turnos-anteriores" class="card">
+                <div class="flex align-content-center items-center">
+                  <img
+                    id="service-img"
+                    class="w-1/2 rounded-full m-2 mx-auto"
+                    :src="url + appointment.service.imageroute"
+                    alt="Pelo"
+                  />
+                </div>
 
-            <header class="card-header">
-              <p class="card-header-title"> {{ appointment.service.servicename }} </p>
-            </header>
+                <header class="card-header">
+                  <p class="card-header-title">
+                    {{ appointment.service.servicename }}
+                  </p>
+                </header>
 
-            <div class="card-content">
-              <h2 class="font-bold my-1">Nombre de empleado:</h2>
-              <p id="hora-turno" class="my-1"> {{ appointment.employee.name }} </p>
-              <h2 class="my-1 font-bold">Fecha:</h2>
-              <p id="fecha-turno" class="my-1"> {{ appointment.date }} </p>
-              <h2 class="font-bold my-1">Hora:</h2>
-              <p id="hora-turno" class="my-1"> {{ appointment.time }} </p>
-            </div>
-          </div>
-          </slide>
-        </li>
+                <div class="card-content">
+                  <h2 class="font-bold my-1">Nombre de empleado:</h2>
+                  <p id="hora-turno" class="my-1">
+                    {{ appointment.employee.name }}
+                  </p>
+                  <h2 class="my-1 font-bold">Fecha:</h2>
+                  <p id="fecha-turno" class="my-1">{{ appointment.date }}</p>
+                  <h2 class="font-bold my-1">Hora:</h2>
+                  <p id="hora-turno" class="my-1">{{ appointment.time }}</p>
+                </div>
+              </div>
+            </slide>
+          </li>
         </carousel>
       </ul>
-
-
     </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import { carousel, slide } from 'vue-carousel'
 
+if (process.browser) {
+  require('vue-carousel')
+}
 export default {
   name: 'DashPage',
+  components: {
+    carousel,
+    slide,
+  },
   layout: 'default-lay',
 
   // Hay que fetchear la fecha y hora para ponerlos reactivos en el card de turnos pendientes y los anteriores
@@ -196,5 +205,4 @@ export default {
   text-align: center;
   justify-content: center;
 }
-
 </style>

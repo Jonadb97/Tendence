@@ -1,11 +1,11 @@
 /* eslint-disable vue/v-on-style */
 <template>
-  <div id="root-component" class="grid grid-cols-2 m-0 p-0">
+  <div id="root-component" class="">
     <DashNav />
 
     <div
       id="main-content"
-      class="flex flex-col justify-center items-center text-center"
+      class="flex flex-col justify-center items-center text-center max-w-xl"
     >
       <h1 class="font-bold text-2xl my-6 text-white">{{ $auth.user }}</h1>
       <!-- Card turnos para hoy -->
@@ -15,8 +15,10 @@
         Empleados:
       </h1>
 
-      <ul class="inline-flex">
-        <carousel>
+      <!--  -->
+
+      <ul id="lista-empleados" class="justify-center max-w-screen">
+        <carousel :navigationClickTargetSize="2">
           <li
             v-for="empleado in empleados"
             id="service-item"
@@ -107,11 +109,12 @@
       <div
         v-if="showEmployeeModal"
         id="modal-newemployee"
-        class="absolute object-center bg-white m-4 p-4 drop-shadow-lg"
+        class="absolute object-center bg-white m-4 p-4 drop-shadow-lg h-96 w-96"
       >
         <b-button
           label=""
-          class="m-1 left-0 top-0 -translate-x-16"
+          size="is-small"
+          class="m-1 left-0 top-0 -translate-x-12"
           pack="mdi"
           icon-right="arrow-left-circle"
           type="is-primary"
@@ -221,8 +224,9 @@
             <div class="flex inline-flex m-1">
               <b-button
                 label=""
-                class="m-1 my-auto -translate-y-5"
+                class="m-1 my-auto -translate-y-4 -translate-x-3"
                 pack="mdi"
+                size="is-small"
                 icon-right="check-bold"
                 type="is-primary"
               ></b-button>
@@ -242,6 +246,12 @@ export default {
   name: 'DashEmpleados',
   components: { Carousel, Slide },
   layout: 'default-lay',
+  breakpoints: {
+    // default breakpoints - customize this
+    sm: 450,
+    md: 1250,
+    lg: Infinity,
+  },
 
   // Hay que fetchear la fecha y hora para ponerlos reactivos en el card de turnos pendientes y los anteriores
   data() {
@@ -255,6 +265,7 @@ export default {
       right: false,
       url: 'http://localhost:3000',
       empleados: [],
+      window: this.window,
     }
   },
   mounted() {
@@ -312,7 +323,7 @@ export default {
 }
 
 #card-turno-actual {
-  margin: 2rem;
+  margin: 2px;
 }
 
 #root-container {
@@ -320,9 +331,11 @@ export default {
 }
 
 .card {
-  min-width: 15rem;
-  width: 15rem;
   border-radius: 2rem;
+}
+
+#modal-newemployee {
+  padding-right: 24px;
 }
 
 .card-header-title {
