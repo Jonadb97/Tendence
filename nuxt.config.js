@@ -30,7 +30,6 @@ export default {
     { src: '~plugins/v-calendar.js', ssr: false },
     { src: '~/plugins/axios', ssr: false },
     { src: '~/plugins/vuecarousel.client.js', ssr: false, mode: 'client' },
-    { src: '~/plugins/mq', ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

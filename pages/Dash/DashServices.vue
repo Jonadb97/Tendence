@@ -99,36 +99,44 @@
       <div
         v-if="showServiceModal"
         id="modal-newservice"
-        class="absolute object-center bg-white m-4 p-4 drop-shadow-lg"
+        class="absolute flex object-center bg-white m-4 p-4 drop-shadow-lg"
       >
         <b-button
           label=""
-          class="m-1 left-0 top-0 -translate-x-24"
+          class="m-1 left-0 top-0"
           pack="mdi"
           icon-right="arrow-left-circle"
           type="is-primary"
           v-on:click="closeModal()"
         ></b-button>
-        <div class="inline-flex">
+        <div class="justify-center">
           <h2 id="nombre-servicio" class="text-black my-auto mx-4">
-            Servicio 1
+            <b-field
+              label="Nombre del servicio"
+              class="color-black"
+              icon-left="account"
+            >
+              <b-input
+                v-model="serviceName"
+                placeholder="Nombre del servicio"
+              ></b-input>
+            </b-field>
           </h2>
         </div>
         <br />
-        <div class="inline-flex">
-          <h2 id="nombre-servicio" class="text-black my-auto mx-4 text-left">
-            Descripción del servicio:
-          </h2>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum id
-            minus doloribus quis facilis corporis laboriosam sapiente enim
-            provident impedit molestiae, est porro. Dolorem reprehenderit iusto
-            sequi vitae neque tenetur?
-          </p>
+        <div class="justify-center">
+          <b-field label="Descripción del servicio">
+            <b-input
+              v-model="serviceDescription"
+              placeholder="Descripción del servicio"
+              maxlength="200"
+              type="textarea"
+            ></b-input>
+          </b-field>
         </div>
         <b-button
           label=""
-          class="m-1 py-1 my-auto"
+          class="mx-2 m-1 py-1 my-auto"
           pack="mdi"
           icon-right="check-bold"
           type="is-primary"
@@ -156,6 +164,8 @@ export default {
       fullheight: true,
       fullwidth: false,
       right: false,
+      serviceName: '',
+      serviceDescription: '',
     }
   },
   methods: {

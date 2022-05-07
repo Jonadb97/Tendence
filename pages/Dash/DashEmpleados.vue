@@ -18,45 +18,37 @@
       <!--  -->
 
       <ul id="lista-empleados" class="justify-center max-w-screen">
-        <carousel :navigationClickTargetSize="2">
-          <li
-            v-for="empleado in empleados"
-            id="service-item"
-            :key="empleado.id"
-          >
-            <slide>
-              <div id="card-turno-actual" class="card">
-                <div class="flex align-content-center items-center text-white">
-                  <img
-                    id="service-img"
-                    class="w-1/2 rounded-full m-2 mx-auto"
-                    :src="url + empleado.imageroute"
-                    alt="Pelo"
-                  />
-                </div>
+        <li v-for="empleado in empleados" id="service-item" :key="empleado.id">
+          <div id="card-turno-actual" class="card">
+            <div class="flex align-content-center items-center text-white">
+              <img
+                id="service-img"
+                class="w-1/2 rounded-full m-2 mx-auto"
+                :src="url + empleado.imageroute"
+                alt="Pelo"
+              />
+            </div>
 
-                <header class="card-header">
-                  <p class="card-header-title">{{ empleado.name }}</p>
-                </header>
+            <header class="card-header">
+              <p class="card-header-title">{{ empleado.name }}</p>
+            </header>
 
-                <div class="card-content">
-                  <h2 class="my-1 font-bold">Servicios:</h2>
-                  <ul>
-                    <li
-                      v-for="servicio in empleado.services"
-                      id="servicios-empleados"
-                      :key="servicio.id"
-                      class="my-1 text-xs"
-                    >
-                      <p>{{ servicio.servicename }}</p>
-                    </li>
-                  </ul>
-                </div>
-                <b-button type="is-dark" class="m-4 p-4">Editar</b-button>
-              </div>
-            </slide>
-          </li>
-        </carousel>
+            <div class="card-content">
+              <h2 class="my-1 font-bold">Servicios:</h2>
+              <ul>
+                <li
+                  v-for="servicio in empleado.services"
+                  id="servicios-empleados"
+                  :key="servicio.id"
+                  class="my-1 text-xs"
+                >
+                  <p>{{ servicio.servicename }}</p>
+                </li>
+              </ul>
+            </div>
+            <b-button type="is-dark" class="m-4 p-4">Editar</b-button>
+          </div>
+        </li>
       </ul>
 
       <!--
@@ -240,11 +232,9 @@
 
 <script>
 import axios from 'axios'
-import { Carousel, Slide } from 'vue-carousel'
 
 export default {
   name: 'DashEmpleados',
-  components: { Carousel, Slide },
   layout: 'default-lay',
   breakpoints: {
     // default breakpoints - customize this
@@ -341,5 +331,8 @@ export default {
 .card-header-title {
   text-align: center;
   justify-content: center;
+}
+
+#service-item {
 }
 </style>

@@ -130,6 +130,7 @@ export default {
       this.dayappointments = response.data
       if (response.status === 200) {
         this.dayappointments = response.data
+        console.log(response.data)
         this.orderAppointments()
       }
     },

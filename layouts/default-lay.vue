@@ -49,6 +49,13 @@ body {
     margin-left: 2rem;
     margin-right: 2rem;
   }
+  #lista-empleados {
+    max-width: 100vw;
+    display: inline-flex;
+    flex-direction: row;
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
 }
 
 #lista-empleados {
@@ -61,6 +68,12 @@ body {
     max-width: 100vw;
   }
   #servicios-list {
+    max-width: 100vw;
+    flex-direction: column;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+  #lista-empleados {
     max-width: 100vw;
     flex-direction: column;
     margin-top: 2rem;
