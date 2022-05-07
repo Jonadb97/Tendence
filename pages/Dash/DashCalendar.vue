@@ -38,6 +38,7 @@ export default {
       fullheight: true,
       fullwidth: false,
       right: false,
+      selectedDate: '',
     }
   },
 }

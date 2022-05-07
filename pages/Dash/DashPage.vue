@@ -96,17 +96,12 @@
 
 <script>
 import axios from 'axios'
-import { carousel, slide } from 'vue-carousel'
 
 if (process.browser) {
   require('vue-carousel')
 }
 export default {
   name: 'DashPage',
-  components: {
-    carousel,
-    slide,
-  },
   layout: 'default-lay',
 
   // Hay que fetchear la fecha y hora para ponerlos reactivos en el card de turnos pendientes y los anteriores

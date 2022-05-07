@@ -41,8 +41,14 @@ body {
   color: white;
 }
 
-#servicios-list {
-  max-width: 100vw;
+@media screen and (min-width: 960px) {
+  #servicios-list {
+    max-width: 100vw;
+    display: inline-flex;
+    flex-direction: row;
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
 }
 
 #lista-empleados {
@@ -50,19 +56,15 @@ body {
 }
 
 @media screen and (max-width: 600px) {
-  .li {
-    transform: scale(0.5);
-    margin: 1.2rem;
-    padding: 0;
-  }
-  .card {
-    transform: scale(0.5);
-    margin: 1px;
-    padding: 1px;
-  }
   .VueCarousel {
     min-width: 100vw;
     max-width: 100vw;
+  }
+  #servicios-list {
+    max-width: 100vw;
+    flex-direction: column;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
   }
 }
 </style>
