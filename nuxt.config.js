@@ -1,9 +1,9 @@
 export default {
 
-  // Server host
-  server: {
-    port: '8000',
-  },
+    // Server host
+    server: {
+        port: '8000',
+    },
 
 
     // Target: https://go.nuxtjs.dev/config-target
@@ -45,13 +45,12 @@ export default {
         '@nuxtjs/tailwindcss',
         '@nuxtjs/fontawesome',
     ],
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-    { src: '~plugins/v-calendar.js', ssr: false },
-    { src: '~/plugins/axios', ssr: false },
-    { src: '~/plugins/vuecarousel.client.js', ssr: false, mode: 'client' },
-    { src: '~/plugins/mq', ssr: false },
-  ],
+    // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
+    plugins: [
+        { src: '~plugins/v-calendar.js', ssr: false },
+        { src: '~/plugins/axios', ssr: false },
+        { src: '~/plugins/vuecarousel.client.js', ssr: false, mode: 'client' },
+    ],
 
     // Modules: https://go.nuxtjs.dev/config-modules
     modules: [
@@ -90,4 +89,3 @@ export default {
         }
     }
 }
-
