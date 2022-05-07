@@ -162,7 +162,9 @@
             </b-menu>
           </div>
         </b-sidebar>
-        <b-button type="is-dark" @click="open = true">|||</b-button>
+        <b-button type="is-dark" class="font-extrabold" @click="open = true"
+          >|||</b-button
+        >
       </section>
     </div>
   </div>

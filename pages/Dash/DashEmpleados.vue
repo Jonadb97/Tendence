@@ -1,55 +1,65 @@
 /* eslint-disable vue/v-on-style */
 <template>
-  <div id="root-component" class="grid grid-cols-2 m-0 p-0">
+  <div id="root-component" class="">
     <DashNav />
 
     <div
       id="main-content"
-      class="flex flex-col justify-center items-center text-center "
+      class="flex flex-col justify-center items-center text-center max-w-xl"
     >
       <h1 class="font-bold text-2xl my-6 text-white">{{ $auth.user }}</h1>
       <!-- Card turnos para hoy -->
-      <h1 class="flex flex-col font-bold text-xl text-white text-center justify-self-start">Empleados:</h1>
+      <h1
+        class="flex flex-col font-bold text-xl text-white text-center justify-self-start"
+      >
+        Empleados:
+      </h1>
 
+      <!--  -->
 
-      <ul class="inline-flex">
+      <ul id="lista-empleados" class="justify-center max-w-screen">
+        <carousel :navigationClickTargetSize="2">
+          <li
+            v-for="empleado in empleados"
+            id="service-item"
+            :key="empleado.id"
+          >
+            <slide>
+              <div id="card-turno-actual" class="card">
+                <div class="flex align-content-center items-center text-white">
+                  <img
+                    id="service-img"
+                    class="w-1/2 rounded-full m-2 mx-auto"
+                    :src="url + empleado.imageroute"
+                    alt="Pelo"
+                  />
+                </div>
 
-      <carousel>
-      <li v-for="empleado in empleados" id="service-item" :key="empleado.id">
-      <slide>
-      <div id="card-turno-actual" class="card">
-        <div class="flex align-content-center items-center text-white">
-          <img
-            id="service-img"
-            class="w-1/2 rounded-full m-2 mx-auto"
-            :src="url + empleado.imageroute"
-            alt="Pelo"
-          />
-        </div>
+                <header class="card-header">
+                  <p class="card-header-title">{{ empleado.name }}</p>
+                </header>
 
-        <header class="card-header">
-          <p class="card-header-title">{{ empleado.name }}</p>
-        </header>
-
-        <div class="card-content">
-          <h2 class="my-1 font-bold">Servicios:</h2>
-          <ul>
-          <li v-for="servicio in empleado.services" id="servicios-empleados" :key="servicio.id" class="my-1 text-xs">
-          <p> {{ servicio.servicename }} </p>
+                <div class="card-content">
+                  <h2 class="my-1 font-bold">Servicios:</h2>
+                  <ul>
+                    <li
+                      v-for="servicio in empleado.services"
+                      id="servicios-empleados"
+                      :key="servicio.id"
+                      class="my-1 text-xs"
+                    >
+                      <p>{{ servicio.servicename }}</p>
+                    </li>
+                  </ul>
+                </div>
+                <b-button type="is-dark" class="m-4 p-4">Editar</b-button>
+              </div>
+            </slide>
           </li>
-          </ul>
-        </div>
-        <b-button type="is-dark" class="m-4 p-4"
-          >Editar</b-button
-        >
-      </div>
-      </slide>
-      </li>
-
-      </carousel>
+        </carousel>
       </ul>
 
-<!--
+      <!--
       <ul id="service-list-container" class="flex flex-row text-white">
 
         <li v-for="empleado in empleados" id="service-item" :key="empleado">
@@ -78,119 +88,172 @@
         
       </ul>
 -->
-<!-- Botón nuevo empleado -->
+      <!-- Botón nuevo empleado -->
       <div>
-        <br>
+        <br />
         <b-button
-        type="is-success"
-        size="is-large"
-        pack="mdi"
-        icon-right="plus"
-        icon-left="account-group"
-        outlined
-        class="m-8 p-8 text-lg font-bold"
-        v-on:click="showModal()"
+          type="is-success"
+          size="is-large"
+          pack="mdi"
+          icon-right="plus"
+          icon-left="account-group"
+          outlined
+          class="m-8 p-8 text-lg font-bold"
+          v-on:click="showModal()"
         >
           Nuevo Empleado
         </b-button>
-        <br>
+        <br />
       </div>
-<!-- Modal Nuevo Empleado -->
-<div v-if="showEmployeeModal" id="modal-newemployee" class="absolute object-center bg-white m-4 p-4 drop-shadow-lg">
-      <b-button
-        label=""
-        class="m-1 left-0 top-0 -translate-x-16"
-        pack="mdi"
-        icon-right="arrow-left-circle"
-        type="is-primary"
-        v-on:click="closeModal()"
-        ></b-button>
-  <div class="inline-flex"><h2 id="nombre-empleado" class="text-black my-auto mx-4"> Jorgelito </h2> <a href="#"> <img src="../../static/img/cortePelo.png" alt="#" class="rounded-full h-24 my-auto mx-4 p-2"> </a></div>
-  <br>
-  <div class="flex flex-col">
-    <ul id="lista-servicios">
-        <li class="inline-flex border-2 hover:bg-slate-300 m-1 rounded-lg">
-          <p class="my-auto mx-6"> - Servicio 1 </p> <a href=""><b-icon class="text-red-700 my-auto mx-2" type="is-danger" inverted pack="mdi" size="is-small" icon="delete"></b-icon></a>
-        </li>
-         <li class="inline-flex border-2 hover:bg-slate-300 m-1 rounded-lg">
-          <p class="my-auto mx-6"> - Servicio 2 </p> <a href=""><b-icon class="text-red-700 my-auto mx-2" type="is-danger" inverted pack="mdi" size="is-small" icon="delete"></b-icon></a>
-        </li>
-         <li class="inline-flex border-2 hover:bg-slate-300 m-1  rounded-lg">
-          <p class="my-auto mx-6"> - Servicio 3 </p> <a href=""><b-icon class="text-red-700 my-auto mx-2" type="is-danger" inverted pack="mdi" size="is-small" icon="delete"></b-icon></a>
-        </li>
-    </ul>
-    <br>
-    <div class="inline-flex">
-      <p class="content" size="is-small"><b>Servicios seleccionados</b>: {{ selectedOptions }}</p>
-        <b-dropdown
-            v-model="selectedOptions"
-            multiple
-            class="m-2"
-            aria-role="list">
-            
-            <template #trigger>
-                <b-button
-                    type="is-primary"
-                    class="m-2 text-xs"
-                    size="is-small"
-                    icon-right="menu-down">
-                    Seleccionados: {{ selectedOptions.length }}
-                </b-button>
-            </template>
-
-
-            <b-dropdown-item value="Servicio 1" aria-role="listitem">
-                <span>Servicio 1</span>
-            </b-dropdown-item>
-
-            <b-dropdown-item value="Servicio 2" aria-role="listitem">
-                <span>Servicio 2</span>
-            </b-dropdown-item>
-
-            <b-dropdown-item value="Servicio 3" aria-role="listitem">
-                <span>Servicio 3</span>
-            </b-dropdown-item>
-        </b-dropdown>
-        <br>
-        <div class="flex inline-flex">
-        <b-button 
-        type="is-primary"
-        label=""
-        size="is-small"
-        icon-right="plus"
-        class="m-4"
-        >
-        </b-button>
-        </div>
-        <br>
-        <div class="flex inline-flex m-1">
-  
+      <!-- Modal Nuevo Empleado -->
+      <div
+        v-if="showEmployeeModal"
+        id="modal-newemployee"
+        class="absolute object-center bg-white m-4 p-4 drop-shadow-lg h-96 w-96"
+      >
         <b-button
-        label=""
-        class="m-1 my-auto -translate-y-5"
-        pack="mdi"
-        icon-right="check-bold"
-        type="is-primary"
+          label=""
+          size="is-small"
+          class="m-1 left-0 top-0 -translate-x-12"
+          pack="mdi"
+          icon-right="arrow-left-circle"
+          type="is-primary"
+          v-on:click="closeModal()"
         ></b-button>
+        <div class="inline-flex">
+          <h2 id="nombre-empleado" class="text-black my-auto mx-4">
+            Jorgelito
+          </h2>
+          <a href="#">
+            <img
+              src="../../static/img/cortePelo.png"
+              alt="#"
+              class="rounded-full h-24 my-auto mx-4 p-2"
+            />
+          </a>
         </div>
+        <br />
+        <div class="flex flex-col">
+          <ul id="lista-servicios">
+            <li class="inline-flex border-2 hover:bg-slate-300 m-1 rounded-lg">
+              <p class="my-auto mx-6">- Servicio 1</p>
+              <a href=""
+                ><b-icon
+                  class="text-red-700 my-auto mx-2"
+                  type="is-danger"
+                  inverted
+                  pack="mdi"
+                  size="is-small"
+                  icon="delete"
+                ></b-icon
+              ></a>
+            </li>
+            <li class="inline-flex border-2 hover:bg-slate-300 m-1 rounded-lg">
+              <p class="my-auto mx-6">- Servicio 2</p>
+              <a href=""
+                ><b-icon
+                  class="text-red-700 my-auto mx-2"
+                  type="is-danger"
+                  inverted
+                  pack="mdi"
+                  size="is-small"
+                  icon="delete"
+                ></b-icon
+              ></a>
+            </li>
+            <li class="inline-flex border-2 hover:bg-slate-300 m-1 rounded-lg">
+              <p class="my-auto mx-6">- Servicio 3</p>
+              <a href=""
+                ><b-icon
+                  class="text-red-700 my-auto mx-2"
+                  type="is-danger"
+                  inverted
+                  pack="mdi"
+                  size="is-small"
+                  icon="delete"
+                ></b-icon
+              ></a>
+            </li>
+          </ul>
+          <br />
+          <div class="inline-flex">
+            <p class="content" size="is-small">
+              <b>Servicios seleccionados</b>: {{ selectedOptions }}
+            </p>
+            <b-dropdown
+              v-model="selectedOptions"
+              multiple
+              class="m-2"
+              aria-role="list"
+            >
+              <template #trigger>
+                <b-button
+                  type="is-primary"
+                  class="m-2 text-xs"
+                  size="is-small"
+                  icon-right="menu-down"
+                >
+                  Seleccionados: {{ selectedOptions.length }}
+                </b-button>
+              </template>
+
+              <b-dropdown-item value="Servicio 1" aria-role="listitem">
+                <span>Servicio 1</span>
+              </b-dropdown-item>
+
+              <b-dropdown-item value="Servicio 2" aria-role="listitem">
+                <span>Servicio 2</span>
+              </b-dropdown-item>
+
+              <b-dropdown-item value="Servicio 3" aria-role="listitem">
+                <span>Servicio 3</span>
+              </b-dropdown-item>
+            </b-dropdown>
+            <br />
+            <div class="flex inline-flex">
+              <b-button
+                type="is-primary"
+                label=""
+                size="is-small"
+                icon-right="plus"
+                class="m-4"
+              >
+              </b-button>
+            </div>
+            <br />
+            <div class="flex inline-flex m-1">
+              <b-button
+                label=""
+                class="m-1 my-auto -translate-y-4 -translate-x-3"
+                pack="mdi"
+                size="is-small"
+                icon-right="check-bold"
+                type="is-primary"
+              ></b-button>
+            </div>
+          </div>
         </div>
-  </div>
-
-</div>
-
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import { Carousel, Slide } from 'vue-carousel'
 
 export default {
   name: 'DashEmpleados',
+  components: { Carousel, Slide },
   layout: 'default-lay',
+  breakpoints: {
+    // default breakpoints - customize this
+    sm: 450,
+    md: 1250,
+    lg: Infinity,
+  },
 
   // Hay que fetchear la fecha y hora para ponerlos reactivos en el card de turnos pendientes y los anteriores
-
   data() {
     return {
       showEmployeeModal: false,
@@ -201,12 +264,13 @@ export default {
       fullwidth: false,
       right: false,
       url: 'http://localhost:3000',
-      empleados: []
+      empleados: [],
+      window: this.window,
     }
   },
   mounted() {
     this.fetchEmployees()
-    },
+  },
   methods: {
     closeModal() {
       this.$data.showEmployeeModal = false
@@ -214,10 +278,10 @@ export default {
     showModal() {
       this.$data.showEmployeeModal = true
     },
-     fetchEmployees() {
+    fetchEmployees() {
       axios.get(this.url + '/employee').then(this.asignar)
-     },
-      asignar(response) {
+    },
+    asignar(response) {
       console.log(response)
       this.empleados = response.data
       if (response.status === 200) {
@@ -225,13 +289,12 @@ export default {
         this.empleados = response.data
       }
       console.log(this.empleados)
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style>
-
 #main-content {
   margin-left: auto;
   margin-right: auto;
@@ -245,8 +308,7 @@ export default {
   margin-left: 4rem;
   margin-right: 4rem;
   color: black;
-  font-weight:500;
-
+  font-weight: 500;
 }
 
 #footer-item-style {
@@ -261,7 +323,7 @@ export default {
 }
 
 #card-turno-actual {
-  margin: 2rem;
+  margin: 2px;
 }
 
 #root-container {
@@ -269,16 +331,15 @@ export default {
 }
 
 .card {
-  min-width: 15rem;
-  width: 15rem;
   border-radius: 2rem;
+}
+
+#modal-newemployee {
+  padding-right: 24px;
 }
 
 .card-header-title {
   text-align: center;
   justify-content: center;
 }
-
-
-
 </style>

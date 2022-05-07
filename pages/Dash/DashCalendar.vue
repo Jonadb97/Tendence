@@ -1,27 +1,30 @@
 <template>
-  <div id="root-component" class="grid grid-cols-2 m-0 p-0">
+  <div id="root-component" class="">
     <DashNav />
     <div
       id="main-content"
       class="flex flex-col justify-center items-center text-center m-6 p-6"
     >
-    <h1 class="text-white font-bold">Calendario:</h1>
-     <no-ssr>
-      <v-date-picker
-        v-model="selectedDate"
-        class="m-32"
-        is-expanded
-        mode="date"
-        color="purple"
-        show-caps
-        is24hr
-      />
-    </no-ssr>
+      <h1 class="text-white font-bold">Calendario:</h1>
+      <no-ssr>
+        <v-date-picker
+          v-model="selectedDate"
+          class="m-32"
+          is-expanded
+          mode="date"
+          color="purple"
+          show-caps
+          is24hr
+        />
+      </no-ssr>
     </div>
   </div>
 </template>
 
 <script>
+if (process.browser) {
+  require('vue-carousel')
+}
 export default {
   name: 'DashCalendar',
   layout: 'default-lay',
@@ -34,7 +37,8 @@ export default {
       overlay: false,
       fullheight: true,
       fullwidth: false,
-      right: false
+      right: false,
+      selectedDate: '',
     }
   },
 }
@@ -49,8 +53,7 @@ export default {
   margin-left: 4rem;
   margin-right: 4rem;
   color: black;
-  font-weight:500;
-
+  font-weight: 500;
 }
 
 #footer-item-style {
@@ -67,8 +70,6 @@ export default {
 #card-turno-actual {
   margin: 2rem;
 }
-
-
 
 #sidebar {
   z-index: -1;
@@ -88,5 +89,4 @@ export default {
   text-align: center;
   justify-content: center;
 }
-
 </style>

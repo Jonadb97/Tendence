@@ -1,5 +1,5 @@
 <template>
-  <div id="root-component" class="grid grid-cols-2 m-0 p-0">
+  <div id="root-component" class="">
     <DashNav />
     <div
       id="main-content"
@@ -7,13 +7,10 @@
     >
       <h1 class="font-bold text-2xl my-6 text-white">{{ $auth.user }}</h1>
 
-
-
       <!-- Carrousel turnos recientes -->
 
       <h1 class="my-6 font-bold text-xl text-white">Servicios:</h1>
-
-      <ul class="inline-flex">
+      <ul id="servicios-list" class="self-center">
         <li>
           <div id="card-turno-actual" class="card">
             <div class="flex align-content-center items-center">
@@ -30,14 +27,14 @@
 
             <div class="card-content">
               <h2 class="my-1 font-bold">Descripción:</h2>
-              <p id="fecha-turno" class="my-1 text-xs">Shot de keratina directo a las raíces más profundas de tus pelos</p>
+              <p id="fecha-turno" class="my-1 text-xs">
+                Shot de keratina directo a las raíces más profundas de tus pelos
+              </p>
             </div>
-            <b-button type="is-dark" class="m-4 p-4"
-              >Editar</b-button
-            >
+            <b-button type="is-dark" class="m-4 p-4">Editar</b-button>
           </div>
         </li>
-                <li>
+        <li>
           <div id="card-turno-actual" class="card">
             <div class="flex align-content-center items-center">
               <img
@@ -53,14 +50,14 @@
 
             <div class="card-content">
               <h2 class="my-1 font-bold">Descripción:</h2>
-              <p id="fecha-turno" class="my-1 text-xs">Shot de keratina directo a las raíces más profundas de tus pelos</p>
+              <p id="fecha-turno" class="my-1 text-xs">
+                Shot de keratina directo a las raíces más profundas de tus pelos
+              </p>
             </div>
-            <b-button type="is-dark" class="m-4 p-4"
-              >Editar</b-button
-            >
+            <b-button type="is-dark" class="m-4 p-4">Editar</b-button>
           </div>
         </li>
-                <li>
+        <li>
           <div id="card-turno-actual" class="card">
             <div class="flex align-content-center items-center">
               <img
@@ -76,17 +73,16 @@
 
             <div class="card-content">
               <h2 class="my-1 font-bold">Descripción:</h2>
-              <p id="fecha-turno" class="my-1 text-xs">Shot de keratina directo a las raíces más profundas de tus pelos</p>
+              <p id="fecha-turno" class="my-1 text-xs">
+                Shot de keratina directo a las raíces más profundas de tus pelos
+              </p>
             </div>
-            <b-button type="is-dark" class="m-4 p-4"
-              >Editar</b-button
-            >
-            
+            <b-button type="is-dark" class="m-4 p-4">Editar</b-button>
           </div>
         </li>
       </ul>
-              <br>
-        <b-button
+      <br />
+      <b-button
         type="is-success"
         size="is-large"
         pack="mdi"
@@ -95,37 +91,57 @@
         outlined
         class="m-8 p-8 text-lg font-bold"
         v-on:click="showModal()"
-        >
-          Nuevo Servicio
-        </b-button>
-        <br>
-        <!-- Modal Nuevo Servicio -->
-<div v-if="showServiceModal" id="modal-newservice" class="absolute object-center bg-white m-4 p-4 drop-shadow-lg">
-      <b-button
-        label=""
-        class="m-1 left-0 top-0 -translate-x-24"
-        pack="mdi"
-        icon-right="arrow-left-circle"
-        type="is-primary"
-        v-on:click="closeModal()"
-        ></b-button>
-  <div class="inline-flex"><h2 id="nombre-servicio" class="text-black my-auto mx-4"> Servicio 1 </h2></div>
-  <br>
-  <div class="inline-flex"><h2 id="nombre-servicio" class="text-black my-auto mx-4 text-left"> Descripción del servicio:</h2> <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum id minus doloribus quis facilis corporis laboriosam sapiente enim provident impedit molestiae, est porro. Dolorem reprehenderit iusto sequi vitae neque tenetur? </p>  </div>
+      >
+        Nuevo Servicio
+      </b-button>
+      <br />
+      <!-- Modal Nuevo Servicio -->
+      <div
+        v-if="showServiceModal"
+        id="modal-newservice"
+        class="absolute object-center bg-white m-4 p-4 drop-shadow-lg"
+      >
         <b-button
-        label=""
-        class="m-1 py-1 my-auto"
-        pack="mdi"
-        icon-right="check-bold"
-        type="is-primary"
+          label=""
+          class="m-1 left-0 top-0 -translate-x-24"
+          pack="mdi"
+          icon-right="arrow-left-circle"
+          type="is-primary"
+          v-on:click="closeModal()"
         ></b-button>
+        <div class="inline-flex">
+          <h2 id="nombre-servicio" class="text-black my-auto mx-4">
+            Servicio 1
+          </h2>
         </div>
+        <br />
+        <div class="inline-flex">
+          <h2 id="nombre-servicio" class="text-black my-auto mx-4 text-left">
+            Descripción del servicio:
+          </h2>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum id
+            minus doloribus quis facilis corporis laboriosam sapiente enim
+            provident impedit molestiae, est porro. Dolorem reprehenderit iusto
+            sequi vitae neque tenetur?
+          </p>
         </div>
+        <b-button
+          label=""
+          class="m-1 py-1 my-auto"
+          pack="mdi"
+          icon-right="check-bold"
+          type="is-primary"
+        ></b-button>
+      </div>
+    </div>
   </div>
-
 </template>
 
 <script>
+if (process.browser) {
+  require('vue-carousel')
+}
 export default {
   name: 'DashServices',
   layout: 'default-lay',
@@ -139,7 +155,7 @@ export default {
       overlay: false,
       fullheight: true,
       fullwidth: false,
-      right: false
+      right: false,
     }
   },
   methods: {
@@ -148,13 +164,12 @@ export default {
     },
     showModal() {
       this.$data.showServiceModal = true
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style>
-
 .panel-tabs {
   background-color: white;
 }
@@ -163,8 +178,7 @@ export default {
   margin-left: 4rem;
   margin-right: 4rem;
   color: black;
-  font-weight:500;
-
+  font-weight: 500;
 }
 
 #footer-item-style {
@@ -182,12 +196,9 @@ export default {
   margin: 2rem;
 }
 
-
-
 #root-container {
   z-index: 3;
 }
-
 
 .card {
   min-width: 15rem;
@@ -199,8 +210,4 @@ export default {
   text-align: center;
   justify-content: center;
 }
-
-
-
-
 </style>
