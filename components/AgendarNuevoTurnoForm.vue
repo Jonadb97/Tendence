@@ -6,126 +6,134 @@
   >
     <!-- Servicios -->
 
-    <div id="service-main-container" class="flex-col flex">
-      <h1 class="font-bold inline-flex flex-row flex my-2 text-xl text-white">Qué te gustaría hacerte?</h1>
-      <ul id="service-list-container" class="flex flex-row text-white">
+    <h1 class="font-bold inline-flex flex-row flex my-2 text-xl">Que te vas a hacer?</h1>
 
-        <li v-for="service in services" id="service-item" :key="service">
-          <button class="hover:animate-pulse text-black">
-            <div class="p-4 m-4">
-              <img class="w-32 rounded-full mx-auto" :src="url + service.imageroute" />
-              <br />
-              <p
-                class="flex flex-row justify-center font-bold items-center text-center text-lg text-white"
-              >
-                {{ service.servicename }}
-              </p>
-              <p
-                class="flex flex-row justify-center font-bold items-center text-gray-400 text-center text-xs"
-              >
-                {{ service.description }}
-              </p>
-              <p
-                class="flex flex-row justify-center items-center text-center -translatey-6 text-xs text-white"
-              >
-                {{ service.duration }} min.
-              </p>
-            </div>
-          </button>
-        </li>
-        
-      </ul>
-    </div>
+      <div class="h-fit w-9/12">
+      <b-carousel-list v-model="slideSetServices" :data="services" :items-to-show="3">
+          <template #item="service">
+              <div class="p-4 m-4 flex justify-center" >
+                  <button :id="'service-slide-'+service.id" class="bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0 hover: " 
+                  :style="'background-image: url(' +url+ service.imageroute+'); height:20vw; width:15vw;'"
+                  @click="selectService(service.id)"
+                  >
+                    <div class="p-2 absolute bottom-0 left-0 ">
+                      <h5 
+                      class="text-white bm-4 font-bold text-left" 
+                      style="font-size:1.6vw;">{{service.servicename}}
+                      </h5>
+                      <p 
+                      class="far fa-clock text-white text-left"
+                      style="font-size:1.3vw;"
+                      >
+                      {{service.duration}} Minutos
+                      </p>
+                    </div>       
+                  </button>
+                </div>
+          </template>
+      </b-carousel-list>
+      </div>
+
     <br />
 
     <!--  Barberos  -->
     <h1 class="font-bold inline-flex flex-row flex my-2 text-xl">Con quién?</h1>
-    <div class="h-64 w-64">
-      <b-carousel
-        v-model="carousel"
-        :animated="animated"
-        :has-drag="drag"
-        :autoplay="autoPlay"
-        :pause-hover="pauseHover"
-        :pause-info="pauseInfo"
-        :pause-info-type="pauseType"
-        :interval="interval"
-        :repeat="repeat"
-      >
-        <b-carousel-item v-for="(carousel, i) in carousels" :key='i'>
-          <b-image class="rounded-lg image" :src="carousel.image"></b-image>
-          <div class="hero-body has-text-centered absolute">
-            <a
-              ><p
-                class="border mx-auto px-1 translate-x-6 rounded-md text-white -translate-y-24 object-center"
-              >
-                {{ carousel.title }}
-              </p></a
-            >
-          </div>
-        </b-carousel-item>
-      </b-carousel>
-    </div>
 
+    <div class="h-fit w-9/12">
+      <b-carousel-list v-model="slideSetEmployee" :data="employees" :items-to-show="3">
+          <template #item="employee">
+              <div class="p-4 m-4 flex justify-center" >
+                  <button :id="'employee-slide-'+employee.id" class="bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0 hover: " 
+                  :style="'background-image: url(' +url+ employee.imageroute+'); height:20vw; width:15vw;'"
+                  @click="selectEmployee(employee.id)"
+                  >
+                    <div class="p-2 absolute bottom-0 left-0 ">
+                      <h5 
+                      class="text-white bm-4 font-bold text-left" 
+                      style="font-size:1.6vw;">{{employee.name}}
+                      </h5>
+                    </div>
+                  </button>
+                </div>
+          </template>
+      </b-carousel-list>
+      </div>
     <!-- Componentes calendar -->
 
     <br>
-    <h1 class="font-bold inline-flex flex-row flex my-2 text-xl">Para cuando?</h1>
-    <div id="calendar-component">
-    <no-ssr>
-      <v-date-picker
-        v-model="selectedDate"
-        mode="dateTime"
-        :min-date="new Date()"
-        :max-date="new Date().setDate(new Date().getDate() + 7)"
-        :valid-hours="[16, 17, 18, 19, 20]"
-        :minute-increment="60"
-        color="purple"
-        show-caps
-        is24hr
-      />
-    </no-ssr>
-  </div>
-  <br>
-  <div>
-    <h1>Calendar Test</h1>
-    <p> {{ selectedDate }} </p>
-
-  </div>
-
-
-    <!-- Old Calendar
-    <div class="flex-col flex">
-      <h1 class="font-bold flex-row flex my-4">Cuándo?</h1>
-    </div>
-
-    <div class="field">
-      <div class="CalendarCheckBox">
-        <div v-if="HoySeen || !OtroDiaSeen" id="HoyDiv" class="inline-flex">
-          <label class="checkbox">
-            <input id="Hoy" v-model="HoySeen" type="checkbox" />
-            Hoy
-            <HoraComponent />
-          </label>
+    
+      <h1 class="font-bold inline-flex flex-row flex my-2 text-xl">Para cuando?</h1>
+      <no-ssr>
+        <div id="calendar-component w-1/2" >
+          <b-datepicker 
+            v-model="selectedDate" 
+            inline 
+            :unselectable-days-of-week="[0]"
+            :min-date="startDate"
+            :max-date="endDate"
+            @input="getDayAppointments"
+            >
+          </b-datepicker>
         </div>
+      </no-ssr>
+    <br>
 
-        <div v-if="OtroDiaSeen || !HoySeen" id="OtroDiaDiv" class="inline-flex">
-          <label class="checkbox">
-            <input id="OtroDia" v-model="OtroDiaSeen" type="checkbox" />
-            Otro día
-            <CalendarComponent />
-          </label>
-        </div>
-      </div>
-    </div>
+    <h1 class="font-bold inline-flex flex-row flex my-2 text-xl">A que hora?</h1>
+    <section>
+      <b-dropdown
+            v-model="selectedMinutes"
+            :scrollable="isScrollable"
+            :max-height="maxHeight"
+            
+            aria-role="list"
+        >
+            <template #trigger>
+                <b-button
+                    :label="selectedHour"
+                    type="is-light" 
+                    icon-right="menu-down"/>
+            </template>
 
-    -->
+            <b-dropdown-item
+                v-for="(hour) in hours"
+                :key="hour"
+                :value="hour" aria-role="listitem">
+                <div class="media">
+                    <div class="media-content">
+                        <h3>{{hour}}</h3>
+                    </div>
+                </div>
+            </b-dropdown-item>
+      </b-dropdown>
+      
+      <p class="font-bold inline-flex flex-row flex my-2 text-xl">:</p>
 
+      <b-dropdown
+            v-model="selectedMinutes"
+            :scrollable="isScrollable"
+            :max-height="maxHeight"
+            aria-role="list"
+        >
+            <template #trigger>
+                <b-button
+                    :label="selectedMinutes"
+                    type="is-light" 
+                    icon-right="menu-down"/>
+            </template>
 
-
-
-    <!-- Botón agendar turno -->
-
+            <b-dropdown-item
+                v-for="minute in minutes"
+                :key="minute"
+                :value="minute" aria-role="listitem">
+                <div class="media">
+                    <div class="media-content">
+                        <h3>{{minute}}</h3>
+                    </div>
+                </div>
+            </b-dropdown-item>
+        </b-dropdown>
+    </section>
+    
     <div class="flex-row items-center justify-center self-center mx-auto py-4">
       <b-button
         class="flex mx-auto py-2"
@@ -145,39 +153,38 @@
 
 <script>
 import axios from 'axios'
-// import CalendarComponent from './FormComponents/CalendarComponent.vue'
-// import HoraComponent from './FormComponents/HoraComponent.vue'
-
+// import { Carousel, Slide } from 'vue-carousel';
+// import VueSlickCarousel from 'vue-slick-carousel'
+ 
 
 export default {
-  // components: { CalendarComponent, HoraComponent },
-
-  // Habría que fetchear la data y ponerla en esos arrays para mandarla a los componentes
   data() {
     return {
-      maxDate: null,
-      selectedDate: null,
-      empleados: [],
+      allEmployees: [],
+      employees: [],
       services: [],
       url: 'http://localhost:3000',
-      fechaTurno: '',
-      HoySeen: false,
-      OtroDiaSeen: false,
       carousel: 0,
-      animated: 'slide',
-      drag: true,
-      autoPlay: false,
-      pauseHover: false,
-      pauseInfo: false,
-      repeat: false,
-      pauseType: 'is-primary',
-      interval: 3000,
       carousels: [],
+      isScrollable: true,
+      maxHeight: 200,
+      selectedMinutes: "--",
+      selectedHour: "--",
+      hours:[],
+      minutes:[],
+      slideSetEmployee: 0,
+      slideSetServices:0,
+      selectedEmployee:null,
+      selectedService:null,
+      selectedDate: new Date(),
+      startDate: null,
+      endDate: null
     }
   },
   mounted() {
     this.fetchEmployees()
     this.fetchServices()
+    this.fetchDateRange()
   },
   methods: {
     confirm() {
@@ -191,36 +198,62 @@ export default {
       })
     },
     fetchEmployees() {
-      axios.get(this.url + '/employee').then(this.asignar)
-    },
-    asignar(response) {
-      console.log(response)
-      this.empleados = response.data
-      if (response.status === 200) {
-        console.log('aca estoy entrando')
-        this.empleados = response.data
-        this.empleados.forEach((empleado) => {
-          this.carousels.push({
-            title: empleado.name,
-            image: this.url + empleado.imageroute,
-          })
+      axios.get(this.url + '/employee').then((response)=>{ 
+        if(response.status === 200){
+          this.employees = response.data
+          this.allEmployees = response.data
+        }
         })
-      }
-      console.log(this.empleados)
     },
     fetchServices() {
-      axios.get(this.url + '/services').then(this.asignarservices)
+      axios.get(this.url + '/services').then((response)=>{
+        if (response.status === 200){
+          this.services = response.data
+        }
+        
+      })
     },
-    asignarservices(response) {
-      console.log(response)
-      this.services = response.data
-      if (response.status === 200) {
-        console.log('aca estoy entrando')
-        this.services = response.data
+    fetchDateRange() {
+      axios.get(this.url + '/timetable/dateRange').then((response)=>{
+        if (response.status === 200){
+          this.startDate = new Date(response.data.startDate)
+          this.endDate = new Date(response.data.endDate)
+        }
+      })
+    },
+    selectService(id){
+      if(this.selectedService!=null){
+        const previousSlide = document.getElementById("service-slide-"+this.selectedService);
+        previousSlide.style.filter="grayscale(100%)"
+        // para el gradiente= background: linear-gradient(to bottom,#ffffff 80%, #000000);
       }
-      console.log(this.empleados)
+      const slide = document.getElementById("service-slide-"+id);
+      slide.style.filter="grayscale(0)"
+      this.selectedService = id
+      
     },
+    selectEmployee(id){
+      if(this.selectedEmployee!=null){
+        const previousSlide = document.getElementById("employee-slide-"+this.selectedEmployee);
+        previousSlide.style.filter="grayscale(100%)"
+      }
+      const slide = document.getElementById("employee-slide-"+id);
+      slide.style.filter="grayscale(0%)"
+      this.selectedEmployee = id
+    },
+    getDayAppointments(value){
+      axios.get(this.url + '/timetable/freeschedules').then((response)=>{
+        if (response.status === 200){
+          const timetable = response.data.startDate
+          
+          timetable.array.forEach(element => {
+            
+          });
+        }
+      })
+    }
   },
+  
 }
 </script>
 
