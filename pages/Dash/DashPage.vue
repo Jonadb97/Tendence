@@ -55,41 +55,32 @@
 
       <h1 class="my-6 font-bold text-xl text-white">Turnos recientes:</h1>
 
-      <ul class="inline-flex h-64">
-        <carousel>
-          <li v-for="appointment in previousappointments" :key="appointment.id">
-            <slide>
-              <div id="card-turnos-anteriores" class="card">
-                <div class="flex align-content-center items-center">
-                  <img
-                    id="service-img"
-                    class="w-1/2 rounded-full m-2 mx-auto"
-                    :src="url + appointment.service.imageroute"
-                    alt="Pelo"
-                  />
+      <div class="h-fit w-9/12">
+      <b-carousel-list v-model="slideSetPreviousAppointments" :data="previousappointments" :items-to-show="3">
+          <template #item="appointment">
+              <div class="p-4 m-4 flex justify-center" >
+                  <button 
+                  :id="'appointment-slide-'+appointment.id" 
+                  class="bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0 hover: " 
+                  :style="'background-image: url(' +url+ appointment.service.imageroute +'); height:20vw; width:15vw;'"
+                  >
+                    <div class="p-2 absolute bottom-0 left-0 ">
+                      <h5 
+                      class="text-white bm-4 font-bold text-left" 
+                      style="font-size:1.6vw;">{{appointment.service.servicename}}
+                      </h5>
+                      <p 
+                      class="text-white text-left"
+                      style="font-size:1.3vw;"
+                      >
+                      {{appointment.date}}
+                      </p>
+                    </div>       
+                  </button>
                 </div>
-
-                <header class="card-header">
-                  <p class="card-header-title">
-                    {{ appointment.service.servicename }}
-                  </p>
-                </header>
-
-                <div class="card-content">
-                  <h2 class="font-bold my-1">Nombre de empleado:</h2>
-                  <p id="hora-turno" class="my-1">
-                    {{ appointment.employee.name }}
-                  </p>
-                  <h2 class="my-1 font-bold">Fecha:</h2>
-                  <p id="fecha-turno" class="my-1">{{ appointment.date }}</p>
-                  <h2 class="font-bold my-1">Hora:</h2>
-                  <p id="hora-turno" class="my-1">{{ appointment.time }}</p>
-                </div>
-              </div>
-            </slide>
-          </li>
-        </carousel>
-      </ul>
+          </template>
+      </b-carousel-list>
+      </div>
     </div>
   </div>
 </template>
@@ -108,6 +99,7 @@ export default {
 
   data() {
     return {
+      slideSetPreviousAppointments:0,
       open: true,
       overlay: false,
       fullheight: true,
