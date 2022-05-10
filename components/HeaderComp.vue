@@ -6,7 +6,7 @@
       class="inline-flex"
       media="(max-width: 800px)"
     >
-      <NuxtLink to="/" class="inline-flex my-auto mx-1"
+      <NuxtLink to="/" class="inline-flex my-1 mx-1"
         ><div><TendenceLogo id="LOGO" class="flex my-4" /></div>
         <img
           id="BT"
@@ -266,7 +266,7 @@
             </b-menu>
           </div>
         </b-sidebar>
-        <b-button type="is-dark" class="font-extrabold" @click="open = true"
+        <b-button id="nav-button" type="is-dark" class="font-extrabold" @click="open = true"
           >|||</b-button
         >
       </section>
@@ -437,4 +437,9 @@ export default {
   font-weight: bold;
   transform: translateY(-0.01rem);
 }
+
+#nav-button {
+  background-color:rgb(20, 20, 20);
+}
+
 </style>
