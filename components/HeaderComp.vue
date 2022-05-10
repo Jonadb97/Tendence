@@ -38,9 +38,13 @@
             <b-icon icon="clipboard" size="is-small"></b-icon> </NuxtLink
         ></b-button>
         <b-button type="is-dark"
+          ><NuxtLink id="NavLink" to="/Login/ValidacionPage"
+            >Validacion</NuxtLink
+          ></b-button
+        >
+        <b-button type="is-dark"
           ><NuxtLink id="NavLink" to="/">Home</NuxtLink></b-button
         >
-        <!-- <b-button  type="is-dark" @click="showauth()"><NuxtLink id="NavLink" to="/">Test</NuxtLink></b-button> -->
         <b-button v-if="auth.loggedIn" type="is-dark"
           ><NuxtLink
             id="NavLink"
@@ -62,26 +66,70 @@
             >Login</NuxtLink
           ></b-button
         >
-
-        <!--<NuxtLink class="my-auto text-white place-content-end" to="/perfil-page">Perfil</NuxtLink> 
-            <NuxtLink id="NavLink" class="my-auto text-white place-content-end" to="/turnos-page">Turnos</NuxtLink> -->
+        <!-- Admin Dash Nav Bar Check -->
+        <div
+          v-if="showDash"
+          id="admin-nav"
+          class="my-1 flex flex-wrap justify-center text-align-left"
+        >
+          <br class="" />
+          <b-button
+            size="is-small"
+            type="is-dark"
+            inverted
+            class="m-1"
+            icon-left="home"
+            ><NuxtLink to="/Dash/DashPage">Panel Principal</NuxtLink></b-button
+          >
+          <b-button
+            type="is-dark"
+            size="is-small"
+            inverted
+            class="m-1"
+            pack="mdi"
+            icon-left="calendar"
+            ><NuxtLink to="/Dash/DashCalendar">Calendario</NuxtLink></b-button
+          >
+          <b-button
+            size="is-small"
+            type="is-dark"
+            inverted
+            class="m-1"
+            icon-left="account-cash"
+            ><NuxtLink to="/Dash/DashServices"
+              >Gestión de Servicios</NuxtLink
+            ></b-button
+          >
+          <b-button
+            type="is-dark"
+            size="is-small"
+            inverted
+            class="m-1"
+            icon-left="account-group"
+            ><NuxtLink to="/Dash/DashEmpleados"
+              >Gestión de Empleados</NuxtLink
+            ></b-button
+          >
+          <b-button
+            size="is-small"
+            type="is-dark"
+            inverted
+            class="m-1"
+            icon-left="alarm"
+            ><NuxtLink to="/Dash/DashHorarios"
+              >Gestión de Horarios</NuxtLink
+            ></b-button
+          >
+        </div>
       </div>
     </div>
     <!-- Mobile version -->
-    <!--       <div id="HeaderContainerMobile" class="inline-flex" media="(min-width: 800px)">
-            <NuxtLink to="/" class=" inline-flex my-auto mx-1"><div ><TendenceLogo id="LOGO" class="flex my-4"  /></div> <img id="BT" src="../static/svg/BarberTendenceTextWhite.svg" alt="Barber Tendence" class="my-auto py-auto"></NuxtLink>
-            <div id="NavContainer" class="absolute inset-y-8 right-4">
-            <b-button type="is-dark"><NuxtLink id="NavLink" to="/">Home</NuxtLink></b-button>
-            <b-button type="is-dark"><NuxtLink id="NavLink" to="/LoginPage">Login</NuxtLink></b-button>
-            <b-button type="is-dark"><NuxtLink id="NavLink" class="my-auto text-white place-content-end" to="/NuevoTurnoPage">Nuevo Turno</NuxtLink></b-button>
-            </div>
-        </div> -->
     <div id="HeaderContainerMobile">
       <section class="flex flex-row-reverse">
         <b-sidebar
           v-model="open"
           class="flex"
-          type="is-light"
+          type="is-dark"
           :fullheight="fullheight"
           :fullwidth="fullwidth"
           :overlay="overlay"
@@ -133,7 +181,6 @@
                 <b-button type="is-dark"
                   ><NuxtLink id="NavLink" to="/">Home</NuxtLink></b-button
                 >
-                <!-- <b-button  type="is-dark" @click="showauth()"><NuxtLink id="NavLink" to="/">Test</NuxtLink></b-button> -->
                 <b-button v-if="auth.loggedIn" type="is-dark"
                   ><NuxtLink
                     id="NavLink"
@@ -156,6 +203,63 @@
                 <b-button v-else type="is-dark"
                   ><NuxtLink id="NavLink" to="/Login/LoginPage"
                     >Login</NuxtLink
+                  ></b-button
+                >
+                <br class="" />
+                <b-button
+                  v-if="showDash"
+                  size="is-small"
+                  type="is-dark"
+                  inverted
+                  class="m-1"
+                  icon-left="home"
+                  ><NuxtLink to="/Dash/DashPage"
+                    >Panel Principal</NuxtLink
+                  ></b-button
+                >
+                <b-button
+                  v-if="showDash"
+                  type="is-dark"
+                  size="is-small"
+                  inverted
+                  class="m-1"
+                  pack="mdi"
+                  icon-left="calendar"
+                  ><NuxtLink to="/Dash/DashCalendar"
+                    >Calendario</NuxtLink
+                  ></b-button
+                >
+                <b-button
+                  v-if="showDash"
+                  size="is-small"
+                  type="is-dark"
+                  inverted
+                  class="m-1"
+                  icon-left="account-cash"
+                  ><NuxtLink to="/Dash/DashServices"
+                    >Gestión de Servicios</NuxtLink
+                  ></b-button
+                >
+                <b-button
+                  v-if="showDash"
+                  type="is-dark"
+                  size="is-small"
+                  inverted
+                  class="m-1"
+                  icon-left="account-group"
+                  ><NuxtLink to="/Dash/DashEmpleados"
+                    >Gestión de Empleados</NuxtLink
+                  ></b-button
+                >
+                <b-button
+                  v-if="showDash"
+                  size="is-small"
+                  type="is-dark"
+                  inverted
+                  class="m-1"
+                  icon-left="alarm"
+                  ><NuxtLink to="/Dash/DashHorarios"
+                    >Gestión de Horarios</NuxtLink
                   ></b-button
                 >
               </b-menu-list>
@@ -182,13 +286,36 @@ export default {
       auth: this.$auth,
       userName: '',
       userRole: '',
+      currentPath: [],
+      showDash: false,
     }
   },
+  watch: {
+    $route() {
+      console.log('route changed', this.$route.path)
+      this.currentPath = this.$route.path
+      this.watchNavDashAndUpdate()
+      console.log(this.showDash)
+    },
+  },
   mounted() {
+    this.currentPath = this.$route.path
+    console.log(this.currentPath)
     this.$auth.setUser(this.$auth.$storage.getLocalStorage('user'))
     this.$auth.role = this.$auth.$storage.getLocalStorage('role')
   },
+
+  updated() {},
   methods: {
+    watchNavDashAndUpdate() {
+      const string = this.$route.path
+      const substring = '/Dash'
+      if (string.includes(substring)) {
+        this.showDash = true
+      } else {
+        this.showDash = false
+      }
+    },
     confirmLogout() {
       this.$buefy.dialog.confirm({
         message: 'Deseas salir de la sesión?',

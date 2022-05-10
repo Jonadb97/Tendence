@@ -63,6 +63,10 @@ body {
 }
 
 @media screen and (max-width: 600px) {
+  .carousel-slide > button {
+    width: 64px;
+  }
+
   .VueCarousel {
     min-width: 100vw;
     max-width: 100vw;

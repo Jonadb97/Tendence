@@ -55,6 +55,7 @@
             pack="mdi"
             outlined
             icon-right="account-arrow-right"
+            @keyup.enter="login()"
             @click="login()"
           >
             Ingresar
@@ -68,18 +69,6 @@
           </p> <NuxtLink class="text-blue-600 font-bold text-lg" to="/Login/RegistrarPage"
               >acá </NuxtLink>
         </div>
-
-        <b-field label="Prueba de reactividad">
-          <b-input
-            id="why"
-            v-model="why"
-            class="text-white"
-            type="phone"
-            value="000"
-            maxlength="100"
-            rounded
-            expanded
-          ></b-input> </b-field
         ><br />
         <p>{{ why }}</p>
       </div>

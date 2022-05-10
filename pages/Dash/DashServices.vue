@@ -1,6 +1,5 @@
 <template>
   <div id="root-component" class="">
-    <DashNav />
     <div
       id="main-content"
       class="flex flex-col justify-center items-center text-center"
