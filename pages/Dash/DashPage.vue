@@ -50,6 +50,7 @@
 
       <h1 class="my-6 font-bold text-xl text-white">Turnos recientes:</h1>
 
+<<<<<<< HEAD
       <ul class="inline-flex h-64">
         <li v-for="appointment in previousappointments" :key="appointment.id">
           <div id="card-turnos-anteriores" class="card">
@@ -81,6 +82,34 @@
           </div>
         </li>
       </ul>
+=======
+      <div class="h-fit w-9/12">
+      <b-carousel-list v-model="slideSetPreviousAppointments" :data="previousappointments" :items-to-show="3">
+          <template #item="appointment">
+              <div class="p-4 m-4 flex justify-center" >
+                  <button 
+                  :id="'appointment-slide-'+appointment.id" 
+                  class="bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0 hover: " 
+                  :style="'background-image: url(' +url+ appointment.service.imageroute +'); height:20vw; width:15vw;'"
+                  >
+                    <div class="p-2 absolute bottom-0 left-0 ">
+                      <h5 
+                      class="text-white bm-4 font-bold text-left" 
+                      style="font-size:1.6vw;">{{appointment.service.servicename}}
+                      </h5>
+                      <p 
+                      class="text-white text-left"
+                      style="font-size:1.3vw;"
+                      >
+                      {{appointment.date}}
+                      </p>
+                    </div>       
+                  </button>
+                </div>
+          </template>
+      </b-carousel-list>
+      </div>
+>>>>>>> e13affe8dcc4bbeb867bf0114ece8b8bcf87218b
     </div>
   </div>
 </template>
@@ -99,6 +128,7 @@ export default {
 
   data() {
     return {
+      slideSetPreviousAppointments:0,
       open: true,
       overlay: false,
       fullheight: true,
