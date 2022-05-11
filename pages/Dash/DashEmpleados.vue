@@ -93,7 +93,7 @@
                 </b-input>
               </b-field>
 
-              <b-field label="Imagen de perfil" class="h-32 w-32" style="margin-bottom: 5rem;">
+              <b-field label="Imagen de perfil" class="h-32 w-32 mx-auto" style="margin-bottom: 5rem;">
 
                 <b-image
                   :src="require('../../static/img/perfil.png')"
@@ -109,28 +109,28 @@
                 <!-- Servicios agregados y que se pueden borrar -->
                 <p class="content; text-sm" style="translateY(1rem)"><b style="translateY(1rem)">Seleccionados</b> {{ selectedOptions }}</p>
                 <br>
-                <b-dropdown v-model="selectedOptions" multiple aria-role="list" style="transform: translateY(-1.2rem)">
+                <b-dropdown v-model="selectedOptions" multiple aria-role="list" style="transform: translateY(-1.5rem); transform: translateX(-2rem)">
                   <template #trigger>
                   <br>
-                    <b-button type="is-primary" size="is-small" icon-right="menu-down">
+                    <b-button class="mx-auto" type="is-primary" size="is-small" icon-right="menu-down">
                       ({{ selectedOptions.length }})
                     </b-button>
                   </template>
 
-                  <b-dropdown-item value="service1" aria-role="listitem">
+                  <b-dropdown-item value="service1" aria-role="listitem" style="z-index: 100;">
                     <span>Servicio 1</span>
                   </b-dropdown-item>
 
-                  <b-dropdown-item value="service2" aria-role="listitem">
+                  <b-dropdown-item value="service2" aria-role="listitem" style="z-index: 100;">
                     <span>Servicio 2</span>
                   </b-dropdown-item>
 
-                  <b-dropdown-item value="service3" aria-role="listitem">
+                  <b-dropdown-item value="service3" aria-role="listitem" style="z-index: 100;">
                     <span>Servicio 3</span>
                   </b-dropdown-item>
                 </b-dropdown>
               </b-field>
-              <button class="button is-primary">Agregar servicios</button>
+              <button class="button is-primary" style="margin-top: 7rem;">Agregar servicios</button>
               <b-field>
                 <!-- Dropdown de servicios y agregar servicio -->
               </b-field>
