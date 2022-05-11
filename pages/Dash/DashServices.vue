@@ -81,6 +81,69 @@
         </li>
       </ul>
       <br />
+      <section>
+        <b-button
+          type="is-success"
+          size="is-large"
+          pack="mdi"
+          icon-right="plus"
+          icon-left="account-cash"
+          outlined
+          class="button is-primary is-medium m-4"
+          @click="isComponentModalActive = true"
+        >
+          Nuevo servicio
+        </b-button>
+
+        <b-modal
+          :active.sync="isComponentModalActive"
+          has-modal-card
+          type="is-dark"
+        >
+          <form action="">
+            <div class="modal-card" style="width: auto;">
+              <header class="modal-card-head" style="background-color: rgb(46, 46, 46)">
+                <p class="modal-card-title" style="color: white;">Agregar nuevo servicio</p>
+              </header>
+              <section class="modal-card-body" style="background-color: rgb(46, 46, 46)">
+                <b-field label="Nombre del servicio" type="is-dark">
+                  <b-input
+                    type="text; is-dark"
+                    :value="serviceName"
+                    placeholder="Servicio"
+                    required
+                  >
+                  </b-input>
+                </b-field>
+
+                <b-field label="Descripción del servicio" type="is-dark" class="text-black">
+                  <b-input
+                    type="textarea"
+                    maxlength="200"
+                    :value="serviceDescription"
+                    placeholder="Descripción"
+                    required
+                  >
+                  </b-input>
+                </b-field>
+
+              </section>
+              <footer class="modal-card-foot" style="background-color: rgb(46, 46, 46); color: white">
+                <button
+                  
+                  class="button"
+                  type="button; is-dark"
+                  @click="isComponentModalActive = false"
+                >
+                  Volver
+                </button>
+                <button class="button is-primary">Confirmar</button>
+              </footer>
+            </div>
+          </form>
+        </b-modal>
+      </section>
+      <!--
       <b-button
         type="is-success"
         size="is-large"
@@ -94,7 +157,6 @@
         Nuevo Servicio
       </b-button>
       <br />
-      <!-- Modal Nuevo Servicio -->
       <div
         v-if="showServiceModal"
         id="modal-newservice"
@@ -140,15 +202,18 @@
           icon-right="check-bold"
           type="is-primary"
         ></b-button>
-      </div>
+      </div> 
+      -->
     </div>
   </div>
 </template>
 
 <script>
+
 if (process.browser) {
   require('vue-carousel')
 }
+
 export default {
   name: 'DashServices',
   layout: 'default-lay',
@@ -165,15 +230,9 @@ export default {
       right: false,
       serviceName: '',
       serviceDescription: '',
+      isComponentModalActive: false,
+      methods: {},
     }
-  },
-  methods: {
-    closeModal() {
-      this.$data.showServiceModal = false
-    },
-    showModal() {
-      this.$data.showServiceModal = true
-    },
   },
 }
 </script>
@@ -219,4 +278,5 @@ export default {
   text-align: center;
   justify-content: center;
 }
+
 </style>

@@ -1,7 +1,6 @@
 /* eslint-disable vue/v-on-style */
 <template>
   <div id="root-component" class="">
-
     <div
       id="main-content"
       class="flex flex-col justify-center items-center text-center max-w-xl"
@@ -20,7 +19,7 @@
         style="30vw"
       >
         <template #item="employee">
-          <div class="p-4 m-4 flex justify-center" style="width:10vw">
+          <div class="p-4 m-4 flex justify-center" style="width: 10vw">
             <button
               :id="'employee-slide-' + employee.id"
               class="bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0 hover:"
@@ -55,143 +54,103 @@
           icon-left="account-group"
           outlined
           class="m-8 p-8 text-lg font-bold"
-          v-on:click="showModal()"
+          @click="isComponentModalActive = true"
         >
           Nuevo Empleado
         </b-button>
         <br />
       </div>
+
       <!-- Modal Nuevo Empleado -->
-      <div
-        v-if="showEmployeeModal"
-        id="modal-newemployee"
-        class="absolute object-center bg-white m-4 p-4 drop-shadow-lg"
-        style="height:15vw;width:25vw"
+      <b-modal
+        :active.sync="isComponentModalActive"
+        has-modal-card
+        type="is-dark"
       >
-        <b-button
-          label=""
-          size="is-small"
-          class="m-1 left-0 top-0 -translate-x-12"
-          pack="mdi"
-          icon-right="arrow-left-circle"
-          type="is-primary"
-          v-on:click="closeModal()"
-        ></b-button>
-        <div class="inline-flex">
-          <h2 id="nombre-empleado" class="text-black my-auto mx-4">
-            Jorgelito
-          </h2>
-          <a href="#">
-            <img
-              src="../../static/img/cortePelo.png"
-              alt="#"
-              class="rounded-full h-24 my-auto mx-4 p-2"
-            />
-          </a>
-        </div>
-        <br />
-        <div class="flex flex-col">
-          <ul id="lista-servicios">
-            <li class="inline-flex border-2 hover:bg-slate-300 m-1 rounded-lg">
-              <p class="my-auto mx-6 text-black">- Servicio 1</p>
-              <a href=""
-                ><b-icon
-                  class="text-red-700 my-auto mx-2"
-                  type="is-danger"
-                  inverted
-                  pack="mdi"
-                  size="is-small"
-                  icon="delete"
-                ></b-icon
-              ></a>
-            </li>
-            <li class="inline-flex border-2 hover:bg-slate-300 m-1 rounded-lg">
-              <p class="my-auto mx-6 text-black">- Servicio 2</p>
-              <a href=""
-                ><b-icon
-                  class="text-red-700 my-auto mx-2"
-                  type="is-danger"
-                  inverted
-                  pack="mdi"
-                  size="is-small"
-                  icon="delete"
-                ></b-icon
-              ></a>
-            </li>
-            <li class="inline-flex border-2 hover:bg-slate-300 m-1 rounded-lg">
-              <p class="my-auto mx-6 text-black">- Servicio 3</p>
-              <a href=""
-                ><b-icon
-                  class="text-red-700 my-auto mx-2"
-                  type="is-danger"
-                  inverted
-                  pack="mdi"
-                  size="is-small"
-                  icon="delete"
-                ></b-icon
-              ></a>
-            </li>
-          </ul>
-          <br />
-          <div class="inline-flex">
-            <p class="content" size="is-small">
-              <b class="text-black">Servicios seleccionados</b>: {{ selectedOptions }}
-            </p>
-            <b-dropdown
-              v-model="selectedOptions"
-              multiple
-              class="m-2"
-              aria-role="list"
+        <form action="">
+          <div class="modal-card" style="width: 1500">
+            <header
+              class="modal-card-head"
+              style="background-color: rgb(46, 46, 46)"
             >
-              <template #trigger>
-                <b-button
-                  type="is-primary"
-                  class="m-2 text-xs text-black"
-                  size="is-small"
-                  icon-right="menu-down"
+              <p class="modal-card-title" style="color: white">
+                Agregar nuevo empleado
+              </p>
+            </header>
+            <section
+              class="modal-card-body"
+              style="background-color: rgb(46, 46, 46)"
+            >
+              <b-field label="Nombre del empleado" type="is-dark" class="">
+                <b-input
+                  type="text; is-dark"
+                  width="150px"
+                  :value="serviceName"
+                  expanded="false"
+                  placeholder="Nombre"
+                  required
                 >
-                  Seleccionados: {{ selectedOptions.length }}
-                </b-button>
-              </template>
+                </b-input>
+              </b-field>
 
-              <b-dropdown-item value="Servicio 1" aria-role="listitem">
-                <span>Servicio 1</span>
-              </b-dropdown-item>
+              <b-field label="Imagen de perfil" class="h-32 w-32" style="margin-bottom: 5rem;">
 
-              <b-dropdown-item value="Servicio 2" aria-role="listitem">
-                <span>Servicio 2</span>
-              </b-dropdown-item>
+                <b-image
+                  :src="require('../../static/img/perfil.png')"
+                  size="is-small"
+                  style='height:48px'
+                  alt="Profile pic"
+                  ratio="1by1"
+                  :rounded="true"
+                ></b-image>
+              </b-field>
 
-              <b-dropdown-item value="Servicio 3" aria-role="listitem">
-                <span>Servicio 3</span>
-              </b-dropdown-item>
-            </b-dropdown>
-            <br />
-            <div class="flex inline-flex">
-              <b-button
-                type="is-primary"
-                label=""
-                size="is-small"
-                icon-right="plus"
-                class="m-4"
+              <b-field>
+                <!-- Servicios agregados y que se pueden borrar -->
+                <p class="content; text-sm" style="translateY(1rem)"><b style="translateY(1rem)">Seleccionados</b> {{ selectedOptions }}</p>
+                <br>
+                <b-dropdown v-model="selectedOptions" multiple aria-role="list" style="transform: translateY(-1.2rem)">
+                  <template #trigger>
+                  <br>
+                    <b-button type="is-primary" size="is-small" icon-right="menu-down">
+                      ({{ selectedOptions.length }})
+                    </b-button>
+                  </template>
+
+                  <b-dropdown-item value="service1" aria-role="listitem">
+                    <span>Servicio 1</span>
+                  </b-dropdown-item>
+
+                  <b-dropdown-item value="service2" aria-role="listitem">
+                    <span>Servicio 2</span>
+                  </b-dropdown-item>
+
+                  <b-dropdown-item value="service3" aria-role="listitem">
+                    <span>Servicio 3</span>
+                  </b-dropdown-item>
+                </b-dropdown>
+              </b-field>
+              <button class="button is-primary">Agregar servicios</button>
+              <b-field>
+                <!-- Dropdown de servicios y agregar servicio -->
+              </b-field>
+            </section>
+            <footer
+              class="modal-card-foot"
+              style="background-color: rgb(46, 46, 46); color: white"
+            >
+              <button
+                class="button"
+                type="button; is-dark"
+                @click="isComponentModalActive = false"
               >
-              </b-button>
-            </div>
-            <br />
-            <div class="flex inline-flex m-1">
-            <br/>
-              <b-button
-                label=""
-                class="m-1 my-auto -translate-y-4 -translate-x-3"
-                pack="mdi"
-                size="is-small"
-                icon-right="check-bold"
-                type="is-primary"
-              ></b-button>
-            </div>
+                Volver
+              </button>
+              <button class="button is-primary">Confirmar</button>
+            </footer>
           </div>
-        </div>
-      </div>
+        </form>
+      </b-modal>
     </div>
   </div>
 </template>
@@ -226,13 +185,14 @@ export default {
       slideSetServices: 0,
       selectedEmployee: null,
       selectedService: null,
+      isComponentModalActive: false,
     }
   },
   mounted() {
     this.fetchEmployees()
   },
   methods: {
-     selectEmployee(id) {
+    selectEmployee(id) {
       if (this.selectedEmployee != null) {
         const previousSlide = document.getElementById(
           'employee-slide-' + this.selectedEmployee

@@ -136,7 +136,7 @@
           :right="false"
         >
           <div class="p-1">
-            <NuxtLink to="/" class="my-auto"
+            <NuxtLink to="/" class="my-auto" @click="open = false"
               ><div
                 class="flex flex-row justify-center align-center items-center"
               >
@@ -167,29 +167,30 @@
                   type="is-primary"
                   >{{ auth.user }}</b-tag
                 >
-                <b-button v-if="auth.loggedIn" type="is-dark"
+                <b-button v-if="auth.loggedIn" type="is-dark" @click="open = false"
                   ><NuxtLink
                     id="NavLink"
                     class="my-auto text-white place-content-end"
                     to="/Dash/DashPage"
+                    @click="open = false"
                   >
                     <b-icon
                       icon="clipboard"
                       size="is-small"
                     ></b-icon> </NuxtLink
                 ></b-button>
-                <b-button type="is-dark"
+                <b-button type="is-dark" @click="open = false"
                   ><NuxtLink id="NavLink" to="/">Home</NuxtLink></b-button
                 >
-                <b-button v-if="auth.loggedIn" type="is-dark"
-                  ><NuxtLink
+                <b-button v-if="auth.loggedIn" type="is-dark" @click="open = false"
+                  ><NuxtLink 
                     id="NavLink"
                     class="my-auto text-white place-content-end"
                     to="/NuevoTurnoPage"
                     >Nuevo Turno</NuxtLink
                   ></b-button
                 >
-                <b-button v-if="auth.loggedIn" type="is-dark"
+                <b-button v-if="auth.loggedIn" type="is-dark" @click="open = false"
                   ><NuxtLink id="NavLink" to="/TurnosPage"
                     >Mis Turnos</NuxtLink
                   ></b-button
@@ -197,11 +198,11 @@
                 <b-button
                   v-if="auth.loggedIn"
                   type="is-dark"
-                  @click="confirmLogout()"
+                  @click="confirmLogout(), open = false"
                   ><NuxtLink id="NavLink" to="/"> Logout </NuxtLink></b-button
                 >
-                <b-button v-else type="is-dark"
-                  ><NuxtLink id="NavLink" to="/Login/LoginPage"
+                <b-button v-else type="is-dark" @click="open = false"
+                  ><NuxtLink id="NavLink" to="/Login/LoginPage" 
                     >Login</NuxtLink
                   ></b-button
                 >
@@ -213,6 +214,7 @@
                   inverted
                   class="m-1"
                   icon-left="home"
+                  @click="open = false"
                   ><NuxtLink to="/Dash/DashPage"
                     >Panel Principal</NuxtLink
                   ></b-button
@@ -225,6 +227,7 @@
                   class="m-1"
                   pack="mdi"
                   icon-left="calendar"
+                  @click="open = false"
                   ><NuxtLink to="/Dash/DashCalendar"
                     >Calendario</NuxtLink
                   ></b-button
@@ -236,6 +239,7 @@
                   inverted
                   class="m-1"
                   icon-left="account-cash"
+                  @click="open = false"
                   ><NuxtLink to="/Dash/DashServices"
                     >Gestión de Servicios</NuxtLink
                   ></b-button
@@ -247,6 +251,7 @@
                   inverted
                   class="m-1"
                   icon-left="account-group"
+                  @click="open = false"
                   ><NuxtLink to="/Dash/DashEmpleados"
                     >Gestión de Empleados</NuxtLink
                   ></b-button
@@ -258,6 +263,7 @@
                   inverted
                   class="m-1"
                   icon-left="alarm"
+                  @click="open = false"
                   ><NuxtLink to="/Dash/DashHorarios"
                     >Gestión de Horarios</NuxtLink
                   ></b-button
