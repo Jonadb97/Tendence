@@ -37,15 +37,15 @@
           >
             <b-icon icon="clipboard" size="is-small"></b-icon> </NuxtLink
         ></b-button>
-        <b-button type="is-dark"
+        <b-button v-if="userRole == 'admin'" type="is-dark"
           ><NuxtLink id="NavLink" to="/Login/ValidacionPage"
             >Validacion</NuxtLink
           ></b-button
         >
-        <b-button type="is-dark"
+        <b-button v-if="userRole == 'user'" type="is-dark"
           ><NuxtLink id="NavLink" to="/">Home</NuxtLink></b-button
         >
-        <b-button v-if="auth.loggedIn" type="is-dark"
+        <b-button v-if="userRole == 'user'" type="is-dark"
           ><NuxtLink
             id="NavLink"
             class="my-auto text-white place-content-end"
@@ -53,7 +53,7 @@
             >Nuevo Turno</NuxtLink
           ></b-button
         >
-        <b-button v-if="auth.loggedIn" type="is-dark"
+        <b-button v-if="userRole == 'user'" type="is-dark"
           ><NuxtLink id="NavLink" to="/TurnosPage"
             >Mis Turnos</NuxtLink
           ></b-button
@@ -167,7 +167,10 @@
                   type="is-primary"
                   >{{ auth.user }}</b-tag
                 >
-                <b-button v-if="auth.loggedIn" type="is-dark" @click="open = false"
+                <b-button
+                  v-if="userRole == 'admin'"
+                  type="is-dark"
+                  @click="open = false"
                   ><NuxtLink
                     id="NavLink"
                     class="my-auto text-white place-content-end"
@@ -182,15 +185,21 @@
                 <b-button type="is-dark" @click="open = false"
                   ><NuxtLink id="NavLink" to="/">Home</NuxtLink></b-button
                 >
-                <b-button v-if="auth.loggedIn" type="is-dark" @click="open = false"
-                  ><NuxtLink 
+                <b-button
+                  v-if="userRole == 'user'"
+                  type="is-dark"
+                  @click="open = false"
+                  ><NuxtLink
                     id="NavLink"
                     class="my-auto text-white place-content-end"
                     to="/NuevoTurnoPage"
                     >Nuevo Turno</NuxtLink
                   ></b-button
                 >
-                <b-button v-if="auth.loggedIn" type="is-dark" @click="open = false"
+                <b-button
+                  v-if="userRole == 'user'"
+                  type="is-dark"
+                  @click="open = false"
                   ><NuxtLink id="NavLink" to="/TurnosPage"
                     >Mis Turnos</NuxtLink
                   ></b-button
@@ -198,11 +207,11 @@
                 <b-button
                   v-if="auth.loggedIn"
                   type="is-dark"
-                  @click="confirmLogout(), open = false"
+                  @click="confirmLogout(), (open = false)"
                   ><NuxtLink id="NavLink" to="/"> Logout </NuxtLink></b-button
                 >
                 <b-button v-else type="is-dark" @click="open = false"
-                  ><NuxtLink id="NavLink" to="/Login/LoginPage" 
+                  ><NuxtLink id="NavLink" to="/Login/LoginPage"
                     >Login</NuxtLink
                   ></b-button
                 >
@@ -272,7 +281,11 @@
             </b-menu>
           </div>
         </b-sidebar>
-        <b-button id="nav-button" type="is-dark" class="font-extrabold" @click="open = true"
+        <b-button
+          id="nav-button"
+          type="is-dark"
+          class="font-extrabold"
+          @click="open = true"
           >|||</b-button
         >
       </section>
@@ -308,7 +321,7 @@ export default {
     this.currentPath = this.$route.path
     console.log(this.currentPath)
     this.$auth.setUser(this.$auth.$storage.getLocalStorage('user'))
-    this.$auth.role = this.$auth.$storage.getLocalStorage('role')
+    this.userRole = this.$auth.$storage.getLocalStorage('role')
   },
 
   updated() {},
@@ -445,7 +458,6 @@ export default {
 }
 
 #nav-button {
-  background-color:rgb(20, 20, 20);
+  background-color: rgb(20, 20, 20);
 }
-
 </style>

@@ -4,189 +4,346 @@
       id="main-content"
       class="flex flex-col justify-center items-center text-center"
     >
-      <h1 class="font-bold text-2xl my-6 text-white">{{ $auth.user }}</h1>
-
-      <!-- Card turnos para hoy -->
-      <h1
-        class="flex flex-col font-bold text-xl text-white text-center object-center self-center align-center"
-      >
-        Próximos Turnos Hoy:
-      </h1>
-      <br />
-      <div class="grid-card-container">
-        <div class="row">
-          <div class="column">
-            <div class="grid-card">
-              <h2>Card Title</h2>
-              <h2>Cliente</h2>
-              <h2>Barbero</h2>
-              <h2>A las: HH - MM</h2>
-            </div>
-          </div>
-          <div class="column">
-            <div class="grid-card">
-              <h2>Card Title</h2>
-              <h2>Cliente</h2>
-              <h2>Barbero</h2>
-              <h2>A las: HH - MM</h2>
-            </div>
-          </div>
-          <div class="column">
-            <div class="grid-card">
-              <h2>Card Title</h2>
-              <h2>Cliente</h2>
-              <h2>Barbero</h2>
-              <h2>A las: HH - MM</h2>
-            </div>
-          </div>
-          <div class="column">
-            <div class="grid-card">
-              <h2>Card Title</h2>
-              <h2>Cliente</h2>
-              <h2>Barbero</h2>
-              <h2>A las: HH - MM</h2>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="column">
-            <div class="grid-card">
-              <h2>Card Title</h2>
-              <h2>Cliente</h2>
-              <h2>Barbero</h2>
-              <h2>A las: HH - MM</h2>
-            </div>
-          </div>
-          <div class="column">
-            <div class="grid-card">
-              <h2>Card Title</h2>
-              <h2>Cliente</h2>
-              <h2>Barbero</h2>
-              <h2>A las: HH - MM</h2>
-            </div>
-          </div>
-          <div class="column">
-            <div class="grid-card">
-              <h2>Card Title</h2>
-              <h2>Cliente</h2>
-              <h2>Barbero</h2>
-              <h2>A las: HH - MM</h2>
-            </div>
-          </div>
-          <div class="column">
-            <div class="grid-card">
-              <h2>Card Title</h2>
-              <h2>Cliente</h2>
-              <h2>Barbero</h2>
-              <h2>A las: HH - MM</h2>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="column">
-            <div class="grid-card">
-              <h2>Card Title</h2>
-              <h2>Cliente</h2>
-              <h2>Barbero</h2>
-              <h2>A las: HH - MM</h2>
-            </div>
-          </div>
-          <div class="column">
-            <div class="grid-card">
-              <h2>Card Title</h2>
-              <h2>Cliente</h2>
-              <h2>Barbero</h2>
-              <h2>A las: HH - MM</h2>
-            </div>
-          </div>
-          <div class="column">
-            <div class="grid-card">
-              <h2>Card Title</h2>
-              <h2>Cliente</h2>
-              <h2>Barbero</h2>
-              <h2>A las: HH - MM</h2>
-            </div>
-          </div>
-          <div class="column">
-            <div class="grid-card">
-              <h2>Card Title</h2>
-              <h2>Cliente</h2>
-              <h2>Barbero</h2>
-              <h2>A las: HH - MM</h2>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <ul class="inline-flex h-64">
-        <li v-for="appointment in nextappointments" :key="appointment.id">
-          <div id="card-turnos-siguientes" class="card">
-            <div class="flex align-content-center items-center">
-              <img
-                id="service-img"
-                class="w-1/2 rounded-full m-2 mx-auto"
-                :src="url + appointment.service.imageroute"
-                alt="Pelo"
-              />
-            </div>
-
-            <header class="card-header">
-              <p class="card-header-title">
-                {{ appointment.service.servicename }}
-              </p>
-            </header>
-
-            <div class="card-content">
-              <h2 class="font-bold my-1">Nombre de empleado:</h2>
-              <p id="hora-turno" class="my-1">
-                {{ appointment.employee.name }}
-              </p>
-              <h2 class="my-1 font-bold">Fecha:</h2>
-              <p id="fecha-turno" class="my-1">{{ appointment.date }}</p>
-              <h2 class="font-bold my-1">Hora:</h2>
-              <p id="hora-turno" class="my-1">{{ appointment.time }}</p>
-            </div>
-          </div>
-        </li>
-      </ul>
-
-      <!-- Carrousel turnos recientes -->
-
-      <h1 class="my-6 font-bold text-xl text-white">Turnos recientes:</h1>
-
-      <div class="h-fit w-9/12">
-        <b-carousel-list
-          v-model="slideSetPreviousAppointments"
-          :data="previousappointments"
-          :items-to-show="3"
-        >
-          <template #item="appointment">
-            <div class="p-4 m-4 flex justify-center">
-              <button
-                :id="'appointment-slide-' + appointment.id"
-                class="bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0 hover:"
-                :style="
-                  'background-image: url(' +
-                  url +
-                  appointment.service.imageroute +
-                  '); height:20vw; width:15vw;'
-                "
-              >
-                <div class="p-2 absolute bottom-0 left-0">
-                  <h5
-                    class="text-white bm-4 font-bold text-left"
-                    style="font-size: 1.6vw"
-                  >
-                    {{ appointment.service.servicename }}
-                  </h5>
-                  <p class="text-white text-left" style="font-size: 1.3vw">
-                    {{ appointment.date }}
-                  </p>
+    <h1 class="font-bold text-2xl my-2 text-white">{{ $auth.user }}</h1>
+      <div id="tab-bar" class="bg-white w-full" style="margin-bottom: 50%;">
+        <b-tabs id="nav-tab-bar" type="is-small" class="" expanded responsive>
+        
+          <b-tab-item
+            label="Turnos de hoy"
+            pack="mdi"
+            icon="calendar-alert"
+            @click="activeTab = 0"
+          >
+            <div class="grid-card-container">
+              <div class="row">
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Hoy</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
                 </div>
-              </button>
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Hoy</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Hoy</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Hoy</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Hoy</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Hoy</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Hoy</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Hoy</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Hoy</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Hoy</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Hoy</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Hoy</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
+                </div>
+              </div>
             </div>
-          </template>
-        </b-carousel-list>
+          </b-tab-item>
+          <b-tab-item
+            label="Próximos turnos"
+            pack="mdi"
+            icon="calendar-clock"
+            @click="activeTab = 1"
+          >
+            <div class="grid-card-container">
+              <div class="row">
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Prox</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Prox</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Prox</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Prox</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Prox</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Prox</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Prox</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Prox</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Prox</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Prox</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Prox</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Prox</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </b-tab-item>
+          <b-tab-item
+            label="Turnos confirmados"
+            pack="mdi"
+            icon="calendar-multiple-check"
+            @click="activeTab = 2"
+          >
+            <div class="grid-card-container">
+              <div class="row">
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Conf</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Conf</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Conf</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Conf</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Conf</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Conf</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Conf</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Conf</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Conf</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Conf</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Conf</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="grid-card">
+                    <h2>Card Title Conf</h2>
+                    <h2>Cliente</h2>
+                    <h2>Barbero</h2>
+                    <h2>A las: HH - MM</h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </b-tab-item>
+        </b-tabs>
+      </div>
+       
       </div>
     </div>
   </div>
@@ -249,13 +406,11 @@ export default {
 </script>
 
 <style>
-
 .grid-card-container {
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
   color: black;
   font-weight: bold;
-
 }
 
 .grid-card-container {
@@ -264,9 +419,7 @@ export default {
   color: black;
   font-weight: bold;
   cursor: pointer;
-  
 }
-
 
 /* Float four columns side by side */
 .column {
@@ -276,11 +429,13 @@ export default {
 }
 
 /* Remove extra left and right margins, due to padding in columns */
-.row {margin: 1rem -5px;}
+.row {
+  margin: 1rem -5px;
+}
 
 /* Clear floats after the columns */
 .row:after {
-  content: "";
+  content: '';
   display: table;
   clear: both;
 }
@@ -300,6 +455,15 @@ export default {
     width: 100%;
     display: block;
     margin-bottom: 20px;
+  }
+
+  #nav-tab-bar > span {
+    font-size: 10px;
+  }
+
+  .footer {
+    margin-top: auto;
+    display: none;
   }
 }
 
@@ -354,4 +518,16 @@ export default {
   text-align: center;
   justify-content: center;
 }
+
+#tab-bar {
+  height: 42px;
+  border: 1px solid #4444;
+  border-radius: 5px;
+}
 </style>
+<!-- 
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  -->
