@@ -5,34 +5,34 @@
       id="main-content-turnospage"
       class="flex flex-col justify-center items-center text-center"
     >
-      <h1 class="font-bold text-2xl my-6 text-white"> {{ $auth.user }} </h1>
+      <h1 class="font-bold text-2xl my-6 text-white"> {{ $auth.user + " - " + $auth.$storage.getLocalStorage('id')}} </h1>
       <!-- Card turno pendiente actual -->
       <h1 class="font-bold text-xl text-white">Turno pendiente:</h1>
 
-      <div id="card-turno-actual" class="card">
-        <div class="flex align-content-center items-center">
-          <img
-            id="service-img"
-            class="w-1/2 rounded-full m-2 mx-auto"
-            src="../static/img/cortePelo.png"
-            alt="Pelo"
-          />
-        </div>
-        
-        <header class="card-header">
-          <p class="card-header-title">Corte de pelo</p>
-        </header>
-
-        <div class="card-content">
-          <h2 class="my-1 font-bold">Fecha:</h2>
-          <p id="fecha-turno" class="my-1">23-4-2022</p>
-          <h2 class="font-bold my-1">Hora:</h2>
-          <p id="hora-turno" class="my-1">18:00</p>
-        </div>
-
-        <b-button class="m-4 p-4" type="is-dark">
-          Editar
-        </b-button>
+      <div class="h-fit" :style="'width:'+ carouselWidth +'rem;'">
+      <b-carousel-list v-model="slideSetAppointments" :data="appointments" :items-to-show="slidesToShow">
+          <template #item="appointment">
+              <div class="p-4 m-4 flex justify-center" >
+                  <button :id="'service-slide-'+appointment.id" class="bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0 hover: " 
+                  :style="'background-image: url(' +url+ appointment.service.imageroute+'); width:18rem; height:22rem; '"
+                  >
+                    <div class="p-2 absolute bottom-0 left-0 ">
+                      <h5 
+                      class="text-white bm-4 font-bold text-left" 
+                      style="font-size:xx-large;">{{appointment.service.servicename}}
+                      </h5>
+                      <p 
+                      class="far fa-clock text-white text-left"
+                      style="font-size:x-large;"
+                      >
+                      {{appointment.date}} 
+                      {{appointment.time}}
+                      </p>
+                    </div>       
+                  </button>
+                </div>
+          </template>
+      </b-carousel-list>
       </div>
 
       <!-- Botón nuevo turno -->
@@ -52,79 +52,37 @@
 
       <h1 class="my-6 font-bold text-white text-xl">Turnos anteriores:</h1>
 
-      <ul class="inline-flex">
-        <li>
-          <div id="card-turno-actual" class="card">
-            <div class="flex align-content-center items-center drop-shadow-lg">
-              <img
-                id="service-img"
-                class="w-1/2 rounded-full m-2 mx-auto drop-shadow-md"
-                src="../static/img/cortePeloyBarbaConBrillito.png"
-                alt="Pelo"
-              />
-            </div>
-            <header class="card-header">
-              <p class="card-header-title">Shot keratínico</p>
-            </header>
-
-            <div class="card-content">
-              <h2 class="my-1 font-bold">Fecha:</h2>
-              <p id="fecha-turno" class="my-1">12-3-2022</p>
-              <h2 class="font-bold my-1">Hora:</h2>
-              <p id="hora-turno" class="my-1">20:00</p>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div id="card-turno-actual" class="card">
-            <div class="flex align-content-center items-center drop-shadow-lg">
-              <img
-                id="service-img"
-                class="w-1/2 rounded-full m-2 mx-auto drop-shadow-lg"
-                src="../static/img/cortePeloyBarba.png"
-                alt="Pelo"
-              />
-            </div>
-            <header class="card-header">
-              <p class="card-header-title">Corte de pelo y barba</p>
-            </header>
-
-            <div class="card-content">
-              <h2 class="my-1 font-bold">Fecha:</h2>
-              <p id="fecha-turno" class="my-1">10-2-2022</p>
-              <h2 class="font-bold my-1">Hora:</h2>
-              <p id="hora-turno" class="my-1">19:00</p>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div id="card-turno-actual" class="card">
-            <div class="flex align-content-center items-center drop-shadow-lg">
-              <img
-                id="service-img"
-                class="w-1/2 rounded-full m-2 mx-auto drop-shadow-lg"
-                src="../static/img/cortePeloyBarbaConBrillito.png"
-                alt="Pelo"
-              />
-            </div>
-            <header class="card-header">
-              <p class="card-header-title">Shot keratínico</p>
-            </header>
-
-            <div class="card-content">
-              <h2 class="my-1 font-bold">Fecha:</h2>
-              <p id="fecha-turno" class="my-1">16-3-2022</p>
-              <h2 class="font-bold my-1">Hora:</h2>
-              <p id="hora-turno" class="my-1">19:00</p>
-            </div>
-          </div>
-        </li>
-      </ul>
+     <div class="h-fit" :style="'width:'+ carouselWidth +'rem;'">
+      <b-carousel-list v-model="slideSetRecord" :data="record" :items-to-show="slidesToShow">
+          <template #item="appointment">
+              <div class="p-4 m-4 flex justify-center" >
+                  <button :id="'service-slide-'+appointment.id" class="bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0 hover: " 
+                  :style="'background-image: url(' +url+ appointment.service.imageroute+'); width:18rem; height:22rem; '"
+                  >
+                    <div class="p-2 absolute bottom-0 left-0 ">
+                      <h5 
+                      class="text-white bm-4 font-bold text-left" 
+                      style="font-size:xx-large;">{{appointment.service.servicename}}
+                      </h5>
+                      <p 
+                      class="far fa-clock text-white text-left"
+                      style="font-size:x-large;"
+                      >
+                      {{appointment.date}} 
+                      </p>
+                    </div>       
+                  </button>
+                </div>
+          </template>
+      </b-carousel-list>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'TusTurnosPage',
   layout: 'default-lay',
@@ -133,8 +91,58 @@ export default {
 
   data() {
     return {
+      appointments:[],
+      url:'http://localhost:3000',
+      slidesToShow:1,
+      slideSetAppointments:0,
+      slideSetRecord:0,
+      record:[],
+      carouselWidth:60
     }
+
   },
+  mounted(){
+    window.addEventListener('resize', this.onResize)
+    this.onResize()
+    this.getUserAppointments();
+    this.getUserRecord()
+  },
+  methods:{
+    onResize(){
+      const windowWidth = document.documentElement.clientWidth;
+      const rems = windowWidth/16 
+      const posibleSlides = Math.max(Math.trunc((rems*0.80) / 20),1)
+  
+      this.slidesToShow = Math.min(posibleSlides,4)
+      this.carouselWidth = this.slidesToShow*20
+    },
+    getUserAppointments(){
+      axios.get(
+      this.url + '/appointment/' + this.$auth.$storage.getLocalStorage('id'),
+      {
+        headers:{
+          auth: this.$auth.$storage.getLocalStorage('token'),
+        }
+      }).then((response)=>{ 
+      if(response.status === 200){
+        this.appointments =response.data
+      }
+      })
+    },
+    getUserRecord(){
+      axios.get(
+      this.url + '/appointment/record/' + this.$auth.$storage.getLocalStorage('id'),
+      {
+        headers:{
+          auth: this.$auth.$storage.getLocalStorage('token'),
+        }
+      }).then((response)=>{ 
+      if(response.status === 200){
+        this.record =response.data
+      }
+      })
+    }
+  }
 }
 </script>
 
