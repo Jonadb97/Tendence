@@ -29,7 +29,7 @@
           type="is-primary"
           >{{ auth.user }}</b-tag
         >
-        <b-button v-if="auth.loggedIn" type="is-dark"
+        <b-button v-if="userRole == 'admin'" type="is-dark"
           ><NuxtLink
             id="NavLink"
             class="my-auto text-white place-content-end"
@@ -42,7 +42,7 @@
             >Validacion</NuxtLink
           ></b-button
         >
-        <b-button v-if="userRole == 'user'" type="is-dark"
+        <b-button type="is-dark"
           ><NuxtLink id="NavLink" to="/">Home</NuxtLink></b-button
         >
         <b-button v-if="userRole == 'user'" type="is-dark"
@@ -95,7 +95,7 @@
             type="is-dark"
             inverted
             class="m-1"
-            icon-left="account-cash"
+            icon-left="account-details"
             ><NuxtLink to="/Dash/DashServices"
               >Gestión de Servicios</NuxtLink
             ></b-button
@@ -247,7 +247,7 @@
                   type="is-dark"
                   inverted
                   class="m-1"
-                  icon-left="account-cash"
+                  icon-left="account-details"
                   @click="open = false"
                   ><NuxtLink to="/Dash/DashServices"
                     >Gestión de Servicios</NuxtLink

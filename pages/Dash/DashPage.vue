@@ -5,6 +5,9 @@
       class="flex flex-col justify-center items-center text-center"
     >
     <h1 class="font-bold text-2xl my-2 text-white">{{ $auth.user }}</h1>
+      <div id="serach-bar" class="m-2">
+        <b-input pack="mdi" icon-right="magnify" class="m-2"></b-input><b-button pack="mdi" icon-right="account-search" class="m-2" type="is-primary">Barberos</b-button ><b-button class="m-2" type="is-primary" pack="mdi" icon-right="account-details">Servicios</b-button><b-button type="is-info" class="m-2" pack="mdi" icon-left="magnify">Buscar</b-button>
+      </div>
       <div id="tab-bar" class="bg-white w-full" style="margin-bottom: 50%;">
         <b-tabs id="nav-tab-bar" type="is-small" class="" expanded responsive>
         
@@ -523,6 +526,22 @@ export default {
   height: 42px;
   border: 1px solid #4444;
   border-radius: 5px;
+}
+
+@media (max-width: 800px) {
+  #search-bar{
+    display: inline-flex;
+    flex-direction: row;
+  }
+  }
+
+
+@media (min-width: 600px) {
+  #search-bar{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+  }
 }
 </style>
 <!-- 

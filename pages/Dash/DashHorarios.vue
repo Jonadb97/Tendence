@@ -7,13 +7,135 @@
       <h1 class="text-white my-8 font-bold text-lg">Gestión de horarios:</h1>
 
       <!--- Tabla de horarios -->
+      <div id="horarios-tabla" class="m-2 p-2 w-screen">
+        <div id="dias-horarios" class="grid grid-cols-6">
+          <b-tag type="is-primary" class="m-2">Lunes</b-tag
+          ><b-tag type="is-primary" class="m-2">Martes</b-tag
+          ><b-tag type="is-primary" class="m-2">Miércoles</b-tag
+          ><b-tag type="is-primary" class="m-2">Jueves</b-tag
+          ><b-tag type="is-primary" class="m-2">Viernes</b-tag
+          ><b-tag type="is-primary" class="m-2">Sábado</b-tag>
+        </div>
+        <div
+          id="horarios-lista"
+          class="grid grid-cols-6 grid-flow-row w-screen m-2 p-2"
+          style="transform: translateX(-0.8rem)"
+        >
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
 
-      <b-table
-        :data="data"
-        :columns="columns"
-        class="m-24 p-24"
-        size="is-large"
-      ></b-table>
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
+          <b-button type="is-primary is-light" class="m-2" inverted outlined
+            >Inicio: 17:00 Fin: 18:00</b-button
+          >
+        </div>
+      </div>
+      <div class="inline-flex m-4 p-4">
+        <b-input>Hora fin:</b-input>
+        <b-input>Hora fin:</b-input>
+      </div>
     </div>
   </div>
 </template>
@@ -35,70 +157,12 @@ export default {
       fullheight: true,
       fullwidth: false,
       right: false,
-      data: [
-        {
-          Lunes: 'nada',
-          Martes: 'nada',
-          Miércoles: 'nada',
-          Jueves: 'nada',
-          Viernes: 'nada',
-        },
-        {
-          Lunes: 'nada',
-          Martes: 'nada',
-          Miércoles: '3-5-22' + ' ' + '16:00',
-          Jueves: 'nada',
-          Viernes: 'nada',
-        },
-        {
-          Lunes: 'nada',
-          Martes: 'nada',
-          Miércoles: 'nada',
-          Jueves: 'nada',
-          Viernes: 'nada',
-        },
-        {
-          Lunes: '5-5-22' + ' ' + '18:00',
-          Martes: 'nada',
-          Miércoles: 'nada',
-          Jueves: 'nada',
-          Viernes: 'nada',
-        },
-        {
-          Lunes: 'nada',
-          Martes: 'nada',
-          Miércoles: 'nada',
-          Jueves: 'nada',
-          Viernes: 'nada',
-        },
-      ],
-      columns: [
-        {
-          label: 'Lunes',
-          field: 'Lunes',
-          width: '60',
-        },
-        {
-          field: 'Martes',
-          label: 'Martes',
-          width: '60',
-        },
-        {
-          field: 'Miércoles',
-          label: 'Miércoles',
-          width: '60',
-        },
-        {
-          field: 'Jueves',
-          label: 'Jueves',
-          width: '60',
-        },
-        {
-          field: 'Viernes',
-          label: 'Viernes',
-          width: '60',
-        },
-      ],
+      lunes: true,
+      martes: false,
+      miércoles: false,
+      jueves: false,
+      viernes: false,
+      sábado: false,
     }
   },
 }
