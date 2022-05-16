@@ -134,7 +134,9 @@
           <b-tab-item type="is-dark" label="Lunes">
             <!-- Horarios acá  -->
           </b-tab-item>
-          <b-tab-item type="is-dark" label="Martes"></b-tab-item>
+          <b-tab-item type="is-dark" label="Martes">
+            <!-- Horarios acá  -->
+          </b-tab-item>
           <b-tab-item type="is-dark" label="Miércoles">
             <!-- Horarios acá  -->
           </b-tab-item>
@@ -187,6 +189,7 @@
               size="is-small"
               class=""
               inline
+              mobile-native
             ></b-timepicker>
           </b-field>
           <b-field label="Hora de fin">
@@ -195,6 +198,7 @@
               size="is-small"
               class=""
               inline
+              mobile-native
             ></b-timepicker>
           </b-field>
           <b-button
@@ -210,6 +214,7 @@
         </div>
       </div>
     </div>
+    <div class="my-60"></div>
   </div>
 </template>
 
