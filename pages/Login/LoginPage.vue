@@ -124,6 +124,7 @@ export default {
             auth.$storage.setLocalStorage('token', response.data.token)
             auth.$storage.setLocalStorage('user', response.data.username)
             auth.$storage.setLocalStorage('role', response.data.role)
+            auth.$storage.setLocalStorage('id', response.data.id)
             auth.strategy.token.set(response.data.token)
             this.$buefy.toast.open({
               message: 'Has iniciado sesión!',
