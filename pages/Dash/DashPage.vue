@@ -8,12 +8,13 @@
       <div id="serach-bar" class="m-2">
         <b-input pack="mdi" icon-right="magnify" class="m-2"></b-input><b-button pack="mdi" icon-right="account-search" class="m-2" type="is-primary">Barberos</b-button ><b-button class="m-2" type="is-primary" pack="mdi" icon-right="account-details">Servicios</b-button><b-button type="is-info" class="m-2" pack="mdi" icon-left="magnify">Buscar</b-button>
       </div>
-      <div id="tab-bar" class="bg-white w-full" style="margin-bottom: 50%;">
-        <b-tabs id="nav-tab-bar" type="is-small" class="" expanded responsive>
+      <div id="tab-bar" class="bg-white w-screen" style="margin-bottom: 50%;">
+        <b-tabs id="nav-tab-bar" type="is-small" class="w-96 " expanded>
         
           <b-tab-item
             label="Turnos de hoy"
             pack="mdi"
+            size="is-small"
             icon="calendar-alert"
             @click="activeTab = 0"
           >
@@ -125,6 +126,7 @@
           <b-tab-item
             label="Próximos turnos"
             pack="mdi"
+            size="is-small"
             icon="calendar-clock"
             @click="activeTab = 1"
           >
@@ -236,6 +238,7 @@
           <b-tab-item
             label="Turnos confirmados"
             pack="mdi"
+            size="is-small"
             icon="calendar-multiple-check"
             @click="activeTab = 2"
           >
