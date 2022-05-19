@@ -12,37 +12,27 @@
       >
         Empleados:
       </h1>
-      <b-carousel-list
-        v-model="slideSetEmployee"
-        :data="empleados"
-        :items-to-show="3"
-        style="30vw"
-      >
-        <template #item="employee">
-          <div class="p-4 m-4 flex justify-center" style="width: 10vw">
-            <button
-              :id="'employee-slide-' + employee.id"
-              class="bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0 hover:"
-              :style="
-                'background-image: url(' +
-                url +
-                employee.imageroute +
-                '); height:20vw; width:25vw;'
-              "
-              @click="selectEmployee(employee.id)"
-            >
-              <div class="p-2 absolute bottom-0 left-0">
-                <h5
-                  class="text-white bm-4 font-bold text-left"
-                  style="font-size: 1.6vw"
-                >
-                  {{ employee.name }}
-                </h5>
-              </div>
-            </button>
-          </div>
-        </template>
-      </b-carousel-list>
+      <div class="h-fit" :style="'width:'+ carouselEmployeesWidth +'rem;'">
+        <b-carousel-list v-model="slideSetEmployee" :data="employees" :items-to-show="slidesToShowEmployees">
+            <template #item="employee">
+                <div class="p-4 m-4 flex justify-center" >
+                    <button 
+                    :id="'employee-slide-'+employee.id" 
+                    class="bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0 hover: " 
+                    :style="'background-image: url(' +url+ employee.imageroute+'); height:24rem; width:18rem;'"
+                    @click="editEmployee(employee.id)"
+                    >
+                      <div class="p-2 absolute bottom-0 left-0 ">
+                        <h5 
+                        class="text-white bm-4 font-bold text-left" 
+                        style="font-size:xx-large;">{{employee.name}}
+                        </h5>
+                      </div>
+                    </button>
+                  </div>
+            </template>
+        </b-carousel-list>
+      </div>
       <!-- Botón nuevo empleado -->
       <div>
         <br />
@@ -54,7 +44,7 @@
           icon-left="account-group"
           outlined
           class="m-8 p-8 text-lg font-bold"
-          @click="isComponentModalActive = true"
+          @click="showModal"
         >
           Nuevo Empleado
         </b-button>
@@ -67,89 +57,102 @@
         has-modal-card
         type="is-dark"
       >
-        <form action="">
-          <div class="modal-card" style="width: 1500">
-            <header
-              class="modal-card-head"
-              style="background-color: rgb(46, 46, 46)"
-            >
-              <p class="modal-card-title" style="color: white">
-                Agregar nuevo empleado
-              </p>
-            </header>
-            <section
-              class="modal-card-body"
-              style="background-color: rgb(46, 46, 46)"
-            >
-              <b-field label="Nombre del empleado" type="is-dark" class="">
-                <b-input
-                  type="text; is-dark"
-                  width="150px"
-                  :value="serviceName"
-                  expanded="false"
-                  placeholder="Nombre"
-                  required
-                >
-                </b-input>
-              </b-field>
 
-              <b-field label="Imagen de perfil" class="h-32 w-32 mx-auto" style="margin-bottom: 5rem;">
+        <div class="modal-card" style="width: 1500">
+          <header class="modal-card-head" style="background-color: rgb(46, 46, 46)">
+            <p class="modal-card-title" style="color: white"> Agregar nuevo empleado </p>
+          </header>
 
-                <b-image
-                  :src="require('../../static/img/perfil.png')"
-                  size="is-small"
-                  style='height:48px'
-                  alt="Profile pic"
-                  ratio="1by1"
-                  :rounded="true"
-                ></b-image>
-              </b-field>
+          <section class="modal-card-body" style="background-color: rgb(46, 46, 46)">
+            <b-field label="Nombre del barbero" type="is-dark" class="">
+              <b-input
+                type="text; is-dark"
+                width="150px"
+                :value="newEmployeeName"
+                placeholder="Nombre..."
+                required
+                v-model="newEmployeeName"
+              >
+              </b-input>
+            </b-field>
 
-              <b-field>
-                <!-- Servicios agregados y que se pueden borrar -->
-                <p class="content; text-sm" style="translateY(1rem)"><b style="translateY(1rem)">Seleccionados</b> {{ selectedOptions }}</p>
-                <br>
-                <b-dropdown v-model="selectedOptions" multiple aria-role="list" style="transform: translateY(-1.5rem); transform: translateX(-2rem)">
+            <b-field label="Servicios que puede hacer el barbero" type="is-dark" >
+              <!-- Dropdown de servicios y agregar servicio -->
+              <b-dropdown
+                  v-model="newEmployeeServices"
+                  multiple
+                  aria-role="list">
                   <template #trigger>
-                  <br>
-                    <b-button class="mx-auto" type="is-primary" size="is-small" icon-right="menu-down">
-                      ({{ selectedOptions.length }})
-                    </b-button>
+                      <b-button
+                          type="is-primary"
+                          icon-right="menu-down">
+                          Seleccione los servicios
+                      </b-button>
                   </template>
 
-                  <b-dropdown-item value="service1" aria-role="listitem" style="z-index: 100;">
-                    <span>Servicio 1</span>
-                  </b-dropdown-item>
 
-                  <b-dropdown-item value="service2" aria-role="listitem" style="z-index: 100;">
-                    <span>Servicio 2</span>
+                  <b-dropdown-item 
+                  v-for="service in services"
+                  :key="service.id"
+                  :value="service.id" 
+                  aria-role="listitem">
+                      <span>{{service.servicename}}</span>
                   </b-dropdown-item>
+              </b-dropdown>
+            </b-field>
 
-                  <b-dropdown-item value="service3" aria-role="listitem" style="z-index: 100;">
-                    <span>Servicio 3</span>
-                  </b-dropdown-item>
-                </b-dropdown>
-              </b-field>
-              <button class="button is-primary" style="margin-top: 7rem;">Agregar servicios</button>
-              <b-field>
-                <!-- Dropdown de servicios y agregar servicio -->
-              </b-field>
-            </section>
-            <footer
-              class="modal-card-foot"
-              style="background-color: rgb(46, 46, 46); color: white"
-            >
-              <button
-                class="button"
-                type="button; is-dark"
-                @click="isComponentModalActive = false"
+            <b-field>
+              <b-image
+                  v-if="generatedUrl!=undefined"
+                  :src="generatedUrl"
+                  alt="A random image"
+                  ratio="6by4"
+              ></b-image>
+            </b-field>
+
+            <b-field label="Foto de perfil" type="is-dark" >
+              <b-upload 
+              v-model="imageFile" 
+              accept=".jpg,.png"
+              drag-drop expanded
+              required validationMessage="Seleccione un archivo .png o .jpg"
+              @input="imageUploaded"
               >
-                Volver
-              </button>
-              <button class="button is-primary">Confirmar</button>
-            </footer>
-          </div>
-        </form>
+                <section class="section">
+                  <div class="content has-text-centered">
+                    <p>
+                      <b-icon icon="upload" size="is-large"></b-icon>
+                    </p>
+                    <p>Haz clic o arrastra la imagen..</p>
+                  </div>
+                </section>
+              </b-upload>
+            </b-field>
+
+           
+            
+          </section>
+          <footer
+            class="modal-card-foot"
+            style="background-color: rgb(46, 46, 46); color: white"
+          >
+            <button 
+            class="button" 
+            type="button; is-dark" 
+            @click="isComponentModalActive = false">
+              Volver
+            </button>
+            <b-button 
+            v-if="employeeIdToEdit!==undefined"
+            class="button" 
+            type="is-danger" 
+            @click="deleteEmployee">
+            Eliminar barbero
+            </b-button>
+            <button class="button is-primary" @click="confirm">Confirmar</button>
+          </footer>
+        </div>
+
       </b-modal>
     </div>
   </div>
@@ -171,56 +174,107 @@ export default {
   // Hay que fetchear la fecha y hora para ponerlos reactivos en el card de turnos pendientes y los anteriores
   data() {
     return {
-      showEmployeeModal: false,
-      selectedOptions: [],
       open: true,
       overlay: false,
       fullheight: true,
       fullwidth: false,
       right: false,
       url: 'http://localhost:3000',
-      empleados: [],
+      employees: [],
+      services: [],
       window: this.window,
       slideSetEmployee: 0,
-      slideSetServices: 0,
       selectedEmployee: null,
-      selectedService: null,
+      slidesToShowEmployees: 1,
+      carouselEmployeesWidth: 20,
+
       isComponentModalActive: false,
+      imageFile: undefined,
+      generatedUrl: undefined,
+      newEmployeeName: "",
+      newEmployeeServices: [],
+      employeeIdToEdit: undefined,
     }
   },
   mounted() {
+    window.addEventListener('resize', this.onResize)
     this.fetchEmployees()
+    this.fetchServices()
   },
-  methods: {
-    selectEmployee(id) {
-      if (this.selectedEmployee != null) {
-        const previousSlide = document.getElementById(
-          'employee-slide-' + this.selectedEmployee
-        )
-        previousSlide.style.filter = 'grayscale(100%)'
-      }
-      const slide = document.getElementById('employee-slide-' + id)
-      slide.style.filter = 'grayscale(0%)'
-      this.selectedEmployee = id
-    },
-    closeModal() {
-      this.$data.showEmployeeModal = false
+  methods: {    
+    onResize(){
+        const windowWidth = document.documentElement.clientWidth;
+        const rems = windowWidth/16 
+        const posibleSlides = Math.max(Math.trunc((rems*0.80) / 20),1)
+
+        if(this.employees.length>0){
+          this.slidesToShowEmployees = Math.min(posibleSlides,Math.min(4,this.employees.length))
+          this.carouselEmployeesWidth = this.slidesToShowEmployees*20
+        }
     },
     showModal() {
-      this.$data.showEmployeeModal = true
+      this.isComponentModalActive = true
+      this.imageFile = undefined
+      this.generatedUrl = undefined
+      this.newEmployeeName = ""
+      this.newEmployeeServices = []
+      this.employeeIdToEdit = undefined
     },
     fetchEmployees() {
-      axios.get(this.url + '/employee').then(this.asignar)
+      axios.get(this.url + '/employee').then(this.updateEmployees)
     },
-    asignar(response) {
-      console.log(response)
-      this.empleados = response.data
+    updateEmployees(response) {
       if (response.status === 200) {
-        console.log('aca estoy entrando')
-        this.empleados = response.data
+        this.employees = response.data
+        this.onResize()
       }
-      console.log(this.empleados)
     },
+    fetchServices() {
+      axios.get(this.url + '/services').then(this.updateServices)
+    },
+    updateServices(response){
+      if(response.status === 200){
+        this.services = response.data
+      }
+    },
+    imageUploaded(file){
+      this.generatedUrl = URL.createObjectURL(this.imageFile);
+    },
+    editEmployee(id){
+      const employee = this.employees.find((employee)=>{return employee.id === id})
+      this.employeeIdToEdit = id
+      this.newEmployeeName = employee.name
+      this.newEmployeeServices = []
+      employee.services.forEach(service => {
+        this.newEmployeeServices.push(service.id)
+      });
+      this.generatedUrl = this.url + employee.imageroute
+      this.isComponentModalActive = true
+    },
+    confirm(){
+      const auxServices = []
+      this.newEmployeeServices.forEach(service=>{
+        auxServices.push(parseInt(service))
+      })
+      if(this.employeeIdToEdit===undefined){
+        axios.post(this.url + '/employee',{
+        name:this.newEmployeeName,
+        services:auxServices
+        }).then((response)=>{
+          if (response.status === 200){
+            this.$buefy.toast.open({
+                message: 'Empleado Creado',
+                type: 'is-dark'
+              })
+            this.fetchEmployees()
+          }
+          
+        })
+      }
+    },
+    deleteEmployee(){
+      console.log("eliminar")
+    }
   },
 }
 </script>
