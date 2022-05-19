@@ -15,7 +15,9 @@
         <b-carousel-list v-model="slideSetServices" :data="services" :items-to-show="slidesToShowServices">
             <template #item="service">
                 <div class="p-4 m-4 flex justify-center" >
-                    <button :id="'service-slide-'+service.id" class="bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0 hover: " 
+                    <button 
+                    :id="'service-slide-'+service.id" 
+                    class="bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0 hover: " 
                     :style="'background-image: url(' +url+ service.imageroute+'); width:18rem; height:22rem; '"
                     @click="selectService(service.id)"
                     >
@@ -48,7 +50,9 @@
         <b-carousel-list v-model="slideSetEmployee" :data="employees" :items-to-show="slidesToShowEmployees">
             <template #item="employee">
                 <div class="p-4 m-4 flex justify-center" >
-                    <button :id="'employee-slide-'+employee.id" class="bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0 hover: " 
+                    <button 
+                    :id="'employee-slide-'+employee.id" 
+                    class="bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0 hover: " 
                     :style="'background-image: url(' +url+ employee.imageroute+'); height:24rem; width:18rem;'"
                     @click="selectEmployee(employee.id)"
                     >
