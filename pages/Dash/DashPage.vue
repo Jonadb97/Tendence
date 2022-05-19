@@ -73,12 +73,13 @@
             </b-dropdown-item>
         </b-dropdown>
       </div>
-      <div id="tab-bar" class="bg-white w-full" style="margin-bottom: 50%;">
-        <b-tabs id="nav-tab-bar" type="is-small" class="" expanded responsive>
+      <div id="tab-bar" class="bg-white w-screen" style="margin-bottom: 50%;">
+        <b-tabs id="nav-tab-bar" type="is-small" class="w-96 " expanded>
         
           <b-tab-item
             label="Turnos de hoy"
             pack="mdi"
+            size="is-small"
             icon="calendar-alert"
             @click="activeTab = 0"
           >
@@ -100,6 +101,7 @@
           <b-tab-item
             label="Próximos turnos"
             pack="mdi"
+            size="is-small"
             icon="calendar-clock"
             @click="activeTab = 1"
           >
@@ -121,6 +123,7 @@
           <b-tab-item
             label="Turnos confirmados"
             pack="mdi"
+            size="is-small"
             icon="calendar-multiple-check"
             @click="activeTab = 2"
           >
