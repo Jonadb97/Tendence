@@ -6,7 +6,72 @@
     >
     <h1 class="font-bold text-2xl my-2 text-white">{{ $auth.user }}</h1>
       <div id="serach-bar" class="m-2">
-        <b-input pack="mdi" icon-right="magnify" class="m-2"></b-input><b-button pack="mdi" icon-right="account-search" class="m-2" type="is-primary">Barberos</b-button ><b-button class="m-2" type="is-primary" pack="mdi" icon-right="account-details">Servicios</b-button><b-button type="is-info" class="m-2" pack="mdi" icon-left="magnify">Buscar</b-button>
+        <b-input 
+          pack="mdi" 
+          icon-right="magnify" 
+          class="m-2"
+          placeholder="Nombre cliente.."
+          maxlength="25"
+          @input="filterByName"
+        ></b-input>
+        <b-dropdown v-model="selectedEmployee" aria-role="list">
+            <template #trigger="{ active }">
+                <b-button
+                  type="is-primary"
+                  class="m-2"
+                  icon-left="account-search"
+                  :icon-right="active ? 'menu-up' : 'menu-down'"
+                >
+                {{selectedEmployee}}
+                </b-button>
+            </template>
+            <b-dropdown-item 
+              aria-role="listitem" 
+              value="Todos los servicios" 
+              @click="applyFilterEmployees()"
+            >
+              Todos los Barberos
+            </b-dropdown-item>
+
+            <b-dropdown-item 
+            v-for="employee in employees" 
+            :key="employee.id" 
+            aria-role="listitem"
+            :value="employee.name" 
+            @click="applyFilterEmployees(employee.id)"
+            >
+              {{employee.name}}
+            </b-dropdown-item>
+        </b-dropdown>
+        <b-dropdown v-model= "selectedService" aria-role="list">
+            <template #trigger="{ active }">
+                <b-button
+                  type="is-primary"
+                  class="m-2"
+                  icon-left="account-details"
+                  :icon-right="active ? 'menu-up' : 'menu-down'"
+                >
+                {{selectedService}}
+                </b-button>
+            </template>
+            <b-dropdown-item 
+              aria-role="listitem" 
+              value="Todos los servicios" 
+              @click="applyFilterServices()"
+            >
+              Todos los Servicios
+            </b-dropdown-item>
+
+            <b-dropdown-item 
+            v-for="service in services" 
+            :key="service.id" 
+            aria-role="listitem"
+            :value="service.servicename"
+            @click="applyFilterServices(service.id)"
+            >
+              {{service.servicename}}
+            </b-dropdown-item>
+        </b-dropdown>
       </div>
       <div id="tab-bar" class="bg-white w-full" style="margin-bottom: 50%;">
         <b-tabs id="nav-tab-bar" type="is-small" class="" expanded responsive>
@@ -18,106 +83,16 @@
             @click="activeTab = 0"
           >
             <div class="grid-card-container">
-              <div class="row">
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Hoy</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
-                </div>
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Hoy</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
-                </div>
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Hoy</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
-                </div>
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Hoy</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Hoy</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
-                </div>
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Hoy</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
-                </div>
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Hoy</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
-                </div>
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Hoy</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Hoy</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
-                </div>
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Hoy</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
-                </div>
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Hoy</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
-                </div>
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Hoy</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
+              <div  v-for="(row,index) in previousappointments" :key="index" class="row">
+                <div v-for="(appointment) in row" :key="appointment.id" class="column">
+                      <div 
+                      class="grid-card bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 "
+                      >
+                        <h2>{{appointment.service.servicename}}</h2>
+                        <h2>{{appointment.user.username}}</h2>
+                        <h2>{{appointment.employee.name}}</h2>
+                        <h2>{{appointment.time}}</h2>
+                      </div>
                 </div>
               </div>
             </div>
@@ -129,106 +104,16 @@
             @click="activeTab = 1"
           >
             <div class="grid-card-container">
-              <div class="row">
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Prox</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
-                </div>
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Prox</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
-                </div>
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Prox</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
-                </div>
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Prox</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Prox</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
-                </div>
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Prox</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
-                </div>
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Prox</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
-                </div>
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Prox</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Prox</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
-                </div>
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Prox</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
-                </div>
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Prox</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
-                </div>
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Prox</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
+              <div  v-for="(row,index) in nextappointments" :key="index" class="row">
+                <div v-for="(appointment) in row" :key="appointment.id" class="column">
+                      <div 
+                      class="grid-card bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 "
+                      >
+                        <h2>{{appointment.service.servicename}}</h2>
+                        <h2>{{appointment.user.username}}</h2>
+                        <h2>{{appointment.employee.name}}</h2>
+                        <h2>{{appointment.time}}</h2>
+                      </div>
                 </div>
               </div>
             </div>
@@ -240,113 +125,21 @@
             @click="activeTab = 2"
           >
             <div class="grid-card-container">
-              <div class="row">
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Conf</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
-                </div>
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Conf</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
-                </div>
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Conf</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
-                </div>
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Conf</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Conf</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
-                </div>
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Conf</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
-                </div>
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Conf</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
-                </div>
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Conf</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Conf</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
-                </div>
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Conf</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
-                </div>
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Conf</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
-                </div>
-                <div class="column">
-                  <div class="grid-card">
-                    <h2>Card Title Conf</h2>
-                    <h2>Cliente</h2>
-                    <h2>Barbero</h2>
-                    <h2>A las: HH - MM</h2>
-                  </div>
+              <div  v-for="(row,index) in confirmedAppointmentsRows" :key="index" class="row">
+                <div v-for="(appointment) in row" :key="appointment.id" class="column">
+                      <div 
+                      class="grid-card bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 "
+                      >
+                        <h2>{{appointment.service.servicename}}</h2>
+                        <h2>{{appointment.user.username}}</h2>
+                        <h2>{{appointment.employee.name}}</h2>
+                        <h2>{{appointment.endstate}}</h2>
+                      </div>
                 </div>
               </div>
             </div>
           </b-tab-item>
         </b-tabs>
-      </div>
-       
       </div>
     </div>
   </div>
@@ -373,37 +166,130 @@ export default {
       fullwidth: false,
       right: false,
       url: 'http://localhost:3000',
-      dayappointments: [],
-      nextappointments: [],
-      previousappointments: [],
+      unfilteredAppointments:[],  // todos los turnos del día sin filtros
+      dayappointments: [],        // todos los turnos del día con filtros
+      nextappointments: [],       // turnos del día apartir de la hora actual
+      previousappointments: [],   // turnos del día anteriores a la hora actual
+      confirmedAppointments: [],   // turnos del día que ya fueron confirmados
+      confirmedAppointmentsRows: [],
+      employees:[],
+      services:[],
+      selectedService: "Todos los servicios",
+      selectedEmployee: "Todos los barberos",
+
     }
   },
   mounted() {
     this.fetchAppointments()
+    this.fetchConfirmenAppointments()
   },
   methods: {
     fetchAppointments() {
-      axios.get(this.url + '/appointment/dayappointments').then(this.asignar)
+      axios.get(this.url + '/appointment/dayappointments').then(this.updateAppointments)
     },
-    asignar(response) {
-      this.dayappointments = response.data
+    fetchConfirmenAppointments(){
+      axios.get(this.url + '/appointment/dayfinishedappointments').then(this.updateConfirmedAppointments)
+    },
+    updateAppointments(response) {
       if (response.status === 200) {
+        this.unfilteredAppointments = response.data
         this.dayappointments = response.data
-        console.log(response.data)
         this.orderAppointments()
+        this.addEmployeeFilter()
+        this.addServicesFilter()
       }
     },
-    orderAppointments(response) {
-      const fechahoy = new Date()
-      this.dayappointments.forEach((appointment) => {
-        if (fechahoy.toLocaleTimeString() > appointment.time) {
-          this.previousappointments.push(appointment)
-        } else {
-          this.nextappointments.push(appointment)
+    updateConfirmedAppointments(response){
+      if (response.status === 200) {
+        this.confirmedAppointments = response.data
+        this.orderConfirmedAppointments()
+      }
+    },
+    orderConfirmedAppointments(){
+      let row=[]
+      this.confirmedAppointments.forEach(appointment =>{
+        row.push(appointment)
+        if(row.length === 4){
+          this.confirmedAppointmentsRows.push(row)
+          row = []
         }
       })
-      console.log(this.previousappointments, this.nextappointments)
+      if(row.length>0){
+        this.confirmedAppointmentsRows.push(row)
+      }
+    }
+
+    ,
+    orderAppointments() {
+      const fechahoy = new Date()
+      let previousRow=[]
+      let nextRow=[]
+      this.nextappointments=[]
+      this.previousappointments=[]
+
+      this.dayappointments.forEach((appointment) => {
+        if (fechahoy.toLocaleTimeString() > appointment.time) {
+          previousRow.push(appointment)
+          if((previousRow.length)%4===0){
+            this.previousappointments.push(previousRow)
+            previousRow = []
+          }
+        } else {
+          nextRow.push(appointment)
+          if((nextRow.length)%4 === 0){
+            this.nextappointments.push(nextRow)
+            nextRow = []
+          }
+        }
+      })
+      if(previousRow.length>0){
+        this.previousappointments.push(previousRow)
+      }
+      if(nextRow.length>0){
+        this.nextappointments.push(nextRow)
+      }
     },
+    addEmployeeFilter(){
+      const allEmployees=[]
+      this.dayappointments.forEach(appointment=>{
+        const employeeSearch = allEmployees.find(employee=>employee.name === appointment.employee.name)
+        if( employeeSearch === undefined){
+          allEmployees.push(appointment.employee)
+        }
+      })
+      this.employees = [...new Set(allEmployees)]
+    },
+    addServicesFilter(){
+      const allServices=[]
+      this.dayappointments.forEach(appointment=>{
+        const serviceSearch = allServices.find(service=>service.servicename === appointment.service.servicename)
+        if(serviceSearch === undefined){
+          allServices.push(appointment.service)
+        }
+      })
+      this.services = [...new Set(allServices)]
+    },
+    applyFilterServices(id){
+      this.dayappointments = this.unfilteredAppointments
+      if(id!==undefined){
+        this.dayappointments = this.dayappointments.filter(appointment=>{
+          return appointment.service.id === id
+        })
+      }
+      this.orderAppointments()
+    },
+    applyFilterEmployees(id){
+      this.dayappointments = this.unfilteredAppointments
+      if(id!==undefined){
+        this.dayappointments = this.dayappointments.filter(appointment=>{
+          return appointment.employee.id === id
+        })
+      }
+      this.orderAppointments()
+    },
+    filterByName(name){
+      console.log(name)
+    }
   },
 }
 </script>
