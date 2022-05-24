@@ -131,7 +131,6 @@ export default {
           if (response.status === 200) {
             auth.setUser(response.data.username)
             auth.role = response.data.role
-            router.push('/TurnosPage')
             auth.isLogged = true
             auth.$storage.setLocalStorage('token', response.data.token)
             auth.$storage.setLocalStorage('user', response.data.username)
@@ -149,7 +148,8 @@ export default {
           // eslint-disable-next-line no-console
           console.log(error)
         })
-      window.location.reload(true)
+      window.location.reload(true) && router.push('/TurnosPage')
+      
     },
     beforeMount() {
       this.checkIfLogged()

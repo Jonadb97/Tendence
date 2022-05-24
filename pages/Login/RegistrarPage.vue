@@ -163,7 +163,7 @@ export default {
         .then(function (response) {
           console.log(response)
           if (response.status === 200) {
-            router.push('/TurnosPage')
+            router.push('/Login/ValidacionPage')
             console.log(response)
           }
         })
