@@ -27,7 +27,7 @@
             
               v-for="index in 6"
               :key="index"
-              v-model="code[index]" 
+              v-model="code[index-1]" 
               :id="'numInput' + index"
               class="mx-2 text-center w-12"
               size="is-large"
@@ -85,7 +85,7 @@ export default {
   data() {
     return {
       why: '',
-      code: [undefined, undefined, undefined, undefined, undefined, undefined],
+      code: [undefined, undefined, undefined, undefined, undefined,undefined],
       selectedInput: 0,
 
       logindata: {
@@ -97,19 +97,21 @@ export default {
     }
   },
   methods: {
-        focusNext(e) {
+    focusNext(e) {
       document.getElementById('numInput' + Math.min((this.selectedInput + 1), 6)).focus()
-      let fullCode = ''
+      let fullCode = ""
       let codeCompleted = true
       this.code.forEach(
         num => {
-          codeCompleted = codeCompleted && num !== undefined
           if(num !== undefined){
-          fullCode = fullCode + num 
+            fullCode = fullCode + num 
+          }
+          else{
+            codeCompleted = false
           }
         }
       )
-      console.log(this.fullCode)
+      console.log(codeCompleted)
       if(codeCompleted){
         console.log('codigo completado')
       }

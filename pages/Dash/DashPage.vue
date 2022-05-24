@@ -83,6 +83,7 @@
             @click="activeTab = 0"
           >
             <div class="grid-card-container">
+<<<<<<< HEAD
               <div
                 v-for="(row, index) in previousappointments"
                 :key="index"
@@ -107,6 +108,20 @@
                     <h2>{{ appointment.employee.name }}</h2>
                     <h2>{{ appointment.time }}</h2>
                   </div>
+=======
+              <div  v-for="(row,index) in previousappointments" :key="index" class="row">
+                <div v-for="(appointment) in row" :key="appointment.id" class="column">
+                      <div 
+                      class="grid-card bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 "
+                      @click="showModal(appointment)"
+                      >
+                        <h2>{{appointment.service.servicename}}</h2>
+                        <h2>{{appointment.user.username}}</h2>
+                        <h2>{{appointment.employee.name}}</h2>
+                        <h2>{{appointment.time}}</h2>
+
+                      </div>
+>>>>>>> 8cb63681dcb7dd2053df918bfe813aa9075d4d03
                 </div>
               </div>
             </div>
@@ -184,6 +199,74 @@
             </div>
           </b-tab-item>
         </b-tabs>
+
+
+      <section>
+      <b-modal
+        :active.sync="isCardModalActive"
+        has-modal-card
+        type="is-dark"
+      >
+          <div v-if= "modalAppointment!==undefined" class="modal-card" style="width: 1000">
+          <header class="modal-card-head" style="background-color: rgb(46, 46, 46)">
+            <p class="modal-card-title" style="color: white"> {{modalAppointment.service.servicename}} </p>
+          </header>
+
+          <section class="modal-card-body" style="background-color: rgb(46, 46, 46)">
+
+            <b-field>
+              <b-image
+                  :src="url + modalAppointment.service.imageroute"
+                  alt="A random image"
+                  ratio="6by4"
+              ></b-image>
+              <p class="subtitle is-4" style="color: white">Con: {{modalAppointment.employee.name}}
+              Hora: {{modalAppointment.time}}
+              Cliente: {{modalAppointment.user.username}}</p>
+            </b-field> 
+            <b-field>
+                     
+            </b-field>
+            
+            <b-field>
+              <b-dropdown v-model= "modalSelectedOptions" aria-role="list">
+                  <template #trigger="{ active }">
+                      <b-button
+                        type="is-primary"
+                        class="m-2"
+                        value="Elija una opción"
+                        :icon-right="active ? 'menu-up' : 'menu-down'"
+                      >
+                      {{modalSelectedOptions}}
+                      </b-button>
+                  </template>
+
+                  <b-dropdown-item 
+                  v-for="option in modalAppointmentOptions" 
+                  :key="option" 
+                  aria-role="listitem"
+                  :value="option">
+                    {{option}}
+                  </b-dropdown-item>
+              </b-dropdown>
+            </b-field>
+          </section>
+          <footer
+            class="modal-card-foot"
+            style="background-color: rgb(46, 46, 46); color: white"
+          >
+            <button 
+            class="button" 
+            type="button; is-dark" 
+            @click="isCardModalActive = false">
+              Volver
+            </button>
+            <button class="button is-primary" >Confirmar</button>
+          </footer>
+        </div>
+      </b-modal>
+    </section>
+
       </div>
     </div>
   </div>
@@ -216,10 +299,22 @@ export default {
       previousappointments: [], // turnos del día anteriores a la hora actual
       confirmedAppointments: [], // turnos del día que ya fueron confirmados
       confirmedAppointmentsRows: [],
+<<<<<<< HEAD
       employees: [],
       services: [],
       selectedService: 'Todos los servicios',
       selectedEmployee: 'Todos los barberos',
+=======
+      employees:[],
+      services:[],
+      selectedService: "Todos los servicios",
+      selectedEmployee: "Todos los barberos",
+      isCardModalActive:false,
+      modalAppointment: undefined,
+      modalAppointmentOptions: ["No vino", "No vino (Justificado)", "Llego tarde", "Presente"],
+      modalSelectedOptions: "Elija una opción",
+
+>>>>>>> 8cb63681dcb7dd2053df918bfe813aa9075d4d03
     }
   },
   mounted() {
@@ -340,6 +435,13 @@ export default {
     filterByName(name) {
       console.log(name)
     },
+<<<<<<< HEAD
+=======
+    showModal(appointment){
+      this.modalAppointment = appointment
+      this.isCardModalActive = true
+    }
+>>>>>>> 8cb63681dcb7dd2053df918bfe813aa9075d4d03
   },
 }
 </script>
