@@ -8,8 +8,7 @@
       <no-ssr>
         <v-date-picker
           v-model="selectedDate"
-          class="m-32"
-          is-expanded
+          class="m-32 h-96 w-96 text-lg"
           mode="date"
           color="purple"
           show-caps
