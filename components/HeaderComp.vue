@@ -338,6 +338,7 @@ export default {
     confirmLogout() {
       this.$buefy.dialog.confirm({
         message: 'Deseas salir de la sesión?',
+        type: 'is-dark',
         onConfirm: () => this.logOut(),
       })
     },

@@ -22,102 +22,97 @@
           ingresalo aquí abajo para poder continuar
         </p>
         <div class="flex justify-center mx-2 my-4">
-        <b-field>
-          <b-input
-            id="numInput"
-            v-model="number"
-            class="mx-2 text-center"
-            maxlength="1"
-            :has-counter="false"
-            :controls="false"
-            :expanded="false"
-            :size="is-large"
-          ></b-input>
-        </b-field>
-        <b-field>
-          <b-input
-            id="numInput"
-            v-model="number"
-            class="mx-2"
-            maxlength="1"
-            :has-counter="false"
-            :controls="false"
-            :expanded="false"
-            :size="is-large"
-          ></b-input>
-        </b-field>
-        <b-field>
-          <b-input
-            id="numInput"
-            v-model="number"
-            class="mx-2"
-            maxlength="1"
-            :has-counter="false"
-            :controls="false"
-            :expanded="false"
-            :size="is-large"
-          ></b-input>
-        </b-field>
-        <b-field>
-          <b-input
-            id="numInput"
-            v-model="number"
-            class="mx-2"
-            maxlength="1"
-            :has-counter="false"
-            :controls="false"
-            :expanded="false"
-            :size="is-large"
-          ></b-input>
-        </b-field>
-        <b-field>
-          <b-input
-            id="numInput"
-            v-model="number"
-            class="mx-2"
-            maxlength="1"
-            :has-counter="false"
-            :controls="false"
-            :expanded="false"
-            :size="is-large"
-          ></b-input>
-        </b-field>
-        <b-field>
-          <b-input
-            id="numInput"
-            v-model="number"
-            class="mx-2"
-            maxlength="1"
-            :has-counter="false"
-            :controls="false"
-            :expanded="false"
-            :size="is-large"
-          ></b-input>
-        </b-field>
+          <b-field>
+            <b-input
+              id="numInput"
+              v-model="number"
+              class="mx-2 text-center"
+              maxlength="1"
+              :has-counter="false"
+              :controls="false"
+              :expanded="false"
+              size="is-large"
+            ></b-input>
+          </b-field>
+          <b-field>
+            <b-input
+              id="numInput2"
+              v-model="number2"
+              class="mx-2 text-center"
+              maxlength="1"
+              :has-counter="false"
+              :controls="false"
+              :expanded="false"
+              size="is-large"
+            ></b-input>
+          </b-field>
+          <b-field>
+            <b-input
+              id="numInput3"
+              v-model="number3"
+              class="mx-2 text-center"
+              maxlength="1"
+              :has-counter="false"
+              :controls="false"
+              :expanded="false"
+              size="is-large"
+            ></b-input>
+          </b-field>
+          <b-field>
+            <b-input
+              id="numInput4"
+              v-model="number4"
+              class="mx-2 text-center"
+              maxlength="1"
+              :has-counter="false"
+              :controls="false"
+              :expanded="false"
+              size="is-large"
+            ></b-input>
+          </b-field>
+          <b-field>
+            <b-input
+              id="numInput5"
+              v-model="number5"
+              class="mx-2 text-center"
+              maxlength="1"
+              :has-counter="false"
+              :controls="false"
+              :expanded="false"
+              size="is-large"
+            ></b-input>
+          </b-field>
+          <b-field>
+            <b-input
+              id="numInput6"
+              v-model="number6"
+              class="mx-2 text-center"
+              maxlength="1"
+              :has-counter="false"
+              :controls="false"
+              :expanded="false"
+              size="is-large"
+            ></b-input>
+          </b-field>
         </div>
         <div class="flex justify-center mx-2 my-4">
-        <b-button
+          <b-button
             label="Cambiar número"
             type="is-primary"
             class="m-2 p-2"
             pack="mdi"
             icon-right="cellphone"
-
-            
           >
           </b-button>
-              <b-button
+          <b-button
             label="Reenviar"
             type="is-primary"
             class="m-2 p-2"
             pack="mdi"
             icon-right="email-send-outline"
-            
-            
           >
           </b-button>
         </div>
-
       </div>
     </div>
   </div>
@@ -144,6 +139,12 @@ export default {
   data() {
     return {
       why: '',
+      number: '',
+      number2: '',
+      number3: '',
+      number4: '',
+      number5: '',
+      number6: '',
       logindata: {
         codArea: '',
         numTel: '',
