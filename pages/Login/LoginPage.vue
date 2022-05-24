@@ -18,6 +18,7 @@
             maxlength="4"
             rounded
             expanded
+            @keyup.enter="login"
           ></b-input>
           <p class="my-auto mx-2 text-white">15</p>
           <b-input
@@ -55,7 +56,6 @@
             pack="mdi"
             outlined
             icon-right="account-arrow-right"
-            @keyup.enter="login()"
             @click="login()"
           >
             Ingresar
@@ -64,12 +64,14 @@
 
         <!--No tienes cuenta? Registrar-->
         <div class="flex-row text-center mx-auto py-4">
-          <p>
-            No tenés cuenta? Registrate
-          </p> <NuxtLink class="text-blue-600 font-bold text-lg" to="/Login/RegistrarPage"
-              >acá </NuxtLink>
+          <p>No tenés cuenta? Registrate</p>
+          <NuxtLink
+            class="text-blue-600 font-bold text-lg"
+            to="/Login/RegistrarPage"
+            >acá
+          </NuxtLink>
         </div>
-        ><br />
+        <br />
         <p>{{ why }}</p>
       </div>
     </div>
@@ -105,13 +107,23 @@ export default {
       },
     }
   },
+  watch: {},
+  mounted() {
+    window.addEventListener('keypress', this.checkIfEnter)
+  },
   methods: {
+    checkIfEnter() {
+      if (event.keyCode === 13) {
+        this.login()
+      }
+    },
     login() {
       const router = window.$nuxt.$router
       const auth = this.$auth
       const body = {
-          phonenumber: this.$data.logindata.codArea + '' + this.$data.logindata.numTel,
-          password: this.$data.logindata.inputPassword,
+        phonenumber:
+          this.$data.logindata.codArea + '' + this.$data.logindata.numTel,
+        password: this.$data.logindata.inputPassword,
       }
       axios
         .post(this.$data.logindata.url + '/auth/login', body)
@@ -128,7 +140,7 @@ export default {
             auth.strategy.token.set(response.data.token)
             this.$buefy.toast.open({
               message: 'Has iniciado sesión!',
-              type: 'is-dark'
+              type: 'is-dark',
             })
             console.log(response)
           }
@@ -137,6 +149,7 @@ export default {
           // eslint-disable-next-line no-console
           console.log(error)
         })
+      window.location.reload(true)
     },
     beforeMount() {
       this.checkIfLogged()
@@ -146,7 +159,8 @@ export default {
 </script>
 
 <style>
-body, html {
+body,
+html {
   color: white;
 }
 

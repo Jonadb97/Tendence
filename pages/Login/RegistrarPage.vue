@@ -60,12 +60,7 @@
           </b-input>
         </b-field>
         <b-field label="Confirmar Contraseña">
-          <b-input
-            type="password"
-            password-reveal
-            min-length="8"
-            rounded
-          >
+          <b-input type="password" password-reveal min-length="8" rounded>
           </b-input>
         </b-field>
 
@@ -117,12 +112,12 @@
 // 291 4448626 - 7 carácteres
 
 <script>
-import axios from "axios"
-import TendenceLogo from "~/components/TendenceLogo.vue";
+import axios from 'axios'
+import TendenceLogo from '~/components/TendenceLogo.vue'
 export default {
-    name: "RegisterPage",
-    components: { TendenceLogo },
-    layout: "default-lay",
+  name: 'RegisterPage',
+  components: { TendenceLogo },
+  layout: 'default-lay',
   data() {
     return {
       why: '',
@@ -133,10 +128,18 @@ export default {
         numTel: '',
         inputPassword: '',
         url: 'http://localhost:3000',
-      }
+      },
     }
   },
+  mounted() {
+    window.addEventListener('keypress', this.checkIfEnter)
+  },
   methods: {
+    checkIfEnter() {
+      if (event.keyCode === 13) {
+        this.login()
+      }
+    },
     login() {
       const body = {
         username: this.$data.logindata.userName,
@@ -148,31 +151,29 @@ export default {
       console.log(body)
       const router = window.$nuxt.$router
       const headers = {
-            key: "",
-						value: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsInVzZXJuYW1lIjoidXNlciIsImlhdCI6MTY0NzU1NDU3NH0.s77rXwrbvaTYVtAf-iOT0eH7PEWTKjgj9x6AxsjtRTo",
-						type: "text"
-
+        key: '',
+        value:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsInVzZXJuYW1lIjoidXNlciIsImlhdCI6MTY0NzU1NDU3NH0.s77rXwrbvaTYVtAf-iOT0eH7PEWTKjgj9x6AxsjtRTo',
+        type: 'text',
       }
 
       axios
-      
+
         .post('http://localhost:3000' + '/users', body, headers)
         .then(function (response) {
           console.log(response)
-          if(response.status === 200) {
-
+          if (response.status === 200) {
             router.push('/TurnosPage')
             console.log(response)
           }
-
-        }).catch((error) => {
+        })
+        .catch((error) => {
           // eslint-disable-next-line no-console
           console.log(error)
         })
       console.log(this.url)
     },
-
-  }
+  },
 }
 </script>
 

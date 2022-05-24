@@ -22,102 +22,43 @@
           ingresalo aquí abajo para poder continuar
         </p>
         <div class="flex justify-center mx-2 my-4">
-        <b-field>
-          <b-input
-            id="numInput"
-            v-model="number"
-            class="mx-2 text-center"
-            maxlength="1"
-            :has-counter="false"
-            :controls="false"
-            :expanded="false"
-            :size="is-large"
-          ></b-input>
-        </b-field>
-        <b-field>
-          <b-input
-            id="numInput"
-            v-model="number"
-            class="mx-2"
-            maxlength="1"
-            :has-counter="false"
-            :controls="false"
-            :expanded="false"
-            :size="is-large"
-          ></b-input>
-        </b-field>
-        <b-field>
-          <b-input
-            id="numInput"
-            v-model="number"
-            class="mx-2"
-            maxlength="1"
-            :has-counter="false"
-            :controls="false"
-            :expanded="false"
-            :size="is-large"
-          ></b-input>
-        </b-field>
-        <b-field>
-          <b-input
-            id="numInput"
-            v-model="number"
-            class="mx-2"
-            maxlength="1"
-            :has-counter="false"
-            :controls="false"
-            :expanded="false"
-            :size="is-large"
-          ></b-input>
-        </b-field>
-        <b-field>
-          <b-input
-            id="numInput"
-            v-model="number"
-            class="mx-2"
-            maxlength="1"
-            :has-counter="false"
-            :controls="false"
-            :expanded="false"
-            :size="is-large"
-          ></b-input>
-        </b-field>
-        <b-field>
-          <b-input
-            id="numInput"
-            v-model="number"
-            class="mx-2"
-            maxlength="1"
-            :has-counter="false"
-            :controls="false"
-            :expanded="false"
-            :size="is-large"
-          ></b-input>
-        </b-field>
+          <b-field>
+            <b-input 
+            
+              v-for="index in 6"
+              :key="index"
+              v-model="code[index]" 
+              :id="'numInput' + index"
+              class="mx-2 text-center w-12"
+              size="is-large"
+              type="text"
+              maxlength="1"
+              :controls="false"
+              :has-counter="false"
+              :expanded="false"
+              @input="focusNext"
+              @focus="selectedInput=index"
+            ></b-input>
+          </b-field>
         </div>
         <div class="flex justify-center mx-2 my-4">
-        <b-button
+          <b-button
             label="Cambiar número"
             type="is-primary"
             class="m-2 p-2"
             pack="mdi"
             icon-right="cellphone"
-
-            
           >
           </b-button>
-              <b-button
+          <b-button
             label="Reenviar"
             type="is-primary"
             class="m-2 p-2"
             pack="mdi"
             icon-right="email-send-outline"
-            
-            
           >
           </b-button>
         </div>
-
       </div>
     </div>
   </div>
@@ -144,6 +85,9 @@ export default {
   data() {
     return {
       why: '',
+      code: [undefined, undefined, undefined, undefined, undefined, undefined],
+      selectedInput: 0,
+
       logindata: {
         codArea: '',
         numTel: '',
@@ -152,7 +96,25 @@ export default {
       },
     }
   },
-  methods: {},
+  methods: {
+        focusNext(e) {
+      document.getElementById('numInput' + Math.min((this.selectedInput + 1), 6)).focus()
+      let fullCode = ''
+      let codeCompleted = true
+      this.code.forEach(
+        num => {
+          codeCompleted = codeCompleted && num !== undefined
+          if(num !== undefined){
+          fullCode = fullCode + num 
+          }
+        }
+      )
+      console.log(this.fullCode)
+      if(codeCompleted){
+        console.log('codigo completado')
+      }
+    }
+  },
 }
 </script>
 

@@ -9,77 +9,38 @@
       <!-- Carrousel turnos recientes -->
 
       <h1 class="my-6 font-bold text-xl text-white">Servicios:</h1>
-      <ul id="servicios-list" class="self-center">
-        <li>
-          <div id="card-turno-actual" class="card">
-            <div class="flex align-content-center items-center">
-              <img
-                id="service-img"
-                class="w-1/2 rounded-full m-2 mx-auto"
-                src="../../static/img/cortePeloyBarbaConBrillito.png"
-                alt="Pelo"
-              />
+      <div class="h-fit" :style="'width:' + carouselServicesWidth + 'rem;'">
+        <b-carousel-list
+          v-model="slideSetServices"
+          :data="services"
+          :items-to-show="slidesToShowServices"
+        >
+          <template #item="service">
+            <div class="p-4 m-4 flex justify-center">
+              <button
+                :id="'service-slide-' + service.id"
+                class="bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0 hover:"
+                :style="
+                  'background-image: url(' +
+                  url +
+                  service.imageroute +
+                  '); height:24rem; width:18rem;'
+                "
+                @click="editService(service.id)"
+              >
+                <div class="p-2 absolute bottom-0 left-0">
+                  <h5
+                    class="text-white bm-4 font-bold text-left"
+                    style="font-size: xx-large"
+                  >
+                    {{ service.servicename }}
+                  </h5>
+                </div>
+              </button>
             </div>
-            <header class="card-header">
-              <p class="card-header-title">Shot keratínico</p>
-            </header>
-
-            <div class="card-content">
-              <h2 class="my-1 font-bold">Descripción:</h2>
-              <p id="fecha-turno" class="my-1 text-xs">
-                Shot de keratina directo a las raíces más profundas de tus pelos
-              </p>
-            </div>
-            <b-button type="is-dark" class="m-4 p-4">Editar</b-button>
-          </div>
-        </li>
-        <li>
-          <div id="card-turno-actual" class="card">
-            <div class="flex align-content-center items-center">
-              <img
-                id="service-img"
-                class="w-1/2 rounded-full m-2 mx-auto"
-                src="../../static/img/cortePeloyBarbaConBrillito.png"
-                alt="Pelo"
-              />
-            </div>
-            <header class="card-header">
-              <p class="card-header-title">Shot keratínico</p>
-            </header>
-
-            <div class="card-content">
-              <h2 class="my-1 font-bold">Descripción:</h2>
-              <p id="fecha-turno" class="my-1 text-xs">
-                Shot de keratina directo a las raíces más profundas de tus pelos
-              </p>
-            </div>
-            <b-button type="is-dark" class="m-4 p-4">Editar</b-button>
-          </div>
-        </li>
-        <li>
-          <div id="card-turno-actual" class="card">
-            <div class="flex align-content-center items-center">
-              <img
-                id="service-img"
-                class="w-1/2 rounded-full m-2 mx-auto"
-                src="../../static/img/cortePeloyBarbaConBrillito.png"
-                alt="Pelo"
-              />
-            </div>
-            <header class="card-header">
-              <p class="card-header-title">Shot keratínico</p>
-            </header>
-
-            <div class="card-content">
-              <h2 class="my-1 font-bold">Descripción:</h2>
-              <p id="fecha-turno" class="my-1 text-xs">
-                Shot de keratina directo a las raíces más profundas de tus pelos
-              </p>
-            </div>
-            <b-button type="is-dark" class="m-4 p-4">Editar</b-button>
-          </div>
-        </li>
-      </ul>
+          </template>
+        </b-carousel-list>
+      </div>
       <br />
       <section>
         <b-button
@@ -101,11 +62,19 @@
           type="is-dark"
         >
           <form action="">
-            <div class="modal-card" style="width: auto;">
-              <header class="modal-card-head" style="background-color: rgb(46, 46, 46)">
-                <p class="modal-card-title" style="color: white;">Agregar nuevo servicio</p>
+            <div class="modal-card" style="width: auto">
+              <header
+                class="modal-card-head"
+                style="background-color: rgb(46, 46, 46)"
+              >
+                <p class="modal-card-title" style="color: white">
+                  Agregar nuevo servicio
+                </p>
               </header>
-              <section class="modal-card-body" style="background-color: rgb(46, 46, 46)">
+              <section
+                class="modal-card-body"
+                style="background-color: rgb(46, 46, 46)"
+              >
                 <b-field label="Nombre del servicio" type="is-dark">
                   <b-input
                     type="text; is-dark"
@@ -116,7 +85,11 @@
                   </b-input>
                 </b-field>
 
-                <b-field label="Descripción del servicio" type="is-dark" class="text-black">
+                <b-field
+                  label="Descripción del servicio"
+                  type="is-dark"
+                  class="text-black"
+                >
                   <b-input
                     type="textarea"
                     maxlength="200"
@@ -126,11 +99,12 @@
                   >
                   </b-input>
                 </b-field>
-
               </section>
-              <footer class="modal-card-foot" style="background-color: rgb(46, 46, 46); color: white">
+              <footer
+                class="modal-card-foot"
+                style="background-color: rgb(46, 46, 46); color: white"
+              >
                 <button
-                  
                   class="button"
                   type="button; is-dark"
                   @click="isComponentModalActive = false"
@@ -209,6 +183,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 
 if (process.browser) {
   require('vue-carousel')
@@ -228,11 +203,98 @@ export default {
       fullheight: true,
       fullwidth: false,
       right: false,
+      url: 'http://localhost:3000',
+      employees: [],
+      services: [],
+      window: this.window,
+      slideSetServices: 0,
+      selectedService: null,
+      slidesToShowServices: 1,
+      carouselServicesWidth: 20,
       serviceName: '',
       serviceDescription: '',
       isComponentModalActive: false,
-      methods: {},
+      imageFile: undefined,
+      generatedUrl: undefined,
+      newServiceName: '',
+      newServiceServices: [],
+      serviceIdToEdit: undefined,
     }
+  },
+  mounted() {
+    this.fetchServices()
+  },
+  methods: {
+    fetchServices() {
+      axios.get(this.url + '/services').then(this.updateServices)
+    },
+    updateServices(response) {
+      if (response.status === 200) {
+        this.services = response.data
+        console.log(response.data)
+      }
+    },
+    onResize() {
+      const windowWidth = document.documentElement.clientWidth
+      const rems = windowWidth / 16
+      const posibleSlides = Math.max(Math.trunc((rems * 0.8) / 20), 1)
+
+      if (this.services.length > 0) {
+        this.slidesToShowServices = Math.min(
+          posibleSlides,
+          Math.min(4, this.services.length)
+        )
+        this.carouselServicesWidth = this.slidesToShowServices * 20
+      }
+    },
+    showModal() {
+      this.isComponentModalActive = true
+      this.imageFile = undefined
+      this.generatedUrl = undefined
+      this.newServiceName = ''
+      this.newServiceServices = []
+      this.serviceIdToEdit = undefined
+    },
+    imageUploaded(file) {
+      this.generatedUrl = URL.createObjectURL(this.imageFile)
+    },
+    editService(id) {
+      const service = this.services.find((service) => {
+        return service.id === id
+      })
+      this.serviceIdToEdit = id
+      this.newServicesName = service.name
+      service.services.forEach((service) => {
+        this.newServicesServices.push(service.id)
+      })
+      this.generatedUrl = this.url + service.imageroute
+      this.isComponentModalActive = true
+    },
+    confirm() {
+      const auxServices = []
+      this.newServiceServices.forEach((service) => {
+        auxServices.push(parseInt(service))
+      })
+      if (this.serviceIdToEdit === undefined) {
+        axios
+          .post(this.url + '/employee', {
+            name: this.newServiceName,
+            services: auxServices,
+          })
+          .then((response) => {
+            if (response.status === 200) {
+              this.$buefy.toast.open({
+                message: 'Empleado Creado',
+                type: 'is-dark',
+              })
+              this.fetchServices()
+            }
+          })
+      }
+    },
+    deleteService() {
+      console.log('eliminar')
+    },
   },
 }
 </script>
@@ -278,5 +340,4 @@ export default {
   text-align: center;
   justify-content: center;
 }
-
 </style>

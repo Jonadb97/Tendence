@@ -37,6 +37,10 @@ body {
   height: 100%;
 }
 
+.media-content {
+  color: black;
+}
+
 .label {
   color: white;
 }
