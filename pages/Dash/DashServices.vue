@@ -26,7 +26,6 @@
                   service.imageroute +
                   '); height:24rem; width:18rem;'
                 "
-                @click="editService(service.id)"
               >
                 <div class="p-2 absolute bottom-0 left-0">
                   <h5
@@ -117,67 +116,6 @@
           </form>
         </b-modal>
       </section>
-      <!--
-      <b-button
-        type="is-success"
-        size="is-large"
-        pack="mdi"
-        icon-right="plus"
-        icon-left="account-cash"
-        outlined
-        class="m-8 p-8 text-lg font-bold"
-        v-on:click="showModal()"
-      >
-        Nuevo Servicio
-      </b-button>
-      <br />
-      <div
-        v-if="showServiceModal"
-        id="modal-newservice"
-        class="absolute flex object-center bg-white m-4 p-4 drop-shadow-lg"
-      >
-        <b-button
-          label=""
-          class="m-1 left-0 top-0"
-          pack="mdi"
-          icon-right="arrow-left-circle"
-          type="is-primary"
-          v-on:click="closeModal()"
-        ></b-button>
-        <div class="justify-center">
-          <h2 id="nombre-servicio" class="text-black my-auto mx-4">
-            <b-field
-              label="Nombre del servicio"
-              class="color-black"
-              icon-left="account"
-            >
-              <b-input
-                v-model="serviceName"
-                placeholder="Nombre del servicio"
-              ></b-input>
-            </b-field>
-          </h2>
-        </div>
-        <br />
-        <div class="justify-center">
-          <b-field label="Descripción del servicio">
-            <b-input
-              v-model="serviceDescription"
-              placeholder="Descripción del servicio"
-              maxlength="200"
-              type="textarea"
-            ></b-input>
-          </b-field>
-        </div>
-        <b-button
-          label=""
-          class="mx-2 m-1 py-1 my-auto"
-          pack="mdi"
-          icon-right="check-bold"
-          type="is-primary"
-        ></b-button>
-      </div> 
-      -->
     </div>
   </div>
 </template>
@@ -223,6 +161,7 @@ export default {
   },
   mounted() {
     this.fetchServices()
+    window.addEventListener('resize', this.onResize)
   },
   methods: {
     fetchServices() {
@@ -231,7 +170,7 @@ export default {
     updateServices(response) {
       if (response.status === 200) {
         this.services = response.data
-        console.log(response.data)
+        this.onResize()
       }
     },
     onResize() {
@@ -264,25 +203,19 @@ export default {
       })
       this.serviceIdToEdit = id
       this.newServicesName = service.name
-      service.services.forEach((service) => {
-        this.newServicesServices.push(service.id)
-      })
       this.generatedUrl = this.url + service.imageroute
       this.isComponentModalActive = true
     },
     confirm() {
-      const auxServices = []
-      this.newServiceServices.forEach((service) => {
-        auxServices.push(parseInt(service))
-      })
       if (this.serviceIdToEdit === undefined) {
         axios
-          .post(this.url + '/employee', {
+          .post(this.url + '/service', {
             name: this.newServiceName,
-            services: auxServices,
+            description: this.serviceDescription,
           })
           .then((response) => {
             if (response.status === 200) {
+              this.isComponentModalActive = false
               this.$buefy.toast.open({
                 message: 'Empleado Creado',
                 type: 'is-dark',
