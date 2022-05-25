@@ -13,7 +13,6 @@
 
     <header-comp class="hero" />
     <Nuxt class="container" />
-    <footer-comp class="footer" />
     <script src="https://cdn.tailwindcss.com"></script>
   </div>
 </template>
