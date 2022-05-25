@@ -262,6 +262,7 @@ export default {
         services:auxServices
         }).then((response)=>{
           if (response.status === 200){
+            this.isComponentModalActive = false
             this.$buefy.toast.open({
                 message: 'Empleado Creado',
                 type: 'is-dark'

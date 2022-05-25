@@ -37,7 +37,9 @@
               :has-counter="false"
               :expanded="false"
               @input="focusNext"
-              @focus="selectedInput=index"
+              @focus="
+              {selectedInput=index
+              code[index-1] = undefined}"
             ></b-input>
           </b-field>
         </div>

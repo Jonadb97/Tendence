@@ -153,26 +153,13 @@
         has-modal-card
         type="is-dark"
       >
-          <div v-if= "modalAppointment!==undefined" class="modal-card" style="width: 1000">
+          <div v-if= "modalAppointment!==undefined" class="modal-card" style="width: 800">
           <header class="modal-card-head" style="background-color: rgb(46, 46, 46)">
             <p class="modal-card-title" style="color: white"> {{modalAppointment.service.servicename}} </p>
           </header>
 
           <section class="modal-card-body" style="background-color: rgb(46, 46, 46)">
 
-            <b-field>
-              <b-image
-                  :src="url + modalAppointment.service.imageroute"
-                  alt="A random image"
-                  ratio="6by4"
-              ></b-image>
-              <p class="subtitle is-4" style="color: white">Con: {{modalAppointment.employee.name}}
-              Hora: {{modalAppointment.time}}
-              Cliente: {{modalAppointment.user.username}}</p>
-            </b-field> 
-            <b-field>
-                     
-            </b-field>
             
             <b-field>
               <b-dropdown v-model= "modalSelectedOptions" aria-role="list">
@@ -189,12 +176,24 @@
 
                   <b-dropdown-item 
                   v-for="option in modalAppointmentOptions" 
-                  :key="option" 
+                  :key="option.value" 
                   aria-role="listitem"
-                  :value="option">
-                    {{option}}
+                  :value="option.label">
+                    {{option.label}}
                   </b-dropdown-item>
               </b-dropdown>
+            </b-field>
+            <b-field>
+              <p class="subtitle is-4" style="color: white">Con: {{modalAppointment.employee.name}}</p>
+            </b-field>
+            <b-field>
+              <p class="subtitle is-4" style="color: white">Hora: {{modalAppointment.time}}</p>
+            </b-field>
+            <b-field>
+              <p class="subtitle is-4" style="color: white">Cliente: {{modalAppointment.user.username}}</p>
+            </b-field> 
+            <b-field>
+                     
             </b-field>
           </section>
           <footer
@@ -207,7 +206,7 @@
             @click="isCardModalActive = false">
               Volver
             </button>
-            <button class="button is-primary" >Confirmar</button>
+            <button class="button is-primary" @click="confirmAppointment">Confirmar</button>
           </footer>
         </div>
       </b-modal>
@@ -251,29 +250,33 @@ export default {
       selectedEmployee: "Todos los barberos",
       isCardModalActive:false,
       modalAppointment: undefined,
-      modalAppointmentOptions: ["No vino", "No vino (Justificado)", "Llego tarde", "Presente"],
+      modalAppointmentOptions: 
+      [{value:"3", label:"No vino"}, 
+      {value:"2", label:"No vino (Justificado)"}, 
+      {value:"1", label:"Llego tarde"},
+      {value:"0", label:"Presente"}],
       modalSelectedOptions: "Elija una opción",
 
     }
   },
   mounted() {
     this.fetchAppointments()
-    this.fetchConfirmenAppointments()
+    this.fetchConfirmedAppointments()
   },
   methods: {
     fetchAppointments() {
       axios.get(this.url + '/appointment/dayappointments').then(this.updateAppointments)
     },
-    fetchConfirmenAppointments(){
+    fetchConfirmedAppointments(){
       axios.get(this.url + '/appointment/dayfinishedappointments').then(this.updateConfirmedAppointments)
     },
     updateAppointments(response) {
       if (response.status === 200) {
         this.unfilteredAppointments = response.data
         this.dayappointments = response.data
-        this.orderAppointments()
         this.addEmployeeFilter()
         this.addServicesFilter()
+        this.orderAppointments()
       }
     },
     updateConfirmedAppointments(response){
@@ -284,6 +287,7 @@ export default {
     },
     orderConfirmedAppointments(){
       let row=[]
+      this.confirmedAppointmentsRows=[]
       this.confirmedAppointments.forEach(appointment =>{
         row.push(appointment)
         if(row.length === 4){
@@ -370,6 +374,26 @@ export default {
     showModal(appointment){
       this.modalAppointment = appointment
       this.isCardModalActive = true
+    },
+    confirmAppointment(){
+      const option = this.modalAppointmentOptions.find(element=>element.label === this.modalSelectedOptions)
+      console.log(option.value+ " - "+ this.modalAppointment.id)
+      axios.post(this.url + '/appointment/finishAppointment',{
+        appointmentId:this.modalAppointment.id,
+        appointmentState:option.value,
+        }).then((response)=>{
+          if (response.status === 200){
+            this.isCardModalActive = false
+            this.$buefy.toast.open({
+                message: 'Turno finalizado',
+                type: 'is-dark'
+            })
+            this.fetchAppointments()
+            this.fetchConfirmedAppointments()
+            
+          }
+          
+        })
     }
   },
 }
