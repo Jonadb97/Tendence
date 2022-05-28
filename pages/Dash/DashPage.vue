@@ -148,7 +148,7 @@
             </div>
           </b-tab-item>
           <b-tab-item
-            label="Turnos confirmados"
+            label="Turnos finalizados"
             pack="mdi"
             size="is-small"
             icon="calendar-multiple-check"
