@@ -17,6 +17,20 @@
           ></b-input>
         </b-field>
 
+        <b-field label="Fecha de nacimiento">
+          <no-ssr>
+            <b-datepicker
+                v-model="logindata.selectedDate"
+                :min-date="minDate"
+                :max-date="maxDate"
+                rounded
+                placeholder="Click to select..."
+                icon="calendar-today"
+                trap-focus>
+            </b-datepicker>
+          </no-ssr>
+        </b-field>
+
         <b-field label="Número de teléfono">
           <b-input
             id="localcod"
@@ -119,6 +133,7 @@ export default {
   components: { TendenceLogo },
   layout: 'default-lay',
   data() {
+    const today = new Date()
     return {
       why: '',
       logindata: {
@@ -128,7 +143,11 @@ export default {
         numTel: '',
         inputPassword: '',
         url: 'http://localhost:3000',
+        selectedDate:undefined,
       },
+      maxDate: today,
+      minDate: new Date(today.getFullYear() - 100, today.getMonth(), today.getDate())
+            
     }
   },
   mounted() {
@@ -143,6 +162,7 @@ export default {
     login() {
       const body = {
         username: this.$data.logindata.userName,
+        birthday: String(this.logindata.selectedDate.getFullYear()).padStart(2, '0') + '-' + String(this.logindata.selectedDate.getMonth() + 1).padStart(2, '0') + '-' + this.logindata.selectedDate.getDate(),
         email: this.$data.logindata.userEmail,
         areacode: this.$data.logindata.areaCode,
         phonenumber: this.$data.logindata.numTel,
@@ -150,21 +170,11 @@ export default {
       }
       console.log(body)
       const router = window.$nuxt.$router
-      const headers = {
-        key: '',
-        value:
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsInVzZXJuYW1lIjoidXNlciIsImlhdCI6MTY0NzU1NDU3NH0.s77rXwrbvaTYVtAf-iOT0eH7PEWTKjgj9x6AxsjtRTo',
-        type: 'text',
-      }
 
-      axios
-
-        .post('http://localhost:3000' + '/users', body, headers)
-        .then(function (response) {
-          console.log(response)
+      axios.post('http://localhost:3000' + '/users', body).then(
+        function (response) {
           if (response.status === 200) {
-            router.push('/Login/ValidacionPage')
-            console.log(response)
+            router.push('/') // /Login/ValidacionPage
           }
         })
         .catch((error) => {
