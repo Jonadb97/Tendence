@@ -72,6 +72,18 @@
             {{ service.servicename }}
           </b-dropdown-item>
         </b-dropdown>
+
+        <no-ssr>
+            <b-datepicker
+                v-model="selectedDate"
+                :min-date="minDate"
+                :max-date="maxDate"
+                placeholder=""
+                icon="calendar-today"
+                trap-focus
+                @input="changeDate()">
+            </b-datepicker>
+        </no-ssr>
       </div>
       <div id="tab-bar" class="bg-white w-screen" style="margin-bottom: 50%">
         <b-tabs id="nav-tab-bar" type="is-small" class="w-96" expanded>
@@ -269,6 +281,7 @@ export default {
   // Hay que fetchear la fecha y hora para ponerlos reactivos en el card de turnos pendientes y los anteriores
 
   data() {
+    const today = new Date()
     return {
       slideSetPreviousAppointments: 0,
       open: true,
@@ -287,6 +300,9 @@ export default {
       services:[],
       selectedService: "Todos los servicios",
       selectedEmployee: "Todos los barberos",
+      selectedDate: today,
+      minDate: new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()),
+      maxDate: new Date(today.getFullYear() +1, today.getMonth(), today.getDate()),
       isCardModalActive:false,
       modalAppointment: undefined,
       modalAppointmentOptions: 
@@ -302,16 +318,23 @@ export default {
     this.fetchAppointments()
     this.fetchConfirmedAppointments()
   },
+  
   methods: {
+    changeDate(){     
+      this.fetchAppointments()
+      this.fetchConfirmedAppointments()
+    },
     fetchAppointments() {
+      const date = String(this.selectedDate.getFullYear()).padStart(2, '0') + '-' + String(this.selectedDate.getMonth() + 1).padStart(2, '0') + '-' + this.selectedDate.getDate();
       axios
-        .get(this.url + '/appointment/dayappointments')
+        .get(this.url + '/appointment/dayappointments/'+ date)
         .then(this.updateAppointments)
     },
 
-    fetchConfirmenAppointments() {
+    fetchConfirmedAppointments() {
+      const date = String(this.selectedDate.getFullYear()).padStart(2, '0') + '-' + String(this.selectedDate.getMonth() + 1).padStart(2, '0') + '-' + this.selectedDate.getDate();
       axios
-        .get(this.url + '/appointment/dayfinishedappointments')
+        .get(this.url + '/appointment/dayfinishedappointments/'+ date)
         .then(this.updateConfirmedAppointments)
     },
     updateAppointments(response) {
