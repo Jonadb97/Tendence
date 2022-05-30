@@ -4,7 +4,6 @@
       id="main-content"
       class="flex flex-col justify-center items-center text-center"
     >
-      <h1 class="font-bold text-2xl my-2 text-white">{{ $auth.user }}</h1>
       <div id="serach-bar" class="m-2">
         <b-input
           pack="mdi"
@@ -107,13 +106,7 @@
                   class="column"
                 >
                   <div
-                    class="grid-card bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 text-purple-800 hover:scale-110"
-                    :style="
-                      'background-image: url(' +
-                      url +
-                      appointment.service.imageroute +
-                      ');'
-                    "
+                    class="grid-card bg-cover bg-center content-end rounded-xl shadow-lg grayscale transform transition duration-500 text-purple-800 hover:scale-110"
                   >
                     <h2>{{ appointment.service.servicename }}</h2>
                     <h2>{{ appointment.user.username }}</h2>
@@ -144,12 +137,6 @@
                 >
                   <div
                     class="grid-card bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110"
-                    :style="
-                      'background-image: url(' +
-                      url +
-                      appointment.service.imageroute +
-                      ');'
-                    "
                   >
                     <h2>{{ appointment.service.servicename }}</h2>
                     <h2>{{ appointment.user.username }}</h2>
