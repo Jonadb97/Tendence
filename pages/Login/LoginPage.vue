@@ -128,6 +128,7 @@ export default {
       axios
         .post(this.$data.logindata.url + '/auth/login', body)
         .then(function (response) {
+          
           if (response.status === 200) {
             auth.setUser(response.data.username)
             auth.role = response.data.role
@@ -136,19 +137,25 @@ export default {
             auth.$storage.setLocalStorage('user', response.data.username)
             auth.$storage.setLocalStorage('role', response.data.role)
             auth.$storage.setLocalStorage('id', response.data.id)
-            auth.strategy.token.set(response.data.token)
+            window.location.reload(true) && router.push('/TurnosPage')
+            console.log(response)
+          }
+          else{
+            console.log(response)
             this.$buefy.toast.open({
-              message: 'Has iniciado sesión!',
+              message: 'Ups algo salio mal',
               type: 'is-dark',
             })
-            console.log(response)
           }
         })
         .catch((error) => {
-          // eslint-disable-next-line no-console
           console.log(error)
+          this.$buefy.toast.open({
+              message: 'Contraseña/Usuario Incorrectos',
+              type: 'is-dark',
+          })
         })
-      window.location.reload(true) && router.push('/TurnosPage')
+      
       
     },
     beforeMount() {
