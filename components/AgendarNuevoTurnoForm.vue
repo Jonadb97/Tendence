@@ -6,75 +6,97 @@
   >
     <!-- Servicios -->
 
-    <h1 class="font-bold inline-flex flex-row flex my-2 text-xl">
+    <h1 id="top" class="font-bold inline-flex flex-row my-2 text-xl">
       Que te vas a hacer?
     </h1>
     <no-ssr>
-      <div class="h-fit" :style="'width:'+ carouselServicesWidth +'rem;'">
-      
-        <b-carousel-list v-model="slideSetServices" :data="services" :items-to-show="slidesToShowServices">
-            <template #item="service">
-                <div class="p-4 m-4 flex justify-center" >
-                    <button 
-                    :id="'service-slide-'+service.id" 
-                    class="bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0 hover: " 
-                    :style="'background-image: url(' +url+ service.imageroute+'); width:18rem; height:22rem; '"
-                    @click="selectService(service.id)"
-                    >
-                      <div class="p-2 absolute bottom-0 left-0 ">
-                        <h5 
-                        class="text-white bm-4 font-bold text-left" 
-                        style="font-size:xx-large;">{{service.servicename}}
-                        </h5>
-                        <p 
-                        class="far fa-clock text-white text-left"
-                        style="font-size:x-large;"
-                        >
-                        {{service.duration}} Minutos
-                        </p>
-                      </div>       
-                    </button>
-                  </div>
-            </template>
+      <div class="h-fit" :style="'width:' + carouselServicesWidth + 'rem;'">
+        <b-carousel-list
+          v-model="slideSetServices"
+          :data="services"
+          :items-to-show="slidesToShowServices"
+        >
+          <template #item="service">
+            <div class="p-4 m-4 flex justify-center">
+              <button
+                :id="'service-slide-' + service.id"
+                class="bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0 hover:"
+                :style="
+                  'background-image: url(' +
+                  url +
+                  service.imageroute +
+                  '); width:18rem; height:22rem; '
+                "
+                @click="selectService(service.id)"
+              >
+                <div class="p-2 absolute bottom-0 left-0">
+                  <h5
+                    class="text-white bm-4 font-bold text-left"
+                    style="font-size: xx-large"
+                  >
+                    {{ service.servicename }}
+                  </h5>
+                  <p
+                    class="text-white text-left"
+                    style="font-size: x-large; font-family: sans-serif;"
+                  ><b-icon
+                      pack="mdi"
+                      icon="far fa-clock"
+                      class="far fa-clock text-white text-center"
+                    ></b-icon>
+                    {{ service.duration }} Minutos
+                  </p>
+                </div>
+              </button>
+            </div>
+          </template>
         </b-carousel-list>
-      
       </div>
     </no-ssr>
 
     <br />
 
     <!--  Barberos  -->
-    <h1 class="font-bold inline-flex flex-row flex my-2 text-xl">Con quién?</h1>
+    <h1 class="font-bold inline-flex flex-row my-2 text-xl">Con quién?</h1>
     <no-ssr>
-      <div class="h-fit" :style="'width:'+ carouselEmployeesWidth +'rem;'">
-        <b-carousel-list v-model="slideSetEmployee" :data="employees" :items-to-show="slidesToShowEmployees">
-            <template #item="employee">
-                <div class="p-4 m-4 flex justify-center" >
-                    <button 
-                    :id="'employee-slide-'+employee.id" 
-                    class="bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0 hover: " 
-                    :style="'background-image: url(' +url+ employee.imageroute+'); height:24rem; width:18rem;'"
-                    @click="selectEmployee(employee.id)"
-                    >
-                      <div class="p-2 absolute bottom-0 left-0 ">
-                        <h5 
-                        class="text-white bm-4 font-bold text-left" 
-                        style="font-size:xx-large;">{{employee.name}}
-                        </h5>
-                      </div>
-                    </button>
-                  </div>
-            </template>
+      <div class="h-fit" :style="'width:' + carouselEmployeesWidth + 'rem;'">
+        <b-carousel-list
+          v-model="slideSetEmployee"
+          :data="employees"
+          :items-to-show="slidesToShowEmployees"
+        >
+          <template #item="employee">
+            <div class="p-4 m-4 flex justify-center">
+              <button
+                :id="'employee-slide-' + employee.id"
+                class="bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0 hover:"
+                :style="
+                  'background-image: url(' +
+                  url +
+                  employee.imageroute +
+                  '); height:24rem; width:18rem;'
+                "
+                @click="selectEmployee(employee.id)"
+              >
+                <div class="p-2 absolute bottom-0 left-0">
+                  <h5
+                    class="text-white bm-4 font-bold text-left"
+                    style="font-size: xx-large"
+                  >
+                    {{ employee.name }}
+                  </h5>
+                </div>
+              </button>
+            </div>
+          </template>
         </b-carousel-list>
-        </div>
-      </no-ssr>
+      </div>
+    </no-ssr>
     <!-- Componentes calendar -->
 
     <br />
 
-    <h1 class="font-bold inline-flex flex-row flex my-2 text-xl">
-      Para cuando?
-    </h1>
+    <h1 class="font-bold inline-flex flex-row my-2 text-xl">Para cuando?</h1>
     <no-ssr>
       <div id="calendar-component w-1/2">
         <b-datepicker
@@ -90,24 +112,22 @@
     </no-ssr>
     <br />
 
-    <h1 class="font-bold inline-flex flex-row flex my-2 text-xl">
-      A que hora?
-    </h1>
+    <h1 class="font-bold inline-flex flex-row my-2 text-xl">A que hora?</h1>
     <section>
       <b-dropdown
-
-            v-model="selectedHour"
-            :scrollable="isScrollable"
-            :max-height="maxHeight"
-            aria-role="list"
-            @change="hourSelected"
-        >
-            <template #trigger>
-                <b-button
-                    :label="selectedHour"
-                    type="is-light" 
-                    icon-right="menu-down"/>
-            </template>
+        v-model="selectedHour"
+        :scrollable="isScrollable"
+        :max-height="maxHeight"
+        aria-role="list"
+        @change="hourSelected"
+      >
+        <template #trigger>
+          <b-button
+            :label="selectedHour"
+            type="is-light"
+            icon-right="menu-down"
+          />
+        </template>
 
         <b-dropdown-item
           v-for="hour in hours"
@@ -123,7 +143,7 @@
         </b-dropdown-item>
       </b-dropdown>
 
-      <p class="font-bold inline-flex flex-row flex my-2 text-xl">:</p>
+      <p class="font-bold inline-flex flex-row my-2 text-xl">:</p>
 
       <b-dropdown
         v-model="selectedMinutes"
@@ -153,21 +173,52 @@
         </b-dropdown-item>
       </b-dropdown>
     </section>
-
+    <br />
+    <b-button
+    rounded
+    @click="scrollToTop"
+    >
+    <b-icon
+    pack="mdi"
+    type="is-white"
+    icon="chevron-up"
+    ></b-icon>
+    </b-button>
     <div class="flex-row items-center justify-center self-center mx-auto py-4">
       <b-button
         class="flex mx-auto py-2"
-        type="is-light"
+        type="is-success"
         outlined
-        icon-right="check"
+        size="is-large"
+        icon-right="book-check"
         label="Agendar turno"
         @click="confirm"
+      />
+    </div>
+    <div class="flex-row items-center justify-center self-center mx-auto py-4">
+      <b-button
+        class="flex mx-auto py-2"
+        type="is-danger"
+        outlined
+        size="is-large"
+        icon-right="book-cancel"
+        label="Cancelar"
+        @click="redirectHome"
       />
     </div>
 
     <!-- Separador para que haya espacio y se vea lindo -->
     <div id="footer-space" class="h-48"></div>
   </div>
+
+  <!--  
+      Scrolling script
+
+
+      const el = document.getElementById('item');
+      el.scrollIntoView({behavior: "smooth"});
+
+  -->
 </template>
 
 <script>
@@ -187,14 +238,14 @@ export default {
       carousels: [],
       isScrollable: true,
       maxHeight: 200,
-      selectedMinutes: "--",
-      selectedHour: "--",
-      hours:[],
-      minutes:[],
-      carouselServicesWidth:20,
-      carouselEmployeesWidth:20,
-      slidesToShowServices:1,
-      slidesToShowEmployees:1,
+      selectedMinutes: '--',
+      selectedHour: '--',
+      hours: [],
+      minutes: [],
+      carouselServicesWidth: 20,
+      carouselEmployeesWidth: 20,
+      slidesToShowServices: 1,
+      slidesToShowEmployees: 1,
       slideSetEmployee: 0,
       slideSetServices: 0,
       selectedEmployee: null,
@@ -212,16 +263,25 @@ export default {
     this.fetchDateRange()
   },
   methods: {
-    onResize(){
-      const windowWidth = document.documentElement.clientWidth;
-      const rems = windowWidth/16 
-      const posibleSlides = Math.max(Math.trunc((rems*0.80) / 20),1)
+     scrollToTop() {
+    window.scrollTo(0,0)
+     },
+    onResize() {
+      const windowWidth = document.documentElement.clientWidth
+      const rems = windowWidth / 16
+      const posibleSlides = Math.max(Math.trunc((rems * 0.8) / 20), 1)
 
-      if(this.services.length>0){
-        this.slidesToShowServices = Math.min(posibleSlides,Math.min(4,this.services.length))
-        this.slidesToShowEmployees = Math.min(posibleSlides,Math.min(4,this.employees.length))
-        this.carouselEmployeesWidth = this.slidesToShowEmployees*20
-        this.carouselServicesWidth = this.slidesToShowServices*20
+      if (this.services.length > 0) {
+        this.slidesToShowServices = Math.min(
+          posibleSlides,
+          Math.min(4, this.services.length)
+        )
+        this.slidesToShowEmployees = Math.min(
+          posibleSlides,
+          Math.min(4, this.employees.length)
+        )
+        this.carouselEmployeesWidth = this.slidesToShowEmployees * 20
+        this.carouselServicesWidth = this.slidesToShowServices * 20
       }
 
       console.log(this.services.length)
@@ -233,34 +293,46 @@ export default {
 
         onConfirm: () => {
           const date = this.selectedDate
-          const finalDate = String(date.getFullYear()).padStart(2, '0') + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + date.getDate();
-          console.log("employee: "+ this.selectedEmployee)
-          console.log("service: "+this.selectedService)
-          console.log("date: "+ finalDate)
-          console.log("time: "+ this.selectedHour+":"+this.selectedMinutes+":00")
-          console.log("user: "+ this.$auth.$storage.getLocalStorage('id'))
-          
-          axios.post(this.url + '/appointment',{
-            date: finalDate,
-            time: this.selectedHour+":"+this.selectedMinutes+":00",
-            employeeId: this.selectedEmployee,
-            serviceId: this.selectedService,
-            userId: this.$auth.$storage.getLocalStorage('id')
-          },
-          {
-            headers:{
-              auth: this.$auth.$storage.getLocalStorage('token'),
-            }
-          }
-          ).then((response)=>{
-            if (response.status === 200){
-              this.$buefy.toast.open({
-                message: 'Turno confirmado!',
-                type: 'is-dark'
-              })            
-            }
-          })
-          
+          const finalDate =
+            String(date.getFullYear()).padStart(2, '0') +
+            '-' +
+            String(date.getMonth() + 1).padStart(2, '0') +
+            '-' +
+            date.getDate()
+          console.log('employee: ' + this.selectedEmployee)
+          console.log('service: ' + this.selectedService)
+          console.log('date: ' + finalDate)
+          console.log(
+            'time: ' + this.selectedHour + ':' + this.selectedMinutes + ':00'
+          )
+          console.log('user: ' + this.$auth.$storage.getLocalStorage('id'))
+
+          axios
+            .post(
+              this.url + '/appointment',
+              {
+                date: finalDate,
+                time: this.selectedHour + ':' + this.selectedMinutes + ':00',
+                employeeId: this.selectedEmployee,
+                serviceId: this.selectedService,
+                userId: this.$auth.$storage.getLocalStorage('id'),
+              },
+              {
+                headers: {
+                  auth: this.$auth.$storage.getLocalStorage('token'),
+                },
+              }
+            )
+            .then((response) => {
+              if (response.status === 200) {
+                this.$buefy.toast.open({
+                  message: 'Turno confirmado!',
+                  type: 'is-dark',
+                })
+                const router = window.$nuxt.$router
+                router.push('/TurnosPage')
+              }
+            })
         },
       })
     },
@@ -271,7 +343,7 @@ export default {
           this.allEmployees = response.data
         }
         this.onResize()
-        })
+      })
     },
     fetchServices() {
       axios.get(this.url + '/services').then((response) => {
@@ -313,38 +385,45 @@ export default {
       this.selectedEmployee = id
     },
 
-    getDayAppointments(date){
-      date = String(date.getFullYear()).padStart(2, '0') + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + date.getDate();
-      axios.post(this.url + '/timetable/freeschedules',{
-        date:date+"",
-        serviceDuration: 15
-      }).then((response)=>{
-        if (response.status === 200){
+    getDayAppointments(date) {
+      date =
+        String(date.getFullYear()).padStart(2, '0') +
+        '-' +
+        String(date.getMonth() + 1).padStart(2, '0') +
+        '-' +
+        date.getDate()
+      axios
+        .post(this.url + '/timetable/freeschedules', {
+          date: date + '',
+          serviceDuration: 15,
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            this.freeSchedules = response.data
+            const newHours = []
+            this.freeSchedules.forEach((element) => {
+              newHours.push((element.hour + '').padStart(2, '0'))
+            })
 
-          this.freeSchedules = response.data
-          const newHours= []
-          this.freeSchedules.forEach(element => {
-            newHours.push((element.hour+"").padStart(2, '0'))       
-          });
-          
-          this.hours =[...new Set(newHours)] 
-        
-        }
-      })
+            this.hours = [...new Set(newHours)]
+          }
+        })
     },
-    hourSelected(value){
+    hourSelected(value) {
       const newMinutes = []
-      this.freeSchedules.forEach(element =>{
-        // jshint eqeqeq: false 
-        if(element.hour+"" === value+""){
-          newMinutes.push((element.minutes+"").padStart(2, '0'))
+      this.freeSchedules.forEach((element) => {
+        // jshint eqeqeq: false
+        if (element.hour + '' === value + '') {
+          newMinutes.push((element.minutes + '').padStart(2, '0'))
         }
       })
       this.minutes = newMinutes
     },
-    confirmAppointment(){
-
-    }
+    confirmAppointment() {},
+    redirectHome() {
+      const router = window.$nuxt.$router
+      router.push('/')
+    },
   },
 }
 </script>

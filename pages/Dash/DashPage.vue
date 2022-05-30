@@ -84,6 +84,7 @@
                 @input="changeDate()">
             </b-datepicker>
         </no-ssr>
+
       </div>
       <div id="tab-bar" class="bg-white w-screen" style="margin-bottom: 50%">
         <b-tabs id="nav-tab-bar" type="is-small" class="w-96" expanded>
@@ -160,7 +161,7 @@
             </div>
           </b-tab-item>
           <b-tab-item
-            label="Turnos confirmados"
+            label="Turnos finalizados"
             pack="mdi"
             size="is-small"
             icon="calendar-multiple-check"
@@ -310,7 +311,7 @@ export default {
       {value:"2", label:"No vino (Justificado)"}, 
       {value:"1", label:"Llego tarde"},
       {value:"0", label:"Presente"}],
-      modalSelectedOptions: "Elija una opción",
+      modalSelectedOptions: "Elija una opción"
 
     }
   },
