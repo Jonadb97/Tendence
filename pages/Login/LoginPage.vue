@@ -152,9 +152,6 @@ export default {
       window.location.reload(true) && router.push('/TurnosPage')
       
     },
-    beforeMount() {
-      this.checkIfLogged()
-    },
   },
 }
 </script>

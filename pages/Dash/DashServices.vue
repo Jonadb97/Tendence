@@ -264,8 +264,8 @@ export default {
       })
       this.serviceIdToEdit = id
       this.newServicesName = service.name
-      service.services.forEach((service) => {
-        this.newServicesServices.push(service.id)
+      this.services.forEach((service) => {
+        this.newServiceServices.push(service.id)
       })
       this.generatedUrl = this.url + service.imageroute
       this.isComponentModalActive = true

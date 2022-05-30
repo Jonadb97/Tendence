@@ -39,7 +39,7 @@
           class="my-2 hover:scale-105"
           ><NuxtLink
             id="NavLink"
-            class="my-2 text-white place-content-end inline-flex mx-0"
+            class="my-2 text-white place-content-end inline-flex mx-0 hover:scale-100"
             to="/Dash/DashPage"
           >
             <b-icon
@@ -72,7 +72,7 @@
           ><NuxtLink
             id="NavLink"
             class="my-auto text-white place-content-end"
-            to="/NuevoTurnoPage"
+            to="/NuevoTurno/NuevoTurnoForm"
             >Nuevo Turno</NuxtLink
           ></b-button
         >

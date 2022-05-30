@@ -72,6 +72,40 @@
             {{ service.servicename }}
           </b-dropdown-item>
         </b-dropdown>
+                <b-dropdown v-model="selectedDay" aria-role="list">
+          <template #trigger="{ active }">
+            <b-button
+              type="is-primary"
+              class="m-2"
+              icon-left="account-details"
+              :icon-right="active ? 'menu-up' : 'menu-down'"
+            >
+              {{ selectedDay }}
+            </b-button>
+          </template>
+          <b-dropdown-item
+            aria-role="listitem"
+            value="Hoy"
+            @click="selectedDay = 'Hoy'"
+          >
+            Hoy
+          </b-dropdown-item>
+
+          <b-dropdown-item
+            aria-role="listitem"
+            :value="Mañana"
+            @click="selectedDay = 'Mañana'"
+          >
+            Mañana
+          </b-dropdown-item>
+          <b-dropdown-item
+            aria-role="listitem"
+            :value="OtraFecha"
+            @click="selectedDay = 'OtraFecha'"
+          >
+            Otra fecha
+          </b-dropdown-item>
+        </b-dropdown>
       </div>
       <div id="tab-bar" class="bg-white w-screen" style="margin-bottom: 50%">
         <b-tabs id="nav-tab-bar" type="is-small" class="w-96" expanded>
@@ -292,6 +326,7 @@ export default {
       modalAppointment: undefined,
       modalAppointmentOptions: ["No vino", "No vino (Justificado)", "Llego tarde", "Presente"],
       modalSelectedOptions: "Elija una opción",
+      selectedDay: 'Hoy'
 
     }
   },
