@@ -64,6 +64,9 @@
         <b-button type="is-dark" size="is-small" class=" my-2 hover:scale-105"
           ><NuxtLink id="NavLink" to="/">Home</NuxtLink></b-button
         >
+                <b-button v-show="false" type="is-danger" size="is-small" class=" my-2 hover:scale-105 bg-red-500"
+          ><NuxtLink id="NavLink" to="/ErrorPage" class="hover:scale-105 bg-red-500">Error</NuxtLink></b-button
+        >
         <b-button
           v-if="userRole == 'user'"
           type="is-dark"
