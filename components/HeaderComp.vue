@@ -39,16 +39,17 @@
           class="my-2 hover:scale-105"
           ><NuxtLink
             id="NavLink"
-            class="my-2 text-white place-content-end inline-flex mx-0 hover:scale-100"
+            class="my-2 text-white place-content-end inline-flex mx-0"
             to="/Dash/DashPage"
+            style="height: 30px;"
           >
             <b-icon
-              class="mx-0 p-0 my-2"
+              class="mx-0 p-0 my-1"
               label="Gestión"
               icon="clipboard"
               size="is-small"
             ></b-icon>
-            <p class="my-2 mx-0 p-0">Gestión</p></NuxtLink
+            <p class="mx-0 p-0 my-1" style="height: 30px;">Gestión</p></NuxtLink
           ></b-button
         >
         <b-button
@@ -63,6 +64,9 @@
         >
         <b-button type="is-dark" size="is-small" class=" my-2 hover:scale-105"
           ><NuxtLink id="NavLink" to="/">Home</NuxtLink></b-button
+        >
+                <b-button v-show="false" type="is-danger" size="is-small" class=" my-2 hover:scale-105 bg-red-500"
+          ><NuxtLink id="NavLink" to="/ErrorPage" class="hover:scale-105 bg-red-500">Error</NuxtLink></b-button
         >
         <b-button
           v-if="userRole == 'user'"

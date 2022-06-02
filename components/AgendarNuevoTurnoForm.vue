@@ -10,7 +10,7 @@
       Que te vas a hacer?
     </h1>
     <no-ssr>
-      <div class="h-fit" :style="'width:' + carouselServicesWidth + 'rem;'">
+      <div id="service-carrousel" class="h-fit" :style="'width:' + carouselServicesWidth + 'rem;'">
         <b-carousel-list
           v-model="slideSetServices"
           :data="services"
@@ -46,6 +46,16 @@
                     ></b-icon>
                     {{ service.duration }} Minutos
                   </p>
+                              <p
+                    class="text-white text-left"
+                    style="font-size: x-large; font-family: sans-serif;"
+                  ><b-icon
+                      pack="mdi"
+                      icon="cash-multiple"
+                      class=" text-white text-center"
+                    ></b-icon>
+                    {{ service.price }} Precio
+                  </p>
                 </div>
               </button>
             </div>
@@ -59,7 +69,7 @@
     <!--  Barberos  -->
     <h1 class="font-bold inline-flex flex-row my-2 text-xl">Con quién?</h1>
     <no-ssr>
-      <div class="h-fit" :style="'width:' + carouselEmployeesWidth + 'rem;'">
+      <div id="employee-carrousel" class="h-fit" :style="'width:' + carouselEmployeesWidth + 'rem;'">
         <b-carousel-list
           v-model="slideSetEmployee"
           :data="employees"
@@ -349,6 +359,7 @@ export default {
       axios.get(this.url + '/services').then((response) => {
         if (response.status === 200) {
           this.services = response.data
+          console.log(response.data)
         }
         this.onResize()
       })
@@ -372,6 +383,9 @@ export default {
       const slide = document.getElementById('service-slide-' + id)
       slide.style.filter = 'grayscale(0)'
       this.selectedService = id
+      const el = document.getElementById('employee-carrousel');
+      el.scrollIntoView({behavior: "smooth"});
+
     },
     selectEmployee(id) {
       if (this.selectedEmployee != null) {
@@ -383,6 +397,8 @@ export default {
       const slide = document.getElementById('employee-slide-' + id)
       slide.style.filter = 'grayscale(0%)'
       this.selectedEmployee = id
+      const el = document.getElementById('calendar-component w-1/2');
+      el.scrollIntoView({behavior: "smooth"});
     },
 
     getDayAppointments(date) {
