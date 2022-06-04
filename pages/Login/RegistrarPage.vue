@@ -135,7 +135,7 @@ export default {
   data() {
     const today = new Date()
     return {
-      why: '',
+      url: this.$auth.$storage.getLocalStorage('url'),
       logindata: {
         userName: '',
         userEmail: '',
@@ -144,6 +144,7 @@ export default {
         inputPassword: '',
         url: 'http://localhost:3000',
         selectedDate:undefined,
+
       },
       maxDate: today,
       minDate: new Date(today.getFullYear() - 100, today.getMonth(), today.getDate())
@@ -151,7 +152,9 @@ export default {
     }
   },
   mounted() {
-    window.addEventListener('keypress', this.checkIfEnter)
+     const auth = this.$auth
+      auth.$storage.setLocalStorage('url', 'https://api-tendence-testing.herokuapp.com/')
+      console.log(auth.$storage.getLocalStorage('url'))
   },
   methods: {
     checkIfEnter() {
@@ -164,12 +167,15 @@ export default {
         username: this.$data.logindata.userName,
         birthday: String(this.logindata.selectedDate.getFullYear()).padStart(2, '0') + '-' + String(this.logindata.selectedDate.getMonth() + 1).padStart(2, '0') + '-' + this.logindata.selectedDate.getDate(),
         email: this.$data.logindata.userEmail,
-        areacode: this.$data.logindata.areaCode,
-        phonenumber: this.$data.logindata.numTel,
         password: this.$data.logindata.inputPassword,
+        phonenumber: this.$data.logindata.numTel,
+        areacode: this.$data.logindata.areaCode,
+
+        
       }
       console.log(body)
       const router = window.$nuxt.$router
+
 
       axios.post('http://localhost:3000' + '/users', body).then(
         function (response) {
