@@ -104,7 +104,7 @@ export default {
         codArea: '',
         numTel: '',
         inputPassword: '',
-        url: 'http://localhost:3000',
+        url: this.$auth.$storage.getLocalStorage('url'),
       },
     }
   },

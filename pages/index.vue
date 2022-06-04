@@ -15,7 +15,12 @@ export default {
   name: 'IndexPage',
   layout: 'default-lay',
 
-  
+    mounted() {
+    const auth = this.$auth
+      this.checkIfLogged()
+      auth.$storage.setLocalStorage('url', 'https://api-tendence-testing.herokuapp.com/')
+      console.log(auth.$storage.getLocalStorage('url'))
+    },
   methods: {
     checkIfLogged() {
       if (localStorage.isLogged) {
@@ -23,11 +28,9 @@ export default {
         this.userName = this.localStorage.username
         return { value: 'true' }
       }
-  },
-  beforeMount() {
-      this.checkIfLogged()
-    }
   }
+  }
+
 }
 </script>
 

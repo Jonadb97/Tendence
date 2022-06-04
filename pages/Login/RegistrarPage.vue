@@ -120,19 +120,21 @@ export default {
   layout: 'default-lay',
   data() {
     return {
-      why: '',
+      url: this.$auth.$storage.getLocalStorage('url'),
       logindata: {
         userName: '',
         userEmail: '',
         areaCode: '',
         numTel: '',
         inputPassword: '',
-        url: 'http://localhost:3000',
+        
       },
     }
   },
   mounted() {
-    window.addEventListener('keypress', this.checkIfEnter)
+     const auth = this.$auth
+      auth.$storage.setLocalStorage('url', 'https://api-tendence-testing.herokuapp.com/')
+      console.log(auth.$storage.getLocalStorage('url'))
   },
   methods: {
     checkIfEnter() {
@@ -144,9 +146,11 @@ export default {
       const body = {
         username: this.$data.logindata.userName,
         email: this.$data.logindata.userEmail,
-        areacode: this.$data.logindata.areaCode,
-        phonenumber: this.$data.logindata.numTel,
         password: this.$data.logindata.inputPassword,
+        phonenumber: this.$data.logindata.numTel,
+        areacode: this.$data.logindata.areaCode,
+
+        
       }
       console.log(body)
       const router = window.$nuxt.$router
@@ -159,7 +163,7 @@ export default {
 
       axios
 
-        .post('http://localhost:3000' + '/users', body, headers)
+        .post(this.url + 'users', body, headers)
         .then(function (response) {
           console.log(response)
           if (response.status === 200) {
