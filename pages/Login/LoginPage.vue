@@ -42,6 +42,7 @@
               type="password"
               value="Thisisapasswordlolxd"
               password-reveal
+              rounded
             ></b-input>
           </b-field>
         </div>
@@ -65,12 +66,19 @@
         <!--No tienes cuenta? Registrar-->
         <div class="flex-row text-center mx-auto py-4" style="font-size:24px;">
           <p>No tenés cuenta? Registrate</p>
+          <b-button
+          type="is-info is-light"
+          pack="mdi"
+          icon-left="account-plus"
+          outlined
+          >
           <NuxtLink
-            class="text-blue-600 font-bold text-lg"
+            class="font-bold text-lg"
             to="/Login/RegistrarPage"
             style="font-size:30px;"
-            >acá
+            >Acá
           </NuxtLink>
+          </b-button>
         </div>
         <br />
         <p>{{ why }}</p>

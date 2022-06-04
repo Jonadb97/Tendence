@@ -88,7 +88,7 @@
       <div id="tab-bar" class="bg-white w-screen" style="margin-bottom: 50%">
         <b-tabs id="nav-tab-bar" type="is-small" class="w-96" expanded>
           <b-tab-item
-            label="Turnos de hoy"
+            label="Turnos del día"
             pack="mdi"
             size="is-small"
             icon="calendar-alert"

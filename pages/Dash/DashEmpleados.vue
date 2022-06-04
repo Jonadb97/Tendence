@@ -44,6 +44,7 @@
           icon-left="account-group"
           outlined
           class="m-8 p-8 text-lg font-bold"
+          style="border-width: 3px;"
           @click="showModal"
         >
           Nuevo Empleado
@@ -115,7 +116,8 @@
               v-model="imageFile" 
               accept=".jpg,.png"
               drag-drop expanded
-              required validationMessage="Seleccione un archivo .png o .jpg"
+              required
+              validationMessage="Seleccione un archivo .png o .jpg"
               @input="imageUploaded"
               >
                 <section class="section">

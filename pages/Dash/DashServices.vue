@@ -4,8 +4,6 @@
       id="main-content"
       class="flex flex-col justify-center items-center text-center"
     >
-      <h1 class="font-bold text-2xl my-6 text-white">{{ $auth.user }}</h1>
-
       <!-- Carrousel turnos recientes -->
 
       <h1 class="my-6 font-bold text-xl text-white">Servicios:</h1>
@@ -50,6 +48,7 @@
           icon-left="account-cash"
           outlined
           class="button is-primary is-medium m-4"
+          style="border-width: 3px"
           @click="isComponentModalActive = true"
         >
           Nuevo servicio
@@ -72,21 +71,73 @@
               </header>
               <section
                 class="modal-card-body"
-                style="background-color: rgb(46, 46, 46)"
+                style="background-color: rgb(46, 46, 46); color: white"
               >
-                <b-field label="Nombre del servicio" type="is-dark">
+                <b-field
+                  label="Nombre del servicio"
+                  type="is-light"
+                  class="text-white"
+                >
                   <b-input
-                    type="text; is-dark"
+                    type="text is-light"
                     :value="serviceName"
                     placeholder="Servicio"
                     required
                   >
                   </b-input>
                 </b-field>
-
+                <b-field
+                  label="Precio del servicio"
+                  type="is-light"
+                  class="text-white"
+                  
+                >
+                  <b-icon
+                    pack="mdi"
+                    type="is-light"
+                    icon="cash"
+                    size="is-medium"
+                    class="m-2"
+                    style="margin-bottom: 8px"
+                  ></b-icon>
+                  <b-input
+                  type="number"
+                    :value="newServicePrice"
+                    placeholder="Precio"
+                    expanded="false"
+                    style="width: 48px;"
+                    required
+                  >
+                  </b-input>
+                </b-field>
+                <b-field
+                  label="Duración del servicio en minutos"
+                  type="is-light"
+                  class="text-white"
+                >
+                  <b-icon
+                    pack="mdi"
+                    class="m-2"
+                    type="is-light"
+                    icon="clock"
+                    size="is-medium"
+                    style="margin-bottom: 8px"
+                  ></b-icon>
+                  <b-input
+                  type="number"
+                    :value="newServiceDuration"
+                    maxlength="2"
+                    placeholder="Duración"
+                    expanded="false"
+                    style="width: 64px;"
+                    required
+                  >
+                  </b-input>
+                   min.
+                </b-field>
                 <b-field
                   label="Descripción del servicio"
-                  type="is-dark"
+                  type="is-light"
                   class="text-black"
                 >
                   <b-input
@@ -105,7 +156,7 @@
               >
                 <button
                   class="button"
-                  type="button; is-dark"
+                  type="button; is-light"
                   @click="isComponentModalActive = false"
                 >
                   Volver
@@ -141,7 +192,7 @@ export default {
       fullheight: true,
       fullwidth: false,
       right: false,
-      url: 'http://localhost:3000',
+      url: this.$auth.$storage.getLocalStorage('url'),
       employees: [],
       services: [],
       window: this.window,
@@ -155,17 +206,20 @@ export default {
       imageFile: undefined,
       generatedUrl: undefined,
       newServiceName: '',
+      newServiceDuration: '',
+      newServicePrice: '',
       newServiceServices: [],
       serviceIdToEdit: undefined,
     }
   },
   mounted() {
     this.fetchServices()
+    console.log(this.url)
     window.addEventListener('resize', this.onResize)
   },
   methods: {
     fetchServices() {
-      axios.get(this.url + '/services').then(this.updateServices)
+      axios.get(this.url + 'services').then(this.updateServices)
     },
     updateServices(response) {
       if (response.status === 200) {
@@ -209,15 +263,17 @@ export default {
     confirm() {
       if (this.serviceIdToEdit === undefined) {
         axios
-          .post(this.url + '/service', {
+          .post(this.url + 'service', {
             name: this.newServiceName,
+            price: this.newServicePrice,
+            duration: this.newServiceDuration,
             description: this.serviceDescription,
           })
           .then((response) => {
             if (response.status === 200) {
               this.isComponentModalActive = false
               this.$buefy.toast.open({
-                message: 'Empleado Creado',
+                message: 'Servicio Creado',
                 type: 'is-dark',
               })
               this.fetchServices()

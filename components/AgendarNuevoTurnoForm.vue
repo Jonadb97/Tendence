@@ -186,6 +186,7 @@
     <br />
     <b-button
     rounded
+    style="border-width: 3px;"
     @click="scrollToTop"
     >
     <b-icon
@@ -202,6 +203,7 @@
         size="is-large"
         icon-right="book-check"
         label="Agendar turno"
+        style="border-width: 3px;"
         @click="confirm"
       />
     </div>
@@ -213,6 +215,7 @@
         size="is-large"
         icon-right="book-cancel"
         label="Cancelar"
+        style="border-width: 3px;"
         @click="redirectHome"
       />
     </div>

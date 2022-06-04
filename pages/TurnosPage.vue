@@ -71,7 +71,7 @@
                       class="far fa-clock text-white text-left font-bold"
                     ></b-icon>
 
-                    {{ appointment.time }}
+                    {{ formatTime(appointment.time) }}
                   </p>
                   </p>
                 </div>
@@ -91,6 +91,7 @@
           outlined
           icon-right="clipboard-plus-outline"
           label="Agendar nuevo turno"
+          style="border-width: 3px;"
         />
       </nuxt-link>
 
@@ -171,6 +172,11 @@ export default {
     formatDate(value) {
        if (value) {
            return moment(String(value)).format('DD/MM/YYYY')
+    }
+    },
+        formatTime(value) {
+       if (value) {
+           return moment(value, "HH:mm:ss").format('HH:mm')
     }
     },
     onResize() {

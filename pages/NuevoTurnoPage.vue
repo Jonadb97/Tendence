@@ -12,6 +12,7 @@
               size="is-large"
               outlined icon-right="clipboard-plus-outline"
               label="Agendar turno"
+              style="border-width: 3px;"
               />
           </NuxtLink>
           
