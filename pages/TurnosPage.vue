@@ -1,9 +1,10 @@
 <template>
   <div id="root-component">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.js"></script>
     <h2 class="my-2 text-white">Tus turnos</h2>
     <div
       id="main-content-turnospage"
-      class="flex flex-col justify-center items-center text-center"
+      class="flex flex-col justify-left items-center text-left"
     >
       <!-- <h1 class="font-bold text-2xl my-6 text-white"> {{ $auth.user + " - " + $auth.$storage.getLocalStorage('id')}} </h1> -->
       <!-- Card turno pendiente actual -->
@@ -16,7 +17,7 @@
           :items-to-show="slidesToShow"
         >
           <template #item="appointment">
-            <div class="p-4 m-4 flex justify-center">
+            <div class="p-4 m-4 flex justify-left">
               <button
                 :id="'service-slide-' + appointment.id"
                 class="bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0 hover:"
@@ -27,25 +28,51 @@
                   '); width:18rem; height:22rem; font-family: sans-serif;'
                 "
               >
-                <div class="p-2 absolute bottom-0 center-0">
+                <div class="p-2 absolute bottom-0 left-0">
                   <h5
-                    class="text-white bm-4 font-bold text-center"
+                    class="text-white bm-4 font-bold text-left"
                     style="font-size: xx-large"
                   >
                     {{ appointment.service.servicename }}
                   </h5>
-                  <p>{{ appointment.service.price }}</p>
+
                   <p
-                    class="text-white text-center"
-                    style="font-size: x-large; font-family: sans-serif"
+                    class="text-left text-white font-bold"
+                    style="
+                      font-size: 1.5rem;
+                      font-family: sans-serif;
+                      text-align: left;
+                    "
+                  >
+                    <b-icon
+                      pack="mdi"
+                      icon="cash-multiple"
+                      class="text-white text-left"
+                    ></b-icon>
+                    {{ appointment.service.price }}
+                  </p>
+                  <p
+                    class="text-white text-left font-bold"
+                    style="font-size: 1.2rem; font-family: sans-serif"
+                  >
+                    <b-icon
+                      pack="mdi"
+                      icon="far fa-calendar"
+                      class="far fa-calendar text-white text-left font-bold"
+                    ></b-icon>
+                    {{ formatDate(appointment.date) }}
+                                <p
+                    class="text-white text-left font-bold"
+                    style="font-size: 1.2rem; font-family: sans-serif"
                   >
                     <b-icon
                       pack="mdi"
                       icon="far fa-clock"
-                      class="far fa-clock text-white text-center"
+                      class="far fa-clock text-white text-left font-bold"
                     ></b-icon>
-                    {{ appointment.date }}
+
                     {{ appointment.time }}
+                  </p>
                   </p>
                 </div>
               </button>
@@ -110,10 +137,12 @@
       </div>
     </div>
   </div>
+  
 </template>
 
 <script>
 import axios from 'axios'
+import moment from 'moment'
 
 export default {
   name: 'TusTurnosPage',
@@ -124,7 +153,7 @@ export default {
   data() {
     return {
       appointments: [],
-      url: 'http://localhost:3000',
+      url: this.$auth.$storage.getLocalStorage('url'),
       slidesToShow: 1,
       slideSetAppointments: 0,
       slideSetRecord: 0,
@@ -139,6 +168,11 @@ export default {
     this.getUserRecord()
   },
   methods: {
+    formatDate(value) {
+       if (value) {
+           return moment(String(value)).format('DD/MM/YYYY')
+    }
+    },
     onResize() {
       const windowWidth = document.documentElement.clientWidth
       const rems = windowWidth / 16
@@ -150,9 +184,7 @@ export default {
     getUserAppointments() {
       axios
         .get(
-          this.url +
-            '/appointment/' +
-            this.$auth.$storage.getLocalStorage('id'),
+          this.url + 'appointment/' + this.$auth.$storage.getLocalStorage('id'),
           {
             headers: {
               auth: this.$auth.$storage.getLocalStorage('token'),
@@ -170,7 +202,7 @@ export default {
       axios
         .get(
           this.url +
-            '/appointment/record/' +
+            'appointment/record/' +
             this.$auth.$storage.getLocalStorage('id'),
           {
             headers: {

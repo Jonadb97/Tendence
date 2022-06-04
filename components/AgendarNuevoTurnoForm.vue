@@ -47,14 +47,14 @@
                     {{ service.duration }} Minutos
                   </p>
                               <p
-                    class="text-white text-left"
+                    class="text-white text-left font-bold"
                     style="font-size: x-large; font-family: sans-serif;"
                   ><b-icon
                       pack="mdi"
                       icon="cash-multiple"
                       class=" text-white text-center"
                     ></b-icon>
-                    {{ service.price }} Precio
+                    {{ service.price }}
                   </p>
                 </div>
               </button>
