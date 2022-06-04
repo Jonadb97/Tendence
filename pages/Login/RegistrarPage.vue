@@ -142,7 +142,6 @@ export default {
         areaCode: '',
         numTel: '',
         inputPassword: '',
-        url: 'http://localhost:3000',
         selectedDate:undefined,
 
       },
@@ -177,7 +176,7 @@ export default {
       const router = window.$nuxt.$router
 
 
-      axios.post('http://localhost:3000' + '/users', body).then(
+      axios.post(this.url + 'users', body).then(
         function (response) {
           if (response.status === 200) {
             router.push('/') // /Login/ValidacionPage
