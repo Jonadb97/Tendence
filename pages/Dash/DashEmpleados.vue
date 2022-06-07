@@ -181,7 +181,7 @@ export default {
       fullheight: true,
       fullwidth: false,
       right: false,
-      url: 'http://localhost:3000',
+      url: this.$auth.$storage.getLocalStorage('url'),
       employees: [],
       services: [],
       window: this.window,

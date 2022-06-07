@@ -20,13 +20,14 @@
         <b-field label="Fecha de nacimiento">
           <no-ssr>
             <b-datepicker
-                v-model="logindata.selectedDate"
-                :min-date="minDate"
-                :max-date="maxDate"
-                rounded
-                placeholder="Click to select..."
-                icon="calendar-today"
-                trap-focus>
+              v-model="logindata.selectedDate"
+              :min-date="minDate"
+              :max-date="maxDate"
+              rounded
+              placeholder="Click to select..."
+              icon="calendar-today"
+              trap-focus
+            >
             </b-datepicker>
           </no-ssr>
         </b-field>
@@ -34,7 +35,7 @@
         <b-field label="Número de teléfono">
           <b-input
             id="localcod"
-            v-model="logindata.areaCode"
+            v-model="logindata.codArea"
             type="phone"
             maxlength="4"
             rounded
@@ -139,21 +140,26 @@ export default {
       logindata: {
         userName: '',
         userEmail: '',
-        areaCode: '',
+        codArea: '',
         numTel: '',
         inputPassword: '',
-        selectedDate:undefined,
-
+        selectedDate: undefined,
       },
       maxDate: today,
-      minDate: new Date(today.getFullYear() - 100, today.getMonth(), today.getDate())
-            
+      minDate: new Date(
+        today.getFullYear() - 100,
+        today.getMonth(),
+        today.getDate()
+      ),
     }
   },
   mounted() {
-     const auth = this.$auth
-      auth.$storage.setLocalStorage('url', 'https://api-tendence-testing.herokuapp.com/')
-      console.log(auth.$storage.getLocalStorage('url'))
+    const auth = this.$auth
+    auth.$storage.setLocalStorage(
+      'url',
+      'https://api-tendence-testing.herokuapp.com'
+    )
+    console.log(auth.$storage.getLocalStorage('url'))
   },
   methods: {
     checkIfEnter() {
@@ -164,21 +170,32 @@ export default {
     login() {
       const body = {
         username: this.$data.logindata.userName,
-        birthday: String(this.logindata.selectedDate.getFullYear()).padStart(2, '0') + '-' + String(this.logindata.selectedDate.getMonth() + 1).padStart(2, '0') + '-' + this.logindata.selectedDate.getDate(),
+        birthday:
+          String(this.logindata.selectedDate.getFullYear()).padStart(2, '0') +
+          '-' +
+          String(this.logindata.selectedDate.getMonth() + 1).padStart(2, '0') +
+          '-' +
+          this.logindata.selectedDate.getDate(),
         email: this.$data.logindata.userEmail,
         password: this.$data.logindata.inputPassword,
-        phonenumber: this.$data.logindata.numTel,
-        areacode: this.$data.logindata.areaCode,
-
-        
+        phonenumber: this.$data.logindata.codArea + '' + this.$data.logindata.numTel,
+        codArea: this.$data.logindata.codArea,
       }
       console.log(body)
       const router = window.$nuxt.$router
 
-
-      axios.post(this.url + 'users', body).then(
-        function (response) {
+      axios
+        .post(this.url + '/users', body)
+        .then(function (response) {
           if (response.status === 200) {
+            this.$buefy.toast.open({
+              message: '¡Bienvenido!',
+              type: 'is-dark',
+            })
+            this.$buefy.toast.open({
+              message: 'Iniciando sesión',
+              type: 'is-dark',
+            })
             router.push('/') // /Login/ValidacionPage
           }
         })
@@ -187,6 +204,47 @@ export default {
           console.log(error)
         })
       console.log(this.url)
+    },
+    initiateLogin() {
+      const router = window.$nuxt.$router
+      const auth = this.$auth
+      const body = {
+        phonenumber:
+          this.$data.logindata.codArea + '' + this.$data.logindata.numTel,
+        password: this.$data.logindata.inputPassword,
+      }
+      axios
+        .post(this.$data.logindata.url + '/auth/login', body)
+        .then(function (response) {
+          
+          if (response.status === 200) {
+            auth.setUser(response.data.username)
+            auth.role = response.data.role
+            auth.isLogged = true
+            auth.$storage.setLocalStorage('token', response.data.token)
+            auth.$storage.setLocalStorage('user', response.data.username)
+            auth.$storage.setLocalStorage('role', response.data.role)
+            auth.$storage.setLocalStorage('id', response.data.id)
+            window.location.reload(true) && router.push('/TurnosPage')
+            console.log(response)
+          }
+          else{
+            console.log(response)
+            this.$buefy.toast.open({
+              message: 'Ups algo salio mal',
+              type: 'is-dark',
+            })
+          }
+        })
+        .catch((error) => {
+          console.log(error)
+          this.$buefy.toast.open({
+              message: 'Contraseña/Usuario Incorrectos',
+              type: 'is-dark',
+          })
+        })
+      
+      
     },
   },
 }

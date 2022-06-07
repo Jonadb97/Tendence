@@ -246,7 +246,7 @@ export default {
       employees: [],
       services: [],
       freeSchedules: [],
-      url: 'http://localhost:3000',
+      url: this.$auth.$storage.getLocalStorage('url'),
       carousel: 0,
       carousels: [],
       isScrollable: true,

@@ -277,7 +277,7 @@ export default {
       fullheight: true,
       fullwidth: false,
       right: false,
-      url: 'http://localhost:3000',
+      url: this.$auth.$storage.getLocalStorage('url'),
       unfilteredAppointments: [], // todos los turnos del día sin filtros
       dayappointments: [], // todos los turnos del día con filtros
       nextappointments: [], // turnos del día apartir de la hora actual

@@ -81,7 +81,6 @@
           </b-button>
         </div>
         <br />
-        <p>{{ why }}</p>
       </div>
     </div>
   </div>
@@ -135,7 +134,7 @@ export default {
         password: this.$data.logindata.inputPassword,
       }
       axios
-        .post(this.$data.logindata.url + 'auth/login', body)
+        .post(this.$data.logindata.url + '/auth/login', body)
         .then(function (response) {
           
           if (response.status === 200) {

@@ -190,7 +190,7 @@ export default {
     getUserAppointments() {
       axios
         .get(
-          this.url + 'appointment/' + this.$auth.$storage.getLocalStorage('id'),
+          this.url + '/appointment/' + this.$auth.$storage.getLocalStorage('id'),
           {
             headers: {
               auth: this.$auth.$storage.getLocalStorage('token'),
@@ -208,7 +208,7 @@ export default {
       axios
         .get(
           this.url +
-            'appointment/record/' +
+            '/appointment/record/' +
             this.$auth.$storage.getLocalStorage('id'),
           {
             headers: {
