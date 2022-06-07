@@ -115,6 +115,7 @@
           :unselectable-days-of-week="[0]"
           :min-date="startDate"
           :max-date="endDate"
+          :editable="false"
           @input="getDayAppointments"
         >
         </b-datepicker>
@@ -236,8 +237,6 @@
 
 <script>
 import axios from 'axios'
-// import { Carousel, Slide } from 'vue-carousel';
-// import VueSlickCarousel from 'vue-slick-carousel'
 
 export default {
   data() {
@@ -261,8 +260,8 @@ export default {
       slidesToShowEmployees: 1,
       slideSetEmployee: 0,
       slideSetServices: 0,
-      selectedEmployee: null,
-      selectedService: null,
+      selectedEmployee: undefined,
+      selectedService: undefined,
       selectedDate: new Date(),
       startDate: null,
       endDate: null,
@@ -273,7 +272,7 @@ export default {
     this.onResize()
     this.fetchEmployees()
     this.fetchServices()
-    this.fetchDateRange()
+    this.fetchSelectableDates()
   },
   methods: {
      scrollToTop() {
@@ -326,8 +325,8 @@ export default {
               {
                 date: finalDate,
                 time: this.selectedHour + ':' + this.selectedMinutes + ':00',
-                employeeId: this.selectedEmployee,
-                serviceId: this.selectedService,
+                employeeId: this.selectedEmployee.id,
+                serviceId: this.selectedService.id,
                 userId: this.$auth.$storage.getLocalStorage('id'),
               },
               {
@@ -354,6 +353,7 @@ export default {
         if (response.status === 200) {
           this.employees = response.data
           this.allEmployees = response.data
+          console.log(this.employees)
         }
         this.onResize()
       })
@@ -367,7 +367,7 @@ export default {
         this.onResize()
       })
     },
-    fetchDateRange() {
+    fetchSelectableDates() {
       axios.get(this.url + '/timetable/dateRange').then((response) => {
         if (response.status === 200) {
           this.startDate = new Date(response.data.startDate)
@@ -376,57 +376,64 @@ export default {
       })
     },
     selectService(id) {
-      if (this.selectedService != null) {
+      if (this.selectedService !== undefined) {
         const previousSlide = document.getElementById(
-          'service-slide-' + this.selectedService
+          'service-slide-' + this.selectedService.id
         )
         previousSlide.style.filter = 'grayscale(100%)'
         // para el gradiente= background: linear-gradient(to bottom,#ffffff 80%, #000000);
       }
       const slide = document.getElementById('service-slide-' + id)
       slide.style.filter = 'grayscale(0)'
-      this.selectedService = id
+      this.selectedService = this.services.find(service=>service.id===id)
       const el = document.getElementById('employee-carrousel');
       el.scrollIntoView({behavior: "smooth"});
 
     },
     selectEmployee(id) {
-      if (this.selectedEmployee != null) {
+      if (this.selectedEmployee !== undefined) {
         const previousSlide = document.getElementById(
-          'employee-slide-' + this.selectedEmployee
+          'employee-slide-' + this.selectedEmployee.id
         )
         previousSlide.style.filter = 'grayscale(100%)'
       }
       const slide = document.getElementById('employee-slide-' + id)
       slide.style.filter = 'grayscale(0%)'
-      this.selectedEmployee = id
+      this.selectedEmployee = this.allEmployees.find(employee=>employee.id === id)
       const el = document.getElementById('calendar-component w-1/2');
       el.scrollIntoView({behavior: "smooth"});
     },
 
     getDayAppointments(date) {
-      date =
+      if(this.selectedEmployee !== undefined && this.selectedService !== undefined){
+        const selectedDate =
         String(date.getFullYear()).padStart(2, '0') +
         '-' +
         String(date.getMonth() + 1).padStart(2, '0') +
         '-' +
-        date.getDate()
-      axios
-        .post(this.url + '/timetable/freeschedules', {
-          date: date + '',
-          serviceDuration: 15,
-        })
-        .then((response) => {
-          if (response.status === 200) {
-            this.freeSchedules = response.data
-            const newHours = []
-            this.freeSchedules.forEach((element) => {
-              newHours.push((element.hour + '').padStart(2, '0'))
-            })
+        String(date.getDate()).padStart(2,'0')
 
-            this.hours = [...new Set(newHours)]
-          }
-        })
+        axios.post(this.url + '/timetable/freeschedules', 
+      {
+        date: selectedDate,
+        serviceDuration: this.selectedService.duration,
+        employeeId: this.selectedEmployee.id
+      }).then((response) => 
+      {
+        if (response.status === 200) {
+          this.freeSchedules = response.data
+          const newHours = []
+          this.freeSchedules.forEach((element) => {
+          newHours.push((element.hour + '').padStart(2, '0'))
+          })
+          this.hours = [...new Set(newHours)]
+        }
+        else{
+          console.log(response.status)
+        }
+      })
+      }
+      
     },
     hourSelected(value) {
       const newMinutes = []
