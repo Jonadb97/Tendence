@@ -32,6 +32,29 @@
                   >
                     {{ service.servicename }}
                   </h5>
+
+                  <p
+                    class="text-white text-left font-bold m-2"
+                    style="font-size: 1.2rem; font-family: sans-serif"
+                  >
+                    <b-icon
+                      pack="mdi"
+                      icon="cash-multiple"
+                      class="text-white text-left"
+                    ></b-icon>
+                    {{ service.price }}
+                  </p>
+                  <p
+                    class="text-white text-left font-bold m-2"
+                    style="font-size: 1.2rem; font-family: sans-serif"
+                  >
+                    <b-icon
+                      pack="mdi"
+                      icon="far fa-clock"
+                      class="far fa-clock text-white text-left font-bold"
+                    ></b-icon>
+                    {{ service.duration }} min.
+                  </p>
                 </div>
               </button>
             </div>
@@ -86,11 +109,40 @@
                   >
                   </b-input>
                 </b-field>
+                <b-field>
+                  <b-image
+                    v-if="generatedUrl != undefined"
+                    :src="generatedUrl"
+                    alt="A random image"
+                    ratio="6by4"
+                  ></b-image>
+                </b-field>
+
+                <b-field label="Foto de perfil" type="is-dark">
+                  <b-upload
+                    v-model="imageFile"
+                    accept=".jpg,.png"
+                    drag-drop
+                    expanded
+                    required
+                    validation-message="Seleccione un archivo .png o .jpg"
+                    @input="imageUploaded"
+                  >
+                    <section class="section">
+                      <div class="content has-text-centered">
+                        <p>
+                          <b-icon icon="upload" size="is-large"></b-icon>
+                        </p>
+                        <p>Haz clic o arrastra la imagen..</p>
+                      </div>
+                    </section>
+                  </b-upload>
+                </b-field>
+
                 <b-field
                   label="Precio del servicio"
                   type="is-light"
                   class="text-white"
-                  
                 >
                   <b-icon
                     pack="mdi"
@@ -100,20 +152,19 @@
                     class="m-2"
                     style="margin-bottom: 8px"
                   ></b-icon>
-                  <b-input
-                  type="number"
-                    :value="newServicePrice"
+                  <b-numberinput
+                    type="number; is-light"
+                    :v-model="newServicePrice"
                     placeholder="Precio"
-                    expanded="false"
-                    style="width: 48px;"
                     required
+                    :min="0"
                   >
-                  </b-input>
+                  </b-numberinput>
                 </b-field>
                 <b-field
                   label="Duración del servicio en minutos"
                   type="is-light"
-                  class="text-white"
+                  class="text-white font-bold m-2"
                 >
                   <b-icon
                     pack="mdi"
@@ -123,22 +174,21 @@
                     size="is-medium"
                     style="margin-bottom: 8px"
                   ></b-icon>
-                  <b-input
-                  type="number"
-                    :value="newServiceDuration"
+                  <b-numberinput
+                    type="number; is-light"
+                    :v-model="newServiceDuration"
                     maxlength="2"
                     placeholder="Duración"
-                    expanded="false"
-                    style="width: 64px;"
+                    :min="0"
                     required
                   >
-                  </b-input>
-                   min.
+                  </b-numberinput>
+                  Min.
                 </b-field>
                 <b-field
                   label="Descripción del servicio"
                   type="is-light"
-                  class="text-black"
+                  class="text-white"
                 >
                   <b-input
                     type="textarea"
@@ -206,8 +256,9 @@ export default {
       imageFile: undefined,
       generatedUrl: undefined,
       newServiceName: '',
-      newServiceDuration: '',
-      newServicePrice: '',
+      newServiceDuration: 0,
+      newServicePrice: 0,
+      newImageRoute: '',
       newServiceServices: [],
       serviceIdToEdit: undefined,
     }
@@ -219,7 +270,7 @@ export default {
   },
   methods: {
     fetchServices() {
-      axios.get(this.url + 'services').then(this.updateServices)
+      axios.get(this.url + '/services').then(this.updateServices)
     },
     updateServices(response) {
       if (response.status === 200) {
@@ -256,18 +307,19 @@ export default {
         return service.id === id
       })
       this.serviceIdToEdit = id
-      this.newServicesName = service.name
+      this.newServiceName = service.name
       this.generatedUrl = this.url + service.imageroute
       this.isComponentModalActive = true
     },
     confirm() {
       if (this.serviceIdToEdit === undefined) {
         axios
-          .post(this.url + 'service', {
-            name: this.newServiceName,
-            price: this.newServicePrice,
-            duration: this.newServiceDuration,
+          .post(this.url + '/service', {
+            servicename: this.newServiceName,
             description: this.serviceDescription,
+            imageroute: this.newImageRoute,
+            duration: this.newServiceDuration,
+            price: this.newServicePrice,
           })
           .then((response) => {
             if (response.status === 200) {
@@ -277,6 +329,13 @@ export default {
                 type: 'is-dark',
               })
               this.fetchServices()
+            }else{
+              console.log(response)
+              this.$buefy.toast.open({
+              message: 'Ups algo salio mal',
+              type: 'is-dark',
+            })
+            window.$nuxt.$router.push('/ErrorPage')
             }
           })
       }

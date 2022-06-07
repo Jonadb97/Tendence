@@ -154,6 +154,7 @@ export default {
               message: 'Ups algo salio mal',
               type: 'is-dark',
             })
+            router.push('/ErrorPage')
           }
         })
         .catch((error) => {
