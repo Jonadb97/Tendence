@@ -170,16 +170,16 @@ export default {
     register() {
       const body = {
         username: this.$data.logindata.userName,
+        email: this.$data.logindata.userEmail,
+        password: this.$data.logindata.inputPassword,
         birthday:
           String(this.logindata.selectedDate.getFullYear()).padStart(2, '0') +
           '-' +
           String(this.logindata.selectedDate.getMonth() + 1).padStart(2, '0') +
           '-' +
-          this.logindata.selectedDate.getDate(),
-        email: this.$data.logindata.userEmail,
-        password: this.$data.logindata.inputPassword,
-        phonenumber: this.$data.logindata.codArea + '' + this.$data.logindata.numTel,
-        codArea: this.$data.logindata.codArea,
+         String(this.logindata.selectedDate.getDate()).padStart(2, '0'),       
+        phonenumber: this.$data.logindata.numTel,
+        areacode: this.$data.logindata.codArea,
       }
       console.log(body)
       const router = window.$nuxt.$router

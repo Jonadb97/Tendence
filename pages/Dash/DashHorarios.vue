@@ -9,53 +9,39 @@
       <!--- Tabla de horarios -->
       <!--- Desktop version -->
       <div id="horarios-desktop" media="(max-width: 800px)">
-        <div id="horarios-tabla" class="m-2 p-2 w-screen">
-          <div id="dias-horarios" class="grid grid-cols-6 row-auto">
-            <div class="flex-col">
-              <b-tag type="is-primary" class="m-2 grid-col" size="is-large"
-                >Lunes</b-tag
-              >
-              <!-- Horarios acá  -->
-            </div>
-            <div class="flex-col">
-              <b-tag type="is-primary" class="m-2 grid-col" size="is-large"
-                >Martes</b-tag
-              >
-              <!-- Horarios acá  -->
-            </div>
-            <div class="flex-col">
-              <b-tag type="is-primary" class="m-2 grid-col" size="is-large"
-                >Miércoles</b-tag
-              >
-              <!-- Horarios acá  -->
-            </div>
-            <div class="flex-col">
-              <b-tag type="is-primary" class="m-2 grid-col" size="is-large"
-                >Jueves</b-tag
-              >
-              <!-- Horarios acá  -->
-            </div>
-            <div class="flex-col">
-              <b-tag type="is-primary" class="m-2 grid-col" size="is-large"
-                >Viernes</b-tag
-              >
-              <!-- Horarios acá  -->
-            </div>
-            <div class="flex-col">
-              <b-tag type="is-primary" class="m-2 grid-col" size="is-large"
-                >Sábado</b-tag
-              >
-              <!-- Horarios acá  -->
-            </div>
-          </div>
-          <div
-            id="horarios-lista"
-            class="grid grid-cols-6 grid-flow-row w-screen m-2 p-2"
-            style="transform: translateX(-0.8rem)"
-          >
-            <!-- Acá van las columnas de los días -->
-          </div>
+        <div id="tab-bar" class="bg-white w-screen" style="margin-bottom: 50%">
+          <b-tabs id="nav-tab-bar" type="is-small" class="w-96" expanded>
+            <b-tab-item
+              label="Turnos de hoy"
+              pack="mdi"
+              size="is-small"
+              icon="calendar-alert"
+              @click="activeTab = 0"
+            >
+              
+
+            </b-tab-item>
+
+            <b-tab-item
+              label="Próximos turnos"
+              pack="mdi"
+              size="is-small"
+              icon="calendar-clock"
+              @click="activeTab = 1"
+            >
+            </b-tab-item>
+            <b-tab-item
+              label="Turnos finalizados"
+              pack="mdi"
+              size="is-small"
+              icon="calendar-multiple-check"
+              @click="activeTab = 2"
+            >
+            </b-tab-item>
+          </b-tabs>
         </div>
+
+
         <div class="inline-flex m-2 p-2">
           <b-dropdown aria-role="list">
             <template #trigger="{ active }">
@@ -69,40 +55,28 @@
               />
             </template>
 
-            <b-dropdown-item aria-role="listitem" value="Lunes"
-              >Lunes</b-dropdown-item
-            >
-            <b-dropdown-item aria-role="listitem" value="Martes"
-              >Martes</b-dropdown-item
-            >
-            <b-dropdown-item aria-role="listitem" value="Miércoles"
-              >Miércoles</b-dropdown-item
-            >
-            <b-dropdown-item aria-role="listitem" value="Jueves"
-              >Jueves</b-dropdown-item
-            >
-            <b-dropdown-item aria-role="listitem" value="Viernes"
-              >Viernes</b-dropdown-item
-            >
-            <b-dropdown-item aria-role="listitem" value="Sábado"
-              >Sábado</b-dropdown-item
-            >
+            <b-dropdown-item aria-role="listitem" value="Lunes">Lunes</b-dropdown-item>
+            <b-dropdown-item aria-role="listitem" value="Martes">Martes</b-dropdown-item>
+            <b-dropdown-item aria-role="listitem" value="Miércoles">Miércoles</b-dropdown-item>
+            <b-dropdown-item aria-role="listitem" value="Jueves">Jueves</b-dropdown-item>
+            <b-dropdown-item aria-role="listitem" value="Viernes">Viernes</b-dropdown-item>
+            <b-dropdown-item aria-role="listitem" value="Sábado">Sábado</b-dropdown-item>
           </b-dropdown>
           <b-field label="Hora de inicio">
             <b-timepicker
               v-model="horaInicio"
               size="is-small"
               class="m-2 p-2"
-              inline
-            ></b-timepicker>
+              inline>
+              </b-timepicker>
           </b-field>
           <b-field label="Hora de fin">
             <b-timepicker
               v-model="horaFin"
               size="is-small"
               class="m-2 p-2"
-              inline
-            ></b-timepicker>
+              inline>
+            </b-timepicker>
           </b-field>
           <b-button
             label="Agregar horario"
@@ -112,8 +86,8 @@
             outlined
             icon-right="check-bold"
             pack="mdi"
-            size="is-medium"
-          ></b-button>
+            size="is-medium">
+            </b-button>
         </div>
       </div>
       <!--- Mobile version -->
@@ -122,15 +96,13 @@
         id="horarios-mobile"
         media="(min-width: 600px)"
         class="w-96"
-        style="border-radius: 5px"
-      >
+        style="border-radius: 5px">
         <b-tabs
           type="is-toggle"
           size="is-small"
           class="bg-white"
           style="border-radius: 5px"
-          expanded
-        >
+          expanded>
           <b-tab-item type="is-dark" label="Lunes">
             <!-- Horarios acá  -->
           </b-tab-item>
@@ -219,17 +191,15 @@
 </template>
 
 <script>
-if (process.browser) {
-  require('vue-carousel')
-}
+import axios from 'axios'
 export default {
   name: 'DashHorarios',
   layout: 'default-lay',
 
   // Hay que fetchear la fecha y hora para ponerlos reactivos en el card de turnos pendientes y los anteriores
-
   data() {
     return {
+      url:this.$auth.$storage.getLocalStorage('url'),
       open: true,
       overlay: false,
       fullheight: true,
@@ -237,8 +207,29 @@ export default {
       horaInicio: '',
       horaFin: '',
       diaHorario: '',
+      activeTab: 0,
+      schedule:[],
+      isLoading: true,
     }
   },
+  mounted(){
+    this.fetchTimetable()
+  },
+  methods:{
+    fetchTimetable(){
+      axios.post(this.url + '/appointment',{}).then((response) => 
+      {
+        if (response.status === 200){
+          this.$buefy.toast.open({
+            message: 'Turno confirmado!',
+            type: 'is-dark',
+          })
+          const router = window.$nuxt.$router
+          router.push('/TurnosPage')
+        }
+      })
+    }
+  }
 }
 </script>
 

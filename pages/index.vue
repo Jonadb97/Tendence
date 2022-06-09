@@ -16,19 +16,11 @@ export default {
   layout: 'default-lay',
 
     mounted() {
-    const auth = this.$auth
-      this.checkIfLogged()
+      const auth = this.$auth
       auth.$storage.setLocalStorage('url', 'https://api-tendence-testing.herokuapp.com')
-      console.log(auth.$storage.getLocalStorage('url'))
+
     },
   methods: {
-    checkIfLogged() {
-      if (localStorage.isLogged) {
-        this.isLogged = true
-        this.userName = this.localStorage.username
-        return { value: 'true' }
-      }
-  }
   }
 
 }

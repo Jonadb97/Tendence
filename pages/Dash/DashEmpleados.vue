@@ -259,6 +259,10 @@ export default {
         auxServices.push(parseInt(service))
       })
       if(this.employeeIdToEdit===undefined){
+        const formData = new FormData();
+        formData.append("file", this.imageFile);
+        axios.post(this.url+"/upload",formData)
+
         axios.post(this.url + '/employee',{
         name:this.newEmployeeName,
         services:auxServices
