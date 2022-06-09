@@ -12,26 +12,189 @@
         <div id="tab-bar" class="bg-white w-screen" style="margin-bottom: 50%">
           <b-tabs id="nav-tab-bar" type="is-small" class="w-96" expanded>
             <b-tab-item
-              label="Turnos de hoy"
+              label="Horarios"
               pack="mdi"
               size="is-small"
               icon="calendar-alert"
               @click="activeTab = 0"
             >
-              
+
+              <b-table 
+                hoverable
+                :data="timetable" 
+                :loading="isLoadingTimetable">
+                <b-table-column v-slot="props" field="day" label="Día" centered>
+                  <span class="tag is-success">
+                    {{ props.row.day }}
+                  </span>
+                </b-table-column>
+
+                <b-table-column v-slot="props" field="startofshift" label="Inicio" centered>
+                  {{ props.row.startofshift }}
+                </b-table-column>
+
+                <b-table-column v-slot="props" field="endofshift" label="Fin" centered>
+                  {{ props.row.endofshift }}
+                </b-table-column>
+
+                <b-table-column v-slot="props" width="40" centered>
+                  <b-button 
+                  type="is-danger"
+                  icon-right="delete" 
+                  @click="deleteTimetable(props.row.id)"/>
+                </b-table-column>
+              </b-table>
+              <br>
+              <b-button
+                label="Agregar nuevo horario"
+                type="is-primary"
+                size="is-medium"
+                @click="isModalTimetableActive = true" />
+
+              <b-modal
+                v-model="isModalTimetableActive"
+                has-modal-card
+                trap-focus
+                :destroy-on-hide="false"
+                aria-role="dialog"
+                aria-label="Example Modal"
+                close-button-aria-label="Close"
+                aria-modal>
+                <template>
+                    <div class="modal-card" style="width: auto">
+                      <header class="modal-card-head">
+                          <p class="modal-card-title">Agregar Nuevo Horario</p>
+                      </header>
+                    <section class="modal-card-body">
+                        <b-field label="Hasta">
+                          <b-dropdown aria-role="list">
+                            <template #trigger="{ active }">
+                                <b-button type="is-primary" :icon-right="active ? 'menu-up' : 'menu-down'">
+                                  {{selectedDay}}
+                                </b-button>
+                            </template>
+                            <b-dropdown-item 
+                              v-for="(day) in days" 
+                              :key="day"  
+                              aria-role="listitem"
+                              @click="selectedDay = day">
+                              {{day}}
+                            </b-dropdown-item>
+                          </b-dropdown>
+                        </b-field>
+                        <b-field label="Desde">
+                            <b-timepicker v-model="startTime" inline></b-timepicker>
+                        </b-field>
+
+                        <b-field label="Hasta">
+                            <b-timepicker v-model="endTime" inline></b-timepicker>
+                        </b-field>
+
+                    </section>
+                    <footer class="modal-card-foot">
+                        <b-button
+                            label="Cancelar"
+                            @click="isModalTimetableActive=false" />
+                        <b-button
+                            label="Guardar"
+                            type="is-primary" 
+                            @click="createTimetable"/>
+                    </footer>
+                  </div>
+                </template>
+            </b-modal>  
 
             </b-tab-item>
 
             <b-tab-item
-              label="Próximos turnos"
+              label="Dias no laborables"
               pack="mdi"
               size="is-small"
               icon="calendar-clock"
               @click="activeTab = 1"
             >
+
+              <b-table 
+                hoverable
+                :data="holidays" 
+                :loading="isLoadingHolidays">
+                <b-table-column v-slot="props" field="date" label="Fecha" centered>
+                  <span class="tag is-success">
+                    {{ props.row.date }}
+                  </span>
+                </b-table-column>
+
+                <b-table-column v-slot="props" field="ocassion" label="Motivo" centered>
+                  {{ props.row.ocassion }}
+                </b-table-column>
+
+                <b-table-column v-slot="props" width="40" centered>
+                  <b-button 
+                  type="is-danger"
+                  icon-right="delete" 
+                  @click="deleteHoliday(props.row.date)"/>
+                </b-table-column>
+              </b-table>     
+              
+              <br>
+              <b-button
+                label="Agregar nuevo horario"
+                type="is-primary"
+                size="is-medium"
+                @click="isModalHolidaysActive = true" />
+
+              <b-modal
+                v-model="isModalHolidaysActive"
+                has-modal-card
+                trap-focus
+                :destroy-on-hide="false"
+                aria-role="dialog"
+                aria-label="Example Modal"
+                close-button-aria-label="Close"
+                aria-modal>
+                <template>
+                    <div class="modal-card" style="width: auto">
+                      <header class="modal-card-head">
+                          <p class="modal-card-title">Agregar Nuevo Horario</p>
+                      </header>
+                    <section class="modal-card-body">
+                        <b-field label="Hasta">
+                          <b-field label="Select a date">
+                            <b-datepicker
+                                v-model="selectedDate"
+                                inline                  
+                                placeholder="Click to select..."
+                                icon="calendar-today"
+                                :icon-right="selectedDate ? 'close-circle' : ''"
+                                icon-right-clickable
+                                trap-focus>
+                            </b-datepicker>
+                        </b-field>
+                        </b-field>
+                        <b-field label="Motivo">
+                            <b-input v-model="ocassion" type="textarea"></b-input>
+                        </b-field>
+                        <b-field>
+                            <b-checkbox>Repetir anualmente</b-checkbox>
+                        </b-field>
+
+                    </section>
+                    <footer class="modal-card-foot">
+                        <b-button
+                            label="Cancelar"
+                            @click="isModalHolidaysActive=false" />
+                        <b-button
+                            label="Guardar"
+                            type="is-primary" 
+                            @click="createHoliday"/>
+                    </footer>
+                  </div>
+                </template>
+              </b-modal>  
+
             </b-tab-item>
             <b-tab-item
-              label="Turnos finalizados"
+              label="Licencias"
               pack="mdi"
               size="is-small"
               icon="calendar-multiple-check"
@@ -40,153 +203,9 @@
             </b-tab-item>
           </b-tabs>
         </div>
-
-
-        <div class="inline-flex m-2 p-2">
-          <b-dropdown aria-role="list">
-            <template #trigger="{ active }">
-              <b-button
-                v-model="diaHorario"
-                label="Día de la semana"
-                type="is-primary"
-                class="m-2 p-2"
-                style="transform: translateY(2.5rem)"
-                :icon-right="active ? 'menu-up' : 'menu-down'"
-              />
-            </template>
-
-            <b-dropdown-item aria-role="listitem" value="Lunes">Lunes</b-dropdown-item>
-            <b-dropdown-item aria-role="listitem" value="Martes">Martes</b-dropdown-item>
-            <b-dropdown-item aria-role="listitem" value="Miércoles">Miércoles</b-dropdown-item>
-            <b-dropdown-item aria-role="listitem" value="Jueves">Jueves</b-dropdown-item>
-            <b-dropdown-item aria-role="listitem" value="Viernes">Viernes</b-dropdown-item>
-            <b-dropdown-item aria-role="listitem" value="Sábado">Sábado</b-dropdown-item>
-          </b-dropdown>
-          <b-field label="Hora de inicio">
-            <b-timepicker
-              v-model="horaInicio"
-              size="is-small"
-              class="m-2 p-2"
-              inline>
-              </b-timepicker>
-          </b-field>
-          <b-field label="Hora de fin">
-            <b-timepicker
-              v-model="horaFin"
-              size="is-small"
-              class="m-2 p-2"
-              inline>
-            </b-timepicker>
-          </b-field>
-          <b-button
-            label="Agregar horario"
-            type="is-success"
-            class="m-2 p-2"
-            style="transform: translateY(2.3rem)"
-            outlined
-            icon-right="check-bold"
-            pack="mdi"
-            size="is-medium">
-            </b-button>
-        </div>
-      </div>
-      <!--- Mobile version -->
-
-      <div
-        id="horarios-mobile"
-        media="(min-width: 600px)"
-        class="w-96"
-        style="border-radius: 5px">
-        <b-tabs
-          type="is-toggle"
-          size="is-small"
-          class="bg-white"
-          style="border-radius: 5px"
-          expanded>
-          <b-tab-item type="is-dark" label="Lunes">
-            <!-- Horarios acá  -->
-          </b-tab-item>
-          <b-tab-item type="is-dark" label="Martes">
-            <!-- Horarios acá  -->
-          </b-tab-item>
-          <b-tab-item type="is-dark" label="Miércoles">
-            <!-- Horarios acá  -->
-          </b-tab-item>
-          <b-tab-item type="is-dark" label="Jueves">
-            <!-- Horarios acá  -->
-          </b-tab-item>
-          <b-tab-item type="is-dark" label="Viernes">
-            <!-- Horarios acá  -->
-          </b-tab-item>
-          <b-tab-item type="is-dark" label="Sábado">
-            <!-- Horarios acá  -->
-          </b-tab-item>
-        </b-tabs>
-        <div class="flex flex-col justify-center items-center m-2 p-2">
-          <b-dropdown aria-role="list">
-            <template #trigger="{ active }">
-              <b-button
-                v-model="diaHorario"
-                label="Día de la semana"
-                type="is-primary"
-                class="m-6 p-4 justify-evenly justify-center"
-                style="transform: translateY(2.5rem)"
-                :icon-right="active ? 'menu-up' : 'menu-down'"
-              />
-            </template>
-
-            <b-dropdown-item aria-role="listitem" value="Lunes"
-              >Lunes</b-dropdown-item
-            >
-            <b-dropdown-item aria-role="listitem" value="Martes"
-              >Martes</b-dropdown-item
-            >
-            <b-dropdown-item aria-role="listitem" value="Miércoles"
-              >Miércoles</b-dropdown-item
-            >
-            <b-dropdown-item aria-role="listitem" value="Jueves"
-              >Jueves</b-dropdown-item
-            >
-            <b-dropdown-item aria-role="listitem" value="Viernes"
-              >Viernes</b-dropdown-item
-            >
-            <b-dropdown-item aria-role="listitem" value="Sábado"
-              >Sábado</b-dropdown-item
-            >
-          </b-dropdown>
-          <br />
-          <b-field label="Hora de inicio">
-            <b-timepicker
-              v-model="horaInicio"
-              size="is-small"
-              class=""
-              inline
-              mobile-native
-            ></b-timepicker>
-          </b-field>
-          <b-field label="Hora de fin">
-            <b-timepicker
-              v-model="horaFin"
-              size="is-small"
-              class=""
-              inline
-              mobile-native
-            ></b-timepicker>
-          </b-field>
-          <b-button
-            label="Agregar horario"
-            type="is-success"
-            class="m-2 p-2"
-            style="transform: translateY(2.3rem)"
-            outlined
-            icon-right="check-bold"
-            pack="mdi"
-            size="is-medium"
-          ></b-button>
-        </div>
+    
       </div>
     </div>
-    <div class="my-60"></div>
   </div>
 </template>
 
@@ -209,23 +228,171 @@ export default {
       diaHorario: '',
       activeTab: 0,
       schedule:[],
-      isLoading: true,
+      isLoadingTimetable: true,
+      timetable:[],
+      columnsTimetable:[
+        {
+          field: 'day',
+          label: 'Día',
+          centered:true
+        },
+        {
+          field: 'startofshift',
+          label: 'Desde',
+          centered:true
+        },
+        {
+          field: 'endofshift',
+          label: 'Hasta',
+          centered:true
+        },
+      ],
+      isModalTimetableActive:false,
+      selectedDay:"Seleccione un día",
+      startTime: new Date(),
+      endTime: new Date(),
+      days:["Lunes","Martes","Miercoles","Jueves","Viernes","Sabado","Domingo"],
+      holidays:[],
+      isModalHolidaysActive:false,
+      selectedDate:new Date(),
+      ocassion: "",
+      isLoadingHolidays:true,
+      
     }
   },
   mounted(){
     this.fetchTimetable()
+    this.fetchHolidays()
   },
   methods:{
     fetchTimetable(){
-      axios.post(this.url + '/appointment',{}).then((response) => 
+      axios.get(this.url + '/timetable',{}).then((response) => 
       {
         if (response.status === 200){
-          this.$buefy.toast.open({
-            message: 'Turno confirmado!',
-            type: 'is-dark',
+          this.isLoadingTimetable=false
+          this.timetable = response.data
+      
+          this.timetable.sort(
+            function(a,b){
+              return a.day - b.day
+            })
+          this.timetable = this.timetable.map(
+            function(a){
+              const days = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"]
+              const day = {
+                id:a.id,
+                day:days[a.day],
+                startofshift:a.startofshift,
+                endofshift:a.endofshift
+              }
+              return day
           })
-          const router = window.$nuxt.$router
-          router.push('/TurnosPage')
+        }
+      })
+    },
+    fetchHolidays(){
+      axios.get(this.url + '/holiday',{}).then((response) => 
+      {
+        if (response.status === 200){
+          this.isLoadingHolidays=false
+          this.holidays = response.data
+        }
+      })
+    },
+    createTimetable(){
+      const dayIndex = this.days.indexOf(this.selectedDay)
+      const start = String(this.startTime.getHours()).padStart(2, '0')+":"+ String(this.startTime.getMinutes()).padStart(2, '0') + ":00"
+      const end = String(this.endTime.getHours()).padStart(2, '0')+":"+ String(this.endTime.getMinutes()).padStart(2, '0') + ":00"
+
+      axios.post(this.url + '/timetable',
+      { 
+        day:dayIndex,
+        startofshift: start,
+        endofshift: end
+      }).then((response) => 
+      {
+        if (response.status === 200){
+          this.isLoadingTimetable=true
+          this.isModalTimetableActive = false
+          this.fetchTimetable()      
+        }
+      })
+    },
+    createHoliday(){
+      const date = this.selectedDate
+      const finalDate =
+        String(date.getFullYear()).padStart(2, '0') +
+        '-' +
+        String(date.getMonth() + 1).padStart(2, '0') +
+        '-' +
+        String(date.getDate()).padStart(2, '0')
+
+      axios.post(this.url + "/holiday",
+      {
+        date: finalDate,
+        ocassion: this.ocassion+"",
+      }).then((response)=>
+      {
+        if(response.status === 200){
+          this.isLoadingHolidays=true
+          this.isModalHolidaysActive = false
+          this.fetchHolidays()
+        }
+      })
+    },
+    deleteHoliday(value){
+      this.$buefy.dialog.confirm({
+        message: 'Esta seguro?',
+        type: 'is-dark',
+        onConfirm: () => {
+          axios.delete(this.url + "/holiday",{
+            data:{
+              date:value
+            }
+          }).then((response)=>{
+            if(response.status === 200){
+              this.$buefy.toast.open({
+                  message: 'Eliminado correctamente',
+                  type: 'is-dark'
+                })
+              this.isLoadingHolidays = true
+              this.fetchHolidays()
+            }
+            else{
+              this.$buefy.toast.open({
+                  message: 'Error al eliminar',
+                  type: 'is-dark'
+                })
+            }
+          })
+        }
+      })
+    },
+    deleteTimetable(id){
+      this.$buefy.dialog.confirm({
+        message: 'Esta seguro?',
+        type: 'is-dark',
+        onConfirm: () => {
+          axios.delete(this.url + "/timetable",{
+            data:{
+              id
+            }
+          }).then((response)=>{
+            if(response.status === 200){
+              this.$buefy.toast.open({
+                  message: 'Eliminado correctamente',
+                  type: 'is-dark'
+                })
+              this.isLoadingTimetable = true
+              this.fetchTimetable()
+            }
+            else{
+              this.$buefy.toast.open({
+                  message: 'Error al eliminar',
+                  type: 'is-dark'
+                })
+            }
+          })
         }
       })
     }
@@ -234,31 +401,15 @@ export default {
 </script>
 
 <style>
-.panel-tabs {
-  background-color: white;
-}
 
-.panel-tabs > a {
-  margin-left: 4rem;
-  margin-right: 4rem;
-  color: black;
-  font-weight: 500;
-}
 
 #footer-item-style {
   background-color: rgb(46, 46, 46);
   color: white;
 }
 
-#footer-item-style:hover {
-  background-color: rgb(46, 46, 46);
-  color: white;
-  font-weight: bold;
-}
 
-#card-turno-actual {
-  margin: 2rem;
-}
+
 
 #root-container {
   z-index: 3;
@@ -268,11 +419,6 @@ export default {
   min-width: 15rem;
   width: 15rem;
   border-radius: 2rem;
-}
-
-.card-header-title {
-  text-align: center;
-  justify-content: center;
 }
 
 @media (max-width: 800px) {
