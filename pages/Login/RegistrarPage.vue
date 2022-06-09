@@ -196,6 +196,7 @@ export default {
               message: 'Iniciando sesión',
               type: 'is-dark',
             })
+            this.initiateLogin()
             router.push('/') // /Login/ValidacionPage
           }
         })

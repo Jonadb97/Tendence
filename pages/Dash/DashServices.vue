@@ -211,7 +211,7 @@
                 >
                   Volver
                 </button>
-                <button class="button is-primary">Confirmar</button>
+                <button class="button is-primary" @click="confirm" >Confirmar</button>
               </footer>
             </div>
           </form>
@@ -313,16 +313,16 @@ export default {
     },
     confirm() {
       if (this.serviceIdToEdit === undefined) {
-        axios
-          .post(this.url + '/service', {
+        axios.post(this.url + '/service', {
             servicename: this.newServiceName,
             description: this.serviceDescription,
-            imageroute: this.newImageRoute,
+            imageroute: '/cortePeloyBarba.png',
             duration: this.newServiceDuration,
             price: this.newServicePrice,
           })
           .then((response) => {
             if (response.status === 200) {
+              console.log(response)
               this.isComponentModalActive = false
               this.$buefy.toast.open({
                 message: 'Servicio Creado',
