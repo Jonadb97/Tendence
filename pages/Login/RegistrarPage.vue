@@ -87,7 +87,7 @@
             type="is-success"
             icon-right="check"
             outlined
-            @click="login()"
+            @click="register()"
           >
           </b-button>
         </div>
@@ -164,10 +164,10 @@ export default {
   methods: {
     checkIfEnter() {
       if (event.keyCode === 13) {
-        this.login()
+        this.register()
       }
     },
-    login() {
+    register() {
       const body = {
         username: this.$data.logindata.userName,
         email: this.$data.logindata.userEmail,
@@ -196,6 +196,7 @@ export default {
               message: 'Iniciando sesión',
               type: 'is-dark',
             })
+            this.initiateLogin()
             router.push('/') // /Login/ValidacionPage
           }
         })
