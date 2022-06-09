@@ -310,7 +310,7 @@ export default {
             '-' +
             String(date.getMonth() + 1).padStart(2, '0') +
             '-' +
-            date.getDate()
+            String(date.getDate()).padStart(2, '0')
           console.log('employee: ' + this.selectedEmployee)
           console.log('service: ' + this.selectedService)
           console.log('date: ' + finalDate)
