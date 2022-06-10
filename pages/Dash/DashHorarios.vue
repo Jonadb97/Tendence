@@ -251,7 +251,7 @@ export default {
       selectedDay:"Seleccione un día",
       startTime: new Date(),
       endTime: new Date(),
-      days:["Lunes","Martes","Miercoles","Jueves","Viernes","Sabado","Domingo"],
+      days:["Domingo", "Lunes","Martes","Miercoles","Jueves","Viernes","Sabado"],
       holidays:[],
       isModalHolidaysActive:false,
       selectedDate:new Date(),
@@ -278,10 +278,10 @@ export default {
             })
           this.timetable = this.timetable.map(
             function(a){
-              const days = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"]
+              const days=["Domingo", "Lunes","Martes","Miercoles","Jueves","Viernes","Sabado"]
               const day = {
                 id:a.id,
-                day:days[a.day],
+                day:days[parseInt(a.day)],
                 startofshift:a.startofshift,
                 endofshift:a.endofshift
               }
