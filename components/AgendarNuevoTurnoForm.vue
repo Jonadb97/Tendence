@@ -41,8 +41,8 @@
                     style="font-size: x-large; font-family: sans-serif;"
                   ><b-icon
                       pack="mdi"
-                      icon="far fa-clock"
-                      class="far fa-clock text-white text-center"
+                      icon="clock"
+                      class="clock text-white text-center"
                     ></b-icon>
                     {{ service.duration }} Minutos
                   </p>
