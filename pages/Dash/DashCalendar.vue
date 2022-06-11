@@ -5,24 +5,12 @@
       class="flex flex-col justify-center items-center text-center m-6 p-6"
     >
       <h1 class="text-white font-bold">Calendario:</h1>
-      <no-ssr>
-        <v-date-picker
-          v-model="selectedDate"
-          class="m-32 h-96 w-96 text-lg"
-          mode="date"
-          color="purple"
-          show-caps
-          is24hr
-        />
-      </no-ssr>
+
     </div>
   </div>
 </template>
 
 <script>
-if (process.browser) {
-  require('vue-carousel')
-}
 export default {
   name: 'DashCalendar',
   layout: 'default-lay',
@@ -31,12 +19,6 @@ export default {
 
   data() {
     return {
-      open: true,
-      overlay: false,
-      fullheight: true,
-      fullwidth: false,
-      right: false,
-      selectedDate: '',
     }
   },
 }

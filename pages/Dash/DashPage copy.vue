@@ -83,9 +83,6 @@
 <script>
 import axios from 'axios'
 
-if (process.browser) {
-  require('vue-carousel')
-}
 export default {
   name: 'DashPage',
   layout: 'default-lay',
