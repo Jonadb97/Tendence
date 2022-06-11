@@ -83,7 +83,6 @@
 
                     {{ formatTime(appointment.time) }}
                   </p>
-                  </p>
                 </div>
               </button>
             </div>

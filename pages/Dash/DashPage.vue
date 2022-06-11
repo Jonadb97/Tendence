@@ -73,17 +73,17 @@
         </b-dropdown>
 
         <no-ssr>
-            <b-datepicker
-                v-model="selectedDate"
-                :min-date="minDate"
-                :max-date="maxDate"
-                placeholder=""
-                icon="calendar-today"
-                trap-focus
-                @input="changeDate()">
-            </b-datepicker>
+          <b-datepicker
+            v-model="selectedDate"
+            :min-date="minDate"
+            :max-date="maxDate"
+            placeholder=""
+            icon="calendar-today"
+            trap-focus
+            @input="changeDate()"
+          >
+          </b-datepicker>
         </no-ssr>
-
       </div>
       <div id="tab-bar" class="bg-white w-screen" style="margin-bottom: 50%">
         <b-tabs id="nav-tab-bar" type="is-small" class="w-96" expanded>
@@ -106,12 +106,25 @@
                   class="column"
                 >
                   <div
-                    class="grid-card bg-cover bg-center content-end rounded-xl shadow-lg grayscale transform transition duration-500 text-purple-800 hover:scale-110"
+                    class="grid-card bg-cover bg-center content-end rounded-xl shadow-lg transform transition duration-500 text-white font-bold 
+                    
+                    hover:scale-110 text-xl"
+                    :style="
+                      'background-image: url(' +
+                      url +
+                      appointment.service.imageroute +
+                      '); font-weight: bolder; border-radius: 15px;'
+                      "
+                    @click="showModal(appointment)"
                   >
                     <h2>{{ appointment.service.servicename }}</h2>
                     <h2>{{ appointment.user.username }}</h2>
                     <h2>{{ appointment.employee.name }}</h2>
-                    <h2>{{ appointment.time }}</h2>
+                    <b-icon
+                      pack="mdi"
+                      icon="clock"
+                      class="text-white text-left"
+                    ></b-icon><h2>{{ appointment.time }}</h2>
                   </div>
                 </div>
               </div>
@@ -136,7 +149,15 @@
                   class="column"
                 >
                   <div
-                    class="grid-card bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110"
+                    class="grid-card bg-cover bg-center content-end rounded-xl shadow-lg transform transition duration-500 text-white font-bold 
+                    
+                    hover:scale-110 text-xl"
+                    :style="
+                      'background-image: url(' +
+                      url +
+                      appointment.service.imageroute +
+                      '); font-weight: bolder; border-radius: 15px;'
+                    "
                   >
                     <h2>{{ appointment.service.servicename }}</h2>
                     <h2>{{ appointment.user.username }}</h2>
@@ -166,12 +187,15 @@
                   class="column"
                 >
                   <div
-                    class="grid-card bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110"
+                    class="grid-card bg-cover bg-center content-end rounded-xl shadow-lg transform transition duration-500 text-white font-bold 
+                    
+                    hover:scale-110 text-xl"
                     :style="
                       'background-image: url(' +
                       url +
                       appointment.service.imageroute +
-                      ');'
+                      '); font-weight: bolder; border-radius: 15px;'
+                      
                     "
                   >
                     <h2>{{ appointment.service.servicename }}</h2>
@@ -185,72 +209,88 @@
           </b-tab-item>
         </b-tabs>
 
+        <section>
+          <b-modal
+            :active.sync="isCardModalActive"
+            has-modal-card
+            type="is-dark"
+          >
+            <div
+              v-if="modalAppointment !== undefined"
+              class="modal-card"
+              style="width: 800"
+            >
+              <header
+                class="modal-card-head"
+                style="background-color: rgb(46, 46, 46)"
+              >
+                <p class="modal-card-title" style="color: white">
+                  {{ modalAppointment.service.servicename }}
+                </p>
+              </header>
 
-      <section>
-      <b-modal
-        :active.sync="isCardModalActive"
-        has-modal-card
-        type="is-dark"
-      >
-          <div v-if= "modalAppointment!==undefined" class="modal-card" style="width: 800">
-          <header class="modal-card-head" style="background-color: rgb(46, 46, 46)">
-            <p class="modal-card-title" style="color: white"> {{modalAppointment.service.servicename}} </p>
-          </header>
-
-          <section class="modal-card-body" style="background-color: rgb(46, 46, 46)">
-
-            
-            <b-field>
-              <b-dropdown v-model= "modalSelectedOptions" aria-role="list">
-                  <template #trigger="{ active }">
+              <section
+                class="modal-card-body"
+                style="background-color: rgb(46, 46, 46)"
+              >
+                <b-field>
+                  <b-dropdown v-model="modalSelectedOptions" aria-role="list">
+                    <template #trigger="{ active }">
                       <b-button
                         type="is-primary"
                         class="m-2"
                         value="Elija una opción"
                         :icon-right="active ? 'menu-up' : 'menu-down'"
                       >
-                      {{modalSelectedOptions}}
+                        {{ modalSelectedOptions }}
                       </b-button>
-                  </template>
+                    </template>
 
-                  <b-dropdown-item 
-                  v-for="option in modalAppointmentOptions" 
-                  :key="option.value" 
-                  aria-role="listitem"
-                  :value="option.label">
-                    {{option.label}}
-                  </b-dropdown-item>
-              </b-dropdown>
-            </b-field>
-            <b-field>
-              <p class="subtitle is-4" style="color: white">Con: {{modalAppointment.employee.name}}</p>
-            </b-field>
-            <b-field>
-              <p class="subtitle is-4" style="color: white">Hora: {{modalAppointment.time}}</p>
-            </b-field>
-            <b-field>
-              <p class="subtitle is-4" style="color: white">Cliente: {{modalAppointment.user.username}}</p>
-            </b-field> 
-            <b-field>
-                     
-            </b-field>
-          </section>
-          <footer
-            class="modal-card-foot"
-            style="background-color: rgb(46, 46, 46); color: white"
-          >
-            <button 
-            class="button" 
-            type="button; is-dark" 
-            @click="isCardModalActive = false">
-              Volver
-            </button>
-            <button class="button is-primary" @click="confirmAppointment">Confirmar</button>
-          </footer>
-        </div>
-      </b-modal>
-    </section>
-
+                    <b-dropdown-item
+                      v-for="option in modalAppointmentOptions"
+                      :key="option.value"
+                      aria-role="listitem"
+                      :value="option.label"
+                    >
+                      {{ option.label }}
+                    </b-dropdown-item>
+                  </b-dropdown>
+                </b-field>
+                <b-field>
+                  <p class="subtitle is-4" style="color: white">
+                    Con: {{ modalAppointment.employee.name }}
+                  </p>
+                </b-field>
+                <b-field>
+                  <p class="subtitle is-4" style="color: white">
+                    Hora: {{ modalAppointment.time }}
+                  </p>
+                </b-field>
+                <b-field>
+                  <p class="subtitle is-4" style="color: white">
+                    Cliente: {{ modalAppointment.user.username }}
+                  </p>
+                </b-field>
+                <b-field> </b-field>
+              </section>
+              <footer
+                class="modal-card-foot"
+                style="background-color: rgb(46, 46, 46); color: white"
+              >
+                <button
+                  class="button"
+                  type="button; is-dark"
+                  @click="isCardModalActive = false"
+                >
+                  Volver
+                </button>
+                <button class="button is-primary" @click="confirmAppointment">
+                  Confirmar
+                </button>
+              </footer>
+            </div>
+          </b-modal>
+        </section>
       </div>
     </div>
   </div>
@@ -284,45 +324,63 @@ export default {
       previousappointments: [], // turnos del día anteriores a la hora actual
       confirmedAppointments: [], // turnos del día que ya fueron confirmados
       confirmedAppointmentsRows: [],
-      employees:[],
-      services:[],
-      selectedService: "Todos los servicios",
-      selectedEmployee: "Todos los barberos",
+      employees: [],
+      services: [],
+      selectedService: 'Todos los servicios',
+      selectedEmployee: 'Todos los barberos',
       selectedDate: today,
-      minDate: new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()),
-      maxDate: new Date(today.getFullYear() +1, today.getMonth(), today.getDate()),
-      isCardModalActive:false,
+      minDate: new Date(
+        today.getFullYear() - 1,
+        today.getMonth(),
+        today.getDate()
+      ),
+      maxDate: new Date(
+        today.getFullYear() + 1,
+        today.getMonth(),
+        today.getDate()
+      ),
+      isCardModalActive: false,
       modalAppointment: undefined,
-      modalAppointmentOptions: 
-      [{value:"3", label:"No vino"}, 
-      {value:"2", label:"No vino (Justificado)"}, 
-      {value:"1", label:"Llego tarde"},
-      {value:"0", label:"Presente"}],
-      modalSelectedOptions: "Elija una opción"
-
+      modalAppointmentOptions: [
+        { value: '3', label: 'No vino' },
+        { value: '2', label: 'No vino (Justificado)' },
+        { value: '1', label: 'Llego tarde' },
+        { value: '0', label: 'Presente' },
+      ],
+      modalSelectedOptions: 'Elija una opción',
     }
   },
   mounted() {
     this.fetchAppointments()
     this.fetchConfirmedAppointments()
   },
-  
+
   methods: {
-    changeDate(){     
+    changeDate() {
       this.fetchAppointments()
       this.fetchConfirmedAppointments()
     },
     fetchAppointments() {
-      const date = String(this.selectedDate.getFullYear()).padStart(2, '0') + '-' + String(this.selectedDate.getMonth() + 1).padStart(2, '0') + '-' + this.selectedDate.getDate();
+      const date =
+        String(this.selectedDate.getFullYear()).padStart(2, '0') +
+        '-' +
+        String(this.selectedDate.getMonth() + 1).padStart(2, '0') +
+        '-' +
+        this.selectedDate.getDate()
       axios
-        .get(this.url + '/appointment/dayappointments/'+ date)
+        .get(this.url + '/appointment/dayappointments/' + date)
         .then(this.updateAppointments)
     },
 
     fetchConfirmedAppointments() {
-      const date = String(this.selectedDate.getFullYear()).padStart(2, '0') + '-' + String(this.selectedDate.getMonth() + 1).padStart(2, '0') + '-' + this.selectedDate.getDate();
+      const date =
+        String(this.selectedDate.getFullYear()).padStart(2, '0') +
+        '-' +
+        String(this.selectedDate.getMonth() + 1).padStart(2, '0') +
+        '-' +
+        this.selectedDate.getDate()
       axios
-        .get(this.url + '/appointment/dayfinishedappointments/'+ date)
+        .get(this.url + '/appointment/dayfinishedappointments/' + date)
         .then(this.updateConfirmedAppointments)
     },
     updateAppointments(response) {
@@ -341,10 +399,10 @@ export default {
       }
     },
 
-    orderConfirmedAppointments(){
-      let row=[]
-      this.confirmedAppointmentsRows=[]
-      this.confirmedAppointments.forEach(appointment =>{
+    orderConfirmedAppointments() {
+      let row = []
+      this.confirmedAppointmentsRows = []
+      this.confirmedAppointments.forEach((appointment) => {
         row.push(appointment)
         if (row.length === 4) {
           this.confirmedAppointmentsRows.push(row)
@@ -430,30 +488,32 @@ export default {
     filterByName(name) {
       console.log(name)
     },
-    showModal(appointment){
+    showModal(appointment) {
       this.modalAppointment = appointment
       this.isCardModalActive = true
     },
-    confirmAppointment(){
-      const option = this.modalAppointmentOptions.find(element=>element.label === this.modalSelectedOptions)
-      console.log(option.value+ " - "+ this.modalAppointment.id)
-      axios.post(this.url + '/appointment/finishAppointment',{
-        appointmentId:this.modalAppointment.id,
-        appointmentState:option.value,
-        }).then((response)=>{
-          if (response.status === 200){
+    confirmAppointment() {
+      const option = this.modalAppointmentOptions.find(
+        (element) => element.label === this.modalSelectedOptions
+      )
+      console.log(option.value + ' - ' + this.modalAppointment.id)
+      axios
+        .post(this.url + '/appointment/finishAppointment', {
+          appointmentId: this.modalAppointment.id,
+          appointmentState: option.value,
+        })
+        .then((response) => {
+          if (response.status === 200) {
             this.isCardModalActive = false
             this.$buefy.toast.open({
-                message: 'Turno finalizado',
-                type: 'is-dark'
+              message: 'Turno finalizado',
+              type: 'is-dark',
             })
             this.fetchAppointments()
             this.fetchConfirmedAppointments()
-            
           }
-          
         })
-    }
+    },
   },
 }
 </script>
