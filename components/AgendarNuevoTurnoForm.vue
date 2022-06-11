@@ -112,7 +112,9 @@
         <b-datepicker
           v-model="selectedDate"
           inline
-          :unselectable-days-of-week="[0]"
+          size="is-medium"
+          :unselectable-days-of-week="unselectableDaysOfWeek"
+          :unselectable-dates="unselectableDates"
           :min-date="startDate"
           :max-date="endDate"
           :editable="false"
@@ -124,65 +126,41 @@
     <br />
 
     <h1 class="font-bold inline-flex flex-row my-2 text-xl">A que hora?</h1>
-    <section>
-      <b-dropdown
-        v-model="selectedHour"
-        :scrollable="isScrollable"
-        :max-height="maxHeight"
-        aria-role="list"
-        @change="hourSelected"
-      >
-        <template #trigger>
-          <b-button
-            :label="selectedHour"
-            type="is-light"
-            icon-right="menu-down"
-          />
-        </template>
+    <section class="inline-flex">
 
-        <b-dropdown-item
-          v-for="hour in hours"
-          :key="hour"
-          :value="hour"
-          aria-role="listitem"
-        >
-          <div class="media">
-            <div class="media-content">
-              <h3>{{ hour }}</h3>
-            </div>
-          </div>
-        </b-dropdown-item>
-      </b-dropdown>
+      <b-select 
+        v-model="selectedHour" 
+        placeholder="HH" 
+        size="is-medium"
+        :disabled="isDisabledTimepicker"
+        :loading="isLoadingTimepicker"
+        @input="hourSelected" >
+          <option
+              v-for="hour in hours"
+              :key="hour"
+              :value="hour"
+              >
+              {{ hour }}
+          </option>
+      </b-select>
 
-      <p class="font-bold inline-flex flex-row my-2 text-xl">:</p>
+      <p class="font-bold inline-flex flex-row px-2.5 my-2 text-xl">:</p>
 
-      <b-dropdown
-        v-model="selectedMinutes"
-        :scrollable="isScrollable"
-        :max-height="maxHeight"
-        aria-role="list"
-      >
-        <template #trigger>
-          <b-button
-            :label="selectedMinutes"
-            type="is-light"
-            icon-right="menu-down"
-          />
-        </template>
+      <b-select 
+        v-model="selectedMinutes" 
+        placeholder="MM" 
+        size="is-medium"
+        :disabled="isDisabledTimepicker"
+        :loading="isLoadingTimepicker">
+          <option
+              v-for="minute in minutes"
+              :key="minute"
+              :value="minute"
+              >
+              {{ minute }}
+          </option>
+      </b-select>
 
-        <b-dropdown-item
-          v-for="minute in minutes"
-          :key="minute"
-          :value="minute"
-          aria-role="listitem"
-        >
-          <div class="media">
-            <div class="media-content">
-              <h3>{{ minute }}</h3>
-            </div>
-          </div>
-        </b-dropdown-item>
-      </b-dropdown>
     </section>
     <br />
     <b-button
@@ -250,8 +228,8 @@ export default {
       carousels: [],
       isScrollable: true,
       maxHeight: 200,
-      selectedMinutes: '--',
-      selectedHour: '--',
+      selectedMinutes: undefined,
+      selectedHour: undefined,
       hours: [],
       minutes: [],
       carouselServicesWidth: 20,
@@ -263,8 +241,13 @@ export default {
       selectedEmployee: undefined,
       selectedService: undefined,
       selectedDate: new Date(),
-      startDate: null,
-      endDate: null,
+      startDate: undefined,
+      endDate: undefined,
+      availableDays: undefined,
+      holidays: [],
+      unselectableDaysOfWeek: [],
+      isDisabledTimepicker: true,
+      isLoadingTimepicker: false
     }
   },
   mounted() {
@@ -296,7 +279,6 @@ export default {
         this.carouselServicesWidth = this.slidesToShowServices * 20
       }
 
-      console.log(this.services.length)
     },
     confirm() {
       this.$buefy.dialog.confirm({
@@ -310,14 +292,7 @@ export default {
             '-' +
             String(date.getMonth() + 1).padStart(2, '0') +
             '-' +
-            date.getDate()
-          console.log('employee: ' + this.selectedEmployee)
-          console.log('service: ' + this.selectedService)
-          console.log('date: ' + finalDate)
-          console.log(
-            'time: ' + this.selectedHour + ':' + this.selectedMinutes + ':00'
-          )
-          console.log('user: ' + this.$auth.$storage.getLocalStorage('id'))
+            String(date.getDate()).padStart(2, '0')
 
           axios
             .post(
@@ -353,7 +328,6 @@ export default {
         if (response.status === 200) {
           this.employees = response.data
           this.allEmployees = response.data
-          console.log(this.employees)
         }
         this.onResize()
       })
@@ -362,20 +336,27 @@ export default {
       axios.get(this.url + '/services').then((response) => {
         if (response.status === 200) {
           this.services = response.data
-          console.log(response.data)
         }
         this.onResize()
       })
     },
     fetchSelectableDates() {
       axios.get(this.url + '/timetable/dateRange').then((response) => {
+        const allDays = [0,1,2,3,4,5,6]
         if (response.status === 200) {
           this.startDate = new Date(response.data.startDate)
           this.endDate = new Date(response.data.endDate)
+          this.unselectableDaysOfWeek = allDays.filter(dia => !(response.data.availableDays.includes(dia+"")));
+          this.holidays = response.data.holidays.map(
+            function(d){
+              return d.date
+          })
+          console.log(this.holidays)
         }
       })
     },
     selectService(id) {
+      // animation for carrousel 
       if (this.selectedService !== undefined) {
         const previousSlide = document.getElementById(
           'service-slide-' + this.selectedService.id
@@ -389,23 +370,39 @@ export default {
       const el = document.getElementById('employee-carrousel');
       el.scrollIntoView({behavior: "smooth"});
 
+      // filter employees
+
+
+      this.clearSelectedEmployee()
+      this.employees = this.allEmployees.filter((employee)=>{
+        const services = employee.services.map((service)=>{return service.id})
+        return services.includes(this.selectedService.id)
+        })
     },
     selectEmployee(id) {
-      if (this.selectedEmployee !== undefined) {
-        const previousSlide = document.getElementById(
-          'employee-slide-' + this.selectedEmployee.id
-        )
-        previousSlide.style.filter = 'grayscale(100%)'
-      }
+      this.clearSelectedEmployee()
       const slide = document.getElementById('employee-slide-' + id)
       slide.style.filter = 'grayscale(0%)'
       this.selectedEmployee = this.allEmployees.find(employee=>employee.id === id)
       const el = document.getElementById('calendar-component w-1/2');
       el.scrollIntoView({behavior: "smooth"});
     },
+    clearSelectedEmployee(){
+      if (this.selectedEmployee !== undefined) {
+        const previousSlide = document.getElementById(
+          'employee-slide-' + this.selectedEmployee.id
+        )
+        previousSlide.style.filter = 'grayscale(100%)'
+        this.selectedEmployee = undefined
+      }
+    },
 
     getDayAppointments(date) {
       if(this.selectedEmployee !== undefined && this.selectedService !== undefined){
+        this.isDisabledTimepicker = true
+        this.isLoadingTimepicker = true
+        this.selectedHour = undefined
+        this.selectedMinutes = undefined
         const selectedDate =
         String(date.getFullYear()).padStart(2, '0') +
         '-' +
@@ -427,23 +424,29 @@ export default {
           newHours.push((element.hour + '').padStart(2, '0'))
           })
           this.hours = [...new Set(newHours)]
-        }
-        else{
-          console.log(response.status)
+          this.isLoadingTimepicker = false
+          this.isDisabledTimepicker = false
         }
       })
       }
       
     },
+
+    unselectableDates(day){
+      const date =
+        String(day.getFullYear()).padStart(2, '0') +
+        '-' +
+        String(day.getMonth() + 1).padStart(2, '0') +
+        '-' +
+        String(day.getDate()).padStart(2, '0')
+      
+      return this.holidays.includes(date)
+    },
     hourSelected(value) {
-      const newMinutes = []
-      this.freeSchedules.forEach((element) => {
-        // jshint eqeqeq: false
-        if (element.hour + '' === value + '') {
-          newMinutes.push((element.minutes + '').padStart(2, '0'))
-        }
+      const auxTime = this.freeSchedules.filter((element) => (element.hour + '').padStart(2,'0') === value + '')
+      this.minutes = auxTime.map(time=>{
+        return String(time.minutes).padStart(2, '0')
       })
-      this.minutes = newMinutes
     },
     confirmAppointment() {},
     redirectHome() {
@@ -467,53 +470,4 @@ export default {
   width: 50%;
 }
 
-/*
-#TurnoFlotador {
-    margin-right: 20%;
-    border-color: rgb(48, 48, 48);
-    background-color: #2E2E2E;
-    color: white;
-}
-
-.TurnoForm {
-    margin-top: 3.5rem;
-}
-
-#NombreLabel {
-    width: 15rem;
-}
-
-.CalendarCheckBox {
-    padding: 0.5rem;
-    font-size: 1.5rem;
-}
-
-label > input {
-    height: 1.2rem;
-    width: 1.2rem;
-}
-
-button {
-     color: rgb(49, 25, 25);
-}
-
-button:hover{
-    color: rgb(44, 44, 44);
-}
-
-@keyframes imganimation {
-    from {width: 8rem;
-    height: 8rem;}
-    to {width: 10rem;
-    height: 10rem;}
-}
-
-button > div > img:hover{
-    animation-name: imganimation;
-    animation-duration: 0.5s;
-    animation-timing-function: ease-in-out;
-    animation-direction: reverse;
-}
-
-*/
 </style>

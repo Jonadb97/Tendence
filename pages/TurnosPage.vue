@@ -35,6 +35,16 @@
                   >
                     {{ appointment.service.servicename }}
                   </h5>
+                  <p
+                    class="text-left text-white font-bold"
+                    style="
+                      font-size: 1.5rem;
+                      font-family: sans-serif;
+                      text-align: left;
+                    "
+                  >
+                    con {{ appointment.employee.name }}
+                  </p>
 
                   <p
                     class="text-left text-white font-bold"
@@ -61,7 +71,7 @@
                       class="text-white text-left font-bold"
                     ></b-icon>
                     {{ formatDate(appointment.date) }}
-                                <p
+                  <p
                     class="text-white text-left font-bold"
                     style="font-size: 1.2rem; font-family: sans-serif"
                   >
