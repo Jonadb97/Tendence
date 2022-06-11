@@ -59,9 +59,7 @@ export default {
     },
 
     // Build Configuration: https://go.nuxtjs.dev/config-build
-    build: {
-        vendor: [],
-    },
+    build: {},
     // Font Awesome Configuration:
     fontawesome: {
         icons: {
