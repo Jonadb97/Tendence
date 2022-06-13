@@ -222,7 +222,7 @@
                   ><NuxtLink
                     id="NavLink"
                     class="my-auto text-white place-content-end"
-                    to="/NuevoTurnoForm"
+                    to="/NuevoTurno/NuevoTurnoForm"
                     >Nuevo Turno</NuxtLink
                   ></b-button
                 >
