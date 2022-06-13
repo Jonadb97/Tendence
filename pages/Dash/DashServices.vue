@@ -50,8 +50,8 @@
                   >
                     <b-icon
                       pack="mdi"
-                      icon="far fa-clock"
-                      class="far fa-clock text-white text-left font-bold"
+                      icon="clock"
+                      class="text-white text-left font-bold"
                     ></b-icon>
                     {{ service.duration }} min.
                   </p>

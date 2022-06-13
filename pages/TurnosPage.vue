@@ -67,8 +67,8 @@
                   >
                     <b-icon
                       pack="mdi"
-                      icon="far fa-calendar"
-                      class="far fa-calendar text-white text-left font-bold"
+                      icon="calendar"
+                      class="text-white text-left font-bold"
                     ></b-icon>
                     {{ formatDate(appointment.date) }}
                   <p
@@ -77,12 +77,11 @@
                   >
                     <b-icon
                       pack="mdi"
-                      icon="far fa-clock"
-                      class="far fa-clock text-white text-left font-bold"
+                      icon="clock"
+                      class="text-white text-left font-bold"
                     ></b-icon>
 
                     {{ formatTime(appointment.time) }}
-                  </p>
                   </p>
                 </div>
               </button>

@@ -14,7 +14,7 @@
             <b-tab-item
               label="Horarios"
               pack="mdi"
-              size="is-small"
+              size="is-large"
               icon="calendar-alert"
               @click="activeTab = 0"
             >
@@ -24,7 +24,9 @@
                 :data="timetable" 
                 :loading="isLoadingTimetable">
                 <b-table-column v-slot="props" field="day" label="Día" centered>
-                  <span class="tag is-success">
+                  <span 
+                  class="tag is-success" 
+                  >
                     {{ props.row.day }}
                   </span>
                 </b-table-column>
@@ -109,7 +111,7 @@
             <b-tab-item
               label="Dias no laborables"
               pack="mdi"
-              size="is-small"
+              size="is-large"
               icon="calendar-clock"
               @click="activeTab = 1"
             >
@@ -196,7 +198,7 @@
             <b-tab-item
               label="Licencias"
               pack="mdi"
-              size="is-small"
+              size="is-large"
               icon="calendar-multiple-check"
               @click="activeTab = 2"
             >
@@ -283,7 +285,8 @@ export default {
                 id:a.id,
                 day:days[parseInt(a.day)],
                 startofshift:a.startofshift,
-                endofshift:a.endofshift
+                endofshift:a.endofshift,
+                color: '#' + parseInt(a.day)
               }
               return day
           })
