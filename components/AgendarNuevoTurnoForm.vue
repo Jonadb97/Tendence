@@ -5,18 +5,19 @@
     class="text-white flex flex-col justify-center items-center text-center"
   >
     <!-- Servicios -->
-
     <h1 id="top" class="font-bold inline-flex flex-row my-2 text-xl">
       Que te vas a hacer?
     </h1>
     <no-ssr>
       <div id="service-carrousel" class="h-fit" :style="'width:' + carouselServicesWidth + 'rem;'">
+       <b-skeleton height="22rem" width="18rem" :active="isLoadingServices"></b-skeleton>
         <b-carousel-list
           v-model="slideSetServices"
           :data="services"
           :items-to-show="slidesToShowServices"
         >
           <template #item="service">
+          
             <div class="p-4 m-4 flex justify-center">
               <button
                 :id="'service-slide-' + service.id"
@@ -70,6 +71,7 @@
     <h1 class="font-bold inline-flex flex-row my-2 text-xl">Con quién?</h1>
     <no-ssr>
       <div id="employee-carrousel" class="h-fit" :style="'width:' + carouselEmployeesWidth + 'rem;'">
+      <b-skeleton height="22rem" width="18rem" :active="isLoadingEmployees"></b-skeleton>
         <b-carousel-list
           v-model="slideSetEmployee"
           :data="employees"
@@ -203,14 +205,6 @@
     <div id="footer-space" class="h-48"></div>
   </div>
 
-  <!--  
-      Scrolling script
-
-
-      const el = document.getElementById('item');
-      el.scrollIntoView({behavior: "smooth"});
-
-  -->
 </template>
 
 <script>
@@ -232,6 +226,8 @@ export default {
       selectedHour: undefined,
       hours: [],
       minutes: [],
+      isLoadingServices: true,
+      isLoadingEmployees: true,
       carouselServicesWidth: 20,
       carouselEmployeesWidth: 20,
       slidesToShowServices: 1,
@@ -258,9 +254,9 @@ export default {
     this.fetchSelectableDates()
   },
   methods: {
-     scrollToTop() {
-    window.scrollTo(0,0)
-     },
+    scrollToTop() {
+      window.scrollTo(0,0)
+    },
     onResize() {
       const windowWidth = document.documentElement.clientWidth
       const rems = windowWidth / 16
@@ -328,6 +324,7 @@ export default {
         if (response.status === 200) {
           this.employees = response.data
           this.allEmployees = response.data
+          this.isLoadingEmployees = false
         }
         this.onResize()
       })
@@ -336,6 +333,7 @@ export default {
       axios.get(this.url + '/services').then((response) => {
         if (response.status === 200) {
           this.services = response.data
+          this.isLoadingServices = false
         }
         this.onResize()
       })

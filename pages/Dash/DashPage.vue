@@ -106,15 +106,7 @@
                   class="column"
                 >
                   <div
-                    class="grid-card bg-cover bg-center content-end rounded-xl shadow-lg transform transition duration-500 text-white font-bold 
-                    
-                    hover:scale-110 text-xl"
-                    :style="
-                      'background-image: url(' +
-                      url +
-                      appointment.service.imageroute +
-                      '); font-weight: bolder; border-radius: 15px;'
-                      "
+                    class="grid-card bg-cover bg-center content-end rounded-xl shadow-lg grayscale transform transition duration-500 text-purple-800 hover:scale-110"
                     @click="showModal(appointment)"
                   >
                     <h2>{{ appointment.service.servicename }}</h2>
@@ -208,17 +200,17 @@
             </div>
           </b-tab-item>
         </b-tabs>
+        <no-ssr>
 
         <section>
           <b-modal
             :active.sync="isCardModalActive"
             has-modal-card
-            type="is-dark"
-          >
+            type="is-dark">
             <div
               v-if="modalAppointment !== undefined"
               class="modal-card"
-              style="width: 800"
+              style="width:auto"
             >
               <header
                 class="modal-card-head"
@@ -291,6 +283,7 @@
             </div>
           </b-modal>
         </section>
+      </no-ssr>
       </div>
     </div>
   </div>

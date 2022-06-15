@@ -8,55 +8,74 @@
       <!-- Gottta add v-model to all the inputs -->
 
       <!-- Tel  -->
-      <div class="flex-row mx-auto text-white">
+      <div class="mx-auto text-white w-96">
         <b-field label="Número de teléfono" type="is-light">
+          <b-input
+            id="0"
+            type="phone"
+            class="pr-1 w-fit"
+            maxlength="1"
+            value="0"
+            size="is-medium"
+            disabled
+            rounded
+          ></b-input>
           <b-input
             id="localcod"
             v-model="logindata.codArea"
+            class="w-36"
             type="phone"
-            value="291"
             maxlength="4"
+            size="is-medium"
             rounded
             expanded
             @keyup.enter="login"
           ></b-input>
-          <p class="my-auto mx-2 text-white">15</p>
+          <b-input
+            id="15"
+            type="phone"
+            class="px-1 w-fit"
+            maxlength="1"
+            size="is-medium"
+            value="15"
+            disabled
+          ></b-input>
           <b-input
             id="numerotel"
             v-model="logindata.numTel"
-            class="text-white"
             type="phone"
-            value=""
-            maxlength="7"
+            maxlength="8"
+            size="is-medium"
             rounded
             expanded
           ></b-input>
         </b-field>
 
-        <!--- Pass  -->
-        <div class="flex-row mx-auto text-white">
-          <b-field class="text-white" label="Contraseña">
-            <b-input
-              v-model="logindata.inputPassword"
-              class="text-white"
-              type="password"
-              value="Thisisapasswordlolxd"
-              password-reveal
-              rounded
-            ></b-input>
-          </b-field>
-        </div>
+
+        <b-field label="Contraseña">
+          <b-input
+            v-model="logindata.inputPassword"
+            type="password"
+            password-reveal
+            maxlength="20"
+            size="is-medium"
+            rounded
+            expanded
+          ></b-input>
+        </b-field>
+
 
         <!-- Ingresar -->
         <div
-          class="flex-row items-center justify-center self-center mx-auto py-4 text-white"
+          class="flex-row items-center justify-center self-center mx-auto pb-4 text-white"
         >
           <b-button
-            class="flex mx-auto py-2 text-white"
+            class="flex mx-auto  text-white"
             type="is-light"
             pack="mdi"
             outlined
             icon-right="account-arrow-right"
+            size="is-medium"
             @click="login()"
           >
             Ingresar
@@ -67,19 +86,17 @@
         <!--No tienes cuenta? Registrar-->
         <div class="flex-row text-center mx-auto py-4" style="font-size:24px;">
           <p>No tenés cuenta? Registrate</p>
-          <b-button
-          type="is-info is-light"
-          pack="mdi"
-          icon-left="account-plus"
-          outlined
-          >
           <NuxtLink
-            class="font-bold text-lg"
-            to="/Login/RegistrarPage"
-            style="font-size:30px;"
-            >Acá
-          </NuxtLink>
+            to="/Login/RegistrarPage">
+            <b-button
+            class="flex mx-auto py-2 text-white"
+            type="is-light"
+            pack="mdi"
+            icon-right="account-plus"
+            outlined>
+            Aquí
           </b-button>
+          </NuxtLink>
         </div>
         <br />
       </div>
@@ -182,13 +199,4 @@ html {
   height: 15rem;
 }
 
-#localcod {
-  width: 5rem;
-  margin: 0;
-}
-
-#numerotel {
-  width: 10rem;
-  margin: 0;
-}
 </style>
