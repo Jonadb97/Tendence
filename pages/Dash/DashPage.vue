@@ -103,7 +103,7 @@
                 <div
                   v-for="appointment in row"
                   :key="appointment.id"
-                  class="column"
+                  class="columna"
                 >
                   <div
                     class="grid-card bg-cover bg-center content-end rounded-xl shadow-lg grayscale transform transition duration-500 text-purple-800 hover:scale-110"
@@ -138,7 +138,7 @@
                 <div
                   v-for="appointment in row"
                   :key="appointment.id"
-                  class="column"
+                  class="columna"
                 >
                   <div
                     class="grid-card bg-cover bg-center content-end rounded-xl shadow-lg transform transition duration-500 text-white font-bold 
@@ -176,7 +176,7 @@
                 <div
                   v-for="appointment in row"
                   :key="appointment.id"
-                  class="column"
+                  class="columna"
                 >
                   <div
                     class="grid-card bg-cover bg-center content-end rounded-xl shadow-lg transform transition duration-500 text-white font-bold 
@@ -356,7 +356,7 @@ export default {
         '-' +
         String(this.selectedDate.getMonth() + 1).padStart(2, '0') +
         '-' +
-        this.selectedDate.getDate()
+        String(this.selectedDate.getDate()).padStart(2, '0')
       axios
         .get(this.url + '/appointment/dayappointments/' + date)
         .then(this.updateAppointments)
@@ -525,7 +525,7 @@ export default {
 }
 
 /* Float four columns side by side */
-.column {
+.columna {
   float: left;
   width: 25%;
   padding: 0 10px;
@@ -554,7 +554,7 @@ export default {
 
 /* Responsive columns - one column layout (vertical) on small screens */
 @media screen and (max-width: 600px) {
-  .column {
+  .columna {
     width: 100%;
     display: block;
     margin-bottom: 20px;
