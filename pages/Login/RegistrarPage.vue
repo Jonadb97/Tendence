@@ -188,14 +188,6 @@ export default {
         .post(this.url + '/users', body)
         .then(function (response) {
           if (response.status === 200) {
-            this.$buefy.toast.open({
-              message: '¡Bienvenido!',
-              type: 'is-dark',
-            })
-            this.$buefy.toast.open({
-              message: 'Iniciando sesión',
-              type: 'is-dark',
-            })
             this.initiateLogin()
             router.push('/') // /Login/ValidacionPage
           }
