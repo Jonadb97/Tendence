@@ -316,7 +316,7 @@ export default {
         axios.post(this.url + '/service', {
             servicename: this.newServiceName,
             description: this.serviceDescription,
-            imageroute: '/cortePeloyBarba.png',
+            imageroute: this.url + '/cortePeloyBarba.png',
             duration: this.newServiceDuration,
             price: this.newServicePrice,
           })
