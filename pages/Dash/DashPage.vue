@@ -103,18 +103,10 @@
                 <div
                   v-for="appointment in row"
                   :key="appointment.id"
-                  class="column"
+                  class="columna"
                 >
                   <div
-                    class="grid-card bg-cover bg-center content-end rounded-xl shadow-lg transform transition duration-500 text-white font-bold 
-                    
-                    hover:scale-110 text-xl"
-                    :style="
-                      'background-image: url(' +
-                      url +
-                      appointment.service.imageroute +
-                      '); font-weight: bolder; border-radius: 15px;'
-                      "
+                    class="grid-card bg-cover bg-center content-end rounded-xl shadow-lg grayscale transform transition duration-500 text-purple-800 hover:scale-110"
                     @click="showModal(appointment)"
                   >
                     <h2>{{ appointment.service.servicename }}</h2>
@@ -146,7 +138,7 @@
                 <div
                   v-for="appointment in row"
                   :key="appointment.id"
-                  class="column"
+                  class="columna"
                 >
                   <div
                     class="grid-card bg-cover bg-center content-end rounded-xl shadow-lg transform transition duration-500 text-white font-bold 
@@ -184,7 +176,7 @@
                 <div
                   v-for="appointment in row"
                   :key="appointment.id"
-                  class="column"
+                  class="columna"
                 >
                   <div
                     class="grid-card bg-cover bg-center content-end rounded-xl shadow-lg transform transition duration-500 text-white font-bold 
@@ -208,17 +200,17 @@
             </div>
           </b-tab-item>
         </b-tabs>
+        <no-ssr>
 
         <section>
           <b-modal
             :active.sync="isCardModalActive"
             has-modal-card
-            type="is-dark"
-          >
+            type="is-dark">
             <div
               v-if="modalAppointment !== undefined"
               class="modal-card"
-              style="width: 800"
+              style="width:auto"
             >
               <header
                 class="modal-card-head"
@@ -291,6 +283,7 @@
             </div>
           </b-modal>
         </section>
+      </no-ssr>
       </div>
     </div>
   </div>
@@ -299,9 +292,6 @@
 <script>
 import axios from 'axios'
 
-if (process.browser) {
-  require('vue-carousel')
-}
 export default {
   name: 'DashPage',
   layout: 'default-lay',
@@ -366,7 +356,7 @@ export default {
         '-' +
         String(this.selectedDate.getMonth() + 1).padStart(2, '0') +
         '-' +
-        this.selectedDate.getDate()
+        String(this.selectedDate.getDate()).padStart(2, '0')
       axios
         .get(this.url + '/appointment/dayappointments/' + date)
         .then(this.updateAppointments)
@@ -535,7 +525,7 @@ export default {
 }
 
 /* Float four columns side by side */
-.column {
+.columna {
   float: left;
   width: 25%;
   padding: 0 10px;
@@ -564,7 +554,7 @@ export default {
 
 /* Responsive columns - one column layout (vertical) on small screens */
 @media screen and (max-width: 600px) {
-  .column {
+  .columna {
     width: 100%;
     display: block;
     margin-bottom: 20px;
