@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 <template>
   <div id="MainContainer">
-    <h2>Login</h2>
     <div id="Layout" class="flex flex-col">
       <!-- Logo -->
       <TendenceLogo id="TendenceLogo" class="flex mx-auto my-12" />
@@ -85,16 +84,17 @@
 
         <!--No tienes cuenta? Registrar-->
         <div class="flex-row text-center mx-auto py-4" style="font-size:24px;">
-          <p>No tenés cuenta? Registrate</p>
+          <p>No tenés cuenta?</p>
           <NuxtLink
             to="/Login/RegistrarPage">
             <b-button
             class="flex mx-auto py-2 text-white"
             type="is-light"
+            size="is-large"
             pack="mdi"
             icon-right="account-plus"
             outlined>
-            Aquí
+            ¡Registrate!
           </b-button>
           </NuxtLink>
         </div>

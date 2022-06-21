@@ -15,23 +15,6 @@
           class="my-auto py-auto"
       /></NuxtLink>
       <div id="NavContainer">
-        <b-tag
-          v-if="auth.loggedIn"
-          id="user-tag"
-          type="is-success"
-          size="is-small"
-          class="my-2"
-          style="font-size: 12px; height: 30px"
-          >{{ auth.user }}</b-tag
-        >
-        <b-tag
-          v-else
-          id="user-tag-non"
-          type="is-primary"
-          class="my-2"
-          style="font-size: 12px; height: 30px"
-          >{{ auth.user }} x</b-tag
-        >
         <b-button
           v-if="userRole == 'admin'"
           type="is-dark"
@@ -63,7 +46,7 @@
           ></b-button
         >
         <b-button type="is-dark" size="is-small" class=" my-2 hover:scale-105"
-          ><NuxtLink id="NavLink" to="/">Home</NuxtLink></b-button
+          ><NuxtLink id="NavLink" to="/">Inicio</NuxtLink></b-button
         >
                 <b-button v-show="false" type="is-danger" size="is-small" class=" my-2 hover:scale-105 bg-red-500"
           ><NuxtLink id="NavLink" to="/ErrorPage" class="hover:scale-105 bg-red-500">Error</NuxtLink></b-button
@@ -146,12 +129,21 @@
           size="is-small"
           class="my-2 hover:scale-105"
           @click="confirmLogout()"
-          ><NuxtLink id="NavLink" to="/"> Logout </NuxtLink></b-button
+          ><NuxtLink id="NavLink" to="/"> Cerrar sesión </NuxtLink></b-button
         >
         <b-button v-else type="is-dark" size="is-small" class="my-2 hover:scale-105"
           ><NuxtLink id="NavLink" to="/Login/LoginPage"
-            >Login</NuxtLink
+            >Iniciar sesión</NuxtLink
           ></b-button
+        >
+                <b-tag
+          v-if="auth.loggedIn"
+          id="user-tag"
+          type="is-success"
+          size="is-small"
+          class="my-2 pl-4 ml-4"
+          style="font-size: 12px; height: 30px"
+          >{{ auth.user }}</b-tag
         >
       </div>
     </div>
@@ -213,7 +205,7 @@
                   ></b-button
                 >
                 <b-button type="is-dark" @click="open = false"
-                  ><NuxtLink id="NavLink" to="/">Home</NuxtLink></b-button
+                  ><NuxtLink id="NavLink" to="/">Inicio</NuxtLink></b-button
                 >
                 <b-button
                   v-if="userRole == 'user'"
@@ -295,14 +287,14 @@
                   v-if="auth.loggedIn"
                   type="is-dark"
                   @click="confirmLogout(), (open = false)"
-                  ><NuxtLink id="NavLink" to="/"> Logout </NuxtLink></b-button
+                  ><NuxtLink id="NavLink" to="/"> Cerrar sesión </NuxtLink></b-button
                 >
                 <b-button v-else type="is-dark" @click="open = false"
                   ><NuxtLink
                     id="NavLink"
                     to="/Login/LoginPage"
                     style="text-align: left"
-                    >Login</NuxtLink
+                    >Iniciar sesión</NuxtLink
                   ></b-button
                 >
               </b-menu-list>

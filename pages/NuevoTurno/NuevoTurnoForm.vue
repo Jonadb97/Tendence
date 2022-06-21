@@ -1,7 +1,5 @@
 <template>
     <div id="MainContainer">
-        <h2 id="tab">Agendar nuevo turno</h2>
-
         <AgendarNuevoTurnoForm/>
     </div>
 </template>

@@ -1,12 +1,11 @@
 <template>
   <div id="MainContainer">
-    <h2>Registrarse</h2>
     <div id="Layout" class="flex flex-col">
       <!-- Logo -->
       <TendenceLogo id="TendenceLogo" class="flex mx-auto my-12" />
       <!-- Gottta add v-model to all the inputs -->
       <div class="flex-row mx-auto">
-        <b-field label="Nombre">
+        <b-field label="Nombre y apellido">
           <b-input
             id="name"
             v-model="logindata.userName"

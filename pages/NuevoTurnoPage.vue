@@ -1,7 +1,6 @@
 <template>
     <div id="MainContainer">
       <head> <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"></head>
-        <h2 id="tab">Nuevo Turno</h2> 
         <br>
         <div id="PageContainer" class="flex flex-row my-72 justify-center items-center">
           <NuxtLink to="/NuevoTurno/NuevoTurnoForm">
