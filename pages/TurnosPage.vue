@@ -1,7 +1,6 @@
 <template>
   <div id="root-component">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.js"></script>
-    <h2 class="my-2 text-white">Tus turnos</h2>
     <div
       id="main-content-turnospage"
       class="flex flex-col justify-left items-center text-left"

@@ -2,7 +2,7 @@
   <div id="MainContainer">
     <div id="Layout" class="flex flex-col">
       <!-- Logo -->
-      <TendenceLogo id="TendenceLogo" class="flex mx-auto my-12" />
+      <TendenceLogo id="TendenceLogo" class="flex mx-auto my-2" />
       <!-- Gottta add v-model to all the inputs -->
       <div class="flex-row mx-auto">
         <b-field label="Nombre y apellido">
@@ -26,6 +26,8 @@
               placeholder="Click to select..."
               icon="calendar-today"
               trap-focus
+              focusable
+              @click='pickerClick'
             >
             </b-datepicker>
           </no-ssr>
@@ -51,8 +53,6 @@
             expanded
           ></b-input>
         </b-field>
-        <!-- type="is-danger"
-     message="Este mail no es válido"> -->
         <b-field label="Email">
           <b-input
             v-model="logindata.userEmail"
@@ -91,34 +91,6 @@
           </b-button>
         </div>
       </div>
-      <!-- LoginPage
-          
-              <div class="flex-row mx-auto">
-              <b-field label="Número de teléfono">
-              <b-input id="localcod" type="phone" value="291" maxlength="3" rounded expanded="0"></b-input>
-              <p class="my-auto mx-2">15</p>
-              <b-input id ="numerotel" type="phone" value="" maxlength="7" rounded expanded="0"></b-input>
-               </b-field>
-
-          
-              <div class="flex-row mx-auto">
-              <b-field label="Contraseña">
-                <b-input type="password" value="Thisisapasswordlolxd" password-reveal></b-input>
-              </b-field>
-              </div>
-
-              <div class="flex-row items-center justify-center self-center mx-auto py-4">
-              <b-button class="flex mx-auto py-2" type="is-success" outlined icon-right="check">
-              Ingresar
-              </b-button>
-              </div>
-
-    
-            <div class="flex-row text-center mx-auto py-4">
-              <p>No tenés cuenta? Registrate <NuxtLink class="text-blue-600 font-bold" to="/Login/RegistrarPage">acá</NuxtLink></p>
-            </div>
-              </div>
-              -->
     </div>
   </div>
 </template>
@@ -161,6 +133,9 @@ export default {
     console.log(auth.$storage.getLocalStorage('url'))
   },
   methods: {
+    pickerClick() {
+      this.console.log('Hola :)')
+    },
     checkIfEnter() {
       if (event.keyCode === 13) {
         this.register()
