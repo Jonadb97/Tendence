@@ -175,7 +175,8 @@ export default {
         auth.$storage.setLocalStorage('id', response.data.id)
         this.$toast.show('Iniciando sesión...')
         // window.location.reload(true, this.$toast.show('¡Bienvenido!'))
-        router.push('/TurnosPage')
+        router.push('/')
+        this.$toast.show('¡Bienvenido!')
       }
       else{
         this.$toast.show('¡Oops! Algo salió mal...')
