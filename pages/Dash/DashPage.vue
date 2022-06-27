@@ -17,8 +17,9 @@
           <template #trigger="{ active }">
             <b-button
               type="is-primary"
-              class="m-auto"
+              class="m-2"
               icon-left="account-search"
+              style='width: 12rem;'
               :icon-right="active ? 'menu-up' : 'menu-down'"
             >
               {{ selectedEmployee }}
@@ -42,12 +43,13 @@
             {{ employee.name }}
           </b-dropdown-item>
         </b-dropdown>
-        <b-dropdown v-model="selectedService" aria-role="list">
+        <b-dropdown class="m-0" v-model="selectedService" aria-role="list">
           <template #trigger="{ active }">
             <b-button
               type="is-primary"
               class="m-2"
               icon-left="account-details"
+              style='width: 12rem;'
               :icon-right="active ? 'menu-up' : 'menu-down'"
             >
               {{ selectedService }}

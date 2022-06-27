@@ -27,7 +27,7 @@
       <div class="days">
         <div v-for="employee in employees" :key="employee.id" class="day">
           <div class="date">
-            <p class="date-day">{{employee.name}}</p>
+            <p class="date-day" style="font-weight: 700;">{{employee.name}}</p>
           </div>
           <div class="events" >
             <div 
@@ -46,8 +46,13 @@
 
     <b-button
       label="Agregar Turno invitado"
-      type="is-primary"
+      outlined
+      pack="mdi"
+      type="is-success"
       size="is-medium"
+      icon-left="calendar"
+      icon-right="plus"
+      style='border-width: 5px;'
       @click="isModalActive = true" />
     
               <b-modal

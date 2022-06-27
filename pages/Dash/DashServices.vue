@@ -71,7 +71,7 @@
           icon-left="account-cash"
           outlined
           class="button is-primary is-medium m-4"
-          style="border-width: 3px"
+          style="border-width: 5px"
           @click="isComponentModalActive = true"
         >
           Nuevo servicio

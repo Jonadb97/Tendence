@@ -58,7 +58,12 @@
               <br />
               <b-button
                 label="Agregar nuevo horario"
-                type="is-primary"
+                type="is-success"
+                outlined
+                style='border-width: 5px'
+                pack="mdi"
+                icon-left="clock"
+                icon-right="plus"
                 size="is-medium"
                 @click="isModalTimetableActive = true"
               />
