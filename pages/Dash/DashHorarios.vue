@@ -18,40 +18,55 @@
               icon="calendar-alert"
               @click="activeTab = 0"
             >
-
-              <b-table 
+              <b-table
                 hoverable
-                :data="timetable" 
-                :loading="isLoadingTimetable">
+                :data="timetable"
+                :loading="isLoadingTimetable"
+              >
                 <b-table-column v-slot="props" field="day" label="Día" centered>
-                  <span 
-                  class="tag is-success" 
-                  >
+                  <span name="dayTag" class="tag">
                     {{ props.row.day }}
                   </span>
                 </b-table-column>
 
-                <b-table-column v-slot="props" field="startofshift" label="Inicio" centered>
+                <b-table-column
+                  v-slot="props"
+                  field="startofshift"
+                  label="Inicio"
+                  centered
+                >
                   {{ props.row.startofshift }}
                 </b-table-column>
 
-                <b-table-column v-slot="props" field="endofshift" label="Fin" centered>
+                <b-table-column
+                  v-slot="props"
+                  field="endofshift"
+                  label="Fin"
+                  centered
+                >
                   {{ props.row.endofshift }}
                 </b-table-column>
 
                 <b-table-column v-slot="props" width="40" centered>
-                  <b-button 
-                  type="is-danger"
-                  icon-right="delete" 
-                  @click="deleteTimetable(props.row.id)"/>
+                  <b-button
+                    type="is-danger"
+                    icon-right="delete"
+                    @click="deleteTimetable(props.row.id)"
+                  />
                 </b-table-column>
               </b-table>
-              <br>
+              <br />
               <b-button
                 label="Agregar nuevo horario"
-                type="is-primary"
+                type="is-success"
+                outlined
+                style='border-width: 5px'
+                pack="mdi"
+                icon-left="clock"
+                icon-right="plus"
                 size="is-medium"
-                @click="isModalTimetableActive = true" />
+                @click="isModalTimetableActive = true"
+              />
 
               <b-modal
                 v-model="isModalTimetableActive"
@@ -61,51 +76,56 @@
                 aria-role="dialog"
                 aria-label="Example Modal"
                 close-button-aria-label="Close"
-                aria-modal>
+                aria-modal
+              >
                 <template>
-                    <div class="modal-card" style="width: auto">
-                      <header class="modal-card-head">
-                          <p class="modal-card-title">Agregar Nuevo Horario</p>
-                      </header>
+                  <div class="modal-card" style="width: auto">
+                    <header class="modal-card-head">
+                      <p class="modal-card-title">Agregar Nuevo Horario</p>
+                    </header>
                     <section class="modal-card-body">
-                        <b-field label="Hasta">
-                          <b-dropdown aria-role="list">
-                            <template #trigger="{ active }">
-                                <b-button type="is-primary" :icon-right="active ? 'menu-up' : 'menu-down'">
-                                  {{selectedDay}}
-                                </b-button>
-                            </template>
-                            <b-dropdown-item 
-                              v-for="(day) in days" 
-                              :key="day"  
-                              aria-role="listitem"
-                              @click="selectedDay = day">
-                              {{day}}
-                            </b-dropdown-item>
-                          </b-dropdown>
-                        </b-field>
-                        <b-field label="Desde">
-                            <b-timepicker v-model="startTime" inline></b-timepicker>
-                        </b-field>
+                      <b-field label="Hasta">
+                        <b-dropdown aria-role="list">
+                          <template #trigger="{ active }">
+                            <b-button
+                              type="is-primary"
+                              :icon-right="active ? 'menu-up' : 'menu-down'"
+                            >
+                              {{ selectedDay }}
+                            </b-button>
+                          </template>
+                          <b-dropdown-item
+                            v-for="day in days"
+                            :key="day"
+                            aria-role="listitem"
+                            @click="selectedDay = day"
+                          >
+                            {{ day }}
+                          </b-dropdown-item>
+                        </b-dropdown>
+                      </b-field>
+                      <b-field label="Desde">
+                        <b-timepicker v-model="startTime" inline></b-timepicker>
+                      </b-field>
 
-                        <b-field label="Hasta">
-                            <b-timepicker v-model="endTime" inline></b-timepicker>
-                        </b-field>
-
+                      <b-field label="Hasta">
+                        <b-timepicker v-model="endTime" inline></b-timepicker>
+                      </b-field>
                     </section>
                     <footer class="modal-card-foot">
-                        <b-button
-                            label="Cancelar"
-                            @click="isModalTimetableActive=false" />
-                        <b-button
-                            label="Guardar"
-                            type="is-primary" 
-                            @click="createTimetable"/>
+                      <b-button
+                        label="Cancelar"
+                        @click="isModalTimetableActive = false"
+                      />
+                      <b-button
+                        label="Guardar"
+                        type="is-primary"
+                        @click="createTimetable"
+                      />
                     </footer>
                   </div>
                 </template>
-            </b-modal>  
-
+              </b-modal>
             </b-tab-item>
 
             <b-tab-item
@@ -115,35 +135,43 @@
               icon="calendar-clock"
               @click="activeTab = 1"
             >
-
-              <b-table 
-                hoverable
-                :data="holidays" 
-                :loading="isLoadingHolidays">
-                <b-table-column v-slot="props" field="date" label="Fecha" centered>
-                  <span class="tag is-success">
+              <b-table hoverable :data="holidays" :loading="isLoadingHolidays">
+                <b-table-column
+                  v-slot="props"
+                  field="date"
+                  label="Fecha"
+                  centered
+                >
+                  <span class="tag">
                     {{ props.row.date }}
                   </span>
                 </b-table-column>
 
-                <b-table-column v-slot="props" field="ocassion" label="Motivo" centered>
+                <b-table-column
+                  v-slot="props"
+                  field="ocassion"
+                  label="Motivo"
+                  centered
+                >
                   {{ props.row.ocassion }}
                 </b-table-column>
 
                 <b-table-column v-slot="props" width="40" centered>
-                  <b-button 
-                  type="is-danger"
-                  icon-right="delete" 
-                  @click="deleteHoliday(props.row.date)"/>
+                  <b-button
+                    type="is-danger"
+                    icon-right="delete"
+                    @click="deleteHoliday(props.row.date)"
+                  />
                 </b-table-column>
-              </b-table>     
-              
-              <br>
+              </b-table>
+
+              <br />
               <b-button
                 label="Agregar nuevo horario"
                 type="is-primary"
                 size="is-medium"
-                @click="isModalHolidaysActive = true" />
+                @click="isModalHolidaysActive = true"
+              />
 
               <b-modal
                 v-model="isModalHolidaysActive"
@@ -153,47 +181,49 @@
                 aria-role="dialog"
                 aria-label="Example Modal"
                 close-button-aria-label="Close"
-                aria-modal>
+                aria-modal
+              >
                 <template>
-                    <div class="modal-card" style="width: auto">
-                      <header class="modal-card-head">
-                          <p class="modal-card-title">Agregar Nuevo Horario</p>
-                      </header>
+                  <div class="modal-card" style="width: auto">
+                    <header class="modal-card-head">
+                      <p class="modal-card-title">Agregar Nuevo Horario</p>
+                    </header>
                     <section class="modal-card-body">
-                        <b-field label="Hasta">
-                          <b-field label="Select a date">
-                            <b-datepicker
-                                v-model="selectedDate"
-                                inline                  
-                                placeholder="Click to select..."
-                                icon="calendar-today"
-                                :icon-right="selectedDate ? 'close-circle' : ''"
-                                icon-right-clickable
-                                trap-focus>
-                            </b-datepicker>
+                      <b-field label="Hasta">
+                        <b-field label="Select a date">
+                          <b-datepicker
+                            v-model="selectedDate"
+                            inline
+                            placeholder="Click to select..."
+                            icon="calendar-today"
+                            :icon-right="selectedDate ? 'close-circle' : ''"
+                            icon-right-clickable
+                            trap-focus
+                          >
+                          </b-datepicker>
                         </b-field>
-                        </b-field>
-                        <b-field label="Motivo">
-                            <b-input v-model="ocassion" type="textarea"></b-input>
-                        </b-field>
-                        <b-field>
-                            <b-checkbox>Repetir anualmente</b-checkbox>
-                        </b-field>
-
+                      </b-field>
+                      <b-field label="Motivo">
+                        <b-input v-model="ocassion" type="textarea"></b-input>
+                      </b-field>
+                      <b-field>
+                        <b-checkbox>Repetir anualmente</b-checkbox>
+                      </b-field>
                     </section>
                     <footer class="modal-card-foot">
-                        <b-button
-                            label="Cancelar"
-                            @click="isModalHolidaysActive=false" />
-                        <b-button
-                            label="Guardar"
-                            type="is-primary" 
-                            @click="createHoliday"/>
+                      <b-button
+                        label="Cancelar"
+                        @click="isModalHolidaysActive = false"
+                      />
+                      <b-button
+                        label="Guardar"
+                        type="is-primary"
+                        @click="createHoliday"
+                      />
                     </footer>
                   </div>
                 </template>
-              </b-modal>  
-
+              </b-modal>
             </b-tab-item>
             <b-tab-item
               label="Licencias"
@@ -205,7 +235,6 @@
             </b-tab-item>
           </b-tabs>
         </div>
-    
       </div>
     </div>
   </div>
@@ -220,7 +249,7 @@ export default {
   // Hay que fetchear la fecha y hora para ponerlos reactivos en el card de turnos pendientes y los anteriores
   data() {
     return {
-      url:this.$auth.$storage.getLocalStorage('url'),
+      url: this.$auth.$storage.getLocalStorage('url'),
       open: true,
       overlay: false,
       fullheight: true,
@@ -229,99 +258,124 @@ export default {
       horaFin: '',
       diaHorario: '',
       activeTab: 0,
-      schedule:[],
+      schedule: [],
       isLoadingTimetable: true,
-      timetable:[],
-      columnsTimetable:[
+      timetable: [],
+      columnsTimetable: [
         {
           field: 'day',
           label: 'Día',
-          centered:true
+          centered: true,
         },
         {
           field: 'startofshift',
           label: 'Desde',
-          centered:true
+          centered: true,
         },
         {
           field: 'endofshift',
           label: 'Hasta',
-          centered:true
+          centered: true,
         },
       ],
-      isModalTimetableActive:false,
-      selectedDay:"Seleccione un día",
+      isModalTimetableActive: false,
+      selectedDay: 'Seleccione un día',
       startTime: new Date(),
       endTime: new Date(),
-      days:["Domingo", "Lunes","Martes","Miercoles","Jueves","Viernes","Sabado"],
-      holidays:[],
-      isModalHolidaysActive:false,
-      selectedDate:new Date(),
-      ocassion: "",
-      isLoadingHolidays:true,
-      
+      days: [
+        'Domingo',
+        'Lunes',
+        'Martes',
+        'Miercoles',
+        'Jueves',
+        'Viernes',
+        'Sabado',
+      ],
+      holidays: [],
+      isModalHolidaysActive: false,
+      selectedDate: new Date(),
+      ocassion: '',
+      isLoadingHolidays: true,
     }
   },
-  mounted(){
+  mounted() {
     this.fetchTimetable()
     this.fetchHolidays()
+    this.getTags()
   },
-  methods:{
-    fetchTimetable(){
-      axios.get(this.url + '/timetable',{}).then((response) => 
-      {
-        if (response.status === 200){
-          this.isLoadingTimetable=false
+  methods: {
+    fetchTimetable() {
+      axios.get(this.url + '/timetable', {}).then((response) => {
+        if (response.status === 200) {
+          this.isLoadingTimetable = false
           this.timetable = response.data
-      
-          this.timetable.sort(
-            function(a,b){
-              return a.day - b.day
-            })
-          this.timetable = this.timetable.map(
-            function(a){
-              const days=["Domingo", "Lunes","Martes","Miercoles","Jueves","Viernes","Sabado"]
-              const day = {
-                id:a.id,
-                day:days[parseInt(a.day)],
-                startofshift:a.startofshift,
-                endofshift:a.endofshift,
-                color: '#' + parseInt(a.day)
-              }
-              return day
+
+          this.timetable.sort(function (a, b) {
+            return a.day - b.day
+          })
+          this.timetable = this.timetable.map(function (a) {
+            const days = [
+              'Domingo',
+              'Lunes',
+              'Martes',
+              'Miercoles',
+              'Jueves',
+              'Viernes',
+              'Sabado',
+            ]
+            const day = {
+              id: a.id,
+              day: days[parseInt(a.day)],
+              startofshift: a.startofshift,
+              endofshift: a.endofshift,
+              color: '#' + parseInt(a.day),
+            }
+
+            return day
           })
         }
       })
     },
-    fetchHolidays(){
-      axios.get(this.url + '/holiday',{}).then((response) => 
-      {
-        if (response.status === 200){
-          this.isLoadingHolidays=false
+    getTags() {
+      const tagElements = document.getElementsByName('dayTag')
+      console.log(tagElements)
+    },
+    fetchHolidays() {
+      axios.get(this.url + '/holiday', {}).then((response) => {
+        if (response.status === 200) {
+          this.isLoadingHolidays = false
           this.holidays = response.data
         }
       })
     },
-    createTimetable(){
+    createTimetable() {
       const dayIndex = this.days.indexOf(this.selectedDay)
-      const start = String(this.startTime.getHours()).padStart(2, '0')+":"+ String(this.startTime.getMinutes()).padStart(2, '0') + ":00"
-      const end = String(this.endTime.getHours()).padStart(2, '0')+":"+ String(this.endTime.getMinutes()).padStart(2, '0') + ":00"
+      const start =
+        String(this.startTime.getHours()).padStart(2, '0') +
+        ':' +
+        String(this.startTime.getMinutes()).padStart(2, '0') +
+        ':00'
+      const end =
+        String(this.endTime.getHours()).padStart(2, '0') +
+        ':' +
+        String(this.endTime.getMinutes()).padStart(2, '0') +
+        ':00'
 
-      axios.post(this.url + '/timetable',
-      { 
-        day:dayIndex,
-        startofshift: start,
-        endofshift: end
-      }).then((response) => 
-      {
-        if (response.status === 200){
-          this.isLoadingTimetable=true
-          this.isModalTimetableActive = false
-          this.fetchTimetable()      
-        }
-      })
+      axios
+        .post(this.url + '/timetable', {
+          day: dayIndex,
+          startofshift: start,
+          endofshift: end,
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            this.isLoadingTimetable = true
+            this.isModalTimetableActive = false
+            this.fetchTimetable()
+          }
+        })
     },
-    createHoliday(){
+    createHoliday() {
       const date = this.selectedDate
       const finalDate =
         String(date.getFullYear()).padStart(2, '0') +
@@ -330,89 +384,87 @@ export default {
         '-' +
         String(date.getDate()).padStart(2, '0')
 
-      axios.post(this.url + "/holiday",
-      {
-        date: finalDate,
-        ocassion: this.ocassion+"",
-      }).then((response)=>
-      {
-        if(response.status === 200){
-          this.isLoadingHolidays=true
-          this.isModalHolidaysActive = false
-          this.fetchHolidays()
-        }
-      })
+      axios
+        .post(this.url + '/holiday', {
+          date: finalDate,
+          ocassion: this.ocassion + '',
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            this.isLoadingHolidays = true
+            this.isModalHolidaysActive = false
+            this.fetchHolidays()
+          }
+        })
     },
-    deleteHoliday(value){
+    deleteHoliday(value) {
       this.$buefy.dialog.confirm({
         message: 'Esta seguro?',
         type: 'is-dark',
         onConfirm: () => {
-          axios.delete(this.url + "/holiday",{
-            data:{
-              date:value
-            }
-          }).then((response)=>{
-            if(response.status === 200){
-              this.$buefy.toast.open({
+          axios
+            .delete(this.url + '/holiday', {
+              data: {
+                date: value,
+              },
+            })
+            .then((response) => {
+              if (response.status === 200) {
+                this.$buefy.toast.open({
                   message: 'Eliminado correctamente',
-                  type: 'is-dark'
+                  type: 'is-dark',
                 })
-              this.isLoadingHolidays = true
-              this.fetchHolidays()
-            }
-            else{
-              this.$buefy.toast.open({
+                this.isLoadingHolidays = true
+                this.fetchHolidays()
+              } else {
+                this.$buefy.toast.open({
                   message: 'Error al eliminar',
-                  type: 'is-dark'
+                  type: 'is-dark',
                 })
-            }
-          })
-        }
+              }
+            })
+        },
       })
     },
-    deleteTimetable(id){
+    deleteTimetable(id) {
       this.$buefy.dialog.confirm({
         message: 'Esta seguro?',
         type: 'is-dark',
         onConfirm: () => {
-          axios.delete(this.url + "/timetable",{
-            data:{
-              id
-            }
-          }).then((response)=>{
-            if(response.status === 200){
-              this.$buefy.toast.open({
+          axios
+            .delete(this.url + '/timetable', {
+              data: {
+                id,
+              },
+            })
+            .then((response) => {
+              if (response.status === 200) {
+                this.$buefy.toast.open({
                   message: 'Eliminado correctamente',
-                  type: 'is-dark'
+                  type: 'is-dark',
                 })
-              this.isLoadingTimetable = true
-              this.fetchTimetable()
-            }
-            else{
-              this.$buefy.toast.open({
+                this.isLoadingTimetable = true
+                this.fetchTimetable()
+              } else {
+                this.$buefy.toast.open({
                   message: 'Error al eliminar',
-                  type: 'is-dark'
+                  type: 'is-dark',
                 })
-            }
-          })
-        }
+              }
+            })
+        },
       })
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style>
 
-
 #footer-item-style {
   background-color: rgb(46, 46, 46);
   color: white;
 }
-
-
-
 
 #root-container {
   z-index: 3;

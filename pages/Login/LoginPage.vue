@@ -1,10 +1,9 @@
 /* eslint-disable no-console */
 <template>
   <div id="MainContainer">
-    <h2>Login</h2>
     <div id="Layout" class="flex flex-col">
       <!-- Logo -->
-      <TendenceLogo id="TendenceLogo" class="flex mx-auto my-12" />
+      <TendenceLogo id="TendenceLogo" class="flex mx-auto my-2" />
       <!-- Gottta add v-model to all the inputs -->
 
       <!-- Tel  -->
@@ -85,16 +84,18 @@
 
         <!--No tienes cuenta? Registrar-->
         <div class="flex-row text-center mx-auto py-4" style="font-size:24px;">
-          <p>No tenés cuenta? Registrate</p>
+          <p>No tenés cuenta?</p>
           <NuxtLink
             to="/Login/RegistrarPage">
             <b-button
             class="flex mx-auto py-2 text-white"
-            type="is-light"
+            type="is-success"
+            size="is-large"
             pack="mdi"
+            style="border-width: 5px;"
             icon-right="account-plus"
             outlined>
-            Aquí
+            ¡Registrate!
           </b-button>
           </NuxtLink>
         </div>
@@ -156,16 +157,12 @@ export default {
       .post(this.url + '/auth/login', body)
       .then(this.initiateLogin)
       .catch((error) => {
-        this.$buefy.toast.open({
-            message: 'Contraseña/Usuario Incorrectos',
-            type: 'is-dark',
-        })
+        this.$toast.show('¡Contraseña/usuario incorrecto!')
         this.isLoading = false
         console.log(error)
       })   
     },
     initiateLogin(response){
-      const router = window.$nuxt.$router
       const auth = this.$auth
       this.isLoading = false
       if (response.status === 200) {
@@ -176,13 +173,12 @@ export default {
         auth.$storage.setLocalStorage('user', response.data.username)
         auth.$storage.setLocalStorage('role', response.data.role)
         auth.$storage.setLocalStorage('id', response.data.id)
-        window.location.reload(true) && router.push('/TurnosPage')
+        this.$toast.show('Iniciando sesión...')
+        window.location.reload(true, this.$toast.show('¡Bienvenido!'))
+        
       }
       else{
-        this.$buefy.toast.open({
-          message: 'Ups algo salio mal',
-          type: 'is-dark',
-        })
+        this.$toast.show('¡Oops! Algo salió mal...')
       }
     }
   },

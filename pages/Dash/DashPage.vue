@@ -4,11 +4,11 @@
       id="main-content"
       class="flex flex-col justify-center items-center text-center"
     >
-      <div id="serach-bar" class="m-2">
+      <div id="serach-bar" class="m-2" style="width: 24rem;">
         <b-input
           pack="mdi"
           icon-right="magnify"
-          class="m-2"
+          class="m-auto"
           placeholder="Nombre cliente.."
           maxlength="25"
           @input="filterByName"
@@ -19,6 +19,7 @@
               type="is-primary"
               class="m-2"
               icon-left="account-search"
+              style='width: 12rem;'
               :icon-right="active ? 'menu-up' : 'menu-down'"
             >
               {{ selectedEmployee }}
@@ -42,12 +43,13 @@
             {{ employee.name }}
           </b-dropdown-item>
         </b-dropdown>
-        <b-dropdown v-model="selectedService" aria-role="list">
+        <b-dropdown class="m-0" v-model="selectedService" aria-role="list">
           <template #trigger="{ active }">
             <b-button
               type="is-primary"
               class="m-2"
               icon-left="account-details"
+              style='width: 12rem;'
               :icon-right="active ? 'menu-up' : 'menu-down'"
             >
               {{ selectedService }}
@@ -88,12 +90,16 @@
       <div id="tab-bar" class="bg-white w-screen" style="margin-bottom: 50%">
         <b-tabs id="nav-tab-bar" type="is-small" class="w-96" expanded>
           <b-tab-item
-            label="Turnos del día"
+            label="Turnos pendientes"
             pack="mdi"
             size="is-small"
             icon="calendar-alert"
             @click="activeTab = 0"
           >
+            <div v-show="!previousappointments">
+              Hola
+
+            </div>
             <div class="grid-card-container">
               <div
                 v-for="(row, index) in previousappointments"

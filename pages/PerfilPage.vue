@@ -1,6 +1,5 @@
 <template>
     <div id="MainContainer">
-        <h2>Perfil</h2>
     </div>
 </template>
 

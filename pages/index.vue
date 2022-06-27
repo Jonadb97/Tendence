@@ -1,6 +1,5 @@
 <template>
 <div id="MainContainer">
-  <h1 id="home-heading" class="m-0 p-0">Home</h1>
   <img
           id="BT-home"
           src="../static/svg/BarberTendenceTextWhite.svg"

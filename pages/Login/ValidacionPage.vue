@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 <template>
   <div id="MainContainer">
-    <h2>Validación</h2>
     <div id="Layout" class="flex flex-col">
       <!-- Logo -->
 

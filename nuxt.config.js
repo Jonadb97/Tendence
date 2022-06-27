@@ -52,14 +52,18 @@ export default {
         '@nuxtjs/tailwindcss',
         'nuxt-buefy',
         '@nuxtjs/auth',
+        '@nuxtjs/toast',
     ],
-
+    
     // Axios module configuration: https://go.nuxtjs.dev/config-axios
     axios: {
         // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
         baseURL: '/',
     },
-
+    toast: {
+        position: 'top-center',
+    },
+    
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {},
     // Font Awesome Configuration:

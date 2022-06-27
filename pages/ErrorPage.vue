@@ -1,6 +1,5 @@
 <template>
 <div id="MainContainer">
-  <h1 id="error-heading" class="m-0 p-0 text-white">Error</h1>
   <img
           id="BT-error"
           src="../static/svg/BarberTendenceTextWhite.svg"

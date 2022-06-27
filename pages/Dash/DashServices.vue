@@ -71,7 +71,7 @@
           icon-left="account-cash"
           outlined
           class="button is-primary is-medium m-4"
-          style="border-width: 3px"
+          style="border-width: 5px"
           @click="isComponentModalActive = true"
         >
           Nuevo servicio
@@ -155,6 +155,7 @@
                   <b-numberinput
                     type="number; is-light"
                     :v-model="newServicePrice"
+                    step="100"
                     placeholder="Precio"
                     required
                     :min="0"
@@ -178,6 +179,7 @@
                     type="number; is-light"
                     :v-model="newServiceDuration"
                     maxlength="2"
+                    step="10"
                     placeholder="Duración"
                     :min="0"
                     required
@@ -192,7 +194,7 @@
                 >
                   <b-input
                     type="textarea"
-                    maxlength="200"
+                    maxlength="100"
                     :value="serviceDescription"
                     placeholder="Descripción"
                     required
@@ -312,7 +314,7 @@ export default {
         axios.post(this.url + '/service', {
             servicename: this.newServiceName,
             description: this.serviceDescription,
-            imageroute: '/cortePeloyBarba.png',
+            imageroute: this.url + '/cortePeloyBarba.png',
             duration: this.newServiceDuration,
             price: this.newServicePrice,
           })
