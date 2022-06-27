@@ -163,6 +163,7 @@ export default {
     },
     initiateLogin(response){
       const auth = this.$auth
+      const router = window.$nuxt.$router
       this.isLoading = false
       if (response.status === 200) {
         auth.setUser(response.data.username)
@@ -173,8 +174,8 @@ export default {
         auth.$storage.setLocalStorage('role', response.data.role)
         auth.$storage.setLocalStorage('id', response.data.id)
         this.$toast.show('Iniciando sesión...')
-        window.location.reload(true, this.$toast.show('¡Bienvenido!'))
-        
+        // window.location.reload(true, this.$toast.show('¡Bienvenido!'))
+        router.push('/TurnosPage')
       }
       else{
         this.$toast.show('¡Oops! Algo salió mal...')
