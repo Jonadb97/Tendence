@@ -176,7 +176,6 @@ export default {
         this.$toast.show('Iniciando sesión...')
         // window.location.reload(true, this.$toast.show('¡Bienvenido!'))
         router.push('/')
-        this.$toast.show('¡Bienvenido!')
       }
       else{
         this.$toast.show('¡Oops! Algo salió mal...')

@@ -121,11 +121,8 @@ export default {
         today.getFullYear() - 100,
         today.getMonth(),
         today.getDate()
-      ),
+      )
     }
-  },
-  mounted() {
-    const auth = this.$auth
   },
   methods: {
     pickerClick() {

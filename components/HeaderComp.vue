@@ -270,7 +270,7 @@
                   ></b-button
                 >
                 <b-button
-                  v-if="auth.loggedIn"
+                  v-if="auth.isLogged"
                   type="is-dark"
                   @click="confirmLogout(), (open = false)"
                   ><NuxtLink id="NavLink" to="/"> Cerrar sesión </NuxtLink></b-button
@@ -354,6 +354,7 @@ export default {
       this.$auth.$storage.removeLocalStorage('user')
       this.$auth.$storage.removeLocalStorage('role')
       this.auth.setUser('')
+      this.$auth.isLogged= false
       window.location.reload(true)
       router.push('/')
       this.$buefy.toast.open({
