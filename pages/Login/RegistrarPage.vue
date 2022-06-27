@@ -180,8 +180,6 @@ export default {
         .then(function (response) {
           
           if (response.status === 200) {
-            auth.setUser(response.data.username)
-            auth.role = response.data.role
             auth.isLogged = true
             auth.$storage.setLocalStorage('token', response.data.token)
             auth.$storage.setLocalStorage('user', response.data.username)

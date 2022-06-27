@@ -173,9 +173,10 @@ export default {
         auth.$storage.setLocalStorage('user', response.data.username)
         auth.$storage.setLocalStorage('role', response.data.role)
         auth.$storage.setLocalStorage('id', response.data.id)
-        this.$toast.show('Iniciando sesión...')
+        
         // window.location.reload(true, this.$toast.show('¡Bienvenido!'))
         router.push('/')
+        this.$toast.show('Bienvenido!')
       }
       else{
         this.$toast.show('¡Oops! Algo salió mal...')
