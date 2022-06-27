@@ -152,7 +152,6 @@ export default {
           this.$data.logindata.codArea + '' + this.$data.logindata.numTel,
         password: this.$data.logindata.inputPassword,
       }
-      console.log(body)
       axios
       .post(this.url + '/auth/login', body)
       .then(this.initiateLogin)

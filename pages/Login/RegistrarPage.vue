@@ -126,11 +126,6 @@ export default {
   },
   mounted() {
     const auth = this.$auth
-    auth.$storage.setLocalStorage(
-      'url',
-      'https://api-tendence-testing.herokuapp.com'
-    )
-    console.log(auth.$storage.getLocalStorage('url'))
   },
   methods: {
     pickerClick() {
@@ -200,7 +195,7 @@ export default {
           }
           else{
             console.log(response)
-            this.$buefy.toast.open({
+            this.$toast.open({
               message: 'Ups algo salio mal',
               type: 'is-dark',
             })
@@ -208,10 +203,6 @@ export default {
         })
         .catch((error) => {
           console.log(error)
-          this.$buefy.toast.open({
-              message: 'Contraseña/Usuario Incorrectos',
-              type: 'is-dark',
-          })
         })
       
       
