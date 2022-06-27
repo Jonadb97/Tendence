@@ -121,6 +121,7 @@
           :max-date="endDate"
           :editable="false"
           @input="getDayAppointments"
+          @week-number-click="scrollToHour"
         >
         </b-datepicker>
       </div>
@@ -131,6 +132,7 @@
     <section class="inline-flex">
 
       <b-select 
+        id="hourSelect"
         v-model="selectedHour" 
         placeholder="HH" 
         size="is-medium"
@@ -158,6 +160,7 @@
               v-for="minute in minutes"
               :key="minute"
               :value="minute"
+              @click="scrollToOk"
               >
               {{ minute }}
           </option>
@@ -172,12 +175,14 @@
     >
     <b-icon
     pack="mdi"
+    class="my-2"
     type="is-white"
     icon="chevron-up"
     ></b-icon>
     </b-button>
     <div class="flex-row items-center justify-center self-center mx-auto py-4">
       <b-button
+        id="confirmarTurno"
         class="flex mx-auto py-2"
         type="is-success"
         outlined
@@ -254,6 +259,14 @@ export default {
     this.fetchSelectableDates()
   },
   methods: {
+    scrollToHour(){
+      const el = document.getElementById('hourSelect');
+      el.scrollIntoView({behavior: "smooth"});
+    },
+    scrollToOk(){
+      const el = document.getElementById('confirmarTurno');
+      el.scrollIntoView({behavior: "smooth"});
+    },
     scrollToTop() {
       window.scrollTo(0,0)
     },

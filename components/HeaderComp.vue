@@ -15,26 +15,65 @@
           class="my-auto py-auto"
       /></NuxtLink>
       <div id="NavContainer">
-        <b-button
-          v-if="userRole == 'admin'"
-          type="is-dark"
+        <b-dropdown :triggers="['hover']" aria-role="list">
+            <template #trigger>
+                <b-button
+                    v-if="userRole == 'admin'"
+                    label="Gestión"
+                    type="is-dark"
+                    size="is-small"
+                    class="my-2"
+                    icon-left="clipboard"
+                    icon-right="arrow-down"
+                     />
+            </template>
+
+          <b-dropdown-item 
+          aria-role="listitem"
           size="is-small"
-          class="my-2 hover:scale-105"
-          ><NuxtLink
-            id="NavLink"
-            class="my-2 text-white place-content-end inline-flex mx-0"
-            to="/Dash/DashPage"
-            style="height: 30px;"
-          >
-            <b-icon
-              class="mx-0 p-0 my-1"
-              label="Gestión"
-              icon="clipboard"
-              size="is-small"
-            ></b-icon>
-            <p class="mx-0 p-0 my-1" style="height: 30px;">Gestión</p></NuxtLink
-          ></b-button
-        >
+          pack="mdi"
+          class="text-black"
+          icon-right="clipboard"
+          ><NuxtLink to="/Dash/DashPage">Panel Principal</NuxtLink
+          ></b-dropdown-item>
+
+          <b-dropdown-item 
+          aria-role="listitem"
+          size="is-small"
+          pack="mdi"
+          class="text-black"
+          icon-right="calendar"
+          ><NuxtLink to="/Dash/DashCalendar">Calendario</NuxtLink
+          ></b-dropdown-item>
+
+                    <b-dropdown-item 
+          aria-role="listitem"
+          size="is-small"
+          pack="mdi"
+          class="text-black"
+          icon-right="calendar"
+          ><NuxtLink to="/Dash/DashServices">Servicios</NuxtLink
+          ></b-dropdown-item>
+
+                    <b-dropdown-item 
+          aria-role="listitem"
+          size="is-small"
+          pack="mdi"
+          class="text-black"
+          icon-right="calendar"
+          ><NuxtLink to="/Dash/DashEmpleados">Empleados</NuxtLink
+          ></b-dropdown-item>
+
+                              <b-dropdown-item 
+          aria-role="listitem"
+          size="is-small"
+          pack="mdi"
+          class="text-black"
+          icon-right="calendar"
+          ><NuxtLink to="/Dash/DashHorarios">Horarios</NuxtLink
+          ></b-dropdown-item>
+         </b-dropdown>
+
         <b-button
           v-show="false"
           v-if="userRole == 'admin'"
@@ -72,57 +111,7 @@
             >Mis Turnos</NuxtLink
           ></b-button
         >
-        <b-button
-          v-if="showDash"
-          size="is-small"
-          type="is-dark"
-          class="my-2 hover:scale-105"
-          icon-left="home"
-          ><NuxtLink id="NavLink" to="/Dash/DashPage"
-            >Panel Principal</NuxtLink
-          ></b-button
-        >
-        <b-button
-          v-if="showDash"
-          size="is-small"
-          type="is-dark"
-          class="my-2 hover:scale-105"
-          pack="mdi"
-          icon-left="calendar"
-          ><NuxtLink id="NavLink" to="/Dash/DashCalendar"
-            >Calendario</NuxtLink
-          ></b-button
-        >
-        <b-button
-          v-if="showDash"
-          size="is-small"
-          type="is-dark"
-          class="my-2 hover:scale-105"
-          icon-left="account-details"
-          ><NuxtLink id="NavLink" to="/Dash/DashServices"
-            >Gestión de Servicios</NuxtLink
-          ></b-button
-        >
-        <b-button
-          v-if="showDash"
-          size="is-small"
-          type="is-dark"
-          class="my-2 hover:scale-105"
-          icon-left="account-group"
-          ><NuxtLink id="NavLink" to="/Dash/DashEmpleados"
-            >Gestión de Empleados</NuxtLink
-          ></b-button
-        >
-        <b-button
-          v-if="showDash"
-          size="is-small"
-          type="is-dark"
-          class="my-2 hover:scale-105"
-          icon-left="alarm"
-          ><NuxtLink id="NavLink" to="/Dash/DashHorarios"
-            >Gestión de Horarios</NuxtLink
-          ></b-button
-        >
+ 
         <b-button
           v-if="auth.loggedIn"
           type="is-dark"

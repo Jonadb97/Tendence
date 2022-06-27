@@ -155,6 +155,7 @@
                   <b-numberinput
                     type="number; is-light"
                     :v-model="newServicePrice"
+                    step="100"
                     placeholder="Precio"
                     required
                     :min="0"
@@ -178,6 +179,7 @@
                     type="number; is-light"
                     :v-model="newServiceDuration"
                     maxlength="2"
+                    step="10"
                     placeholder="Duración"
                     :min="0"
                     required
@@ -192,7 +194,7 @@
                 >
                   <b-input
                     type="textarea"
-                    maxlength="200"
+                    maxlength="100"
                     :value="serviceDescription"
                     placeholder="Descripción"
                     required
