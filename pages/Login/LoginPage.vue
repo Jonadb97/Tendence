@@ -157,10 +157,7 @@ export default {
       .post(this.url + '/auth/login', body)
       .then(this.initiateLogin)
       .catch((error) => {
-        this.$buefy.toast.open({
-            message: 'Contraseña/Usuario Incorrectos',
-            type: 'is-dark',
-        })
+        this.$toast.show('¡Contraseña/usuario incorrecto!')
         this.isLoading = false
         console.log(error)
       })   
@@ -176,13 +173,12 @@ export default {
         auth.$storage.setLocalStorage('user', response.data.username)
         auth.$storage.setLocalStorage('role', response.data.role)
         auth.$storage.setLocalStorage('id', response.data.id)
-        window.location.reload(true)
+        this.$toast.show('Iniciando sesión...')
+        window.location.reload(true, this.$toast.show('¡Bienvenido!'))
+        
       }
       else{
-        this.$buefy.toast.open({
-          message: 'Ups algo salio mal',
-          type: 'is-dark',
-        })
+        this.$toast.show('¡Oops! Algo salió mal...')
       }
     }
   },
