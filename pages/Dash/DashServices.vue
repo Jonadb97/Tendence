@@ -24,6 +24,7 @@
                   service.imageroute +
                   '); height:24rem; width:18rem;'
                 "
+                @click="editService(service.id)"
               >
                 <div class="p-2 absolute bottom-0 left-0">
                   <h5
@@ -265,6 +266,7 @@ export default {
     this.fetchServices()
     console.log(this.url)
     window.addEventListener('resize', this.onResize)
+    
   },
   methods: {
     fetchServices() {
@@ -273,6 +275,7 @@ export default {
     updateServices(response) {
       if (response.status === 200) {
         this.services = response.data
+        console.log(response.data)
         this.onResize()
       }
     },
@@ -305,7 +308,10 @@ export default {
         return service.id === id
       })
       this.serviceIdToEdit = id
-      this.newServiceName = service.name
+      this.serviceName = service.servicename
+      this.serviceDescription = service.description
+      this.newServicePrice = service.price
+      this.newServiceDuration = service.duration
       this.generatedUrl = this.url + service.imageroute
       this.isComponentModalActive = true
     },
@@ -322,17 +328,11 @@ export default {
             if (response.status === 200) {
               console.log(response)
               this.isComponentModalActive = false
-              this.$buefy.toast.open({
-                message: 'Servicio Creado',
-                type: 'is-dark',
-              })
+              this.$toast.show('¡Servicio creado!')
               this.fetchServices()
             }else{
               console.log(response)
-              this.$buefy.toast.open({
-              message: 'Ups algo salio mal',
-              type: 'is-dark',
-            })
+            this.$toast.show('¡Oops! algo salió mal')
             window.$nuxt.$router.push('/ErrorPage')
             }
           })

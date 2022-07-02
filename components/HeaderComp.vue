@@ -218,9 +218,6 @@
                     >Gestión</NuxtLink
                   ></b-button
                 >
-                <b-button type="is-dark" @click="open = false"
-                  ><NuxtLink id="NavLink" to="/">Inicio</NuxtLink></b-button
-                >
                 <b-button
                   v-if="auth.role == 'user'"
                   type="is-dark"
@@ -297,20 +294,19 @@
                     >Gestión de Horarios</NuxtLink
                   ></b-button
                 >
-                <b-button
-                  v-if="auth.isLogged"
-                  type="is-dark"
-                  @click="confirmLogout(), (open = false)"
-                  ><NuxtLink id="NavLink" to="/"> Cerrar sesión </NuxtLink></b-button
-                >
-                <b-button v-else type="is-dark" @click="open = false"
-                  ><NuxtLink
-                    id="NavLink"
-                    to="/Login/LoginPage"
-                    style="text-align: left"
-                    >Iniciar sesión</NuxtLink
-                  ></b-button
-                >
+        <b-button
+          v-if="auth.loggedIn"
+          type="is-dark"
+          size="is-small"
+          class="my-2 hover:scale-105"
+          @click="confirmLogout()"
+          ><NuxtLink id="NavLink" to="/"> Cerrar sesión </NuxtLink></b-button
+        >
+        <b-button v-else type="is-dark" size="is-small" class="my-2 hover:scale-105"
+          ><NuxtLink id="NavLink" to="/Login/LoginPage"
+            >Registrarse / Iniciar sesión</NuxtLink
+          ></b-button
+        >
               </b-menu-list>
             </b-menu>
           </div>
