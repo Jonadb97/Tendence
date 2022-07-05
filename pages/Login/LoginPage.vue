@@ -152,7 +152,6 @@ export default {
           this.$data.logindata.codArea + '' + this.$data.logindata.numTel,
         password: this.$data.logindata.inputPassword,
       }
-      console.log(body)
       axios
       .post(this.url + '/auth/login', body)
       .then(this.initiateLogin)
@@ -164,6 +163,7 @@ export default {
     },
     initiateLogin(response){
       const auth = this.$auth
+      const router = window.$nuxt.$router
       this.isLoading = false
       if (response.status === 200) {
         auth.setUser(response.data.username)
@@ -173,9 +173,10 @@ export default {
         auth.$storage.setLocalStorage('user', response.data.username)
         auth.$storage.setLocalStorage('role', response.data.role)
         auth.$storage.setLocalStorage('id', response.data.id)
-        this.$toast.show('Iniciando sesión...')
-        window.location.reload(true, this.$toast.show('¡Bienvenido!'))
         
+        // window.location.reload(true, this.$toast.show('¡Bienvenido!'))
+        router.push('/')
+        this.$toast.show('Bienvenido!')
       }
       else{
         this.$toast.show('¡Oops! Algo salió mal...')

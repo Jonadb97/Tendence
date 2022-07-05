@@ -121,16 +121,8 @@ export default {
         today.getFullYear() - 100,
         today.getMonth(),
         today.getDate()
-      ),
+      )
     }
-  },
-  mounted() {
-    const auth = this.$auth
-    auth.$storage.setLocalStorage(
-      'url',
-      'https://api-tendence-testing.herokuapp.com'
-    )
-    console.log(auth.$storage.getLocalStorage('url'))
   },
   methods: {
     pickerClick() {
@@ -162,6 +154,7 @@ export default {
         .post(this.url + '/users', body)
         .then(function (response) {
           if (response.status === 200) {
+
             this.$toast.show('¡Bienvenido!')
             this.$toast.show('Iniciando sesión...')
             this.initiateLogin()
@@ -187,8 +180,6 @@ export default {
         .then(function (response) {
           
           if (response.status === 200) {
-            auth.setUser(response.data.username)
-            auth.role = response.data.role
             auth.isLogged = true
             auth.$storage.setLocalStorage('token', response.data.token)
             auth.$storage.setLocalStorage('user', response.data.username)
@@ -199,7 +190,7 @@ export default {
           }
           else{
             console.log(response)
-            this.$buefy.toast.open({
+            this.$toast.open({
               message: 'Ups algo salio mal',
               type: 'is-dark',
             })
@@ -207,10 +198,6 @@ export default {
         })
         .catch((error) => {
           console.log(error)
-          this.$buefy.toast.open({
-              message: 'Contraseña/Usuario Incorrectos',
-              type: 'is-dark',
-          })
         })
       
       

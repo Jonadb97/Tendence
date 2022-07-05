@@ -18,24 +18,23 @@
         <b-dropdown :triggers="['hover']" aria-role="list">
             <template #trigger>
                 <b-button
-                    v-if="userRole == 'admin'"
+                    v-if="auth.role == 'admin'"
                     label="Gestión"
                     type="is-dark"
                     size="is-small"
                     class="my-2"
                     icon-left="clipboard"
-                    icon-right="arrow-down"
-                     />
+                    icon-right="arrow-down"/>
             </template>
 
           <b-dropdown-item 
-          aria-role="listitem"
-          size="is-small"
-          pack="mdi"
-          class="text-black"
-          icon-right="clipboard"
-          ><NuxtLink to="/Dash/DashPage">Panel Principal</NuxtLink
-          ></b-dropdown-item>
+            aria-role="listitem"
+            size="is-small"
+            pack="mdi"
+            class="text-black"
+            icon-right="clipboard">
+            <NuxtLink to="/Dash/DashPage">Panel Principal</NuxtLink>
+          </b-dropdown-item>
 
           <b-dropdown-item 
           aria-role="listitem"
@@ -76,7 +75,7 @@
 
         <b-button
           v-show="false"
-          v-if="userRole == 'admin'"
+          v-if="auth.role == 'admin'"
           type="is-dark"
           size="is-small"
           class="my-2 hover:scale-105"
@@ -84,55 +83,84 @@
             >Validacion</NuxtLink
           ></b-button
         >
-                <b-button v-show="false" type="is-danger" size="is-small" class=" my-2 hover:scale-105 bg-red-500"
-          ><NuxtLink id="NavLink" to="/ErrorPage" class="hover:scale-105 bg-red-500">Error</NuxtLink></b-button
-        >
+        <b-button 
+          v-show="false" 
+          type="is-danger" 
+          size="is-small" 
+          class=" my-2 hover:scale-105 bg-red-500">
+          <NuxtLink 
+            id="NavLink" 
+            to="/ErrorPage" 
+            class="hover:scale-105 bg-red-500">
+            Error
+          </NuxtLink>
+        </b-button>
         <b-button
-          v-if="userRole == 'user'"
+          v-if="auth.role == 'user'"
           type="is-dark"
           size="is-small"
-          class="my-2 hover:scale-105"
-          ><NuxtLink
+          class="my-2 hover:scale-105">
+          <NuxtLink
             id="NavLink"
             class="my-auto text-white place-content-end"
-            to="/NuevoTurno/NuevoTurnoForm"
-            >Nuevo Turno</NuxtLink
-          ></b-button
-        >
+            to="/NuevoTurno/NuevoTurnoForm">
+            Nuevo Turno
+          </NuxtLink>
+        </b-button>
         <b-button
-          v-if="userRole == 'user'"
+          v-if="auth.role == 'user'"
           type="is-dark"
           size="is-small"
-          class="my-2 hover:scale-105"
-          ><NuxtLink id="NavLink" to="/TurnosPage"
-            >Mis Turnos</NuxtLink
-          ></b-button
-        >
+          class="my-2 hover:scale-105">
+            <NuxtLink 
+              id="NavLink" 
+              to="/TurnosPage">
+              Mis Turnos
+            </NuxtLink>
+          </b-button>
  
         <b-button
           v-if="auth.loggedIn"
           type="is-dark"
           size="is-small"
           class="my-2 hover:scale-105"
-          @click="confirmLogout()"
-          ><NuxtLink id="NavLink" to="/"> Cerrar sesión </NuxtLink></b-button
-        >
-        <b-button v-else type="is-dark" size="is-small" class="my-2 hover:scale-105"
-          ><NuxtLink id="NavLink" to="/Login/LoginPage"
-            >Registrarse / Iniciar sesión</NuxtLink
-          ></b-button
-        >
-                <b-tag
+          @click="confirmLogout()">
+          <NuxtLink id="NavLink" to="/">
+            Cerrar sesión
+          </NuxtLink>
+        </b-button>
+        <b-button 
+          v-if="!auth.loggedIn" 
+          type="is-dark" 
+          size="is-small" 
+          class="my-2 hover:scale-105">
+          <NuxtLink id="NavLink" to="/Login/LoginPage">
+            Iniciar sesión
+          </NuxtLink>
+        </b-button>
+        <b-button 
+          v-if="!auth.loggedIn" 
+          type="is-dark" 
+          size="is-small" 
+          class="my-2 hover:scale-105">
+          <NuxtLink id="NavLink" to="/Login/RegistrarPage">
+            Registrarse
+          </NuxtLink>
+        </b-button>
+
+        <b-tag
           v-if="auth.loggedIn"
           id="user-tag"
           type="is-success"
           size="is-small"
           class="my-2 pl-4 ml-4"
-          style="font-size: 12px; height: 30px"
-          >{{ auth.user }}</b-tag
-        >
+          style="font-size: 12px; height: 30px">
+          {{ auth.user }}
+        </b-tag>
       </div>
     </div>
+
+
     <!-- Mobile version -->
     <div id="HeaderContainerMobile">
       <section class="flex flex-row-reverse">
@@ -178,7 +206,7 @@
                   >{{ auth.user }}</b-tag
                 >
                 <b-button
-                  v-if="userRole == 'admin'"
+                  v-if="auth.role == 'admin'"
                   type="is-dark"
                   icon-left="clipboard"
                   @click="open = false"
@@ -191,7 +219,7 @@
                   ></b-button
                 >
                 <b-button
-                  v-if="userRole == 'user'"
+                  v-if="auth.role == 'user'"
                   type="is-dark"
                   @click="open = false"
                   ><NuxtLink
@@ -202,7 +230,7 @@
                   ></b-button
                 >
                 <b-button
-                  v-if="userRole == 'user'"
+                  v-if="auth.role == 'user'"
                   type="is-dark"
                   @click="open = false"
                   ><NuxtLink id="NavLink" to="/TurnosPage"
@@ -305,25 +333,20 @@ export default {
       fullwidth: false,
       right: false,
       auth: this.$auth,
-      userName: '',
-      userRole: '',
       currentPath: [],
       showDash: false,
     }
   },
   watch: {
     $route() {
-      console.log('route changed', this.$route.path)
       this.currentPath = this.$route.path
       this.watchNavDashAndUpdate()
-      console.log(this.showDash)
     },
   },
   mounted() {
     this.currentPath = this.$route.path
-    console.log(this.currentPath)
     this.$auth.setUser(this.$auth.$storage.getLocalStorage('user'))
-    this.userRole = this.$auth.$storage.getLocalStorage('role')
+    this.$auth.role = this.$auth.$storage.getLocalStorage('role')
   },
 
   updated() {},
@@ -464,3 +487,4 @@ export default {
   background-color: rgb(20, 20, 20);
 }
 </style>
+
