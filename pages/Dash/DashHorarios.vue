@@ -439,7 +439,7 @@ export default {
             })
             .then((response) => {
               if (response.status === 200) {
-                this.$buefy.toast.open({
+                this.$$toast.toast.open({
                   message: 'Eliminado correctamente',
                   type: 'is-dark',
                 })

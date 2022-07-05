@@ -214,6 +214,14 @@
                 >
                   Volver
                 </button>
+                <b-button
+              v-if="employeeIdToEdit !== undefined"
+              class="button"
+              type="is-danger"
+              @click="deleteService"
+            >
+              Eliminar servicio
+            </b-button>
                 <button class="button is-primary" @click="confirm" >Confirmar</button>
               </footer>
             </div>
@@ -316,8 +324,8 @@ export default {
       this.isComponentModalActive = true
     },
     confirm() {
-      if (this.serviceIdToEdit === undefined) {
-        axios.post(this.url + '/service', {
+      if (this.serviceIdToEdit !== undefined) {
+        axios.post(this.url + '/services', {
             servicename: this.newServiceName,
             description: this.serviceDescription,
             imageroute: this.url + '/cortePeloyBarba.png',
@@ -338,8 +346,35 @@ export default {
           })
       }
     },
-    deleteService() {
-      console.log('eliminar')
+    deleteService(id) {
+      this.$buefy.dialog.confirm({
+        message: 'Esta seguro?',
+        type: 'is-dark',
+        onConfirm: () => {
+          axios
+            .delete(this.url + '/services', {
+              data: {
+                id,
+              },
+            })
+            .then((response) => {
+              if (response.status === 200) {
+                this.$buefy.toast.open({
+                  message: 'Eliminado correctamente',
+                  type: 'is-dark',
+                })
+                this.isLoadingTimetable = true
+                this.fetchTimetable()
+              } else {
+                this.$buefy.toast.open({
+                  message: 'Error al eliminar',
+                  type: 'is-dark',
+                })
+              }
+              window.location.reload(true)
+            })
+        },
+      })
     },
   },
 }

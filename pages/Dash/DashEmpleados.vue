@@ -252,6 +252,7 @@ export default {
     updateEmployees(response) {
       if (response.status === 200) {
         this.employees = response.data
+        console.log(response.data)
         this.onResize()
       }
     },
@@ -306,8 +307,35 @@ export default {
           })
       }
     },
-    deleteEmployee() {
-      console.log('eliminar')
+    deleteEmployee(id) {
+        this.$buefy.dialog.confirm({
+        message: 'Esta seguro?',
+        type: 'is-dark',
+        onConfirm: () => {
+          axios
+            .delete(this.url + '/employee', {
+              data: {
+                id,
+              },
+            })
+            .then((response) => {
+              if (response.status === 200) {
+                this.$buefy.toast.open({
+                  message: 'Eliminado correctamente',
+                  type: 'is-dark',
+                })
+                this.isLoadingTimetable = true
+                this.fetchTimetable()
+              } else {
+                this.$buefy.toast.open({
+                  message: 'Error al eliminar',
+                  type: 'is-dark',
+                })
+              }
+              window.location.reload(true)
+            })
+        },
+      })
     },
   },
 }
