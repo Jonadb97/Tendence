@@ -324,8 +324,6 @@ export default {
                   message: 'Eliminado correctamente',
                   type: 'is-dark',
                 })
-                this.isLoadingTimetable = true
-                this.fetchTimetable()
               } else {
                 this.$buefy.toast.open({
                   message: 'Error al eliminar',
@@ -388,8 +386,5 @@ export default {
 .card-header-title {
   text-align: center;
   justify-content: center;
-}
-
-#empleado-item {
 }
 </style>

@@ -215,7 +215,7 @@
                   Volver
                 </button>
                 <b-button
-              v-if="employeeIdToEdit !== undefined"
+              v-if="serviceIdToEdit !== undefined"
               class="button"
               type="is-danger"
               @click="deleteService"
@@ -363,8 +363,6 @@ export default {
                   message: 'Eliminado correctamente',
                   type: 'is-dark',
                 })
-                this.isLoadingTimetable = true
-                this.fetchTimetable()
               } else {
                 this.$buefy.toast.open({
                   message: 'Error al eliminar',

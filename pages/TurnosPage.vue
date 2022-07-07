@@ -7,7 +7,7 @@
     >
       <!-- <h1 class="font-bold text-2xl my-6 text-white"> {{ $auth.user + " - " + $auth.$storage.getLocalStorage('id')}} </h1> -->
       <!-- Card turno pendiente actual -->
-      <h1 class="font-bold text-xl text-white">Turno pendiente:</h1>
+      <h1 class="font-bold text-xl text-white" style="margin-top: 24px;">TURNOS PENDIENTES:</h1>
 
       <div class="h-fit" :style="'width:' + carouselWidth + 'rem;'">
         <b-carousel-list
@@ -19,7 +19,7 @@
             <div class="p-4 m-4 flex justify-left">
               <button
                 :id="'service-slide-' + appointment.id"
-                class="bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0 hover:"
+                class="bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0"
                 :style="
                   'background-image: url(' +
                   url +
@@ -27,6 +27,16 @@
                   '); width:18rem; height:22rem; font-family: sans-serif;'
                 "
               >
+              <div id="info-description">
+                <b-icon
+                pack="mdi"
+                icon="information"
+                type="is-light"
+                class="m-2 hover:scale-150"
+                style="position: absolute; top: 0px; right: 0px;"
+                ></b-icon>
+                <div> {{ appointment.service.description }} </div>
+              </div>
                 <div class="p-2 absolute bottom-0 left-0">
                   <h5
                     class="text-white bm-4 font-bold text-left"
@@ -93,19 +103,20 @@
       <nuxt-link to="/NuevoTurno/NuevoTurnoForm">
         <b-button
           class="flex mx-auto py-2 my-4"
-          type="is-light"
+          type="is-success"
           pack="mdi"
           size="is-large"
           outlined
-          icon-right="clipboard-plus-outline"
+          icon-left="clipboard-plus-outline"
+          icon-right="plus"
           label="Agendar nuevo turno"
-          style="border-width: 3px;"
+          style="border-width: 5px;"
         />
       </nuxt-link>
 
       <!-- Carrousel turnos anteriores -->
 
-      <h1 class="my-6 font-bold text-white text-xl">Turnos anteriores:</h1>
+      <h1 class="my-6 font-bold text-white text-xl">TURNOS ANTERIORES:</h1>
 
       <div class="h-fit" :style="'width:' + carouselWidth + 'rem;'">
         <b-carousel-list
@@ -122,19 +133,25 @@
                   'background-image: url(' +
                   url +
                   appointment.service.imageroute +
-                  '); width:18rem; height:22rem; '
+                  '); width:18rem; height:22rem; font-family: sans-serif;'
                 "
               >
                 <div class="p-2 absolute bottom-0 left-0">
                   <h5
                     class="text-white bm-4 font-bold text-left"
-                    style="font-size: xx-large"
+                    style=" font-size: 1.5rem;
+                      font-family: sans-serif;
+                      text-align: left;
+                    "
                   >
                     {{ appointment.service.servicename }}
                   </h5>
                   <p
                     class="far fa-clock text-white text-left"
-                    style="font-size: x-large"
+                    style="font-size: 1.5rem;
+                      font-family: sans-serif;
+                      text-align: left;
+                    "
                   >
                     {{ appointment.date }}
                   </p>
@@ -162,6 +179,7 @@ export default {
   data() {
     return {
       appointments: [],
+      futureAppointments: [],
       url: this.$auth.$storage.getLocalStorage('url'),
       slidesToShow: 1,
       slideSetAppointments: 0,
@@ -174,9 +192,31 @@ export default {
     window.addEventListener('resize', this.onResize)
     this.onResize()
     this.getUserAppointments()
+    this.getFutureAppointments()
     this.getUserRecord()
   },
   methods: {
+    getFutureAppointments(){
+    const now = Date.now()
+      axios
+        .get(
+          this.url + '/appointment/' + this.$auth.$storage.getLocalStorage('id'),
+          {
+            headers: {
+              auth: this.$auth.$storage.getLocalStorage('token'),
+            },
+          }
+        )
+        .then((response) => {
+          if (response.status === 200) {
+            this.appointments = response.data
+            console.log(response.data)
+            while(this.appointments.date > now){
+              this.futureAppointments.push(this.appointments)
+            }
+          }
+        })
+    },
     formatDate(value) {
        if (value) {
            return moment(String(value)).format('DD/MM/YYYY')

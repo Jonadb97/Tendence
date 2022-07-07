@@ -170,7 +170,7 @@
     <br />
     <b-button
     rounded
-    style="border-width: 3px;"
+    style="border-width: 3px; margin: 32px;"
     @click="scrollToTop"
     >
     <b-icon
