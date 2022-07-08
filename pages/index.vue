@@ -14,11 +14,11 @@ export default {
   name: 'IndexPage',
   layout: 'default-lay',
 
-    mounted() {
-      const auth = this.$auth
-      auth.$storage.setLocalStorage('url', 'https://api-tendence-testing.herokuapp.com')
-
-    },
+  mounted() {
+    const auth = this.$auth
+    auth.$storage.setLocalStorage('url', 'https://api-tendence-testing.herokuapp.com')
+    console.log("url seteada")
+  },
   methods: {
   }
 

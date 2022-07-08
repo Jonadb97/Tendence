@@ -118,6 +118,18 @@
               Mis Turnos
             </NuxtLink>
           </b-button>
+
+        <b-button
+        v-if="auth.role == 'user'"
+        type="is-dark"
+        size="is-small"
+        class="my-2 hover:scale-105">
+          <NuxtLink 
+            id="NavLink" 
+            to="/PerfilPage">
+            Mi Perfil
+          </NuxtLink>
+        </b-button>
  
         <b-button
           v-if="auth.loggedIn"
@@ -235,6 +247,14 @@
                   @click="open = false"
                   ><NuxtLink id="NavLink" to="/TurnosPage"
                     >Mis Turnos</NuxtLink
+                  ></b-button
+                >
+                <b-button
+                  v-if="auth.role == 'user'"
+                  type="is-dark"
+                  @click="open = false"
+                  ><NuxtLink id="NavLink" to="/PerfilPage"
+                    >Mi perfil</NuxtLink
                   ></b-button
                 >
 

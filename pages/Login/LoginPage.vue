@@ -112,11 +112,7 @@ this.codArea + '' + this.numTel, 'password' : this.inputPassword }'; // login()
 
 <script>
 import axios from 'axios'
-// import Vue from 'vue'
-// import VueRouter from 'vue-router'
 import TendenceLogo from '~/components/TendenceLogo.vue'
-// const app = Vue;
-// const router = new VueRouter;
 
 export default {
   name: 'LoginPage',
@@ -135,7 +131,6 @@ export default {
       },
     }
   },
-  watch: {},
   mounted() {
     window.addEventListener('keypress', this.checkIfEnter)
   },

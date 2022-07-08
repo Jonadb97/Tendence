@@ -80,6 +80,7 @@
                       class="text-white text-left font-bold"
                     ></b-icon>
                     {{ formatDate(appointment.date) }}
+                  </p>
                   <p
                     class="text-white text-left font-bold"
                     style="font-size: 1.2rem; font-family: sans-serif"

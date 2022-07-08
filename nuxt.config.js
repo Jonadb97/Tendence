@@ -1,5 +1,6 @@
 export default {
     // Server host
+    //  host:'0.0.0.0'
     server: {
         port: process.env.PORT,
         host: '0.0.0.0'
@@ -54,7 +55,7 @@ export default {
         '@nuxtjs/auth',
         '@nuxtjs/toast',
     ],
-    
+
     // Axios module configuration: https://go.nuxtjs.dev/config-axios
     axios: {
         // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
@@ -63,7 +64,7 @@ export default {
     toast: {
         position: 'top-center',
     },
-    
+
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {},
     // Font Awesome Configuration:

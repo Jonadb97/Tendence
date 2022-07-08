@@ -5,7 +5,10 @@
       <TendenceLogo id="TendenceLogo" class="flex mx-auto my-2" />
       <!-- Gottta add v-model to all the inputs -->
       <div class="flex-row mx-auto">
-        <b-field label="Nombre y apellido">
+        <b-field 
+          label="Nombre"
+          :type="nameType"
+          :message="nameMessage">
           <b-input
             id="name"
             v-model="logindata.userName"
@@ -13,6 +16,22 @@
             maxlength="20"
             rounded
             expanded
+            @blur="checkName"
+          ></b-input>
+        </b-field>
+
+        <b-field 
+          label="Apellido"
+          :type="lastnameType"
+          :message="lastnameMessage">
+          <b-input
+            id="lastname"
+            v-model="logindata.userLastname"
+            type="text"
+            maxlength="20"
+            rounded
+            expanded
+            @blur="checkLastname"
           ></b-input>
         </b-field>
 
@@ -27,54 +46,79 @@
               icon="calendar-today"
               trap-focus
               focusable
-              @click='pickerClick'
             >
             </b-datepicker>
           </no-ssr>
         </b-field>
 
-        <b-field label="Número de teléfono">
-          <b-input
-            id="localcod"
-            v-model="logindata.codArea"
-            type="phone"
-            maxlength="4"
-            rounded
-            expanded
-          ></b-input>
-          <p class="my-auto mx-2">15</p>
-          <b-input
-            id="numerotel"
-            v-model="logindata.numTel"
-            type="phone"
-            value=""
-            maxlength="7"
-            rounded
-            expanded
-          ></b-input>
+        <b-field 
+        grouped
+        expanded
+        label="Número de teléfono"
+        :type="phoneType"
+        :message="phoneMessage">
+          <b-field :type="phoneType">
+            <b-input
+              id="localcod"
+              v-model="logindata.codArea"
+              maxlength="4"
+              rounded
+              expanded
+              @blur="checkPhone"
+            ></b-input>
+          </b-field>
+          <b-field>
+            <p class="my-auto mx-2">15</p>
+          </b-field>
+          <b-field  :type="phoneType">
+            <b-input
+              id="numerotel"
+              v-model="logindata.numTel"
+              maxlength="7"
+              rounded
+              expanded
+              @blur="checkPhone"
+            ></b-input>
+          </b-field>
         </b-field>
-        <b-field label="Email">
+        <b-field 
+          label="Email"
+          :type="emailType"
+          :message="emailMessage">
           <b-input
             v-model="logindata.userEmail"
             type="email"
             maxlength="30"
             rounded
+            :loading="emailLoading"
+            @blur="checkEmail"
           >
           </b-input>
         </b-field>
 
-        <b-field label="Contraseña">
+        <b-field 
+          label="Contraseña"
+          :type="passwordType">
           <b-input
             v-model="logindata.inputPassword"
             type="password"
             password-reveal
-            min-length="8"
+            max-length="25"
             rounded
-          >
+            @blur="checkPassword">
           </b-input>
         </b-field>
-        <b-field label="Confirmar Contraseña">
-          <b-input type="password" password-reveal min-length="8" rounded>
+        <b-field 
+          label="Confirmar Contraseña"
+          :type="passwordType"
+          :message="passwordMessage">
+          <b-input 
+            v-model="passwordRepeat"
+            type="password" 
+            password-reveal 
+            max-length="25" 
+            rounded
+            @blur="checkPassword">
           </b-input>
         </b-field>
 
@@ -86,6 +130,7 @@
             type="is-success"
             icon-right="check"
             outlined
+            :disabled="disabledRegisterButton"
             @click="register()"
           >
           </b-button>
@@ -108,8 +153,30 @@ export default {
     const today = new Date()
     return {
       url: this.$auth.$storage.getLocalStorage('url'),
+      nameMessage:"",
+      nameType:"",
+      validName:false,
+      lastnameMessage:"",
+      lastnameType:"",
+      validLastname:false,
+      emailMessage:"",
+      emailType:"",
+      emailLoading:false,
+      freeEmail:false,
+
+      phoneMessage:"",
+      phoneType:"",
+      phoneLoading:false,
+      freePhone:false,
+
+      passwordType:"",
+      passwordMessage:"",
+      disabledRegisterButton:true,
+      passwordRepeat:undefined,
+      validPassword:false,
       logindata: {
         userName: '',
+        userLastname:'',
         userEmail: '',
         codArea: '',
         numTel: '',
@@ -125,9 +192,6 @@ export default {
     }
   },
   methods: {
-    pickerClick() {
-      this.console.log('Hola :)')
-    },
     checkIfEnter() {
       if (event.keyCode === 13) {
         this.register()
@@ -147,27 +211,14 @@ export default {
         phonenumber: this.$data.logindata.numTel,
         areacode: this.$data.logindata.codArea,
       }
-      console.log(body)
-      const router = window.$nuxt.$router
-
-      axios
-        .post(this.url + '/users', body)
-        .then(function (response) {
-          if (response.status === 200) {
-
-            this.$toast.show('¡Bienvenido!')
-            this.$toast.show('Iniciando sesión...')
-            this.initiateLogin()
-            router.push('/') // /Login/ValidacionPage
-          }
-        })
-        .catch((error) => {
-          // eslint-disable-next-line no-console
-          console.log(error)
-        })
-      console.log(this.url)
+      axios.post(this.url + '/users', body).then(this.initiateLogin).catch(
+        (error) => {
+        // eslint-disable-next-line no-console
+        console.log(error)
+      })
     },
-    initiateLogin() {
+
+    initiateLogin(response) {
       const router = window.$nuxt.$router
       const auth = this.$auth
       const body = {
@@ -175,32 +226,153 @@ export default {
           this.$data.logindata.codArea + '' + this.$data.logindata.numTel,
         password: this.$data.logindata.inputPassword,
       }
-      axios
-        .post(this.$data.logindata.url + '/auth/login', body)
-        .then(function (response) {
-          
-          if (response.status === 200) {
-            auth.isLogged = true
-            auth.$storage.setLocalStorage('token', response.data.token)
-            auth.$storage.setLocalStorage('user', response.data.username)
-            auth.$storage.setLocalStorage('role', response.data.role)
-            auth.$storage.setLocalStorage('id', response.data.id)
-            window.location.reload(true) && router.push('/TurnosPage')
-            console.log(response)
-          }
-          else{
-            console.log(response)
-            this.$toast.open({
-              message: 'Ups algo salio mal',
-              type: 'is-dark',
-            })
-          }
-        })
+      
+      if (response.status === 200) {
+        axios.post(this.url + '/auth/login', body).then(
+          function (response) {  
+            if (response.status === 200) {
+              auth.isLogged = true
+              auth.$storage.setLocalStorage('token', response.data.token)
+              auth.$storage.setLocalStorage('user', response.data.username)
+              auth.$storage.setLocalStorage('role', response.data.role)
+              auth.$storage.setLocalStorage('id', response.data.id)
+              router.push('/TurnosPage')
+            }
+            else{
+              this.$toast.open({
+                message: 'Ups algo salio mal',
+                type: 'is-dark',
+              })
+            }
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+      }
+      
+      
+    },
+    checkEmail(){
+      const mail = this.$data.logindata.userEmail
+      const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+      if(!mail.match(validRegex)) {
+        this.emailType="is-danger"
+        this.emailMessage="Email no válido"
+        this.emailLoading = false
+      }
+      else{
+        this.emailLoading = true
+        axios
+        .get(this.url + '/users/checkemail/'+mail)
+        .then(this.emailValidation)
         .catch((error) => {
-          console.log(error)
+            console.log(error)
         })
-      
-      
+        
+      }
+
+    },
+    emailValidation(response){
+      this.emailLoading = false
+      if (response.status === 200 ) {
+        this.freeEmail = response.data.freeEmail
+        if(response.data.freeEmail){
+          this.emailType="is-success"
+          this.emailMessage=""
+          this.emailLoading = false
+        }
+        else{
+          this.emailType="is-danger"
+          this.emailMessage="La cuenta de email ya está siendo usada"
+        }
+      }
+      else{
+        this.emailType="is-danger"
+        this.emailMessage="error en la verificación intente nuevamente"
+      }
+      this.validateForm()
+          
+    },
+    checkPhone(){
+      const num = this.$data.logindata.codArea+""+this.$data.logindata.numTel
+      if(this.$data.logindata.codArea.length>=3 && this.$data.logindata.numTel.length>=5){
+        axios
+        .get(this.url + '/users/checkphone/'+num)
+        .then(this.phoneValidation)
+        .catch((error) => {
+            console.log(error)
+        })
+      }
+    },
+    phoneValidation(response){
+      this.phoneLoading = false
+      if (response.status === 200 ) {
+        this.freePhone = response.data.freePhoneNumber
+        if(response.data.freePhoneNumber){
+          this.phoneType="is-success"
+          this.phoneMessage=""
+          this.phoneLoading = false
+        }
+        else{
+          this.phoneType="is-danger"
+          this.phoneMessage="El numero de teléfono ya está siendo usado"
+        }
+        this.validateForm()
+      }
+      else{
+        this.phoneType="is-danger"
+        this.phoneMessage="error en la verificación intente nuevamente"
+      }
+    },
+    checkPassword(){
+      if(this.passwordRepeat !== undefined){
+        if(this.$data.logindata.inputPassword === this.passwordRepeat){
+          this.passwordType= "is-success"
+          this.passwordMessage=""
+          this.validPassword = true
+        }
+        else{
+          this.passwordType="is-danger"
+          this.passwordMessage="Las contraseñas deben ser iguales"
+          this.validPassword = false
+        }
+        this.validateForm()
+      }
+    },
+    validateForm(){
+      this.disabledRegisterButton = 
+      !this.freeEmail || 
+      !this.freePhone || 
+      !this.validPassword ||
+      !this.validName ||
+      !this.validLastname
+    },
+    checkName(){
+      if(this.$data.logindata.userName.length > 2){
+        this.nameType= "is-success"
+        this.nameMessage=""
+        this.validName = true
+      }
+      else{
+        this.nameType="is-danger"
+        this.nameMessage="Su nombre debe tener al menos 3 caracteres"
+        this.validName = false
+      }
+      this.validateForm()
+    },
+    checkLastname(){
+      if(this.$data.logindata.userLastname.length > 2){
+        this.lastnameType= "is-success"
+        this.lastnameMessage=""
+        this.validLastname = true
+      }
+      else{
+        this.lastnameType="is-danger"
+        this.lastnameMessage="Su apellido debe tener al menos 3 caracteres"
+        this.validLastname = false
+      }
+      this.validateForm()
     },
   },
 }
