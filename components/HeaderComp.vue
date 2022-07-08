@@ -79,6 +79,7 @@
           type="is-dark"
           size="is-small"
           class="my-2 hover:scale-105"
+          style=""
           ><NuxtLink id="NavLink" to="/Login/ValidacionPage"
             >Validacion</NuxtLink
           ></b-button

@@ -143,7 +143,7 @@ export default {
           '-' +
           String(this.logindata.selectedDate.getMonth() + 1).padStart(2, '0') +
           '-' +
-         String(this.logindata.selectedDate.getDate()).padStart(2, '0'),       
+          String(this.logindata.selectedDate.getDate()).padStart(2, '0'),       
         phonenumber: this.$data.logindata.numTel,
         areacode: this.$data.logindata.codArea,
       }
