@@ -124,6 +124,7 @@ export default {
       isLoading: false,
       isFullPage: true,
       url: this.$auth.$storage.getLocalStorage('url'),
+      urlFront: this.$auth.$storage.getLocalStorage('urlFront'),
       logindata: {
         codArea: '',
         numTel: '',
@@ -158,7 +159,6 @@ export default {
     },
     initiateLogin(response){
       const auth = this.$auth
-      const router = window.$nuxt.$router
       this.isLoading = false
       if (response.status === 200) {
         auth.setUser(response.data.username)
@@ -170,8 +170,16 @@ export default {
         auth.$storage.setLocalStorage('id', response.data.id)
         
         // window.location.reload(true, this.$toast.show('¡Bienvenido!'))
-        router.push('/')
-        this.$toast.show('Bienvenido!')
+        if(auth.$storage.getLocalStorage('role') === 'admin'){
+        this.$toast.show('¡Bienvenido, Administrador!')
+        this.$router.go('/Dash/DashPage')
+        // Reemplazar URL con URL del sitio cuando se suba
+
+        window.location.assign(this.urlFront + 'Dash/DashPage')
+        }else{
+        this.$toast.show('¡Bienvenido!')
+        window.location.reload(true, window.location.assign(this.urlFront))
+        }
       }
       else{
         this.$toast.show('¡Oops! Algo salió mal...')

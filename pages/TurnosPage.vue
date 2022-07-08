@@ -27,15 +27,23 @@
                   '); width:18rem; height:22rem; font-family: sans-serif;'
                 "
               >
-              <div id="info-description">
+              <div 
+              id="info-description"
+              @mouseenter="infoHover = true"
+              @mouseleave="infoHover = false"
+               >
                 <b-icon
                 pack="mdi"
                 icon="information"
                 type="is-light"
                 class="m-2 hover:scale-150"
                 style="position: absolute; top: 0px; right: 0px;"
+                
                 ></b-icon>
-                <div> {{ appointment.service.description }} </div>
+                <div
+                v-show="infoHover"
+                style="position: absolute; top: 2rem; right: 0px; background-color: #212121; color: #f7f7f7; padding: 4px; border-radius: 5px;"
+                > {{ appointment.service.description }} </div>
               </div>
                 <div class="p-2 absolute bottom-0 left-0">
                   <h5
@@ -179,6 +187,7 @@ export default {
 
   data() {
     return {
+      infoHover: false,
       appointments: [],
       futureAppointments: [],
       url: this.$auth.$storage.getLocalStorage('url'),
