@@ -373,12 +373,8 @@ export default {
       this.$auth.$storage.removeLocalStorage('user')
       this.$auth.$storage.removeLocalStorage('role')
       this.auth.setUser('')
-      window.location.reload(true)
-      router.push('/')
-      this.$buefy.toast.open({
-        message: 'Has salido de tu sesión!',
-        type: 'is-dark',
-      })
+      window.location.reload(true, router.push('/'), this.$toast.show('Has salido de tu sesión!'))
+      
     },
   },
 }

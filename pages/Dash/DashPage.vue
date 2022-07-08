@@ -82,6 +82,7 @@
             placeholder=""
             icon="calendar-today"
             trap-focus
+            style="color: black;"
             @input="changeDate()"
           >
           </b-datepicker>
@@ -96,8 +97,15 @@
             icon="calendar-alert"
             @click="activeTab = 0"
           >
-            <div v-show="!previousappointments">
-              Hola
+            <div v-show="previousappointments < 1" style="color: white;">
+              <h1 class="text-5xl font-bold m-2">Oops!</h1>
+              <h1 class="text-xl font-bold m-2">parece que no hay turnos</h1>
+              <b-icon
+              class="text-5xl m-2"
+              pack="mdi"
+              icon="calendar-search"
+              size="is-large"
+              ></b-icon>
 
             </div>
             <div class="grid-card-container">
@@ -135,6 +143,16 @@
             icon="calendar-clock"
             @click="activeTab = 1"
           >
+           <div v-show="nextappointments < 1" style="color: white;">
+              <h1 class="text-5xl font-bold m-2">Oops!</h1>
+              <h1 class="text-xl font-bold m-2">parece que no hay turnos</h1>
+              <b-icon
+              class="text-5xl m-2"
+              pack="mdi"
+              icon="calendar-search"
+              size="is-large"
+              ></b-icon>
+           </div>
             <div class="grid-card-container">
               <div
                 v-for="(row, index) in nextappointments"
@@ -173,6 +191,16 @@
             icon="calendar-multiple-check"
             @click="activeTab = 2"
           >
+                     <div v-show="confirmedAppointmentsRows < 1" style="color: white;">
+              <h1 class="text-5xl font-bold m-2">Oops!</h1>
+              <h1 class="text-xl font-bold m-2">parece que no hay turnos</h1>
+              <b-icon
+              class="text-5xl m-2"
+              pack="mdi"
+              icon="calendar-search"
+              size="is-large"
+              ></b-icon>
+           </div>
             <div class="grid-card-container">
               <div
                 v-for="(row, index) in confirmedAppointmentsRows"

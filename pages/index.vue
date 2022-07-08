@@ -17,6 +17,7 @@ export default {
     mounted() {
       const auth = this.$auth
       auth.$storage.setLocalStorage('url', 'https://api-tendence-testing.herokuapp.com')
+      auth.$storage.setLocalStorage('urlFront', 'https://tendence.herokuapp.com/')
 
     },
   methods: {
