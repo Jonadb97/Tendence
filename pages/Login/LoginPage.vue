@@ -107,12 +107,6 @@
     </div>
   </div>
 </template>
-
-// 291 4448626 - 7 carácteres //const body = 'body: { 'phonenumber':
-this.codArea + '' + this.numTel, 'password' : this.inputPassword }'; // login()
-{ const body = { 'phonenumber': this.$data.codArea + '' + this.$data.numTel,
-'password': this.$data.inputPassword }
-
 <script>
 import axios from 'axios'
 import TendenceLogo from '~/components/TendenceLogo.vue'
@@ -177,13 +171,11 @@ export default {
         // window.location.reload(true, this.$toast.show('¡Bienvenido!'))
         if (auth.$storage.getLocalStorage('role') === 'admin') {
           this.$toast.show('¡Bienvenido, Administrador!', { duration: 3000 })
-          this.$router.go('/Dash/DashPage')
+          window.location.reload(true, window.location.assign(this.urlFront + '/Dash/DashPage'))
           // Reemplazar URL con URL del sitio cuando se suba
-
-          window.location.assign(this.urlFront + 'Dash/DashPage')
         } else {
           this.$toast.show('¡Bienvenido!', { duration: 3000 })
-          window.location.reload(true, window.location.assign(this.urlFront))
+          window.location.reload(true, window.location.assign(this.urlFront + '/'))
         }
       } else {
         this.$toast.show('¡Oops! Algo salió mal...', { duration: 3000 })

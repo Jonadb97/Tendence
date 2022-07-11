@@ -41,7 +41,7 @@ export default {
       'url',
       'https://api-tendence-testing.herokuapp.com'
     )
-    auth.$storage.setLocalStorage('urlFront', 'https://tendence.herokuapp.com/')
+    auth.$storage.setLocalStorage('urlFront', 'https://tendence.herokuapp.com')
   },
   methods: {},
 }
