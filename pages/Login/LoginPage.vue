@@ -57,10 +57,14 @@
             password-reveal
             maxlength="20"
             size="is-medium"
+            style="width: 27rem;"
             rounded
             expanded
           ></b-input>
+          <br>
+          <NuxtLink to="#" style="margin-left: 1rem; color: #f05b5b;padding: 2px;font-weight: 700;">¡Olvidé mi contraseña!</NuxtLink>
         </b-field>
+        
 
         <!-- Ingresar -->
         <div

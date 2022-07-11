@@ -184,9 +184,9 @@
           type="is-success"
           size="is-small"
           class="my-2 pl-4 ml-4"
-          style="font-size: 12px; height: 30px; border-radius: 24px"
+          style="font-size: 12px; height: 30px; border-radius: 24px;"
         >
-          {{ auth.user }}
+        <p style="transform:translateX(-1.5px)">{{ auth.user }}</p>
         </b-tag>
       </div>
     </div>

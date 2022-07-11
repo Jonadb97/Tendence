@@ -1,11 +1,14 @@
 <template>
   <div id="MainContainer" class="m-auto place-content-center justify-items-center flex">
+    <TendenceLogo v-if="auth.loggedIn" id="LOGO" class="my-auto mx-0" style="height: 15rem; transform:translateX(240px)" />
+    <TendenceLogo v-else id="LOGO" class="my-auto mx-0" style="height: 15rem; " />
     <img
       id="BT-home"
       src="../static/svg/BarberTendenceTextWhite.svg"
       alt="Barber Tendence"
       class="object-center my-64 mx-auto py-auto"
     />
+    
     <b-button
       v-if="!auth.loggedIn"
       type="is-success"

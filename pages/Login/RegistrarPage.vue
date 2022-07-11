@@ -5,6 +5,7 @@
       <TendenceLogo id="TendenceLogo" class="flex mx-auto my-2" />
       <!-- Gottta add v-model to all the inputs -->
       <div class="flex-row mx-auto">
+        <p v-if="disabledRegisterButton" class="animation-pulse m-2" style="color: #f05b5b; font-weight: 700;">¡Debes completar los datos antes de clickear en registrarse!</p>
         <b-field 
           label="Nombre"
           :type="nameType"
@@ -125,11 +126,13 @@
         <div
           class="flex-row text-center justify-center items-center mx-auto py-4"
         >
+        
           <b-button
             label="Registrarse"
-            type="is-success"
+            type="is-success is-large"
             icon-right="check"
             outlined
+            style="border-width: 5px"
             :disabled="disabledRegisterButton"
             @click="register()"
           >
