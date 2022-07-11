@@ -16,83 +16,97 @@
       /></NuxtLink>
       <div id="NavContainer">
         <b-dropdown :triggers="['hover']" aria-role="list">
-            <template #trigger>
-                <b-button
-                    v-if="auth.role == 'admin'"
-                    label="Gestión"
-                    type="is-dark"
-                    size="is-small"
-                    class="my-2"
-                    icon-left="clipboard"
-                    icon-right="arrow-down"/>
-            </template>
+          <template #trigger>
+            <b-button
+              v-if="auth.role == 'admin'"
+              label="Gestión"
+              type="is-dark"
+              size="is-small"
+              class="my-2 rounded-md"
+              icon-left="clipboard"
+              icon-right="arrow-down"
+              style="border-radius: 24px"
+            />
+          </template>
 
-          <b-dropdown-item 
+          <b-dropdown-item
+            aria-role="listitem"
+            size="is-small"
+            pack="mdi"
+            class="text-black rounded-md"
+            icon-right="clipboard"
+          >
+            <NuxtLink to="/Dash/DashPage">Panel Principal</NuxtLink>
+          </b-dropdown-item>
+
+          <b-dropdown-item
             aria-role="listitem"
             size="is-small"
             pack="mdi"
             class="text-black"
-            icon-right="clipboard">
-            <NuxtLink to="/Dash/DashPage">Panel Principal</NuxtLink>
-          </b-dropdown-item>
+            icon-right="calendar"
+            ><NuxtLink to="/Dash/DashCalendar"
+              >Calendario</NuxtLink
+            ></b-dropdown-item
+          >
 
-          <b-dropdown-item 
-          aria-role="listitem"
-          size="is-small"
-          pack="mdi"
-          class="text-black"
-          icon-right="calendar"
-          ><NuxtLink to="/Dash/DashCalendar">Calendario</NuxtLink
-          ></b-dropdown-item>
+          <b-dropdown-item
+            aria-role="listitem"
+            size="is-small"
+            pack="mdi"
+            class="text-black"
+            icon-right="calendar"
+            ><NuxtLink to="/Dash/DashServices"
+              >Servicios</NuxtLink
+            ></b-dropdown-item
+          >
 
-                    <b-dropdown-item 
-          aria-role="listitem"
-          size="is-small"
-          pack="mdi"
-          class="text-black"
-          icon-right="calendar"
-          ><NuxtLink to="/Dash/DashServices">Servicios</NuxtLink
-          ></b-dropdown-item>
+          <b-dropdown-item
+            aria-role="listitem"
+            size="is-small"
+            pack="mdi"
+            class="text-black"
+            icon-right="calendar"
+            ><NuxtLink to="/Dash/DashEmpleados"
+              >Empleados</NuxtLink
+            ></b-dropdown-item
+          >
 
-                    <b-dropdown-item 
-          aria-role="listitem"
-          size="is-small"
-          pack="mdi"
-          class="text-black"
-          icon-right="calendar"
-          ><NuxtLink to="/Dash/DashEmpleados">Empleados</NuxtLink
-          ></b-dropdown-item>
-
-                              <b-dropdown-item 
-          aria-role="listitem"
-          size="is-small"
-          pack="mdi"
-          class="text-black"
-          icon-right="calendar"
-          ><NuxtLink to="/Dash/DashHorarios">Horarios</NuxtLink
-          ></b-dropdown-item>
-         </b-dropdown>
+          <b-dropdown-item
+            aria-role="listitem"
+            size="is-small"
+            pack="mdi"
+            class="text-black"
+            icon-right="calendar"
+            ><NuxtLink to="/Dash/DashHorarios"
+              >Horarios</NuxtLink
+            ></b-dropdown-item
+          >
+        </b-dropdown>
 
         <b-button
           v-show="false"
           v-if="auth.role == 'admin'"
           type="is-dark"
           size="is-small"
-          class="my-2 hover:scale-105"
-          style=""
+          class="my-2 rounded-md hover:scale-105"
+          style="border-radius: 24px"
           ><NuxtLink id="NavLink" to="/Login/ValidacionPage"
             >Validacion</NuxtLink
           ></b-button
         >
-        <b-button 
-          v-show="false" 
-          type="is-danger" 
-          size="is-small" 
-          class=" my-2 hover:scale-105 bg-red-500">
-          <NuxtLink 
-            id="NavLink" 
-            to="/ErrorPage" 
-            class="hover:scale-105 bg-red-500">
+        <b-button
+          v-show="false"
+          type="is-danger"
+          size="is-small"
+          class="my-2 hover:scale-105 bg-red-500"
+          style="border-radius: 24px"
+        >
+          <NuxtLink
+            id="NavLink"
+            to="/ErrorPage"
+            class="hover:scale-105 bg-red-500"
+          >
             Error
           </NuxtLink>
         </b-button>
@@ -100,11 +114,14 @@
           v-if="auth.role == 'user'"
           type="is-dark"
           size="is-small"
-          class="my-2 hover:scale-105">
+          class="my-2 rounded-full hover:scale-105"
+          style="border-radius: 24px"
+        >
           <NuxtLink
             id="NavLink"
             class="my-auto text-white place-content-end"
-            to="/NuevoTurno/NuevoTurnoForm">
+            to="/NuevoTurno/NuevoTurnoForm"
+          >
             Nuevo Turno
           </NuxtLink>
         </b-button>
@@ -112,50 +129,50 @@
           v-if="auth.role == 'user'"
           type="is-dark"
           size="is-small"
-          class="my-2 hover:scale-105">
-            <NuxtLink 
-              id="NavLink" 
-              to="/TurnosPage">
-              Mis Turnos
-            </NuxtLink>
-          </b-button>
+          class="rounded-full my-2 hover:scale-105"
+          style="border-radius: 24px"
+        >
+          <NuxtLink id="NavLink" to="/TurnosPage"> Mis Turnos </NuxtLink>
+        </b-button>
 
         <b-button
-        v-if="auth.role == 'user'"
-        type="is-dark"
-        size="is-small"
-        class="my-2 hover:scale-105">
-          <NuxtLink 
-            id="NavLink" 
-            to="/PerfilPage">
-            Mi Perfil
-          </NuxtLink>
+          v-if="auth.role == 'user'"
+          type="is-dark"
+          size="is-small"
+          class="my-2 hover:scale-105"
+          style="border-radius: 24px"
+        >
+          <NuxtLink id="NavLink" to="/PerfilPage"> Mi Perfil </NuxtLink>
         </b-button>
- 
+
         <b-button
           v-if="auth.loggedIn"
           type="is-dark"
           size="is-small"
           class="my-2 hover:scale-105"
-          @click="confirmLogout()">
-          <NuxtLink id="NavLink" to="/">
-            Cerrar sesión
-          </NuxtLink>
+          style="border-radius: 24px"
+          @click="confirmLogout()"
+        >
+          <NuxtLink id="NavLink" to="/"> Cerrar sesión </NuxtLink>
         </b-button>
-        <b-button 
-          v-if="!auth.loggedIn" 
-          type="is-dark" 
-          size="is-small" 
-          class="my-2 hover:scale-105">
+        <b-button
+          v-if="!auth.loggedIn"
+          type="is-dark"
+          size="is-small"
+          class="my-2 hover:scale-105"
+          style="border-radius: 24px"
+        >
           <NuxtLink id="NavLink" to="/Login/LoginPage">
             Iniciar sesión
           </NuxtLink>
         </b-button>
-        <b-button 
-          v-if="!auth.loggedIn" 
-          type="is-dark" 
-          size="is-small" 
-          class="my-2 hover:scale-105">
+        <b-button
+          v-if="!auth.loggedIn"
+          type="is-dark"
+          size="is-small"
+          class="my-2 hover:scale-105"
+          style="border-radius: 24px"
+        >
           <NuxtLink id="NavLink" to="/Login/RegistrarPage">
             Registrarse
           </NuxtLink>
@@ -167,12 +184,12 @@
           type="is-success"
           size="is-small"
           class="my-2 pl-4 ml-4"
-          style="font-size: 12px; height: 30px">
+          style="font-size: 12px; height: 30px; border-radius: 24px"
+        >
           {{ auth.user }}
         </b-tag>
       </div>
     </div>
-
 
     <!-- Mobile version -->
     <div id="HeaderContainerMobile">
@@ -315,19 +332,25 @@
                     >Gestión de Horarios</NuxtLink
                   ></b-button
                 >
-        <b-button
-          v-if="auth.loggedIn"
-          type="is-dark"
-          size="is-small"
-          class="my-2 hover:scale-105"
-          @click="confirmLogout()"
-          ><NuxtLink id="NavLink" to="/"> Cerrar sesión </NuxtLink></b-button
-        >
-        <b-button v-else type="is-dark" size="is-small" class="my-2 hover:scale-105"
-          ><NuxtLink id="NavLink" to="/Login/LoginPage"
-            >Registrarse / Iniciar sesión</NuxtLink
-          ></b-button
-        >
+                <b-button
+                  v-if="auth.loggedIn"
+                  type="is-dark"
+                  size="is-small"
+                  class="my-2 hover:scale-105"
+                  @click="confirmLogout()"
+                  ><NuxtLink id="NavLink" to="/">
+                    Cerrar sesión
+                  </NuxtLink></b-button
+                >
+                <b-button
+                  v-else
+                  type="is-dark"
+                  size="is-small"
+                  class="my-2 hover:scale-105"
+                  ><NuxtLink id="NavLink" to="/Login/LoginPage"
+                    >Registrarse / Iniciar sesión</NuxtLink
+                  ></b-button
+                >
               </b-menu-list>
             </b-menu>
           </div>
@@ -394,8 +417,11 @@ export default {
       this.$auth.$storage.removeLocalStorage('user')
       this.$auth.$storage.removeLocalStorage('role')
       this.auth.setUser('')
-      window.location.reload(true, router.push('/'), this.$toast.show('Has salido de tu sesión!'))
-      
+      window.location.reload(
+        true,
+        router.push('/'),
+        this.$toast.show('Has salido de tu sesión!', { duration: 3000 })
+      )
     },
   },
 }
@@ -504,4 +530,3 @@ export default {
   background-color: rgb(20, 20, 20);
 }
 </style>
-

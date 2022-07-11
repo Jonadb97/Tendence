@@ -1,13 +1,15 @@
 <template>
   <div id="root-component">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.js"></script>
     <div
       id="main-content-turnospage"
       class="flex flex-col justify-left items-center text-left"
     >
       <!-- <h1 class="font-bold text-2xl my-6 text-white"> {{ $auth.user + " - " + $auth.$storage.getLocalStorage('id')}} </h1> -->
       <!-- Card turno pendiente actual -->
-      <h1 class="font-bold text-xl text-white" style="margin-top: 24px;">TURNOS PENDIENTES:</h1>
+      <h1 class="font-bold text-xl text-white" style="margin-top: 24px">
+        TURNOS PENDIENTES:
+      </h1>
 
       <div class="h-fit" :style="'width:' + carouselWidth + 'rem;'">
         <b-carousel-list
@@ -27,24 +29,33 @@
                   '); width:18rem; height:22rem; font-family: sans-serif;'
                 "
               >
-              <div 
-              id="info-description"
-              @mouseenter="infoHover = true"
-              @mouseleave="infoHover = false"
-               >
-                <b-icon
-                pack="mdi"
-                icon="information"
-                type="is-light"
-                class="m-2 hover:scale-150"
-                style="position: absolute; top: 0px; right: 0px;"
-                
-                ></b-icon>
                 <div
-                v-show="infoHover"
-                style="position: absolute; top: 2rem; right: 0px; background-color: #212121; color: #f7f7f7; padding: 4px; border-radius: 5px;"
-                > {{ appointment.service.description }} </div>
-              </div>
+                  id="info-description"
+                  @mouseenter="infoHover = true"
+                  @mouseleave="infoHover = false"
+                >
+                  <b-icon
+                    pack="mdi"
+                    icon="information"
+                    type="is-light"
+                    class="m-2 hover:scale-150"
+                    style="position: absolute; top: 0px; right: 0px"
+                  ></b-icon>
+                  <div
+                    v-show="infoHover"
+                    style="
+                      position: absolute;
+                      top: 2rem;
+                      right: 0px;
+                      background-color: #212121;
+                      color: #f7f7f7;
+                      padding: 4px;
+                      border-radius: 5px;
+                    "
+                  >
+                    {{ appointment.service.description }}
+                  </div>
+                </div>
                 <div class="p-2 absolute bottom-0 left-0">
                   <h5
                     class="text-white bm-4 font-bold text-left"
@@ -119,7 +130,7 @@
           icon-left="clipboard-plus-outline"
           icon-right="plus"
           label="Agendar nuevo turno"
-          style="border-width: 5px;"
+          style="border-width: 5px"
         />
       </nuxt-link>
 
@@ -135,44 +146,44 @@
         >
           <template #item="appointment">
             <div class="p-4 m-4 flex justify-center">
-              <button
-                :id="'service-slide-' + appointment.id"
-                class="bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0 hover:"
-                :style="
-                  'background-image: url(' +
-                  url +
-                  appointment.service.imageroute +
-                  '); width:18rem; height:22rem; font-family: sans-serif;'
-                "
-              >
-                <div class="p-2 absolute bottom-0 left-0">
-                  <h5
-                    class="text-white bm-4 font-bold text-left"
-                    style=" font-size: 1.5rem;
-                      font-family: sans-serif;
-                      text-align: left;
-                    "
-                  >
-                    {{ appointment.service.servicename }}
-                  </h5>
-                  <p
-                    class="far fa-clock text-white text-left"
-                    style="font-size: 1.5rem;
-                      font-family: sans-serif;
-                      text-align: left;
-                    "
-                  >
-                    {{ appointment.date }}
-                  </p>
-                </div>
-              </button>
+              <p class="text-white font-bold text-left my-2">
+                <button
+                  :id="'service-slide-' + appointment.id"
+                  class="bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0 hover:"
+                  :style="
+                    'background-image: url(' +
+                    url +
+                    appointment.service.imageroute +
+                    '); width:18rem; height:22rem; font-family: sans-serif;'
+                  "
+                >
+                  <div class="p-2 absolute bottom-0 left-0">
+                    <h5
+                      class="text-white bm-4 font-bold text-left"
+                      style="
+                        font-size: 1.5rem;
+                        font-family: sans-serif;
+                        text-align: left;
+                      "
+                    >
+                      {{ appointment.service.servicename }}
+                    </h5>
+                    <b-icon
+                      pack="mdi"
+                      icon="clock"
+                      class="text-white text-left font-bold"
+                    ></b-icon>
+
+                    {{ formatDate(appointment.date) }}
+                  </div>
+                </button>
+              </p>
             </div>
           </template>
         </b-carousel-list>
       </div>
     </div>
   </div>
-  
 </template>
 
 <script>
@@ -206,11 +217,13 @@ export default {
     this.getUserRecord()
   },
   methods: {
-    getFutureAppointments(){
-    const now = Date.now()
+    getFutureAppointments() {
+      const now = Date.now()
       axios
         .get(
-          this.url + '/appointment/' + this.$auth.$storage.getLocalStorage('id'),
+          this.url +
+            '/appointment/' +
+            this.$auth.$storage.getLocalStorage('id'),
           {
             headers: {
               auth: this.$auth.$storage.getLocalStorage('token'),
@@ -221,21 +234,21 @@ export default {
           if (response.status === 200) {
             this.appointments = response.data
             console.log(response.data)
-            while(this.appointments.date > now){
+            while (this.appointments.date > now) {
               this.futureAppointments.push(this.appointments)
             }
           }
         })
     },
     formatDate(value) {
-       if (value) {
-           return moment(String(value)).format('DD/MM/YYYY')
-    }
+      if (value) {
+        return moment(String(value)).format('DD/MM/YYYY')
+      }
     },
-        formatTime(value) {
-       if (value) {
-           return moment(value, "HH:mm:ss").format('HH:mm')
-    }
+    formatTime(value) {
+      if (value) {
+        return moment(value, 'HH:mm:ss').format('HH:mm')
+      }
     },
     onResize() {
       const windowWidth = document.documentElement.clientWidth
@@ -248,7 +261,9 @@ export default {
     getUserAppointments() {
       axios
         .get(
-          this.url + '/appointment/' + this.$auth.$storage.getLocalStorage('id'),
+          this.url +
+            '/appointment/' +
+            this.$auth.$storage.getLocalStorage('id'),
           {
             headers: {
               auth: this.$auth.$storage.getLocalStorage('token'),

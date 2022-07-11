@@ -272,11 +272,11 @@ export default {
   },
   mounted() {
     window.addEventListener('resize', this.onResize)
-    this.scrollToTop()
     this.onResize()
     this.fetchEmployees()
     this.fetchServices()
     this.fetchSelectableDates()
+    this.scrollToTop()
   },
   methods: {
     scrollToHour(){
@@ -288,7 +288,7 @@ export default {
       el.scrollIntoView({behavior: "smooth"});
     },
     scrollToTop() {
-      window.scrollTo(0,0)
+      document.body.scrollIntoView({behavior: 'smooth', block: 'start'});
     },
     onResize() {
       const windowWidth = document.documentElement.clientWidth
