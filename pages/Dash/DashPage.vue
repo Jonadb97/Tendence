@@ -17,9 +17,10 @@
           <template #trigger="{ active }">
             <b-button
               type="is-primary"
-              class="m-2"
+              class="m-2 text-white"
+              outlined
               icon-left="account-search"
-              style='width: 12rem;'
+              style='width: 12rem;border-radius: 24px; border-width: 3px;color: white'
               :icon-right="active ? 'menu-up' : 'menu-down'"
             >
               {{ selectedEmployee }}
@@ -43,13 +44,14 @@
             {{ employee.name }}
           </b-dropdown-item>
         </b-dropdown>
-        <b-dropdown class="m-0" v-model="selectedService" aria-role="list">
+        <b-dropdown class="m-0" v-model="selectedService" aria-role="list" style="">
           <template #trigger="{ active }">
             <b-button
               type="is-primary"
-              class="m-2"
+              class="m-2 text-white"
               icon-left="account-details"
-              style='width: 12rem;'
+              outlined
+              style='width: 12rem;border-radius: 24px; border-width: 3px; color: white'
               :icon-right="active ? 'menu-up' : 'menu-down'"
             >
               {{ selectedService }}
@@ -79,6 +81,7 @@
             v-model="selectedDate"
             :min-date="minDate"
             :max-date="maxDate"
+            editable
             placeholder=""
             icon="calendar-today"
             trap-focus

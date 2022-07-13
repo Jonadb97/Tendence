@@ -193,7 +193,7 @@
             type="is-success is-large"
             icon-right="check"
             outlined
-            style="border-width: 5px"
+            style="border-width: 3px; border-radius: 24px"
             :disabled="disabledRegisterButton"
             @click="saveProfile"
           >
