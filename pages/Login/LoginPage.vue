@@ -78,8 +78,7 @@
             icon-right="account-arrow-right"
             size="is-medium"
             style="border-width: 5px"
-            @click="login()"
-          >
+            @click="login()">
             Ingresar
           </b-button>
           <b-loading v-model="isLoading" :is-full-page="true"></b-loading>

@@ -307,19 +307,22 @@ export default {
           })
       }
     },
-    deleteEmployee(id) {
+    deleteEmployee() {
+      console.log("eliminando empleado")
+      console.log(this.employeeIdToEdit)
+      const id = this.employeeIdToEdit
         this.$buefy.dialog.confirm({
         message: 'Esta seguro?',
         type: 'is-dark',
         onConfirm: () => {
           axios
-            .delete(this.url + '/employee', {
-              data: {
-                id,
-              },
-            })
+            .delete(this.url + '/employee/'+id, {})
             .then((response) => {
+              console.log(response.status)
+
               if (response.status === 200) {
+                this.isComponentModalActive = false
+                this.fetchEmployees()
                 this.$buefy.toast.open({
                   message: 'Eliminado correctamente',
                   type: 'is-dark',
@@ -330,7 +333,7 @@ export default {
                   type: 'is-dark',
                 })
               }
-              window.location.reload(true)
+              
             })
         },
       })
