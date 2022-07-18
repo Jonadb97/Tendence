@@ -1,12 +1,12 @@
 <template>
-  <div id="MainContainer" class="m-auto place-content-center justify-items-center flex">
-    <TendenceLogo v-if="auth.loggedIn" id="LOGO" class="my-auto mx-0" style="height: 15rem; transform:translateX(240px)" />
-    <TendenceLogo v-else id="LOGO" class="my-auto mx-0" style="height: 15rem; " />
+  <div id="MainContainer" class="justify-center items-center flex-col flex">
+    <TendenceLogo v-if="auth.loggedIn" id="LOGO" class="items-center justify-center self-center" style="height: 15rem;" />
+    <TendenceLogo v-else id="LOGO" class="items-center justify-center self-center" style="height: 15rem; " />
     <img
       id="BT-home"
       src="../static/svg/BarberTendenceTextWhite.svg"
       alt="Barber Tendence"
-      class="object-center my-64 mx-auto py-auto"
+      class="object-center items-center justify-center"
     />
     
     <b-button
@@ -16,10 +16,10 @@
       size="is-large"
       pack="mdi"
       icon-right="arrow-right"
-      class="m-auto place-content-center hover:scale-105"
-      style="border-width: 5px; margin-bottom: 10px;"
+      class="items-center self-center justify-center place-content-center hover:scale-105"
+      style="border-width: 3px; border-radius: 24px;"
       ><NuxtLink to="/Login/LoginPage" class=" hover:text-white"
-        >Registrarse / Iniciar sesión</NuxtLink
+        >Comenzar</NuxtLink
       ></b-button
     >
   </div>

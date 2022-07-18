@@ -12,7 +12,7 @@
           <b-input
             id="0"
             type="phone"
-            class="pr-1 w-fit"
+            class="w-fit px-2"
             maxlength="1"
             value="0"
             size="is-medium"
@@ -22,7 +22,7 @@
           <b-input
             id="localcod"
             v-model="logindata.codArea"
-            class="w-36"
+            class="w-16"
             type="phone"
             maxlength="4"
             size="is-medium"
@@ -33,7 +33,7 @@
           <b-input
             id="15"
             type="phone"
-            class="px-1 w-fit"
+            class="w-fit px-2"
             maxlength="1"
             size="is-medium"
             value="15"
@@ -57,12 +57,9 @@
             password-reveal
             maxlength="20"
             size="is-medium"
-            style="width: 27rem;"
             rounded
             expanded
           ></b-input>
-          <br>
-          <NuxtLink to="#" style="margin-left: 1rem; color: #f05b5b;padding: 2px;font-weight: 700;">¡Olvidé mi contraseña!</NuxtLink>
         </b-field>
         
 
@@ -77,11 +74,14 @@
             outlined
             icon-right="account-arrow-right"
             size="is-medium"
-            style="border-width: 5px"
-            @click="login()">
+
+            style="border-width: 3px;border-radius: 24px;"
+            @click="login()"
+          >
             Ingresar
           </b-button>
           <b-loading v-model="isLoading" :is-full-page="true"></b-loading>
+          <NuxtLink to="#" class="flex items-center justify-center hover:scale-110" style="color: #f05b5b;padding: 2px;font-weight: 700;">¡Olvidé mi contraseña!</NuxtLink>
         </div>
 
         <!--No tienes cuenta? Registrar-->
@@ -93,7 +93,7 @@
               type="is-success"
               size="is-large"
               pack="mdi"
-              style="border-width: 5px"
+              style="border-width: 3px; border-radius: 24px;"
               icon-right="account-plus"
               outlined
             >

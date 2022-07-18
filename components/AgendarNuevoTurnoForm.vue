@@ -207,7 +207,7 @@
         size="is-large"
         icon-right="book-check"
         label="Agendar turno"
-        style="border-width: 3px;"
+        style="border-width: 3px;border-radius: 24px"
         @click="confirm"
       />
     </div>
@@ -219,7 +219,7 @@
         size="is-large"
         icon-right="book-cancel"
         label="Cancelar"
-        style="border-width: 3px;"
+        style="border-width: 3px;border-radius: 24px;"
         @click="redirectHome"
       />
     </div>

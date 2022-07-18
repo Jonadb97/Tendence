@@ -130,7 +130,7 @@
           icon-left="clipboard-plus-outline"
           icon-right="plus"
           label="Agendar nuevo turno"
-          style="border-width: 5px"
+          style="border-width: 3px; border-radius: 24px"
         />
       </nuxt-link>
 

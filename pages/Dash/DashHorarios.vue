@@ -60,11 +60,11 @@
                 label="Agregar nuevo horario"
                 type="is-success"
                 outlined
-                style='border-width: 5px'
+                style='border-width: 3px; border-radius: 24px'
                 pack="mdi"
                 icon-left="clock"
                 icon-right="plus"
-                size="is-medium"
+                size="is-large"
                 @click="isModalTimetableActive = true"
               />
 
@@ -168,8 +168,13 @@
               <br />
               <b-button
                 label="Agregar nuevo horario"
-                type="is-primary"
-                size="is-medium"
+                type="is-success"
+                outlined
+                style='border-width: 3px; border-radius: 24px'
+                pack="mdi"
+                icon-left="clock"
+                icon-right="plus"
+                size="is-large"
                 @click="isModalHolidaysActive = true"
               />
 

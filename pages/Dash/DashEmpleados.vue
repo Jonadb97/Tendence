@@ -55,7 +55,7 @@
           icon-left="account-group"
           outlined
           class="m-8 p-8 text-lg font-bold"
-          style="border-width: 5px"
+          style="border-width: 3px; border-radius: 24px;"
           @click="showModal"
         >
           Nuevo Empleado
