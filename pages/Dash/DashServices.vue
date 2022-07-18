@@ -101,7 +101,6 @@
           has-modal-card
           type="is-dark"
         >
-          <form action="">
             <div class="modal-card" style="width: auto">
               <header
                 class="modal-card-head"
@@ -121,8 +120,9 @@
                   class="text-white"
                 >
                   <b-input
+                    v-model="newServiceName"
                     type="text is-light"
-                    :value="serviceName"
+                    :value="newServiceName"
                     placeholder="Servicio"
                     required
                   >
@@ -172,8 +172,8 @@
                     style="margin-bottom: 8px"
                   ></b-icon>
                   <b-numberinput
+                    v-model="newServicePrice"
                     type="number; is-light"
-                    :v-model="newServicePrice"
                     step="100"
                     placeholder="Precio"
                     required
@@ -195,8 +195,9 @@
                     style="margin-bottom: 8px"
                   ></b-icon>
                   <b-numberinput
+                    v-model="newServiceDuration"
                     type="number; is-light"
-                    :v-model="newServiceDuration"
+                    :value="newServiceDuration"
                     maxlength="2"
                     step="10"
                     placeholder="Duración"
@@ -212,9 +213,10 @@
                   class="text-white"
                 >
                   <b-input
+                    v-model="newServiceDescription"
                     type="textarea"
-                    maxlength="100"
-                    :value="serviceDescription"
+                    maxlength="100"       
+                    :value="newServiceDescription"
                     placeholder="Descripción"
                     required
                   >
@@ -225,14 +227,14 @@
                 class="modal-card-foot"
                 style="background-color: rgb(46, 46, 46); color: white"
               >
-                <button
-                  class="button"
-                  type="button; is-light"
-                  @click="isComponentModalActive = false"
-                >
-                  Volver
-                </button>
-                <b-button
+            <button
+              class="button"
+              type="button; is-light"
+              @click="isComponentModalActive = false"
+            >
+              Volver
+            </button>
+            <b-button
               v-if="serviceIdToEdit !== undefined"
               class="button"
               type="is-danger"
@@ -240,10 +242,16 @@
             >
               Eliminar servicio
             </b-button>
-                <button class="button is-primary" @click="confirm" >Confirmar</button>
-              </footer>
+            
+            <button 
+              class="button is-primary" 
+              :disabled="disabledConfirmButton"
+              :loading="disabledConfirmButton"
+              @click="finish" 
+              >Confirmar</button>
+            </footer>
+            
             </div>
-          </form>
         </b-modal>
       </section>
     </div>
@@ -284,9 +292,11 @@ export default {
       newServiceName: '',
       newServiceDuration: 0,
       newServicePrice: 0,
+      newServiceDescription: '',
       newImageRoute: '',
       newServiceServices: [],
       serviceIdToEdit: undefined,
+      disabledConfirmButton: false,
     }
   },
   mounted() {
@@ -302,7 +312,6 @@ export default {
     updateServices(response) {
       if (response.status === 200) {
         this.services = response.data
-        console.log(response.data)
         this.onResize()
       }
     },
@@ -335,35 +344,41 @@ export default {
         return service.id === id
       })
       this.serviceIdToEdit = id
-      this.serviceName = service.servicename
-      this.serviceDescription = service.description
+      this.newServiceName = service.servicename
+      this.newServiceDescription = service.description
       this.newServicePrice = service.price
       this.newServiceDuration = service.duration
       this.generatedUrl = this.url + service.imageroute
       this.isComponentModalActive = true
     },
-    confirm() {
-      if (this.serviceIdToEdit !== undefined) {
-        axios.post(this.url + '/services', {
-            servicename: this.newServiceName,
-            description: this.serviceDescription,
-            imageroute: this.url + '/cortePeloyBarba.png',
-            duration: this.newServiceDuration,
-            price: this.newServicePrice,
-          })
-          .then((response) => {
-            if (response.status === 200) {
-              console.log(response)
-              this.isComponentModalActive = false
-              this.$toast.show('¡Servicio creado!')
-              this.fetchServices()
-            }else{
-              console.log(response)
+    finish() {
+      console.log(this.newServiceName)
+      console.log(this.newServiceDescription)
+      console.log(this.newServiceDuration)
+      console.log(this.newServicePrice)
+      this.disabledConfirmButton = true
+      axios.post(this.url + '/services', {
+          servicename: this.newServiceName,
+          description: this.newServiceDescription,
+          duration: this.newServiceDuration,
+          price: this.newServicePrice,
+        },
+        {
+          headers: {
+            auth: this.$auth.$storage.getLocalStorage('token'),
+          }
+        })
+        .then((response) => {
+          this.disabledConfirmButton = false
+          if (response.status === 200) {
+            this.isComponentModalActive = false
+            this.$toast.show('¡Servicio creado!')
+            this.fetchServices()
+          }else{
+            console.log(response)
             this.$toast.show('¡Oops! algo salió mal')
-            window.$nuxt.$router.push('/ErrorPage')
-            }
-          })
-      }
+          }
+        })
     },
     deleteService(id) {
       this.$buefy.dialog.confirm({
@@ -371,13 +386,16 @@ export default {
         type: 'is-dark',
         onConfirm: () => {
           axios
-            .delete(this.url + '/services', {
-              data: {
-                id,
-              },
+            .delete(this.url + '/services/'+this.serviceIdToEdit, {
+                headers: {
+                  auth: this.$auth.$storage.getLocalStorage('token'),
+                },
             })
             .then((response) => {
+              
               if (response.status === 200) {
+                this.fetchServices()
+                this.isComponentModalActive = false  
                 this.$buefy.toast.open({
                   message: 'Eliminado correctamente',
                   type: 'is-dark',
@@ -388,7 +406,6 @@ export default {
                   type: 'is-dark',
                 })
               }
-              window.location.reload(true)
             })
         },
       })
