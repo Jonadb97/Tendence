@@ -239,6 +239,7 @@ export default {
               auth.$storage.setLocalStorage('user', response.data.username)
               auth.$storage.setLocalStorage('role', response.data.role)
               auth.$storage.setLocalStorage('id', response.data.id)
+              window.location.reload(true)
               router.push('/TurnosPage')
             }
             else{

@@ -49,10 +49,10 @@
       outlined
       pack="mdi"
       type="is-success"
-      size="is-medium"
+      size="is-large"
       icon-left="calendar"
       icon-right="plus"
-      style='border-width: 5px;'
+      style='border-width: 3px;border-radius: 24px;'
       @click="isModalActive = true" />
     
               <b-modal
