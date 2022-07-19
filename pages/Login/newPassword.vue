@@ -100,7 +100,7 @@ export default {
       axios
         .post(this.url + '/auth/reset-password', 
           {
-            phonenumber:this.codArea + '' + this.numTel,
+            newPassword:newPassword,
           })
         .then(this.mailSended)
         .catch((error) => {
