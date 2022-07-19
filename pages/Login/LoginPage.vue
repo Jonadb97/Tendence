@@ -6,6 +6,7 @@
       <TendenceLogo id="TendenceLogo" class="flex mx-auto my-2" />
       <!-- Gottta add v-model to all the inputs -->
 
+       <v-app v-if="!loading">
       <!-- Tel  -->
       <div class="mx-auto text-white w-96">
         <b-field label="Número de teléfono" type="is-light">
@@ -104,6 +105,7 @@
         </div>
         <br />
       </div>
+      </v-app>
     </div>
   </div>
 </template>
@@ -123,6 +125,7 @@ export default {
       url: this.$auth.$storage.getLocalStorage('url'),
       urlFront: this.$auth.$storage.getLocalStorage('urlFront'),
       logindata: {
+        loading:true,
         codArea: '',
         numTel: '',
         inputPassword: '',
