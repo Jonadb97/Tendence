@@ -73,7 +73,7 @@
               Recuperar Contraseña
             </b-button>
           </b-field>
-          <b-loading v-model="isLoading" :is-full-page="true"></b-loading>
+          
         </div>
       </div>
     </div>
