@@ -70,6 +70,7 @@ export default {
 
   data() {
     return {
+      token:'',
       isLoading: false,
       isFullPage: true,
       url: this.$auth.$storage.getLocalStorage('url'),
@@ -101,6 +102,11 @@ export default {
         .post(this.url + '/auth/reset-password', 
           {
             newPassword:newPassword,
+          },
+          {
+            headers: {
+              auth: token,
+            },
           })
         .then(this.mailSended)
         .catch((error) => {
