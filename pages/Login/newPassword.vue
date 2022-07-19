@@ -8,46 +8,30 @@
 
       <!-- Tel  -->
       <div class="mx-auto text-white w-96">
-        <b-field size="is-medium" label="Ingrese su numero de teléfono" type="is-light">
+        <b-field 
+          label="Contraseña"
+          :type="passwordType">
           <b-input
-            id="0"
-            type="phone"
-            class="pr-1 w-fit"
-            maxlength="1"
-            value="0"
-            size="is-medium"
-            disabled
+            v-model="newPassword"
+            type="password"
+            password-reveal
+            max-length="25"
             rounded
-          ></b-input>
-          <b-input
-            id="localcod"
-            v-model="codArea"
-            class="w-36"
-            type="phone"
-            maxlength="4"
-            size="is-medium"
+            @blur="checkPassword">
+          </b-input>
+        </b-field>
+        <b-field 
+          label="Confirmar Contraseña"
+          :type="passwordType"
+          :message="passwordMessage">
+          <b-input 
+            v-model="newPasswordRepeat"
+            type="password" 
+            password-reveal 
+            max-length="25" 
             rounded
-            expanded
-            @keyup.enter="sendResetPassword"
-          ></b-input>
-          <b-input
-            id="15"
-            type="phone"
-            class="px-1 w-fit"
-            maxlength="1"
-            size="is-medium"
-            value="15"
-            disabled
-          ></b-input>
-          <b-input
-            id="numerotel"
-            v-model="numTel"
-            type="phone"
-            maxlength="8"
-            size="is-medium"
-            rounded
-            expanded
-          ></b-input>
+            @blur="checkPassword">
+          </b-input>
         </b-field>
 
         
@@ -57,20 +41,16 @@
           class="flex-row items-center justify-center self-center mx-auto pb-4 text-white"
         >
           <b-field>
-            <p size="is-medium">Te enviaremos un mail con las instrucciones para reiniciar tu contraseña. ¡No olvides revisar tu bandeja de spam! </p>
-          </b-field>
-          <b-field>
             <b-button
               class="flex mx-auto text-white"
               type="is-light"
               pack="mdi"
               outlined
-              icon-right="account-arrow-right"
               size="is-medium"
               style="border-width: 5px"
               :disabled="buttonDisabled"
               @click="sendResetPassword()">
-              Recuperar Contraseña
+              Confirmar
             </b-button>
           </b-field>
           <b-loading v-model="isLoading" :is-full-page="true"></b-loading>
@@ -96,10 +76,16 @@ export default {
       urlFront: this.$auth.$storage.getLocalStorage('urlFront'),
       numTel:'',
       codArea:'',
-      buttonDisabled:false,
+      buttonDisabled:true,
+      newPassword:undefined,
+      newPasswordRepeat:undefined,
+      passwordType:'',
+      passwordMessage:'',
     }
   },
   mounted() {
+    console.log("parametro: ")
+    console.log(this.$route.query.token);
     window.addEventListener('keypress', this.checkIfEnter)
   },
   methods: {
@@ -108,11 +94,11 @@ export default {
         this.sendResetPassword()
       }
     },
-    sendResetPassword() {
+    sendNewPassword() {
       this.isLoading = true
       this.buttonDisabled = true
       axios
-        .put(this.url + '/auth/forgot-password', 
+        .post(this.url + '/auth/reset-password', 
           {
             phonenumber:this.codArea + '' + this.numTel,
           })
@@ -131,6 +117,20 @@ export default {
       this.$toast.show('Mail enviado, revise su correo electronico', {
             duration: 3000,
           })
+    },
+    checkPassword(){
+      if(this.newPasswordRepeat!== undefined){
+        if(this.newPassword === this.newPasswordRepeat){
+          this.passwordType= "is-success"
+          this.passwordMessage=""
+          this.buttonDisabled = false
+        }
+        else{
+          this.passwordType="is-danger"
+          this.passwordMessage="Las contraseñas deben ser iguales"
+          this.button = true
+        }
+      }
     },
   },
 }

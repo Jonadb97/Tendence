@@ -100,6 +100,20 @@
               ¡Registrate!
             </b-button>
           </NuxtLink>
+
+          <p>¿Olvidaste tu contraseña?</p>
+          <NuxtLink to="/Login/ResetPassword">
+            <b-button
+              class="flex mx-auto py-2 text-white"
+              type="is-success"
+              size="is-large"
+              pack="mdi"
+              style="border-width: 3px; border-radius: 24px;"
+              outlined
+            >
+              Recuperar contraseña
+            </b-button>
+          </NuxtLink>
         </div>
         <br />
       </div>
