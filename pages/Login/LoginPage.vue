@@ -81,7 +81,7 @@
             Ingresar
           </b-button>
           <b-loading v-model="isLoading" :is-full-page="true"></b-loading>
-          <NuxtLink to="#" class="flex items-center justify-center hover:scale-110" style="color: #f05b5b;padding: 2px;font-weight: 700;">¡Olvidé mi contraseña!</NuxtLink>
+          <NuxtLink to="/Login/ResetPassword" class="flex items-center justify-center hover:scale-110" style="color: #f05b5b;padding: 2px;font-weight: 700;">¡Olvidé mi contraseña!</NuxtLink>
         </div>
 
         <!--No tienes cuenta? Registrar-->
@@ -101,19 +101,6 @@
             </b-button>
           </NuxtLink>
 
-          <p>¿Olvidaste tu contraseña?</p>
-          <NuxtLink to="/Login/ResetPassword">
-            <b-button
-              class="flex mx-auto py-2 text-white"
-              type="is-success"
-              size="is-large"
-              pack="mdi"
-              style="border-width: 3px; border-radius: 24px;"
-              outlined
-            >
-              Recuperar contraseña
-            </b-button>
-          </NuxtLink>
         </div>
         <br />
       </div>

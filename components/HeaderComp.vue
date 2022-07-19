@@ -19,7 +19,7 @@
         <b-dropdown :triggers="['hover']" aria-role="list">
           <template #trigger>
             <b-button
-              v-if="auth.role == 'admin'"
+              v-show="auth.role == 'admin'"
               label="Gestión"
               type="is-dark"
               size="is-small"
@@ -87,7 +87,6 @@
 
         <b-button
           v-show="false"
-          v-if="auth.role == 'admin'"
           type="is-dark"
           size="is-small"
           class="my-2 rounded-md hover:scale-105"
@@ -112,7 +111,7 @@
           </NuxtLink>
         </b-button>
         <b-button
-          v-if="auth.role == 'user'"
+          v-show="auth.role == 'user'"
           type="is-dark"
           size="is-small"
           class="my-2 rounded-full hover:scale-105"
@@ -127,7 +126,7 @@
           </NuxtLink>
         </b-button>
         <b-button
-          v-if="auth.role == 'user'"
+          v-show="auth.role == 'user'"
           type="is-dark"
           size="is-small"
           class="rounded-full my-2 hover:scale-105"
@@ -137,7 +136,7 @@
         </b-button>
 
         <b-button
-          v-if="auth.role == 'user'"
+          v-show="auth.role == 'user'"
           type="is-dark"
           size="is-small"
           class="my-2 hover:scale-105"
@@ -147,7 +146,7 @@
         </b-button>
 
         <b-button
-          v-if="auth.loggedIn"
+          v-show="auth.loggedIn"
           type="is-dark"
           size="is-small"
           class="my-2 hover:scale-105"
@@ -157,7 +156,7 @@
           <NuxtLink id="NavLink" to="/"> Cerrar sesión </NuxtLink>
         </b-button>
         <b-button
-          v-if="!auth.loggedIn"
+          v-show="!auth.loggedIn"
           type="is-dark"
           size="is-small"
           class="my-2 hover:scale-105"
@@ -168,7 +167,7 @@
           </NuxtLink>
         </b-button>
         <b-button
-          v-if="!auth.loggedIn"
+          v-show="!auth.loggedIn"
           type="is-dark"
           size="is-small"
           class="my-2 hover:scale-105"
@@ -180,7 +179,7 @@
         </b-button>
 
         <b-tag
-          v-if="auth.loggedIn"
+          v-show="auth.loggedIn"
           id="user-tag"
           type="is-success"
           size="is-small"
@@ -223,21 +222,21 @@
             <b-menu>
               <b-menu-list label="Menu">
                 <b-tag
-                  v-if="auth.loggedIn"
+                  v-show="auth.loggedIn"
                   id="user-tag"
                   class="px-2 h-4"
                   type="is-success"
                   >{{ auth.user }}</b-tag
                 >
                 <b-tag
-                  v-else
+                  v-show="!auth.loggedIn"
                   id="user-tag-non"
                   class="my-auto px-2 translate-y-1 h-4"
                   type="is-primary"
                   >{{ auth.user }}</b-tag
                 >
                 <b-button
-                  v-if="auth.role == 'admin'"
+                  v-show="auth.role == 'admin'"
                   type="is-dark"
                   icon-left="clipboard"
                   @click="open = false"
@@ -250,7 +249,7 @@
                   ></b-button
                 >
                 <b-button
-                  v-if="auth.role == 'user'"
+                  v-show="auth.role == 'user'"
                   type="is-dark"
                   @click="open = false"
                   ><NuxtLink
@@ -261,7 +260,7 @@
                   ></b-button
                 >
                 <b-button
-                  v-if="auth.role == 'user'"
+                  v-show="auth.role == 'user'"
                   type="is-dark"
                   @click="open = false"
                   ><NuxtLink id="NavLink" to="/TurnosPage"
@@ -269,7 +268,7 @@
                   ></b-button
                 >
                 <b-button
-                  v-if="auth.role == 'user'"
+                  v-show="auth.role == 'user'"
                   type="is-dark"
                   @click="open = false"
                   ><NuxtLink id="NavLink" to="/PerfilPage"
@@ -278,7 +277,7 @@
                 >
 
                 <b-button
-                  v-if="showDash"
+                  v-show="showDash"
                   type="is-dark"
                   icon-left="home"
                   @click="open = false"
@@ -289,7 +288,7 @@
                   ></b-button
                 >
                 <b-button
-                  v-if="showDash"
+                  v-show="showDash"
                   type="is-dark"
                   pack="mdi"
                   icon-left="calendar"
@@ -301,7 +300,7 @@
                   ></b-button
                 >
                 <b-button
-                  v-if="showDash"
+                  v-show="showDash"
                   type="is-dark"
                   icon-left="account-details"
                   @click="open = false"
@@ -312,7 +311,7 @@
                   ></b-button
                 >
                 <b-button
-                  v-if="showDash"
+                  v-show="showDash"
                   type="is-dark"
                   icon-left="account-group"
                   @click="open = false"
@@ -323,7 +322,7 @@
                   ></b-button
                 >
                 <b-button
-                  v-if="showDash"
+                  v-show="showDash"
                   type="is-dark"
                   icon-left="alarm"
                   @click="open = false"
@@ -334,7 +333,7 @@
                   ></b-button
                 >
                 <b-button
-                  v-if="auth.loggedIn"
+                  v-show="auth.loggedIn"
                   type="is-dark"
                   size="is-small"
                   class="my-2 hover:scale-105"
@@ -344,7 +343,7 @@
                   </NuxtLink></b-button
                 >
                 <b-button
-                  v-else
+                  v-show="!auth.loggedIn"
                   type="is-dark"
                   size="is-small"
                   class="my-2 hover:scale-105"
