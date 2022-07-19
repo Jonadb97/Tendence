@@ -99,15 +99,7 @@ export default {
       buttonDisabled:false,
     }
   },
-  mounted() {
-    window.addEventListener('keypress', this.checkIfEnter)
-  },
   methods: {
-    checkIfEnter() {
-      if (event.keyCode === 13) {
-        this.sendResetPassword()
-      }
-    },
     sendResetPassword() {
       this.isLoading = true
       this.buttonDisabled = true
@@ -123,7 +115,6 @@ export default {
           })
           this.isLoading = false
           this.buttonDisabled = false
-          console.log(error)
         })
     },
     mailSended(){
