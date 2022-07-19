@@ -132,6 +132,11 @@ export default {
       },
     }
   },
+  created() {
+    this.$nextTick(function() {
+      this.loading = false
+    })
+  },
   mounted() {
     window.addEventListener('keypress', this.checkIfEnter)
   },
