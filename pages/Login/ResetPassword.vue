@@ -56,10 +56,23 @@
         <div
           class="flex-row items-center justify-center self-center mx-auto pb-4 text-white"
         >
+        
           <b-field>
             <p size="is-medium">Te enviaremos un mail con las instrucciones para reiniciar tu contraseña. ¡No olvides revisar tu bandeja de spam! </p>
           </b-field>
           <b-field>
+            <nuxt-link id="NavLink" to="/Login/LoginPage">
+            <b-button
+              class="flex mx-auto text-white"
+              type="is-light"
+              pack="mdi"
+              outlined
+              icon-right="account-arrow-right"
+              size="is-medium"
+              style="border-width: 5px">
+              volver
+            </b-button>
+            </nuxt-link>
             <b-button
               class="flex mx-auto text-white"
               type="is-light"

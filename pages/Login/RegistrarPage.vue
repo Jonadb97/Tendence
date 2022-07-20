@@ -4,6 +4,7 @@
       <!-- Logo -->
       <TendenceLogo id="TendenceLogo" class="flex mx-auto my-2" />
       <!-- Gottta add v-model to all the inputs -->
+      <v-app v-if="!loading">
       <div class="flex-row mx-auto">
         <b-field 
           label="Nombre"
@@ -139,6 +140,7 @@
           </b-button>
         </div>
       </div>
+      </v-app>
     </div>
   </div>
 </template>
@@ -155,6 +157,7 @@ export default {
   data() {
     const today = new Date()
     return {
+      loading:true,
       url: this.$auth.$storage.getLocalStorage('url'),
       nameMessage:"",
       nameType:"",
@@ -193,6 +196,11 @@ export default {
         today.getDate()
       )
     }
+  },
+  created() {
+    this.$nextTick(function() {
+      this.loading = false
+    })
   },
   methods: {
     checkIfEnter() {
