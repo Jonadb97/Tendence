@@ -154,7 +154,7 @@
           style="border-radius: 24px"
           @click="confirmLogout()"
         >
-          <NuxtLink id="NavLink" to="/"> Cerrar sesión </NuxtLink>
+          <NuxtLink id="NavLink" to="#"> Cerrar sesión </NuxtLink>
         </b-button>
         <b-button
           v-if="!auth.loggedIn"
@@ -418,6 +418,7 @@ export default {
       this.$auth.$storage.removeLocalStorage('user')
       this.$auth.$storage.removeLocalStorage('role')
       this.auth.setUser('')
+      router.push('/')
       window.location.reload(
         true,
         router.push('/'),
@@ -529,5 +530,24 @@ export default {
 
 #nav-button {
   background-color: rgb(20, 20, 20);
+}
+
+@keyframes example {
+  from {color: white;}
+  to {color: rgb(153, 0, 255);}
+}
+
+a.nuxt-link-active {
+  font-weight: bold;
+  animation-name: example;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate-reverse;
+  animation-timing-function: ease-in-out;
+}
+/* exact link will show the primary color for only the exact matching link */
+a.nuxt-link-exact-active {
+  color: #00c58e;
+  border-color: #00c58e;
 }
 </style>
