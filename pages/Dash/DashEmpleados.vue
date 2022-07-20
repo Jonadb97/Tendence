@@ -178,6 +178,7 @@
         </div>
       </b-modal>
     </div>
+    <FooterComp class="w-screen"></FooterComp>
   </div>
 </template>
 
