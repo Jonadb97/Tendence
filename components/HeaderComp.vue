@@ -20,25 +20,14 @@
           <template #trigger>
             <b-button
               v-if="auth.role == 'admin'"
-              label="Gestión"
               type="is-dark"
               size="is-small"
               class="my-2 rounded-md"
               icon-left="clipboard"
               icon-right="arrow-down"
               style="border-radius: 24px"
-            />
+            ><NuxtLink to="/Dash/DashPage">Panel Principal</NuxtLink></b-button>
           </template>
-
-          <b-dropdown-item
-            aria-role="listitem"
-            size="is-small"
-            pack="mdi"
-            class="text-black rounded-md"
-            icon-right="clipboard"
-          >
-            <NuxtLink to="/Dash/DashPage">Panel Principal</NuxtLink>
-          </b-dropdown-item>
 
           <b-dropdown-item
             aria-role="listitem"
@@ -471,11 +460,6 @@ export default {
   width: 100%;
 }
 
-#NavLink:hover {
-  color: white;
-  background-color: #2f2f2f;
-}
-
 #NavContainer {
   /* TOP | RIGHT | BOTTOM | LEFT */
   margin: auto 2rem auto auto;
@@ -526,10 +510,6 @@ export default {
   font-size: 16px;
   font-weight: bold;
   transform: translateY(-0.01rem);
-}
-
-#nav-button {
-  background-color: rgb(20, 20, 20);
 }
 
 @keyframes example {
