@@ -6,6 +6,7 @@
       <TendenceLogo id="TendenceLogo" class="flex mx-auto my-2" />
       <!-- Gottta add v-model to all the inputs -->
 
+       <v-app v-if="!loading">
       <!-- Tel  -->
       <div class="mx-auto text-white w-96">
         <b-field label="Número de teléfono" type="is-light">
@@ -81,7 +82,7 @@
             Ingresar
           </b-button>
           <b-loading v-model="isLoading" :is-full-page="true"></b-loading>
-          <NuxtLink to="#" class="flex items-center justify-center hover:scale-110" style="color: #f05b5b;padding: 2px;font-weight: 700;">¡Olvidé mi contraseña!</NuxtLink>
+          <NuxtLink to="/Login/ResetPassword" class="flex items-center justify-center hover:scale-110" style="color: #f05b5b;padding: 2px;font-weight: 700;">¡Olvidé mi contraseña!</NuxtLink>
         </div>
 
         <!--No tienes cuenta? Registrar-->
@@ -100,9 +101,11 @@
               ¡Registrate!
             </b-button>
           </NuxtLink>
+
         </div>
         <br />
       </div>
+      </v-app>
     </div>
   </div>
 </template>
@@ -122,11 +125,17 @@ export default {
       url: this.$auth.$storage.getLocalStorage('url'),
       urlFront: this.$auth.$storage.getLocalStorage('urlFront'),
       logindata: {
+        loading:true,
         codArea: '',
         numTel: '',
         inputPassword: '',
       },
     }
+  },
+  created() {
+    this.$nextTick(function() {
+      this.loading = false
+    })
   },
   mounted() {
     window.addEventListener('keypress', this.checkIfEnter)
