@@ -241,6 +241,7 @@
           </b-tabs>
         </div>
       </div>
+      <FooterComp class="w-screen"></FooterComp>
     </div>
   </div>
 </template>

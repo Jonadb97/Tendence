@@ -399,6 +399,7 @@ export default {
         message: 'Deseas salir de la sesión?',
         type: 'is-dark',
         onConfirm: () => this.logOut(),
+        
       })
     },
     logOut() {
@@ -410,9 +411,9 @@ export default {
       router.push('/')
       window.location.reload(
         true,
-        router.push('/'),
         this.$toast.show('Has salido de tu sesión!', { duration: 3000 })
       )
+      router.push('/')
     },
   },
 }

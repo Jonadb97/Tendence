@@ -157,7 +157,9 @@
 
 
     </div>
+    <FooterComp class="w-screen" style="width: 100%;"></FooterComp>
   </div>
+  
 </template>
 
 <script>

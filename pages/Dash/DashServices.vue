@@ -254,6 +254,7 @@
             </div>
         </b-modal>
       </section>
+      <FooterComp class="w-screen"></FooterComp>
     </div>
   </div>
 </template>

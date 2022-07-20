@@ -322,8 +322,11 @@
         </section>
       </no-ssr>
       </div>
+      <FooterComp class="w-screen"></FooterComp>
     </div>
+    
   </div>
+  
 </template>
 
 <script>
