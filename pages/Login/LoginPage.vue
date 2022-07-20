@@ -6,7 +6,7 @@
       <TendenceLogo id="TendenceLogo" class="flex mx-auto my-2" />
       <!-- Gottta add v-model to all the inputs -->
 
-       <v-app v-if="!loading">
+       <v-app v-show="!loading">
       <!-- Tel  -->
       <div class="mx-auto text-white w-96">
         <b-field label="Número de teléfono" type="is-light">
