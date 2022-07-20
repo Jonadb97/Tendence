@@ -1,11 +1,11 @@
 <template>
   <div id="MainContainer">
-    <div id="Layout" class="flex flex-col">
+    <div id="Layout" class="flex flex-col w-96">
       <!-- Logo -->
       <TendenceLogo id="TendenceLogo" class="flex mx-auto my-2" />
       <!-- Gottta add v-model to all the inputs -->
       <v-app v-if="!loading">
-      
+
       <div class="flex-row mx-auto">
         <b-field 
           label="Nombre"
