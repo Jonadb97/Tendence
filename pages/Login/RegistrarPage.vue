@@ -1,12 +1,13 @@
 <template>
   <div id="MainContainer">
-    <div id="Layout" class="flex flex-col w-96">
+    <div id="Layout" class="flex flex-col">
       <!-- Logo -->
       <TendenceLogo id="TendenceLogo" class="flex mx-auto my-2" />
       <!-- Gottta add v-model to all the inputs -->
-      <v-app v-if="!loading">
+      
 
       <div class="flex-row mx-auto">
+        <v-app v-if="!loading">
         <b-field 
           label="Nombre"
           :type="nameType"
@@ -140,8 +141,8 @@
           >
           </b-button>
         </div>
+        </v-app>
       </div>
-      </v-app>
     </div>
   </div>
 </template>
