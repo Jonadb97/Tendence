@@ -1,5 +1,5 @@
 <template>
-  <div class="footer">
+  <div class="footer w-screen">
     <div id="FooterContainer" class="inline-flex w-screen bg-white bottom-0">
       <NuxtLink to="/" class="inline-flex my-auto"
         ><div><TendenceLogo id="LOGOfooter" class="" /></div>
@@ -49,7 +49,7 @@
           </li>
         </ul>
       </div>
-      <div class="inline-flex justify-end">
+      <div class="inline-flex justify-end text-black">
       <p class="my-auto py-auto text-right">
       Mail : barbertendence@gmail.com |
       </p>

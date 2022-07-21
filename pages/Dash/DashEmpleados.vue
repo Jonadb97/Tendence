@@ -3,7 +3,7 @@
   <div id="root-component" class="">
     <div
       id="main-content"
-      class="flex flex-col justify-center items-center text-center max-w-xl"
+      class="flex flex-col justify-center items-center text-center"
     >
       <h1 class="font-bold text-2xl my-6 text-white">{{ $auth.user }}</h1>
       <!-- Card turnos para hoy -->
@@ -188,12 +188,6 @@ import axios from 'axios'
 export default {
   name: 'DashEmpleados',
   layout: 'default-lay',
-  breakpoints: {
-    // default breakpoints - customize this
-    sm: 450,
-    md: 1250,
-    lg: Infinity,
-  },
 
   // Hay que fetchear la fecha y hora para ponerlos reactivos en el card de turnos pendientes y los anteriores
   data() {
@@ -344,39 +338,10 @@ export default {
 </script>
 
 <style>
-#main-content {
-  margin-left: auto;
-  margin-right: auto;
-}
 
-.panel-tabs {
-  background-color: white;
-}
-
-.panel-tabs > a {
-  margin-left: 4rem;
-  margin-right: 4rem;
-  color: black;
-  font-weight: 500;
-}
-
-#footer-item-style {
-  background-color: rgb(46, 46, 46);
-  color: white;
-}
-
-#footer-item-style:hover {
-  background-color: rgb(46, 46, 46);
-  color: white;
-  font-weight: bold;
-}
 
 #card-turno-actual {
   margin: 2px;
-}
-
-#root-container {
-  z-index: 3;
 }
 
 .card {

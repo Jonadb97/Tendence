@@ -23,6 +23,12 @@
   bottom: 0;
   width: 100%;
   height: 50px;
+  z-index: 100;
+}
+
+#main-content {
+  margin: auto;
+  position: center;
 }
 
 body {
@@ -39,12 +45,12 @@ body {
   color: black;
 }
 
-#root-component {
-  height: 100%;
-}
-
 .media-content {
   color: black;
+}
+
+#footer {
+  width: 100vw;
 }
 
 .label {
