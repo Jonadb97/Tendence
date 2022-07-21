@@ -24,6 +24,7 @@
   width: 100%;
   height: 50px;
   z-index: 100;
+  background-image: linear-gradient(to right, rgb(40, 40, 40), rgb(20, 20, 20));
 }
 
 #main-content {

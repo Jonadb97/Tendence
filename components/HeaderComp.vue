@@ -470,19 +470,21 @@ export default {
   background-image: linear-gradient(to right, rgb(40, 40, 40), rgb(20, 20, 20));
   width: 100%;
   border-bottom: 12rem;
-  border-color: linear-gradient(to right, #216cb4, #8a2184);
   margin: 0;
   padding: 0;
+  border-bottom: 1px solid white;
 }
 
 #HeaderContainerMobile {
   background-image: linear-gradient(to right, rgb(40, 40, 40), rgb(20, 20, 20));
   width: 100%;
+  border-bottom: 1px solid white;
 }
 
 @media (max-width: 800px) {
   #HeaderContainerDesktop {
     display: none;
+    border-bottom: 1px solid white;
   }
 }
 
@@ -496,6 +498,7 @@ export default {
     display: none;
     margin: 0;
     padding: 0;
+    border-bottom: 1px solid white;
   }
 }
 
