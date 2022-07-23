@@ -19,6 +19,48 @@
 
 <style>
 
+@media screen and (min-width: 1024px) {
+  .container {
+    max-width: 100%;
+  }
+}
+@media screen and (max-width: 1215px) {
+  .container.is-widescreen:not(.is-max-desktop) {
+    max-width: 100%;
+  }
+}
+@media screen and (max-width: 1407px) {
+  .container.is-fullhd:not(.is-max-desktop):not(.is-max-widescreen) {
+    max-width: 100%;
+  }
+}
+@media screen and (min-width: 1216px) {
+  .container:not(.is-max-desktop) {
+    max-width: 100%;
+  }
+}
+@media screen and (min-width: 1408px) {
+  .container:not(.is-max-desktop):not(.is-max-widescreen) {
+    max-width: 100%;
+  }
+}
+
+
+@media screen and (min-width: 1024px){
+.footer {
+  background-image: linear-gradient(to right, rgb(40, 40, 40), rgb(20, 20, 20));
+  padding: 2rem 1.2rem 4rem;
+  border-top: 1px solid white;
+}
+}
+
+@media screen and (max-width: 1024px){
+  .footer {
+    display: none;
+    visibility: hidden;
+  }
+}
+
 h1, h2, h3 ,h4 {
   font-family: 'Mortend bold';
 }
