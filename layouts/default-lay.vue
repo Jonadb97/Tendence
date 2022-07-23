@@ -18,6 +18,27 @@
 </template>
 
 <style>
+
+h1, h2, h3 ,h4 {
+  font-family: 'Mortend bold';
+}
+
+*, html, body {
+  font-family: 'Mazzard';
+}
+
+@font-face {
+    font-family: "Mortend bold";
+    src:url('../static/fonts/MortendBold/Mortend Bold.otf');
+}
+
+@font-face {
+    font-family: "Mazzard";
+    src:url('../static/fonts/Mazzard/MazzardH-ExtraLight.otf');
+    font-weight: 800;
+}
+
+
 #footer {
   position: absolute;
   bottom: 0;

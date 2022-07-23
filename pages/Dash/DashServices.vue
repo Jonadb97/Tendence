@@ -6,7 +6,7 @@
     >
       <!-- Carrousel turnos recientes -->
 
-      <h1 class="my-6 font-bold text-xl text-white">Servicios:</h1>
+      <h1 class="my-6 font-bold text-xl text-white" style="font-family: Mortend bold;">SERVICIOS:</h1>
       <div class="h-fit" :style="'width:' + carouselServicesWidth + 'rem;'">
         <b-carousel-list
           v-model="slideSetServices"
@@ -22,7 +22,7 @@
                   'background-image: url(' +
                   url +
                   service.imageroute +
-                  '); height:24rem; width:18rem;'
+                  '); height:24rem; width:18rem; font-family: Mortend bold;'
                 "
                 @click="editService(service.id)"
               >
@@ -41,20 +41,20 @@
                 ></b-icon>
                 <div
                 v-show="infoHover"
-                style="position: absolute; top: 2rem; right: 0px; background-color: #212121; color: #f7f7f7; padding: 4px; border-radius: 5px;"
+                style="position: absolute; top: 2rem; right: 0px; background-color: #212121; color: #f7f7f7; padding: 4px; border-radius: 5px; font-family: Mazzard;"
                 > {{ service.description }} </div>
               </div>
                 <div class="p-2 absolute bottom-0 left-0">
                   <h5
                     class="text-white bm-4 font-bold text-left"
-                    style="font-size: xx-large"
+                    style="font-size: xx-large; font-family: Mortend bold"
                   >
                     {{ service.servicename }}
                   </h5>
 
                   <p
                     class="text-white text-left font-bold m-2"
-                    style="font-size: 1.2rem; font-family: sans-serif"
+                    style="font-size: 1.2rem; font-family: Mazzard"
                   >
                     <b-icon
                       pack="mdi"
@@ -65,7 +65,7 @@
                   </p>
                   <p
                     class="text-white text-left font-bold m-2"
-                    style="font-size: 1.2rem; font-family: sans-serif"
+                    style="font-size: 1.2rem; font-family: Mazzard"
                   >
                     <b-icon
                       pack="mdi"
@@ -90,7 +90,7 @@
           icon-left="account-cash"
           outlined
           class="button is-primary is-medium m-4"
-          style="border-width: 3px; border-radius: 24px"
+          style="border-width: 3px; border-radius: 24px; font-family: Mazzard;"
           @click="isComponentModalActive = true"
         >
           Nuevo servicio
@@ -101,7 +101,7 @@
           has-modal-card
           type="is-dark"
         >
-            <div class="modal-card" style="width: auto">
+            <div class="modal-card" style="width: auto; font-family: Mazzard">
               <header
                 class="modal-card-head"
                 style="background-color: rgb(46, 46, 46)"
@@ -254,7 +254,10 @@
             </div>
         </b-modal>
       </section>
-      <FooterComp class="w-screen"></FooterComp>
+          <FooterComp
+      class="w-screen bottom-0"
+      style="width: 100%; position: absolute; bottom: 0"
+    ></FooterComp>
     </div>
   </div>
 </template>

@@ -5,8 +5,8 @@
     class="text-white flex flex-col justify-center items-center text-center"
   >
     <!-- Servicios -->
-    <h1 id="top" class="font-bold inline-flex flex-row my-2 text-xl">
-      Que te vas a hacer?
+    <h1 id="top" class="font-bold inline-flex flex-row my-2 text-xl" style="font-family: 'Mortend bold';">
+      ¿QUE TE VAS A HACER?
     </h1>
     <no-ssr>
       <div id="service-carrousel" class="h-fit" :style="'width:' + carouselServicesWidth + 'rem;'">
@@ -45,19 +45,19 @@
                 ></b-icon>
                 <div
                 v-show="infoHover"
-                style="position: absolute; top: 2rem; right: 0px; background-color: #212121; color: #f7f7f7; padding: 4px; border-radius: 5px;"
+                style="position: absolute; top: 2rem; right: 0px; background-color: #212121; color: #f7f7f7; padding: 4px; border-radius: 5px; font-family: 'Mazzard';"
                 > {{ service.description }} </div>
               </div>
                 <div class="p-2 absolute bottom-0 left-0">
                   <h5
                     class="text-white bm-4 font-bold text-left"
-                    style="font-size: xx-large"
+                    style="font-size: xx-large; font-family: 'Mortend bold';"
                   >
                     {{ service.servicename }}
                   </h5>
                   <p
                     class="text-white text-left"
-                    style="font-size: x-large; font-family: sans-serif;"
+                    style="font-size: x-large; font-family: 'Mazzard';"
                   ><b-icon
                       pack="mdi"
                       icon="clock"
@@ -67,7 +67,7 @@
                   </p>
                               <p
                     class="text-white text-left font-bold"
-                    style="font-size: x-large; font-family: sans-serif;"
+                    style="font-size: x-large; font-family: 'Mazzard';"
                   ><b-icon
                       pack="mdi"
                       icon="cash-multiple"
@@ -86,7 +86,7 @@
     <br />
 
     <!--  Barberos  -->
-    <h1 class="font-bold inline-flex flex-row my-2 text-xl">Con quién?</h1>
+    <h1 class="font-bold inline-flex flex-row my-2 text-xl" style="font-family: 'Mortend bold';">¿CON QUIEN?</h1>
     <no-ssr>
       <div id="employee-carrousel" class="h-fit" :style="'width:' + carouselEmployeesWidth + 'rem;'">
       <b-skeleton height="22rem" width="18rem" :active="isLoadingEmployees"></b-skeleton>
@@ -110,8 +110,8 @@
               >
                 <div class="p-2 absolute bottom-0 left-0">
                   <h5
-                    class="text-white bm-4 font-bold text-left"
-                    style="font-size: xx-large"
+                    class="text-white bm-4 font-bold text-center"
+                    style="font-size: xx-medium; font-family: 'Mortend bold'; text-align: center;"
                   >
                     {{ employee.name }}
                   </h5>
@@ -126,7 +126,7 @@
 
     <br />
 
-    <h1 class="font-bold inline-flex flex-row my-2 text-xl">Para cuando?</h1>
+    <h1 class="font-bold inline-flex flex-row my-2 text-xl" style="font-family: 'Mortend bold';">¿PARA CUANDO?</h1>
     <no-ssr>
       <div id="calendar-component w-1/2">
         <b-datepicker
@@ -146,7 +146,7 @@
     </no-ssr>
     <br />
 
-    <h1 class="font-bold inline-flex flex-row my-2 text-xl">A que hora?</h1>
+    <h1 class="font-bold inline-flex flex-row my-2 text-xl" style="font-family: 'Mortend bold';">¿A QUE HORA?</h1>
     <section class="inline-flex">
 
       <b-select 
@@ -271,12 +271,12 @@ export default {
     }
   },
   mounted() {
+    this.scrollToTop()
     window.addEventListener('resize', this.onResize)
     this.onResize()
     this.fetchEmployees()
     this.fetchServices()
     this.fetchSelectableDates()
-    this.scrollToTop()
   },
   methods: {
     scrollToHour(){

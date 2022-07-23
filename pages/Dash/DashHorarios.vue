@@ -4,7 +4,7 @@
       id="main-content"
       class="flex flex-col justify-center items-center text-center"
     >
-      <h1 class="text-white my-8 font-bold text-lg">Gestión de horarios:</h1>
+      <h1 class="text-white my-8 font-bold text-lg">GESTION DE HORARIOS:</h1>
 
       <!--- Tabla de horarios -->
       <!--- Desktop version -->
@@ -23,8 +23,10 @@
                 :data="timetable"
                 :loading="isLoadingTimetable"
               >
-                <b-table-column v-slot="props" field="day" label="Día" centered>
-                  <span name="dayTag" class="tag">
+                <b-table-column v-slot="props" field="day" label="Día" centered >
+                  <span 
+                  name="dayTag"
+                  class="tag" style="font-family: Mortend bold">
                     {{ props.row.day }}
                   </span>
                 </b-table-column>
@@ -168,9 +170,10 @@
               <br />
               <b-button
                 label="Agregar nuevo horario"
+                class="my-6"
                 type="is-success"
                 outlined
-                style='border-width: 3px; border-radius: 24px'
+                style='border-width: 3px; border-radius: 24px;;'
                 pack="mdi"
                 icon-left="clock"
                 icon-right="plus"

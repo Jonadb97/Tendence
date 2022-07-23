@@ -5,6 +5,7 @@
     <div
       id="HeaderContainerDesktop"
       class="inline-flex"
+      style="font-family: 'Mazzard';"
       media="(max-width: 800px)"
     >
       <NuxtLink to="/" class="inline-flex my-1 mx-1"
@@ -385,6 +386,11 @@ export default {
 
   updated() {},
   methods: {
+        PushHome(){
+      const router = window.$nuxt.$router
+      router.push('/')
+      window.location.reload(true)
+    },
     watchNavDashAndUpdate() {
       const string = this.$route.path
       const substring = '/Dash'
@@ -403,17 +409,13 @@ export default {
       })
     },
     logOut() {
-      const router = window.$nuxt.$router
+      
       this.$auth.$storage.removeLocalStorage('token')
       this.$auth.$storage.removeLocalStorage('user')
       this.$auth.$storage.removeLocalStorage('role')
       this.auth.setUser('')
-      router.push('/')
-      window.location.reload(
-        true,
-        this.$toast.show('Has salido de tu sesión!', { duration: 3000 })
-      )
-      router.push('/')
+      this.$toast.show('Has salido de tu sesión!', { duration: 3000 })
+      this.PushHome()
     },
   },
 }

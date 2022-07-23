@@ -7,7 +7,7 @@
     >
       <!-- <h1 class="font-bold text-2xl my-6 text-white"> {{ $auth.user + " - " + $auth.$storage.getLocalStorage('id')}} </h1> -->
       <!-- Card turno pendiente actual -->
-      <h1 class="font-bold text-xl text-white" style="margin-top: 24px">
+      <h1 class="font-bold text-xl text-white" style="margin-top: 24px; font-family: 'Mortend bold'">
         TURNOS PENDIENTES:
       </h1>
 
@@ -26,7 +26,7 @@
                   'background-image: url(' +
                   url +
                   appointment.service.imageroute +
-                  '); width:18rem; height:22rem; font-family: sans-serif;'
+                  '); width:18rem; height:22rem; font-family: Mortend bold;'
                 "
               >
                 <div
@@ -44,6 +44,7 @@
                   <div
                     v-show="infoHover"
                     style="
+                      font-family: Mazzard;
                       position: absolute;
                       top: 2rem;
                       right: 0px;
@@ -59,7 +60,7 @@
                 <div class="p-2 absolute bottom-0 left-0">
                   <h5
                     class="text-white bm-4 font-bold text-left"
-                    style="font-size: xx-large"
+                    style="font-size: xx-large;"
                   >
                     {{ appointment.service.servicename }}
                   </h5>
@@ -69,6 +70,7 @@
                       font-size: 1.5rem;
                       font-family: sans-serif;
                       text-align: left;
+                      font-family: Mazzard;
                     "
                   >
                     con {{ appointment.employee.name }}
@@ -78,7 +80,7 @@
                     class="text-left text-white font-bold"
                     style="
                       font-size: 1.5rem;
-                      font-family: sans-serif;
+                      font-family: Mazzard;
                       text-align: left;
                     "
                   >
@@ -91,7 +93,7 @@
                   </p>
                   <p
                     class="text-white text-left font-bold"
-                    style="font-size: 1.2rem; font-family: sans-serif"
+                    style="font-size: 1.2rem; font-family: Mazzard;"
                   >
                     <b-icon
                       pack="mdi"
@@ -102,7 +104,7 @@
                   </p>
                   <p
                     class="text-white text-left font-bold"
-                    style="font-size: 1.2rem; font-family: sans-serif"
+                    style="font-size: 1.2rem; font-family: Mazzard;"
                   >
                     <b-icon
                       pack="mdi"
@@ -136,7 +138,7 @@
 
       <!-- Carrousel turnos anteriores -->
 
-      <h1 class="my-6 font-bold text-white text-xl">TURNOS ANTERIORES:</h1>
+      <h1 class="my-6 font-bold text-white text-xl" style="font-family: Mortend bold;">TURNOS ANTERIORES:</h1>
 
       <div class="h-fit" :style="'width:' + carouselWidth + 'rem;'">
         <b-carousel-list

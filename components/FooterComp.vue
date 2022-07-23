@@ -1,5 +1,5 @@
 <template>
-  <div class="footer w-screen">
+  <div class="footer w-screen bottom-0" style="font-family: 'Mazzard';">
     <div id="FooterContainer" class="inline-flex w-screen bottom-0">
       <NuxtLink to="/" class="inline-flex my-auto"
         ><div><TendenceLogo id="LOGOfooter" class="" /></div></NuxtLink>
