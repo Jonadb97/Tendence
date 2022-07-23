@@ -4,7 +4,7 @@
     <TendenceLogo v-else id="LOGO" class="items-center justify-center self-center" style="height: 15rem; " />
     <h1 class="text-white text-xl m-4 p-4">POLITICA DE PRIVACIDAD</h1>
 
-    <p class="text-white m-12 p-12">
+    <pre class="text-white m-12 p-12">
       
 
 El sitio web barbertendence.com es propiedad de Barber Tendence, que es un controlador de datos de sus datos personales.
@@ -49,7 +49,7 @@ Información del contacto:
 
 Si desea comunicarse con nosotros para obtener más información sobre esta Política o desea comunicarse con nosotros con respecto a cualquier asunto relacionado con los derechos individuales y su Información personal, puede enviar un correo electrónico a barbertendence@gmail.com.
 
-    </p>
+    </pre>
   </div>
 </template>
 
