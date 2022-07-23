@@ -2,7 +2,7 @@
   <div id="MainContainer" class="justify-center items-center flex-col flex">
     <TendenceLogo v-if="auth.loggedIn" id="LOGO" class="items-center justify-center self-center" style="height: 15rem;" />
     <TendenceLogo v-else id="LOGO" class="items-center justify-center self-center" style="height: 15rem; " />
-    <h1 class="text-white text-xl m-4 p-4">Política de privacidad</h1>
+    <h1 class="text-white text-xl m-4 p-4">POLITICA DE PRIVACIDAD</h1>
 
     <p class="text-white m-12 p-12">
       
