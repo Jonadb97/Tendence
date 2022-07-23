@@ -388,9 +388,11 @@ export default {
   methods: {
         PushHome(){
       const router = window.$nuxt.$router
-      router.push('/')
+      router.push('IndexPage')
       this.$nuxt.refresh()
-      window.location.reload(true)
+      this.$forceUpdate()
+      window.location.assign(this.auth.$storage.getLocalStorage('urlFront'))
+
 
     },
     watchNavDashAndUpdate() {
