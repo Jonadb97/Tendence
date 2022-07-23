@@ -5,88 +5,94 @@
     class="text-white flex flex-col justify-center items-center text-center"
   >
     <!-- Servicios -->
-    <h1 id="top" class="font-bold inline-flex flex-row my-2 text-xl">
-      Que te vas a hacer?
-    </h1>
-    <no-ssr>
-      <div id="service-carrousel" class="h-fit" :style="'width:' + carouselServicesWidth + 'rem;'">
-       <b-skeleton height="22rem" width="18rem" :active="isLoadingServices"></b-skeleton>
-        <b-carousel-list
-          v-model="slideSetServices"
-          :data="services"
-          :items-to-show="slidesToShowServices"
-        >
-          <template #item="service">
-          
-            <div class="p-4 m-4 flex justify-center">
-              <button
-                :id="'service-slide-' + service.id"
-                class="bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0 hover:"
-                :style="
-                  'background-image: url(' +
-                  url +
-                  service.imageroute +
-                  '); width:18rem; height:22rem; '
-                "
-                @click="selectService(service.id)"
-              >
-                                          <div 
-              id="info-description"
-              @mouseenter="infoHover = true"
-              @mouseleave="infoHover = false"
-               >
-                <b-icon
-                pack="mdi"
-                icon="information"
-                type="is-light"
-                class="m-2 hover:scale-150"
-                style="position: absolute; top: 0px; right: 0px;"
-                
-                ></b-icon>
-                <div
-                v-show="infoHover"
-                style="position: absolute; top: 2rem; right: 0px; background-color: #212121; color: #f7f7f7; padding: 4px; border-radius: 5px;"
-                > {{ service.description }} </div>
-              </div>
-                <div class="p-2 absolute bottom-0 left-0">
-                  <h5
-                    class="text-white bm-4 font-bold text-left"
-                    style="font-size: xx-large"
-                  >
-                    {{ service.servicename }}
-                  </h5>
-                  <p
-                    class="text-white text-left"
-                    style="font-size: x-large; font-family: sans-serif;"
-                  ><b-icon
-                      pack="mdi"
-                      icon="clock"
-                      class="clock text-white text-center"
-                    ></b-icon>
-                    {{ service.duration }} Minutos
-                  </p>
-                              <p
-                    class="text-white text-left font-bold"
-                    style="font-size: x-large; font-family: sans-serif;"
-                  ><b-icon
-                      pack="mdi"
-                      icon="cash-multiple"
-                      class=" text-white text-center"
-                    ></b-icon>
-                    {{ service.price }}
-                  </p>
+    <b-steps
+      v-model="activeStep"
+     :has-navigation="false">
+    <b-step-item label="Account">
+    <div id="service-section" >
+      <h1 id="top" class="font-bold inline-flex flex-row my-2 text-xl">
+        Que te vas a hacer?
+      </h1>
+      <no-ssr>
+        <div id="service-carrousel" class="h-fit" :style="'width:' + carouselServicesWidth + 'rem;'">
+        <b-skeleton height="22rem" width="18rem" :active="isLoadingServices"></b-skeleton>
+          <b-carousel-list
+            v-model="slideSetServices"
+            :data="services"
+            :items-to-show="slidesToShowServices"
+          >
+            <template #item="service">
+            
+              <div class="p-4 m-4 flex justify-center">
+                <button
+                  :id="'service-slide-' + service.id"
+                  class="bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0 hover:"
+                  :style="
+                    'background-image: url(' +
+                    url +
+                    service.imageroute +
+                    '); width:18rem; height:22rem; '
+                  "
+                  @click="selectService(service.id)"
+                >
+                                            <div 
+                id="info-description"
+                @mouseenter="infoHover = true"
+                @mouseleave="infoHover = false"
+                >
+                  <b-icon
+                  pack="mdi"
+                  icon="information"
+                  type="is-light"
+                  class="m-2 hover:scale-150"
+                  style="position: absolute; top: 0px; right: 0px;"
+                  
+                  ></b-icon>
+                  <div
+                  v-show="infoHover"
+                  style="position: absolute; top: 2rem; right: 0px; background-color: #212121; color: #f7f7f7; padding: 4px; border-radius: 5px;"
+                  > {{ service.description }} </div>
                 </div>
-              </button>
-            </div>
-          </template>
-        </b-carousel-list>
-      </div>
-    </no-ssr>
-
-    <br />
+                  <div class="p-2 absolute bottom-0 left-0">
+                    <h5
+                      class="text-white bm-4 font-bold text-left"
+                      style="font-size: xx-large"
+                    >
+                      {{ service.servicename }}
+                    </h5>
+                    <p
+                      class="text-white text-left"
+                      style="font-size: x-large; font-family: sans-serif;"
+                    ><b-icon
+                        pack="mdi"
+                        icon="clock"
+                        class="clock text-white text-center"
+                      ></b-icon>
+                      {{ service.duration }} Minutos
+                    </p>
+                                <p
+                      class="text-white text-left font-bold"
+                      style="font-size: x-large; font-family: sans-serif;"
+                    ><b-icon
+                        pack="mdi"
+                        icon="cash-multiple"
+                        class=" text-white text-center"
+                      ></b-icon>
+                      {{ service.price }}
+                    </p>
+                  </div>
+                </button>
+              </div>
+            </template>
+          </b-carousel-list>
+        </div>
+      </no-ssr>
+    </div>
+    </b-step-item>
 
     <!--  Barberos  -->
-    <h1 class="font-bold inline-flex flex-row my-2 text-xl">Con quién?</h1>
+    <b-step-item label="Account">
+    <h1 id="top" class="font-bold inline-flex flex-row my-2 text-xl">Con quién?</h1>
     <no-ssr>
       <div id="employee-carrousel" class="h-fit" :style="'width:' + carouselEmployeesWidth + 'rem;'">
       <b-skeleton height="22rem" width="18rem" :active="isLoadingEmployees"></b-skeleton>
@@ -122,82 +128,48 @@
         </b-carousel-list>
       </div>
     </no-ssr>
+    </b-step-item>
+
     <!-- Componentes calendar -->
+    <b-step-item label="Account">
 
-    <br />
-
-    <h1 class="font-bold inline-flex flex-row my-2 text-xl">Para cuando?</h1>
+    <h1 class="font-bold my-2 text-xl">
+      Para cuando?
+    </h1>
     <no-ssr>
-      <div id="calendar-component w-1/2">
-        <b-datepicker
-          v-model="selectedDate"
-          inline
-          size="is-medium"
-          :unselectable-days-of-week="unselectableDaysOfWeek"
-          :unselectable-dates="unselectableDates"
-          :min-date="startDate"
-          :max-date="endDate"
-          :editable="false"
-          @input="getDayAppointments"
-          @week-number-click="scrollToHour"
-        >
-        </b-datepicker>
+      <div id="calendar-component w-1/2" class="inline-flex">
+        <div>
+          <b-datepicker
+            v-model="selectedDate"
+            inline
+            size="is-medium"
+            :unselectable-days-of-week="unselectableDaysOfWeek"
+            :unselectable-dates="unselectableDates"
+            :min-date="startDate"
+            :max-date="endDate"
+            :editable="false"
+            @input="getDayAppointments">
+          </b-datepicker>
+          <br>
+        </div>
+        <div class="pl-4">
+          <b-table
+            :data="freeSchedules"
+            :columns="freeScheduleColumns"
+            :selected.sync="selectedTime"
+            :narrowed="true"
+            :scrollable="false"
+            :loading="isLoadingTimepicker"
+            :sticky-header="true"
+            :mobile-cards="false"
+            hoverable
+            height="430"
+            @click="changeTime">
+          </b-table>
+        </div>
       </div>
     </no-ssr>
-    <br />
 
-    <h1 class="font-bold inline-flex flex-row my-2 text-xl">A que hora?</h1>
-    <section class="inline-flex">
-
-      <b-select 
-        id="hourSelect"
-        v-model="selectedHour" 
-        placeholder="HH" 
-        size="is-medium"
-        :disabled="isDisabledTimepicker"
-        :loading="isLoadingTimepicker"
-        @input="hourSelected" >
-          <option
-              v-for="hour in hours"
-              :key="hour"
-              :value="hour"
-              >
-              {{ hour }}
-          </option>
-      </b-select>
-
-      <p class="font-bold inline-flex flex-row px-2.5 my-2 text-xl">:</p>
-
-      <b-select 
-        v-model="selectedMinutes" 
-        placeholder="MM" 
-        size="is-medium"
-        :disabled="isDisabledTimepicker"
-        :loading="isLoadingTimepicker">
-          <option
-              v-for="minute in minutes"
-              :key="minute"
-              :value="minute"
-              @click="scrollToOk"
-              >
-              {{ minute }}
-          </option>
-      </b-select>
-
-    </section>
-    <br />
-    <b-button
-    rounded
-    style="border-width: 3px; margin: 32px;"
-    @click="scrollToTop"
-    >
-    <b-icon
-    pack="mdi"
-    class="my-2"
-    type="is-white"
-    icon="chevron-up"
-    ></b-icon>
-    </b-button>
     <div class="flex-row items-center justify-center self-center mx-auto py-4">
       <b-button
         id="confirmarTurno"
@@ -208,9 +180,12 @@
         icon-right="book-check"
         label="Agendar turno"
         style="border-width: 3px;border-radius: 24px"
+        :disabled="disabledFinalButton"
         @click="confirm"
       />
     </div>
+    </b-step-item>
+    </b-steps>
     <div class="flex-row items-center justify-center self-center mx-auto py-4">
       <b-button
         class="flex mx-auto py-2"
@@ -236,20 +211,32 @@ import axios from 'axios'
 export default {
   data() {
     return {
+      activeStep:0,
       infoHover: false,
       allEmployees: [],
       employees: [],
       services: [],
       freeSchedules: [],
+      freeScheduleColumns:[
+        {
+          field: 'hour',
+          label: 'HH',
+          width:60,
+          numeric: true
+        },
+        {
+          field: 'minutes',
+          label: 'MM',
+          width:60,
+          numeric: true
+        }
+      ],
+      selectedTime:undefined,
       url: this.$auth.$storage.getLocalStorage('url'),
       carousel: 0,
       carousels: [],
       isScrollable: true,
       maxHeight: 200,
-      selectedMinutes: undefined,
-      selectedHour: undefined,
-      hours: [],
-      minutes: [],
       isLoadingServices: true,
       isLoadingEmployees: true,
       carouselServicesWidth: 20,
@@ -266,8 +253,8 @@ export default {
       availableDays: undefined,
       holidays: [],
       unselectableDaysOfWeek: [],
-      isDisabledTimepicker: true,
-      isLoadingTimepicker: false
+      isLoadingTimepicker: false,
+      disabledFinalButton:true,
     }
   },
   mounted() {
@@ -276,20 +263,8 @@ export default {
     this.fetchEmployees()
     this.fetchServices()
     this.fetchSelectableDates()
-    this.scrollToTop()
   },
   methods: {
-    scrollToHour(){
-      const el = document.getElementById('hourSelect');
-      el.scrollIntoView({behavior: "smooth"});
-    },
-    scrollToOk(){
-      const el = document.getElementById('confirmarTurno');
-      el.scrollIntoView({behavior: "smooth"});
-    },
-    scrollToTop() {
-      document.body.scrollIntoView({behavior: 'smooth', block: 'start'});
-    },
     onResize() {
       const windowWidth = document.documentElement.clientWidth
       const rems = windowWidth / 16
@@ -328,7 +303,7 @@ export default {
               this.url + '/appointment',
               {
                 date: finalDate,
-                time: this.selectedHour + ':' + this.selectedMinutes + ':00',
+                time: this.selectedTime.hour + ':' + this.selectedTime.minutes + ':00',
                 employeeId: this.selectedEmployee.id,
                 serviceId: this.selectedService.id,
                 userId: this.$auth.$storage.getLocalStorage('id'),
@@ -398,12 +373,9 @@ export default {
       const slide = document.getElementById('service-slide-' + id)
       slide.style.filter = 'grayscale(0)'
       this.selectedService = this.services.find(service=>service.id===id)
-      const el = document.getElementById('employee-carrousel');
-      el.scrollIntoView({behavior: "smooth"});
+      this.activeStep=this.activeStep+1
 
       // filter employees
-
-
       this.clearSelectedEmployee()
       this.employees = this.allEmployees.filter((employee)=>{
         const services = employee.services.map((service)=>{return service.id})
@@ -415,8 +387,7 @@ export default {
       const slide = document.getElementById('employee-slide-' + id)
       slide.style.filter = 'grayscale(0%)'
       this.selectedEmployee = this.allEmployees.find(employee=>employee.id === id)
-      const el = document.getElementById('calendar-component w-1/2');
-      el.scrollIntoView({behavior: "smooth"});
+      this.activeStep=this.activeStep+1
     },
     clearSelectedEmployee(){
       if (this.selectedEmployee !== undefined) {
@@ -430,10 +401,8 @@ export default {
 
     getDayAppointments(date) {
       if(this.selectedEmployee !== undefined && this.selectedService !== undefined){
-        this.isDisabledTimepicker = true
         this.isLoadingTimepicker = true
-        this.selectedHour = undefined
-        this.selectedMinutes = undefined
+        this.selectedTime= undefined
         const selectedDate =
         String(date.getFullYear()).padStart(2, '0') +
         '-' +
@@ -450,13 +419,7 @@ export default {
       {
         if (response.status === 200) {
           this.freeSchedules = response.data
-          const newHours = []
-          this.freeSchedules.forEach((element) => {
-          newHours.push((element.hour + '').padStart(2, '0'))
-          })
-          this.hours = [...new Set(newHours)]
           this.isLoadingTimepicker = false
-          this.isDisabledTimepicker = false
         }
       })
       }
@@ -473,17 +436,14 @@ export default {
       
       return this.holidays.includes(date)
     },
-    hourSelected(value) {
-      const auxTime = this.freeSchedules.filter((element) => (element.hour + '').padStart(2,'0') === value + '')
-      this.minutes = auxTime.map(time=>{
-        return String(time.minutes).padStart(2, '0')
-      })
-    },
     confirmAppointment() {},
     redirectHome() {
       const router = window.$nuxt.$router
       router.push('/')
     },
+    changeTime(){
+      this.disabledFinalButton=false
+    }
   },
 }
 </script>
