@@ -4,7 +4,7 @@
     <TendenceLogo v-else id="LOGO" class="items-center justify-center self-center" style="height: 15rem; " />
     <h1 class="text-white text-xl m-4 p-4">POLITICA DE PRIVACIDAD</h1>
 
-    <pre class="text-white m-12 p-12">
+    <pre class="text-white m-12 p-12" style="background-color: rgba(0, 0, 0, 0); width: 50%; white-space: pre-wrap;">
       
 
 El sitio web barbertendence.com es propiedad de Barber Tendence, que es un controlador de datos de sus datos personales.

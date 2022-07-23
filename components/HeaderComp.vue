@@ -389,7 +389,9 @@ export default {
         PushHome(){
       const router = window.$nuxt.$router
       router.push('/')
+      this.$nuxt.refresh()
       window.location.reload(true)
+
     },
     watchNavDashAndUpdate() {
       const string = this.$route.path
