@@ -308,13 +308,16 @@ export default {
     deleteEmployee() {
       console.log("eliminando empleado")
       console.log(this.employeeIdToEdit)
-      const id = this.employeeIdToEdit
         this.$buefy.dialog.confirm({
         message: 'Esta seguro?',
         type: 'is-dark',
         onConfirm: () => {
           axios
-            .delete(this.url + '/employee/'+id, {})
+            .delete(this.url + '/employee/' +this.employeeIdToEdit, {
+              headers: {
+                  auth: this.$auth.$storage.getLocalStorage('token'),
+                },
+            })
             .then((response) => {
               console.log(response.status)
 

@@ -17,7 +17,7 @@
           <template #trigger="{ active }">
             <b-button
               type="is-primary"
-              class="m-2 text-white"
+              class="m-2 text-white px-4"
               outlined
               icon-left="account-search"
               style='width: 12rem;border-radius: 24px; border-width: 3px;color: white'
@@ -28,7 +28,8 @@
           </template>
           <b-dropdown-item
             aria-role="listitem"
-            value="Todos los servicios"
+            value="Todos los barberos"
+            class="px-4"
             @click="applyFilterEmployees()"
           >
             Todos los Barberos
@@ -48,7 +49,7 @@
           <template #trigger="{ active }">
             <b-button
               type="is-primary"
-              class="m-2 text-white"
+              class="m-2 text-white px-4"
               icon-left="account-details"
               outlined
               style='width: 12rem;border-radius: 24px; border-width: 3px; color: white'
@@ -59,6 +60,7 @@
           </template>
           <b-dropdown-item
             aria-role="listitem"
+            class="px-4"
             value="Todos los servicios"
             @click="applyFilterServices()"
           >
@@ -123,17 +125,26 @@
                   class="columna"
                 >
                   <div
-                    class="grid-card bg-cover bg-center content-end rounded-xl shadow-lg grayscale transform transition duration-500 text-purple-800 hover:scale-110"
+                    class="grid-card bg-cover bg-center content-end rounded-xl shadow-lg grayscale transform transition duration-500 hover:scale-110"
+                    :style="
+                  'background-image: url(' +
+                  url +
+                  appointment.service.imageroute +
+                  '); font-family: Mortend bold; text-color: white; color: white; text-shadow: 2px 2px black;'
+                "
                     @click="showModal(appointment)"
                   >
                     <h2>{{ appointment.service.servicename }}</h2>
-                    <h2>{{ appointment.user.username }}</h2>
-                    <h2>{{ appointment.employee.name }}</h2>
+                    Para: <p>{{ appointment.user.username }}</p>
+                    Con: <p>{{ appointment.employee.name }}</p>
                     <b-icon
                       pack="mdi"
+                      type="is-light"
                       icon="clock"
                       class="text-white text-left"
-                    ></b-icon><h2>{{ appointment.time }}</h2>
+                    ></b-icon>
+                    <h2>{{ formatDate(appointment.date) }}</h2>
+                    <p>{{ formatTime(appointment.time) }}</p>
                   </div>
                 </div>
               </div>
@@ -331,6 +342,7 @@
 
 <script>
 import axios from 'axios'
+import moment from 'moment'
 
 export default {
   name: 'DashPage',
@@ -386,6 +398,16 @@ export default {
   },
 
   methods: {
+        formatDate(value) {
+      if (value) {
+        return moment(String(value)).format('DD/MM/YYYY')
+      }
+    },
+    formatTime(value) {
+      if (value) {
+        return moment(value, 'HH:mm:ss').format('HH:mm')
+      }
+    },
     changeDate() {
       this.fetchAppointments()
       this.fetchConfirmedAppointments()

@@ -404,11 +404,13 @@ export default {
                   message: 'Eliminado correctamente',
                   type: 'is-dark',
                 })
+                window.location.reload(true)
               } else {
                 this.$buefy.toast.open({
                   message: 'Error al eliminar',
                   type: 'is-dark',
                 })
+                window.location.reload(true)
               }
             })
         },

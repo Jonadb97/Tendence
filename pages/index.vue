@@ -20,8 +20,22 @@
       style="border-width: 3px; border-radius: 24px;"
       ><NuxtLink to="/Login/LoginPage" class=" hover:text-white"
         >Comenzar</NuxtLink
-      ></b-button
-    >
+      ></b-button>
+
+            <nuxt-link to="/NuevoTurno/NuevoTurnoForm">
+        <b-button
+          v-show="auth.loggedIn"
+          class="flex mx-auto py-2 my-4"
+          type="is-success"
+          pack="mdi"
+          size="is-large"
+          outlined
+          icon-left="clipboard-plus-outline"
+          icon-right="plus"
+          label="Agendar nuevo turno"
+          style="border-width: 3px; border-radius: 24px"
+        />
+      </nuxt-link>
     <FooterComp class="p-10 mt-auto w-full"></FooterComp>
   </div>
 </template>

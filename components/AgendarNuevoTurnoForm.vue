@@ -271,13 +271,15 @@ export default {
     }
   },
   mounted() {
-    this.scrollToTop()
+
     window.addEventListener('resize', this.onResize)
     this.onResize()
     this.fetchEmployees()
     this.fetchServices()
     this.fetchSelectableDates()
+    this.scrollToTop()
   },
+  
   methods: {
     scrollToHour(){
       const el = document.getElementById('hourSelect');
@@ -288,7 +290,8 @@ export default {
       el.scrollIntoView({behavior: "smooth"});
     },
     scrollToTop() {
-      document.body.scrollIntoView({behavior: 'smooth', block: 'start'});
+        const el = document.getElementById('top');
+      el.scrollIntoView({behavior: "smooth"});
     },
     onResize() {
       const windowWidth = document.documentElement.clientWidth
@@ -307,7 +310,7 @@ export default {
         this.carouselEmployeesWidth = this.slidesToShowEmployees * 20
         this.carouselServicesWidth = this.slidesToShowServices * 20
       }
-
+      this.scrollToTop()
     },
     confirm() {
       this.$buefy.dialog.confirm({
