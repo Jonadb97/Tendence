@@ -3,14 +3,14 @@
   <div id="root-component" class="">
     <div
       id="main-content"
-      class="flex flex-col justify-center items-center text-center max-w-xl"
+      class="flex flex-col justify-center items-center text-center"
     >
-      <h1 class="font-bold text-2xl my-6 text-white">{{ $auth.user }}</h1>
+      <!-- <h1 class="font-bold text-2xl my-6 text-white">{{ $auth.user }}</h1>  -->
       <!-- Card turnos para hoy -->
       <h1
-        class="flex flex-col font-bold text-xl text-white text-center justify-self-start"
+        class="flex flex-col font-bold text-xl text-white text-center justify-self-start my-6"
       >
-        Empleados:
+        EMPLEADOS:
       </h1>
       <div class="h-fit" :style="'width:' + carouselEmployeesWidth + 'rem;'">
         <b-carousel-list
@@ -27,14 +27,14 @@
                   'background-image: url(' +
                   url +
                   employee.imageroute +
-                  '); height:24rem; width:18rem;'
+                  '); height:24rem; width:18rem; '
                 "
                 @click="editEmployee(employee.id)"
               >
                 <div class="p-2 absolute bottom-0 left-0">
                   <h5
                     class="text-white bm-4 font-bold text-left"
-                    style="font-size: xx-large"
+                    style="font-size: xx-medium; font-family: Mortend bold"
                   >
                     {{ employee.name }}
                   </h5>
@@ -178,7 +178,10 @@
         </div>
       </b-modal>
     </div>
-    <FooterComp class="w-screen"></FooterComp>
+    <FooterComp
+      class="w-screen bottom-0"
+      style="width: 100%; position: absolute; bottom: 0"
+    ></FooterComp>
   </div>
 </template>
 
@@ -188,12 +191,6 @@ import axios from 'axios'
 export default {
   name: 'DashEmpleados',
   layout: 'default-lay',
-  breakpoints: {
-    // default breakpoints - customize this
-    sm: 450,
-    md: 1250,
-    lg: Infinity,
-  },
 
   // Hay que fetchear la fecha y hora para ponerlos reactivos en el card de turnos pendientes y los anteriores
   data() {
@@ -344,39 +341,10 @@ export default {
 </script>
 
 <style>
-#main-content {
-  margin-left: auto;
-  margin-right: auto;
-}
 
-.panel-tabs {
-  background-color: white;
-}
-
-.panel-tabs > a {
-  margin-left: 4rem;
-  margin-right: 4rem;
-  color: black;
-  font-weight: 500;
-}
-
-#footer-item-style {
-  background-color: rgb(46, 46, 46);
-  color: white;
-}
-
-#footer-item-style:hover {
-  background-color: rgb(46, 46, 46);
-  color: white;
-  font-weight: bold;
-}
 
 #card-turno-actual {
   margin: 2px;
-}
-
-#root-container {
-  z-index: 3;
 }
 
 .card {

@@ -10,8 +10,8 @@
      :has-navigation="false">
     <b-step-item label="Account">
     <div id="service-section" >
-      <h1 id="top" class="font-bold inline-flex flex-row my-2 text-xl">
-        Que te vas a hacer?
+      <h1 id="top" class="font-bold inline-flex flex-row my-2 text-xl" style="font-family: 'Mortend bold';">
+      ¿QUE TE VAS A HACER?
       </h1>
       <no-ssr>
         <div id="service-carrousel" class="h-fit" :style="'width:' + carouselServicesWidth + 'rem;'">
@@ -50,36 +50,37 @@
                   ></b-icon>
                   <div
                   v-show="infoHover"
-                  style="position: absolute; top: 2rem; right: 0px; background-color: #212121; color: #f7f7f7; padding: 4px; border-radius: 5px;"
+                  style="position: absolute; top: 2rem; right: 0px; background-color: #212121; color: #f7f7f7; padding: 4px; border-radius: 5px;font-family: 'Mazzard';"
                   > {{ service.description }} </div>
+
                 </div>
                   <div class="p-2 absolute bottom-0 left-0">
                     <h5
-                      class="text-white bm-4 font-bold text-left"
-                      style="font-size: xx-large"
+                    class="text-white bm-4 font-bold text-left"
+                    style="font-size: xx-large; font-family: 'Mortend bold';"
                     >
                       {{ service.servicename }}
                     </h5>
                     <p
-                      class="text-white text-left"
-                      style="font-size: x-large; font-family: sans-serif;"
-                    ><b-icon
-                        pack="mdi"
-                        icon="clock"
-                        class="clock text-white text-center"
-                      ></b-icon>
-                      {{ service.duration }} Minutos
-                    </p>
+                    class="text-white text-left"
+                    style="font-size: x-large; font-family: 'Mazzard';"
+                  ><b-icon
+                      pack="mdi"
+                      icon="clock"
+                      class="clock text-white text-center"
+                    ></b-icon>
+                    {{ service.duration }} Minutos
+                  </p>
                                 <p
-                      class="text-white text-left font-bold"
-                      style="font-size: x-large; font-family: sans-serif;"
-                    ><b-icon
-                        pack="mdi"
-                        icon="cash-multiple"
-                        class=" text-white text-center"
-                      ></b-icon>
-                      {{ service.price }}
-                    </p>
+                    class="text-white text-left font-bold"
+                    style="font-size: x-large; font-family: 'Mazzard';"
+                  ><b-icon
+                      pack="mdi"
+                      icon="cash-multiple"
+                      class=" text-white text-center"
+                    ></b-icon>
+                    {{ service.price }}
+                  </p>
                   </div>
                 </button>
               </div>
@@ -92,7 +93,8 @@
 
     <!--  Barberos  -->
     <b-step-item label="Account">
-    <h1 id="top" class="font-bold inline-flex flex-row my-2 text-xl">Con quién?</h1>
+    <h1 class="font-bold inline-flex flex-row my-2 text-xl" style="font-family: 'Mortend bold';">¿CON QUIEN?</h1>
+
     <no-ssr>
       <div id="employee-carrousel" class="h-fit" :style="'width:' + carouselEmployeesWidth + 'rem;'">
       <b-skeleton height="22rem" width="18rem" :active="isLoadingEmployees"></b-skeleton>
@@ -116,8 +118,8 @@
               >
                 <div class="p-2 absolute bottom-0 left-0">
                   <h5
-                    class="text-white bm-4 font-bold text-left"
-                    style="font-size: xx-large"
+                    class="text-white bm-4 font-bold text-center"
+                    style="font-size: xx-medium; font-family: 'Mortend bold'; text-align: center;"
                   >
                     {{ employee.name }}
                   </h5>
@@ -132,10 +134,9 @@
 
     <!-- Componentes calendar -->
     <b-step-item label="Account">
-
-    <h1 class="font-bold my-2 text-xl">
-      Para cuando?
-    </h1>
+      <b-field>
+    <h1 class="font-bold inline-flex flex-row my-2 text-xl" style="font-family: 'Mortend bold';">¿PARA CUANDO?</h1>
+    </b-field>
     <no-ssr>
       <div id="calendar-component w-1/2" class="inline-flex">
         <div>
@@ -247,7 +248,7 @@ export default {
       slideSetServices: 0,
       selectedEmployee: undefined,
       selectedService: undefined,
-      selectedDate: new Date(),
+      selectedDate: undefined,
       startDate: undefined,
       endDate: undefined,
       availableDays: undefined,
@@ -400,6 +401,8 @@ export default {
     },
 
     getDayAppointments(date) {
+      this.disabledFinalButton = true
+      this.selectedTime = undefined
       if(this.selectedEmployee !== undefined && this.selectedService !== undefined){
         this.isLoadingTimepicker = true
         this.selectedTime= undefined

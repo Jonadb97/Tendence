@@ -1,5 +1,5 @@
 <template>
-  <div id="MainContainer" class="justify-center items-center flex-col flex">
+  <div id="MainContainer" style="margin-top: 6rem; height: 100vh;" class="justify-center items-center flex-col flex">
     <TendenceLogo v-if="auth.loggedIn" id="LOGO" class="items-center justify-center self-center" style="height: 15rem;" />
     <TendenceLogo v-else id="LOGO" class="items-center justify-center self-center" style="height: 15rem; " />
     <img
@@ -22,6 +22,7 @@
         >Comenzar</NuxtLink
       ></b-button
     >
+    <FooterComp class="p-10 mt-auto w-full"></FooterComp>
   </div>
 </template>
 

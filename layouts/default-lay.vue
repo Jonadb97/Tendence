@@ -18,11 +18,81 @@
 </template>
 
 <style>
+
+@media screen and (min-width: 1024px) {
+  .container {
+    max-width: 100%;
+  }
+}
+@media screen and (max-width: 1215px) {
+  .container.is-widescreen:not(.is-max-desktop) {
+    max-width: 100%;
+  }
+}
+@media screen and (max-width: 1407px) {
+  .container.is-fullhd:not(.is-max-desktop):not(.is-max-widescreen) {
+    max-width: 100%;
+  }
+}
+@media screen and (min-width: 1216px) {
+  .container:not(.is-max-desktop) {
+    max-width: 100%;
+  }
+}
+@media screen and (min-width: 1408px) {
+  .container:not(.is-max-desktop):not(.is-max-widescreen) {
+    max-width: 100%;
+  }
+}
+
+
+@media screen and (min-width: 1024px){
+.footer {
+  background-image: linear-gradient(to right, rgb(40, 40, 40), rgb(20, 20, 20));
+  padding: 2rem 1.2rem 4rem;
+  border-top: 1px solid white;
+}
+}
+
+@media screen and (max-width: 1024px){
+  .footer {
+    display: none;
+    visibility: hidden;
+  }
+}
+
+h1, h2, h3 ,h4 {
+  font-family: 'Mortend bold';
+}
+
+*, html, body {
+  font-family: 'Mazzard';
+}
+
+@font-face {
+    font-family: "Mortend bold";
+    src:url('../static/fonts/MortendBold/Mortend Bold.otf');
+}
+
+@font-face {
+    font-family: "Mazzard";
+    src:url('../static/fonts/Mazzard/MazzardH-ExtraLight.otf');
+    font-weight: 800;
+}
+
+
 #footer {
   position: absolute;
   bottom: 0;
   width: 100%;
   height: 50px;
+  z-index: 100;
+  background-image: linear-gradient(to right, rgb(40, 40, 40), rgb(20, 20, 20));
+}
+
+#main-content {
+  margin: auto;
+  position: center;
 }
 
 body {
@@ -39,12 +109,12 @@ body {
   color: black;
 }
 
-#root-component {
-  height: 100%;
-}
-
 .media-content {
   color: black;
+}
+
+#footer {
+  width: 100vw;
 }
 
 .label {

@@ -8,7 +8,7 @@
 
        <v-app v-show="!loading">
       <!-- Tel  -->
-      <div class="mx-auto text-white w-96">
+      <div class="mx-auto text-white w-96 text-sm">
         <b-field label="Número de teléfono" type="is-light">
           <b-input
             id="0"
@@ -16,7 +16,8 @@
             class="w-fit px-2"
             maxlength="1"
             value="0"
-            size="is-medium"
+
+            style="font-size: 12px;"
             disabled
             rounded
           ></b-input>
@@ -26,7 +27,8 @@
             class="w-16"
             type="phone"
             maxlength="4"
-            size="is-medium"
+
+            style="font-size: 12px;"
             rounded
             expanded
             @keyup.enter="login"
@@ -36,7 +38,7 @@
             type="phone"
             class="w-fit px-2"
             maxlength="1"
-            size="is-medium"
+            style="font-size: 12px;"
             value="15"
             disabled
           ></b-input>
@@ -45,7 +47,7 @@
             v-model="logindata.numTel"
             type="phone"
             maxlength="8"
-            size="is-medium"
+            style="font-size: 12px;"
             rounded
             expanded
           ></b-input>
@@ -57,7 +59,7 @@
             type="password"
             password-reveal
             maxlength="20"
-            size="is-medium"
+            style="font-size: 12px;"
             rounded
             expanded
           ></b-input>
@@ -75,7 +77,6 @@
             outlined
             icon-right="account-arrow-right"
             size="is-medium"
-
             style="border-width: 3px;border-radius: 24px;"
             @click="login()"
           >

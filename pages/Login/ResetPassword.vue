@@ -8,7 +8,11 @@
 
       <!-- Tel  -->
       <div class="mx-auto text-white w-96">
-        <b-field size="is-medium" label="Ingrese su numero de teléfono" type="is-light">
+        <b-field
+          size="is-medium"
+          label="Ingrese su numero de teléfono"
+          type="is-light"
+        >
           <b-input
             id="0"
             type="phone"
@@ -50,28 +54,29 @@
           ></b-input>
         </b-field>
 
-        
-
         <!-- Ingresar -->
         <div
           class="flex-row items-center justify-center self-center mx-auto pb-4 text-white"
         >
-        
           <b-field>
-            <p size="is-medium">Te enviaremos un mail con las instrucciones para reiniciar tu contraseña. ¡No olvides revisar tu bandeja de spam! </p>
+            <p size="is-medium">
+              Te enviaremos un mail con las instrucciones para reiniciar tu
+              contraseña. ¡No olvides revisar tu bandeja de spam!
+            </p>
           </b-field>
           <b-field>
             <nuxt-link id="NavLink" to="/Login/LoginPage">
-            <b-button
-              class="flex mx-auto text-white"
-              type="is-light"
-              pack="mdi"
-              outlined
-              icon-right="account-arrow-right"
-              size="is-medium"
-              style="border-width: 5px">
-              volver
-            </b-button>
+              <b-button
+                class="flex mx-auto text-white"
+                type="is-light"
+                pack="mdi"
+                outlined
+                icon-right="account-arrow-right"
+                size="is-medium"
+                style="border-width: 5px"
+              >
+                volver
+              </b-button>
             </nuxt-link>
             <b-button
               class="flex mx-auto text-white"
@@ -82,18 +87,19 @@
               size="is-medium"
               style="border-width: 5px"
               :disabled="buttonDisabled"
-              @click="sendResetPassword()">
+              @click="sendResetPassword()"
+            >
               Recuperar Contraseña
             </b-button>
           </b-field>
-          
         </div>
       </div>
     </div>
   </div>
 </template>
+
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 import TendenceLogo from '~/components/TendenceLogo.vue'
 
 export default {
@@ -107,36 +113,35 @@ export default {
       isFullPage: true,
       url: this.$auth.$storage.getLocalStorage('url'),
       urlFront: this.$auth.$storage.getLocalStorage('urlFront'),
-      numTel:'',
-      codArea:'',
-      buttonDisabled:false,
+      numTel: '',
+      codArea: '',
+      buttonDisabled: false,
     }
   },
   methods: {
+    /*
     sendResetPassword() {
       this.isLoading = true
       this.buttonDisabled = true
       axios
-        .put(this.url + '/auth/forgot-password', 
-          {
-            phonenumber:this.codArea + '' + this.numTel,
-          })
+        .put(this.url + '/auth/forgot-password', {
+          phonenumber: this.codArea + '' + this.numTel,
+        })
         .then(this.mailSended)
         .catch((error) => {
-          this.$toast.show('El numero de teléfono no está registrado', {
-            duration: 3000,
-          })
-          this.isLoading = false
-          this.buttonDisabled = false
-        })
+        this.$toast.show('El número de teléfono no está registrado', {duration: 3000})
+
+        this.isLoading=false
+        this.buttonDisabled=false
+
     },
     mailSended(){
-      this.isLoading = false
-      this.$toast.show('Mail enviado, revise su correo electronico', {
-            duration: 3000,
-          })
-    },
+    this.isLoading = false
+    this.$toast.show('Mail enviado, revise su correo electrónico', {duration: 3000})
+    }
   },
+  */
+}
 }
 </script>
 

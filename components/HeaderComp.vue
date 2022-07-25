@@ -5,6 +5,7 @@
     <div
       id="HeaderContainerDesktop"
       class="inline-flex"
+      style="font-family: 'Mazzard';"
       media="(max-width: 800px)"
     >
       <NuxtLink to="/" class="inline-flex my-1 mx-1"
@@ -385,6 +386,15 @@ export default {
 
   updated() {},
   methods: {
+        PushHome(){
+      const router = window.$nuxt.$router
+      router.push('IndexPage')
+      this.$nuxt.refresh()
+      this.$forceUpdate()
+      window.location.assign(this.auth.$storage.getLocalStorage('urlFront'))
+
+
+    },
     watchNavDashAndUpdate() {
       const string = this.$route.path
       const substring = '/Dash'
@@ -403,17 +413,13 @@ export default {
       })
     },
     logOut() {
-      const router = window.$nuxt.$router
+      
       this.$auth.$storage.removeLocalStorage('token')
       this.$auth.$storage.removeLocalStorage('user')
       this.$auth.$storage.removeLocalStorage('role')
       this.auth.setUser('')
-      router.push('/')
-      window.location.reload(
-        true,
-        this.$toast.show('Has salido de tu sesión!', { duration: 3000 })
-      )
-      router.push('/')
+      this.$toast.show('Has salido de tu sesión!', { duration: 3000 })
+      this.PushHome()
     },
   },
 }
@@ -470,19 +476,21 @@ export default {
   background-image: linear-gradient(to right, rgb(40, 40, 40), rgb(20, 20, 20));
   width: 100%;
   border-bottom: 12rem;
-  border-color: linear-gradient(to right, #216cb4, #8a2184);
   margin: 0;
   padding: 0;
+  border-bottom: 1px solid white;
 }
 
 #HeaderContainerMobile {
   background-image: linear-gradient(to right, rgb(40, 40, 40), rgb(20, 20, 20));
   width: 100%;
+  border-bottom: 1px solid white;
 }
 
 @media (max-width: 800px) {
   #HeaderContainerDesktop {
     display: none;
+    border-bottom: 1px solid white;
   }
 }
 
@@ -496,6 +504,7 @@ export default {
     display: none;
     margin: 0;
     padding: 0;
+    border-bottom: 1px solid white;
   }
 }
 
