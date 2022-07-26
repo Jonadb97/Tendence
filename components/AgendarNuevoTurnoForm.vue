@@ -4,6 +4,7 @@
     id="main-form-container"
     class="text-white flex flex-col justify-center items-center text-center"
   >
+  
     <!-- Servicios -->
     <b-steps
       v-model="activeStep"
