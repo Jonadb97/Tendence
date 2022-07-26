@@ -4,12 +4,12 @@
     id="main-form-container"
     class="text-white flex flex-col justify-center items-center text-center"
   >
-  
+
     <!-- Servicios -->
     <b-steps
       v-model="activeStep"
      :has-navigation="false">
-    <b-step-item label="Account">
+    <b-step-item label="">
     <div id="service-section" >
       <h1 id="top" class="font-bold inline-flex flex-row my-2 text-xl" style="font-family: 'Mortend bold';">
       ¿QUE TE VAS A HACER?
@@ -93,7 +93,7 @@
     </b-step-item>
 
     <!--  Barberos  -->
-    <b-step-item label="Account">
+    <b-step-item label="">
     <h1 class="font-bold inline-flex flex-row my-2 text-xl" style="font-family: 'Mortend bold';">¿CON QUIEN?</h1>
 
     <no-ssr>
@@ -134,7 +134,7 @@
     </b-step-item>
 
     <!-- Componentes calendar -->
-    <b-step-item label="Account">
+    <b-step-item label="">
       <b-field>
     <h1 class="font-bold inline-flex flex-row my-2 text-xl" style="font-family: 'Mortend bold';">¿PARA CUANDO?</h1>
     </b-field>
