@@ -4,7 +4,7 @@
     id="main-form-container"
     class="text-white flex flex-col justify-center items-center text-center"
   >
-
+    <v-app v-show="!loading">
     <!-- Servicios -->
     <b-steps
       v-model="activeStep"
@@ -188,6 +188,8 @@
     </div>
     </b-step-item>
     </b-steps>
+    </v-app>
+
     <div class="flex-row items-center justify-center self-center mx-auto py-4">
       <b-button
         class="flex mx-auto py-2"
@@ -213,6 +215,7 @@ import axios from 'axios'
 export default {
   data() {
     return {
+      loading:true,
       activeStep:0,
       infoHover: false,
       allEmployees: [],
@@ -258,6 +261,11 @@ export default {
       isLoadingTimepicker: false,
       disabledFinalButton:true,
     }
+  },
+  created() {
+    this.$nextTick(function() {
+      this.loading = false
+    })
   },
   mounted() {
     window.addEventListener('resize', this.onResize)

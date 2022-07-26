@@ -121,6 +121,7 @@ export default {
 
   data() {
     return {
+      loading:true,
       isLoading: false,
       isFullPage: true,
       url: this.$auth.$storage.getLocalStorage('url'),
