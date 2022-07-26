@@ -286,7 +286,6 @@ export default {
         this.carouselEmployeesWidth = this.slidesToShowEmployees * 20
         this.carouselServicesWidth = this.slidesToShowServices * 20
       }
-      this.scrollToTop()
     },
     confirm() {
       this.$buefy.dialog.confirm({
