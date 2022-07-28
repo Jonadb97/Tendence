@@ -26,7 +26,7 @@
                   'background-image: url(' +
                   url +
                   appointment.service.imageroute +
-                  '); width:18rem; height:22rem; font-family: Mortend bold;'
+                  '); width:18rem; height:22rem; font-family: Mortend bold; text-transform: uppercase;'
                 "
               >
                 <div
@@ -156,12 +156,18 @@
                     'background-image: url(' +
                     url +
                     appointment.service.imageroute +
-                    '); width:18rem; height:22rem; font-family: sans-serif;'
+                    '); width:18rem; height:22rem; font-family: Mortend bold; text-transform: uppercase;'
                   "
                 >
                   <div class="p-2 absolute bottom-0 left-0">
+                    <b-icon
+                    icon="check-bold"
+                    pack="mdi"
+                    size="is-large"
+                    class="m-auto scale-150 animate-bounce"
+                    ></b-icon>
                     <h5
-                      class="text-white bm-4 font-bold text-left"
+                      class="text-white bm-4 font-bold text-left "
                       style="
                         font-size: 1.5rem;
                         font-family: sans-serif;

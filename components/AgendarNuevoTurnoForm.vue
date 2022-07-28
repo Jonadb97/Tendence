@@ -7,6 +7,7 @@
     <!-- Servicios -->
     <b-steps
       v-model="activeStep"
+      class="my-6"
      :has-navigation="false">
     <b-step-item label="Account">
     <div id="service-section" >
@@ -57,7 +58,7 @@
                   <div class="p-2 absolute bottom-0 left-0">
                     <h5
                     class="text-white bm-4 font-bold text-left"
-                    style="font-size: xx-large; font-family: 'Mortend bold';"
+                    style="font-size: xx-large; font-family: 'Mortend bold'; text-transform: uppercase;"
                     >
                       {{ service.servicename }}
                     </h5>
@@ -138,7 +139,7 @@
     <h1 class="font-bold inline-flex flex-row my-2 text-xl" style="font-family: 'Mortend bold';">¿PARA CUANDO?</h1>
     </b-field>
     <no-ssr>
-      <div id="calendar-component w-1/2" class="inline-flex">
+      <div id="calendar-component" class="inline-flex w-auto">
         <div>
           <b-datepicker
             v-model="selectedDate"
@@ -164,6 +165,7 @@
             :sticky-header="true"
             :mobile-cards="false"
             hoverable
+            class="w-auto"
             height="430"
             @click="changeTime">
           </b-table>

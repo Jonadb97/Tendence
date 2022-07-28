@@ -47,7 +47,7 @@
                 <div class="p-2 absolute bottom-0 left-0">
                   <h5
                     class="text-white bm-4 font-bold text-left"
-                    style="font-size: xx-large; font-family: Mortend bold"
+                    style="font-size: xx-large; font-family: Mortend bold; text-transform: uppercase;"
                   >
                     {{ service.servicename }}
                   </h5>
