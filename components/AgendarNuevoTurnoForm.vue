@@ -155,7 +155,7 @@
           </b-datepicker>
           <br>
         </div>
-        <div class="pl-4">
+        <div class="pl-4" style="width: 96px">
           <b-table
             :data="freeSchedules"
             :columns="freeScheduleColumns"
@@ -168,6 +168,7 @@
             hoverable
             class="w-auto"
             height="430"
+            width="96px"
             @click="changeTime">
           </b-table>
         </div>
