@@ -7,7 +7,10 @@
     >
       <!-- <h1 class="font-bold text-2xl my-6 text-white"> {{ $auth.user + " - " + $auth.$storage.getLocalStorage('id')}} </h1> -->
       <!-- Card turno pendiente actual -->
-      <h1 class="font-bold text-xl text-white" style="margin-top: 24px; font-family: 'Mortend bold'">
+      <h1
+        class="font-bold text-xl text-white"
+        style="margin-top: 24px; font-family: 'Mortend bold'"
+      >
         TURNOS PENDIENTES:
       </h1>
 
@@ -16,6 +19,8 @@
           v-model="slideSetAppointments"
           :data="appointments"
           :items-to-show="slidesToShow"
+          :arrow="true"
+          :arrow-hover="false"
         >
           <template #item="appointment">
             <div class="p-4 m-4 flex justify-left">
@@ -26,11 +31,11 @@
                   'background-image: url(' +
                   url +
                   appointment.service.imageroute +
-                  '); width:18rem; height:22rem; font-family: Mortend bold; text-transform: uppercase;'
+                  '); width:18rem; height:22rem; font-family: Mortend bold; '
                 "
               >
                 <div
-                  id="info-description"
+                  :id="'info-description'"
                   @mouseenter="infoHover = true"
                   @mouseleave="infoHover = false"
                 >
@@ -60,7 +65,11 @@
                 <div class="p-2 absolute bottom-0 left-0">
                   <h5
                     class="text-white bm-4 font-bold text-left"
-                    style="font-size: xx-large;font-family: Mortend bold"
+                    style="
+                      font-size: xx-large;
+                      font-family: Mortend bold;
+                      text-transform: uppercase;
+                    "
                   >
                     {{ appointment.service.servicename }}
                   </h5>
@@ -93,7 +102,7 @@
                   </p>
                   <p
                     class="text-white text-left font-bold"
-                    style="font-size: 1.2rem; font-family: Mazzard;"
+                    style="font-size: 1.2rem; font-family: Mazzard"
                   >
                     <b-icon
                       pack="mdi"
@@ -104,7 +113,7 @@
                   </p>
                   <p
                     class="text-white text-left font-bold"
-                    style="font-size: 1.2rem; font-family: Mazzard;"
+                    style="font-size: 1.2rem; font-family: Mazzard"
                   >
                     <b-icon
                       pack="mdi"
@@ -138,20 +147,27 @@
 
       <!-- Carrousel turnos anteriores -->
 
-      <h1 class="my-6 font-bold text-white text-xl" style="font-family: Mortend bold;">TURNOS ANTERIORES:</h1>
+      <h1
+        class="my-6 font-bold text-white text-xl"
+        style="font-family: Mortend bold"
+      >
+        TURNOS ANTERIORES:
+      </h1>
 
       <div class="h-fit" :style="'width:' + carouselWidth + 'rem;'">
         <b-carousel-list
           v-model="slideSetRecord"
           :data="record"
           :items-to-show="slidesToShow"
+          :arrow="true"
+          :arrow-hover="false"
         >
           <template #item="appointment">
             <div class="p-4 m-4 flex justify-center">
               <p class="text-white font-bold text-left my-2">
                 <button
                   :id="'service-slide-' + appointment.id"
-                  class="bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0 hover:"
+                  class="opacity-50 bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0 hover:"
                   :style="
                     'background-image: url(' +
                     url +
@@ -161,13 +177,13 @@
                 >
                   <div class="p-2 absolute bottom-0 left-0">
                     <b-icon
-                    icon="check-bold"
-                    pack="mdi"
-                    size="is-large"
-                    class="m-auto scale-150 animate-bounce"
+                      icon="check-bold"
+                      pack="mdi"
+                      size="is-large"
+                      class="m-auto scale-150 animate-bounce"
                     ></b-icon>
                     <h5
-                      class="text-white bm-4 font-bold text-left "
+                      class="text-white bm-4 font-bold text-left"
                       style="
                         font-size: 1.5rem;
                         font-family: sans-serif;
