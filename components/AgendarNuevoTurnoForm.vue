@@ -4,12 +4,13 @@
     id="main-form-container"
     class="text-white flex flex-col justify-center items-center text-center"
   >
+    <v-app v-show="!loading">
     <!-- Servicios -->
     <b-steps
       v-model="activeStep"
       class="my-6"
      :has-navigation="false">
-    <b-step-item label="Account">
+    <b-step-item label="">
     <div id="service-section" >
       <h1 id="top" class="font-bold inline-flex flex-row my-2 text-xl" style="font-family: 'Mortend bold';">
       ¿QUE TE VAS A HACER?
@@ -93,7 +94,7 @@
     </b-step-item>
 
     <!--  Barberos  -->
-    <b-step-item label="Account">
+    <b-step-item label="">
     <h1 class="font-bold inline-flex flex-row my-2 text-xl" style="font-family: 'Mortend bold';">¿CON QUIEN?</h1>
 
     <no-ssr>
@@ -134,7 +135,7 @@
     </b-step-item>
 
     <!-- Componentes calendar -->
-    <b-step-item label="Account">
+    <b-step-item label="">
       <b-field>
     <h1 class="font-bold inline-flex flex-row my-2 text-xl" style="font-family: 'Mortend bold';">¿PARA CUANDO?</h1>
     </b-field>
@@ -189,6 +190,8 @@
     </div>
     </b-step-item>
     </b-steps>
+    </v-app>
+
     <div class="flex-row items-center justify-center self-center mx-auto py-4">
       <b-button
         class="flex mx-auto py-2"
@@ -214,6 +217,7 @@ import axios from 'axios'
 export default {
   data() {
     return {
+      loading:true,
       activeStep:0,
       infoHover: false,
       allEmployees: [],
@@ -260,13 +264,17 @@ export default {
       disabledFinalButton:true,
     }
   },
+  created() {
+    this.$nextTick(function() {
+      this.loading = false
+    })
+  },
   mounted() {
     window.addEventListener('resize', this.onResize)
     this.onResize()
     this.fetchEmployees()
     this.fetchServices()
     this.fetchSelectableDates()
-    this.scrollToTop()
   },
   
   methods: {
@@ -287,7 +295,6 @@ export default {
         this.carouselEmployeesWidth = this.slidesToShowEmployees * 20
         this.carouselServicesWidth = this.slidesToShowServices * 20
       }
-      this.scrollToTop()
     },
     confirm() {
       this.$buefy.dialog.confirm({
