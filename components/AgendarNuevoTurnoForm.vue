@@ -276,7 +276,6 @@ export default {
   },
   
   methods: {
-
     onResize() {
       const windowWidth = document.documentElement.clientWidth
       const rems = windowWidth / 16
