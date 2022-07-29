@@ -17,6 +17,8 @@
           v-model="slideSetEmployee"
           :data="employees"
           :items-to-show="slidesToShowEmployees"
+          :arrow="true"
+          :arrow-hover="false"
         >
           <template #item="employee">
             <div class="p-4 m-4 flex justify-center">
@@ -34,7 +36,11 @@
                 <div class="p-2 absolute bottom-0 left-0">
                   <h5
                     class="text-white bm-4 font-bold text-left"
-                    style="font-size: xx-medium; font-family: Mortend bold"
+                    style="
+                      font-size: xx-large;
+                      font-family: Mortend bold;
+                      text-transform: uppercase;
+                    "
                   >
                     {{ employee.name }}
                   </h5>
@@ -55,7 +61,7 @@
           icon-left="account-group"
           outlined
           class="m-8 p-8 text-lg font-bold"
-          style="border-width: 3px; border-radius: 24px;"
+          style="border-width: 3px; border-radius: 24px"
           @click="showModal"
         >
           Nuevo Empleado
@@ -306,17 +312,17 @@ export default {
       }
     },
     deleteEmployee() {
-      console.log("eliminando empleado")
+      console.log('eliminando empleado')
       console.log(this.employeeIdToEdit)
-        this.$buefy.dialog.confirm({
+      this.$buefy.dialog.confirm({
         message: 'Esta seguro?',
         type: 'is-dark',
         onConfirm: () => {
           axios
-            .delete(this.url + '/employee/' +this.employeeIdToEdit, {
+            .delete(this.url + '/employee/' + this.employeeIdToEdit, {
               headers: {
-                  auth: this.$auth.$storage.getLocalStorage('token'),
-                },
+                auth: this.$auth.$storage.getLocalStorage('token'),
+              },
             })
             .then((response) => {
               console.log(response.status)
@@ -334,7 +340,6 @@ export default {
                   type: 'is-dark',
                 })
               }
-              
             })
         },
       })
@@ -344,8 +349,6 @@ export default {
 </script>
 
 <style>
-
-
 #card-turno-actual {
   margin: 2px;
 }

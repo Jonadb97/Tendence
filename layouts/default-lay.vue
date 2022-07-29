@@ -61,6 +61,11 @@
   }
 }
 
+.carousel-arrow > span {
+  height: 64px;
+  width: 64px;
+}
+
 h1, h2, h3 ,h4 {
   font-family: 'Mortend bold';
 }

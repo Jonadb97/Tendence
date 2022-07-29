@@ -24,11 +24,23 @@
 
             <nuxt-link to="/NuevoTurno/NuevoTurnoForm">
         <b-button
-          v-show="auth.loggedIn"
+          v-show="auth.loggedIn && $device.isDesktop"
           class="flex mx-auto py-2 my-4"
           type="is-success"
           pack="mdi"
           size="is-large"
+          outlined
+          icon-left="clipboard-plus-outline"
+          icon-right="plus"
+          label="Agendar nuevo turno"
+          style="border-width: 3px; border-radius: 24px"
+        />
+        <b-button
+          v-show="auth.loggedIn && $device.isMobile"
+          class="flex mx-auto py-2 my-4"
+          type="is-success"
+          pack="mdi"
+          size="is-medium"
           outlined
           icon-left="clipboard-plus-outline"
           icon-right="plus"

@@ -1,11 +1,10 @@
 <template>
-
   <!-- Desktop version, hola prueba heroku  -->
   <div id="root-container" class="hero">
     <div
       id="HeaderContainerDesktop"
       class="inline-flex"
-      style="font-family: 'Mazzard';"
+      style="font-family: 'Mazzard'"
       media="(max-width: 800px)"
     >
       <NuxtLink to="/" class="inline-flex my-1 mx-1"
@@ -27,7 +26,10 @@
               icon-left="clipboard"
               icon-right="arrow-down"
               style="border-radius: 24px"
-            ><NuxtLink to="/Dash/DashPage">Panel Principal</NuxtLink></b-button>
+              ><NuxtLink to="/Dash/DashPage"
+                >Panel Principal</NuxtLink
+              ></b-button
+            >
           </template>
 
           <b-dropdown-item
@@ -175,9 +177,9 @@
           type="is-success"
           size="is-small"
           class="my-2 pl-4 ml-4"
-          style="font-size: 12px; height: 30px; border-radius: 24px;"
+          style="font-size: 12px; height: 30px; border-radius: 24px"
         >
-        <p style="transform:translateX(-1.5px)">{{ auth.user }}</p>
+          <p style="transform: translateX(-1.5px)">{{ auth.user }}</p>
         </b-tag>
       </div>
     </div>
@@ -226,122 +228,95 @@
                   type="is-primary"
                   >{{ auth.user }}</b-tag
                 >
-                <b-button
-                  v-if="auth.role == 'admin'"
-                  type="is-dark"
-                  icon-left="clipboard"
-                  @click="open = false"
-                  ><NuxtLink
-                    id="NavLink"
-                    class="my-auto text-white place-content-end inline-flex"
+
+                <b-dropdown :mobile-modal="false" :expanded="false">
+                  <template #trigger="{ active }">
+                    <b-button
+                      label="Administración"
+                      class="px-2 max-w-fit"
+                      width="8rem"
+                      type="is-dark"
+                      icon-left="clipboard"
+                      :icon-right="active ? 'menu-up' : 'menu-down'"
+                    />
+                  </template>
+
+                  <NuxtLink
+                    class="text-black"
+                    style="text-color: black; color: black"
+                    icon-left="clipboard"
                     to="/Dash/DashPage"
-                    @click="open = false"
+                    @click="closeSidebar()"
                     >Gestión</NuxtLink
-                  ></b-button
-                >
-                <b-button
-                  v-if="auth.role == 'user'"
-                  type="is-dark"
-                  @click="open = false"
-                  ><NuxtLink
+                  >
+                  <NuxtLink
+                    v-show="auth.role == 'user'"
                     id="NavLink"
-                    class="my-auto text-white place-content-end"
                     to="/NuevoTurno/NuevoTurnoForm"
                     >Nuevo Turno</NuxtLink
-                  ></b-button
-                >
-                <b-button
-                  v-if="auth.role == 'user'"
-                  type="is-dark"
-                  @click="open = false"
-                  ><NuxtLink id="NavLink" to="/TurnosPage"
+                  >
+                  <NuxtLink
+                    v-show="auth.role == 'user'"
+                    id="NavLink"
+                    to="/TurnosPage"
+                    @click="open = false"
                     >Mis Turnos</NuxtLink
-                  ></b-button
-                >
-                <b-button
-                  v-if="auth.role == 'user'"
-                  type="is-dark"
-                  @click="open = false"
-                  ><NuxtLink id="NavLink" to="/PerfilPage"
-                    >Mi perfil</NuxtLink
-                  ></b-button
-                >
+                  >
 
-                <b-button
-                  v-if="showDash"
-                  type="is-dark"
-                  icon-left="home"
-                  @click="open = false"
-                  ><NuxtLink
-                    to="/Dash/DashPage"
-                    style="color: white; text-align: left"
-                    >Panel Principal</NuxtLink
-                  ></b-button
-                >
-                <b-button
-                  v-if="showDash"
-                  type="is-dark"
-                  pack="mdi"
-                  icon-left="calendar"
-                  @click="open = false"
-                  ><NuxtLink
+                  <NuxtLink
+                    v-show="auth.role == 'user'"
+                    id="NavLink"
+                    to="/PerfilPage"
+                    @click="open = false"
+                    >Mi perfil</NuxtLink
+                  >
+
+                  <NuxtLink
                     to="/Dash/DashCalendar"
-                    style="color: white; text-align: left"
+                    pack="mdi"
+                    icon-left="calendar"
+                    style="color: black; text-align: left"
+                    @click="open = false"
                     >Calendario</NuxtLink
-                  ></b-button
-                >
-                <b-button
-                  v-if="showDash"
-                  type="is-dark"
-                  icon-left="account-details"
-                  @click="open = false"
-                  ><NuxtLink
+                  >
+
+                  <NuxtLink
                     to="/Dash/DashServices"
-                    style="color: white; text-align: left"
+                    style="color: black; text-align: left"
+                    @click="open = false"
                     >Gestión de Servicios</NuxtLink
-                  ></b-button
-                >
-                <b-button
-                  v-if="showDash"
-                  type="is-dark"
-                  icon-left="account-group"
-                  @click="open = false"
-                  ><NuxtLink
+                  >
+
+                  <NuxtLink
                     to="/Dash/DashEmpleados"
-                    style="color: white; text-align: left"
+                    style="color: black; text-align: left"
+                    @click="open = false"
                     >Gestión de Empleados</NuxtLink
-                  ></b-button
-                >
-                <b-button
-                  v-if="showDash"
-                  type="is-dark"
-                  icon-left="alarm"
-                  @click="open = false"
-                  ><NuxtLink
+                  >
+
+                  <NuxtLink
                     to="/Dash/DashHorarios"
-                    style="color: white; text-align: left"
+                    style="color: black; text-align: left"
+                    @click="open = false"
                     >Gestión de Horarios</NuxtLink
-                  ></b-button
-                >
-                <b-button
-                  v-if="auth.loggedIn"
-                  type="is-dark"
-                  size="is-small"
-                  class="my-2 hover:scale-105"
-                  @click="confirmLogout()"
-                  ><NuxtLink id="NavLink" to="/">
+                  >
+
+                  <NuxtLink
+                    v-show="auth.loggedIn"
+                    id="NavLink"
+                    to="/"
+                    @click="confirmLogout(), (open = false)"
+                  >
                     Cerrar sesión
-                  </NuxtLink></b-button
-                >
-                <b-button
-                  v-else
-                  type="is-dark"
-                  size="is-small"
-                  class="my-2 hover:scale-105"
-                  ><NuxtLink id="NavLink" to="/Login/LoginPage"
+                  </NuxtLink>
+
+                  <NuxtLink
+                    v-show="!auth.loggedIn"
+                    to="/Login/LoginPage"
+                    @click="open = false"
                     >Registrarse / Iniciar sesión</NuxtLink
-                  ></b-button
-                >
+                  >
+                </b-dropdown>
               </b-menu-list>
             </b-menu>
           </div>
@@ -386,14 +361,12 @@ export default {
 
   updated() {},
   methods: {
-        PushHome(){
+    PushHome() {
       const router = window.$nuxt.$router
       router.push('IndexPage')
       this.$nuxt.refresh()
       this.$forceUpdate()
       window.location.assign(this.auth.$storage.getLocalStorage('urlFront'))
-
-
     },
     watchNavDashAndUpdate() {
       const string = this.$route.path
@@ -409,11 +382,9 @@ export default {
         message: 'Deseas salir de la sesión?',
         type: 'is-dark',
         onConfirm: () => this.logOut(),
-        
       })
     },
     logOut() {
-      
       this.$auth.$storage.removeLocalStorage('token')
       this.$auth.$storage.removeLocalStorage('user')
       this.$auth.$storage.removeLocalStorage('role')
@@ -421,6 +392,9 @@ export default {
       this.$toast.show('Has salido de tu sesión!', { duration: 3000 })
       this.PushHome()
     },
+    closeSidebar() {
+      this.$buefy.$sidebar.open('false')
+    }
   },
 }
 </script>
@@ -523,8 +497,12 @@ export default {
 }
 
 @keyframes example {
-  from {color: white;}
-  to {color: rgb(153, 0, 255);}
+  from {
+    color: white;
+  }
+  to {
+    color: rgb(153, 0, 255);
+  }
 }
 
 a.nuxt-link-active {
