@@ -386,17 +386,12 @@ export default {
     this.fetchServices()
     this.fetchSelectableDates()
   },
-<<<<<<< HEAD
-  
-  methods: {
-=======
 
   methods: {
     moveToHour() {
       const firstScrollTo = scrollto('hourTable')
       firstScrollTo()
     },
->>>>>>> c92a5a4e03bd296558e98ab597665c53b865cec5
     onResize() {
       const windowWidth = document.documentElement.clientWidth
       const rems = windowWidth / 16
