@@ -138,7 +138,7 @@
               icon="calendar-clock"
               @click="activeTab = 1"
             >
-              <b-table hoverable :data="holidays" :loading="isLoadingHolidays">
+              <b-table hoverable :data="holidays" :loading="isLoadingHolidays" :sticky-header="stickyHeaders">
                 <b-table-column
                   v-slot="props"
                   field="date"
@@ -379,8 +379,11 @@ export default {
         ':' +
         String(this.endTime.getMinutes()).padStart(2, '0') +
         ':00'
-
-      axios
+      this.$buefy.dialog.confirm({
+        message: '¿Desea definir este día?',
+        type: 'is-dark',
+        onConfirm: () => 
+        axios
         .post(this.url + '/timetable', {
           day: dayIndex,
           startofshift: start,
@@ -394,6 +397,7 @@ export default {
             this.pushDash()
           }
         })
+        })
     },
     createHoliday() {
       const date = this.selectedDate
@@ -403,7 +407,7 @@ export default {
         String(date.getMonth() + 1).padStart(2, '0') +
         '-' +
         String(date.getDate()).padStart(2, '0')
-
+  
       this.$buefy.dialog.confirm({
       message: '¿Desea definir este horario?',
       type: 'is-dark',
