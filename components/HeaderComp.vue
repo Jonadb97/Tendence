@@ -197,7 +197,7 @@
           :right="false"
         >
           <div class="p-1">
-            <NuxtLink to="/" class="my-auto" @click="open = false"
+            <NuxtLink to="/" class="my-auto" @click="closeSidebar()"
               ><div
                 class="flex flex-row justify-center align-center items-center"
               >
@@ -259,7 +259,7 @@
                     v-show="auth.role == 'user'"
                     id="NavLink"
                     to="/TurnosPage"
-                    @click="open = false"
+                    @click="closeSidebar()"
                     >Mis Turnos</NuxtLink
                   >
 
@@ -267,7 +267,7 @@
                     v-show="auth.role == 'user'"
                     id="NavLink"
                     to="/PerfilPage"
-                    @click="open = false"
+                    @click="closeSidebar()"
                     >Mi perfil</NuxtLink
                   >
 
@@ -276,28 +276,28 @@
                     pack="mdi"
                     icon-left="calendar"
                     style="color: black; text-align: left"
-                    @click="open = false"
+                    @click="closeSidebar()"
                     >Calendario</NuxtLink
                   >
 
                   <NuxtLink
                     to="/Dash/DashServices"
                     style="color: black; text-align: left"
-                    @click="open = false"
+                    @click="closeSidebar()"
                     >Gestión de Servicios</NuxtLink
                   >
 
                   <NuxtLink
                     to="/Dash/DashEmpleados"
                     style="color: black; text-align: left"
-                    @click="open = false"
+                    @click="closeSidebar()"
                     >Gestión de Empleados</NuxtLink
                   >
 
                   <NuxtLink
                     to="/Dash/DashHorarios"
                     style="color: black; text-align: left"
-                    @click="open = false"
+                    @click="closeSidebar()"
                     >Gestión de Horarios</NuxtLink
                   >
 
@@ -305,7 +305,7 @@
                     v-show="auth.loggedIn"
                     id="NavLink"
                     to="/"
-                    @click="confirmLogout(), (open = false)"
+                    @click="confirmLogout(), (closeSidebar())"
                   >
                     Cerrar sesión
                   </NuxtLink>
@@ -313,7 +313,7 @@
                   <NuxtLink
                     v-show="!auth.loggedIn"
                     to="/Login/LoginPage"
-                    @click="open = false"
+                    @click="closeSidebar()"
                     >Registrarse / Iniciar sesión</NuxtLink
                   >
                 </b-dropdown>

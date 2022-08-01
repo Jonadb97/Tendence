@@ -9,7 +9,7 @@
       <!--- Tabla de horarios -->
       <!--- Desktop version -->
       <div id="horarios-desktop" media="(max-width: 800px)">
-        <div id="tab-bar" class="bg-white w-screen" style="margin-bottom: 50%">
+        <div id="tab-bar" class="bg-white w-screen" style="margin-bottom: 40%">
           <b-tabs id="nav-tab-bar" type="is-small" class="w-96" expanded>
             <b-tab-item
               label="Horarios"
@@ -22,6 +22,7 @@
                 hoverable
                 :data="timetable"
                 :loading="isLoadingTimetable"
+                :sticky-header="stickyHeaders"
               >
                 <b-table-column v-slot="props" field="day" label="Día" centered >
                   <span 
@@ -226,7 +227,7 @@
                       <b-button
                         label="Guardar"
                         type="is-primary"
-                        @click="createHoliday"
+                        @click="createHoliday()"
                       />
                     </footer>
                   </div>
@@ -259,6 +260,7 @@ export default {
   data() {
     return {
       url: this.$auth.$storage.getLocalStorage('url'),
+      urlFrontDash: this.$auth.$storage.getLocalStorage('urlFront') + '/Dash/DashHorarios',
       open: true,
       overlay: false,
       fullheight: true,
@@ -270,6 +272,7 @@ export default {
       schedule: [],
       isLoadingTimetable: true,
       timetable: [],
+      stickyHeaders: true,
       columnsTimetable: [
         {
           field: 'day',
@@ -313,6 +316,13 @@ export default {
     this.getTags()
   },
   methods: {
+     pushDash() {
+      const router = window.$nuxt.$router
+      router.push('/Dash/DashHorarios')
+      this.$nuxt.refresh()
+      this.$forceUpdate()
+      window.location.assign(this.urlFrontDash)
+    },
     fetchTimetable() {
       axios.get(this.url + '/timetable', {}).then((response) => {
         if (response.status === 200) {
@@ -381,6 +391,7 @@ export default {
             this.isLoadingTimetable = true
             this.isModalTimetableActive = false
             this.fetchTimetable()
+            this.pushDash()
           }
         })
     },
@@ -393,22 +404,30 @@ export default {
         '-' +
         String(date.getDate()).padStart(2, '0')
 
+      this.$buefy.dialog.confirm({
+      message: '¿Desea definir este horario?',
+      type: 'is-dark',
+      onConfirm: () => 
       axios
         .post(this.url + '/holiday', {
           date: finalDate,
           ocassion: this.ocassion + '',
         })
+        
         .then((response) => {
           if (response.status === 200) {
             this.isLoadingHolidays = true
             this.isModalHolidaysActive = false
             this.fetchHolidays()
+            this.pushDash()
+            
           }
+        }),
         })
     },
     deleteHoliday(value) {
       this.$buefy.dialog.confirm({
-        message: 'Esta seguro?',
+        message: '¿Está seguro?',
         type: 'is-dark',
         onConfirm: () => {
           axios
@@ -416,20 +435,16 @@ export default {
               data: {
                 date: value,
               },
+              
             })
             .then((response) => {
               if (response.status === 200) {
-                this.$buefy.toast.open({
-                  message: 'Eliminado correctamente',
-                  type: 'is-dark',
-                })
+                this.$toast.show('Eliminado correctamente', { duration: 3000 })
                 this.isLoadingHolidays = true
                 this.fetchHolidays()
+                this.pushDash()
               } else {
-                this.$buefy.toast.open({
-                  message: 'Error al eliminar',
-                  type: 'is-dark',
-                })
+                this.$toast.show('Error al eliminar', { duration: 3000 })
               }
             })
         },
@@ -448,12 +463,13 @@ export default {
             })
             .then((response) => {
               if (response.status === 200) {
-                this.$$toast.toast.open({
+                this.$buefy.toast.open({
                   message: 'Eliminado correctamente',
                   type: 'is-dark',
                 })
                 this.isLoadingTimetable = true
                 this.fetchTimetable()
+                this.pushDash()
               } else {
                 this.$buefy.toast.open({
                   message: 'Error al eliminar',

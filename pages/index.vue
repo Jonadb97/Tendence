@@ -62,13 +62,16 @@ export default {
     }
   },
 
+
+// URL FRONT PROD: https://tendence.herokuapp.com
+// URL FRONT DEV: http://192.168.0.6:3000
   mounted() {
     const auth = this.$auth
     auth.$storage.setLocalStorage(
       'url',
       'https://api-tendence-testing.herokuapp.com'
     )
-    auth.$storage.setLocalStorage('urlFront', 'https://tendence.herokuapp.com')
+    auth.$storage.setLocalStorage('urlFront', 'http://192.168.0.6:3000')
   },
   methods: {},
 }
