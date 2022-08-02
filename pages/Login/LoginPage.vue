@@ -181,11 +181,13 @@ export default {
         // window.location.reload(true, this.$toast.show('¡Bienvenido!'))
         if (auth.$storage.getLocalStorage('role') === 'admin') {
           this.$toast.show('¡Bienvenido, Administrador!', { duration: 3000 })
-          window.location.reload(true, window.location.assign(this.urlFront + '/Dash/DashPage'))
+          window.location.assign(this.urlFront + '/Dash/DashPage')
+          window.location.reload(true)
           // Reemplazar URL con URL del sitio cuando se suba
         } else {
           this.$toast.show('¡Bienvenido!', { duration: 3000 })
-          window.location.reload(true, window.location.assign(this.urlFront + '/'))
+          window.location.assign(this.urlFront + '/')
+          window.location.reload(true)
         }
       } else {
         this.$toast.show('¡Oops! Algo salió mal...', { duration: 3000 })
