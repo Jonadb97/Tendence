@@ -319,6 +319,10 @@ export default {
     this.getTags()
   },
   methods: {
+      dialogPop(message) {
+        message = ''
+        this.$toast.show(message)
+      },
      pushDash() {
       const router = window.$nuxt.$router
       router.push('/Dash/DashHorarios')
@@ -398,6 +402,7 @@ export default {
             this.isModalTimetableActive = false
             this.fetchTimetable()
             this.pushDash()
+            this.message('Día definido correctamente')
           }
         })
         })
@@ -427,6 +432,7 @@ export default {
             this.isModalHolidaysActive = false
             this.fetchHolidays()
             this.pushDash()
+            this.message('Horario creado correctamente')
             
           }
         }),
@@ -446,10 +452,10 @@ export default {
             })
             .then((response) => {
               if (response.status === 200) {
-                this.$toast.show('Eliminado correctamente', { duration: 3000 })
                 this.isLoadingHolidays = true
                 this.fetchHolidays()
                 this.pushDash()
+                this.message('Eliminado correctamente')
               } else {
                 this.$toast.show('Error al eliminar', { duration: 3000 })
               }
@@ -470,13 +476,9 @@ export default {
             })
             .then((response) => {
               if (response.status === 200) {
-                this.$buefy.toast.open({
-                  message: 'Eliminado correctamente',
-                  type: 'is-dark',
-                })
                 this.isLoadingTimetable = true
                 this.fetchTimetable()
-                this.pushDash()
+                this.pushDash(this.$toast.show('Eliminado correctamente', { duration: 3000 }))
               } else {
                 this.$buefy.toast.open({
                   message: 'Error al eliminar',

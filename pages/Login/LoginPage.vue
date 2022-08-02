@@ -83,7 +83,7 @@
             Ingresar
           </b-button>
           <b-loading v-model="isLoading" :is-full-page="true"></b-loading>
-          <NuxtLink to="/Login/ResetPassword" class="flex items-center justify-center hover:scale-110" style="color: #f05b5b;padding: 2px;font-weight: 700;">¡Olvidé mi contraseña!</NuxtLink>
+          <NuxtLink to="/Login/ResetPassword" class="flex items-center justify-center animate-pulse hover:scale-110" style="color: #fa2c11;padding: 2px;font-weight: 900; font-family: Sans Serif">¡OLVIDÉ MI CONTRASEÑA!</NuxtLink>
         </div>
 
         <!--No tienes cuenta? Registrar-->

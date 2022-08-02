@@ -371,7 +371,7 @@ export default {
   methods: {
     PushHome() {
       const router = window.$nuxt.$router
-      router.push('IndexPage')
+      router.push('/')
       this.$nuxt.refresh()
       this.$forceUpdate()
       window.location.assign(this.auth.$storage.getLocalStorage('urlFront'))
@@ -460,7 +460,6 @@ export default {
   border-bottom: 12rem;
   margin: 0;
   padding: 0;
-  border-bottom: 1px solid white;
 }
 
 #HeaderContainerMobile {

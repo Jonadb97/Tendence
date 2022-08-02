@@ -50,7 +50,6 @@
 .footer {
   background-image: linear-gradient(to right, rgb(40, 40, 40), rgb(20, 20, 20));
   padding: 2rem 1.2rem 4rem;
-  border-top: 1px solid white;
 }
 }
 

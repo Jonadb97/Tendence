@@ -167,12 +167,12 @@
               <p class="text-white font-bold text-left my-2">
                 <button
                   :id="'service-slide-' + appointment.id"
-                  class="opacity-50 bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0 hover:"
+                  class="opacity-75 bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0 hover:opacity-100"
                   :style="
                     'background-image: url(' +
                     url +
                     appointment.service.imageroute +
-                    '); width:18rem; height:22rem; font-family: Mortend bold; text-transform: uppercase;'
+                    '); width:16rem; height:22rem; font-family: Mortend bold; text-transform: uppercase;'
                   "
                 >
                   <div class="p-2 absolute bottom-0 left-0">
