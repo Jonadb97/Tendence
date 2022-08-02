@@ -16,19 +16,27 @@
           class="my-auto py-auto"
       /></NuxtLink>
       <div id="NavContainer">
+        <b-button
+              v-if="auth.role == 'admin'"
+              type="is-dark"
+              size="is-small"
+              class="my-2 rounded-md ml-8"
+              icon-left="clipboard"
+              style="border-radius: 24px"
+              ><NuxtLink to="/Dash/DashPage"
+                >Panel Principal</NuxtLink
+              ></b-button
+            >
         <b-dropdown :triggers="['hover']" aria-role="list">
           <template #trigger>
             <b-button
               v-if="auth.role == 'admin'"
               type="is-dark"
               size="is-small"
-              class="my-2 rounded-md"
-              icon-left="clipboard"
+              class="my-2 rounded-md ml-4"
               icon-right="arrow-down"
               style="border-radius: 24px"
-              ><NuxtLink to="/Dash/DashPage"
-                >Panel Principal</NuxtLink
-              ></b-button
+              >Gestión</b-button
             >
           </template>
 

@@ -7,8 +7,7 @@
       <h1 class="text-white my-8 font-bold text-lg">GESTION DE HORARIOS:</h1>
 
       <!--- Tabla de horarios -->
-      <!--- Desktop version -->
-      <div id="horarios-desktop" media="(max-width: 800px)">
+      <div>
         <div id="tab-bar" class="bg-white w-screen" style="margin-bottom: 40%">
           <b-tabs id="nav-tab-bar" type="is-small" class="w-96" expanded>
             <b-tab-item
@@ -23,6 +22,8 @@
                 :data="timetable"
                 :loading="isLoadingTimetable"
                 :sticky-header="stickyHeaders"
+                :mobile-cards="hasMobileCards"
+                :narrowed="isNarrowed"
               >
                 <b-table-column v-slot="props" field="day" label="Día" centered >
                   <span 
@@ -262,6 +263,8 @@ export default {
       url: this.$auth.$storage.getLocalStorage('url'),
       urlFrontDash: this.$auth.$storage.getLocalStorage('urlFront') + '/Dash/DashHorarios',
       open: true,
+      isNarrowed: true,
+      hasMobileCards: true,
       overlay: false,
       fullheight: true,
       fullwidth: false,
