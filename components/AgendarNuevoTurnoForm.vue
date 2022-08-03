@@ -20,7 +20,7 @@
               <div
                 id="service-carrousel"
                 class="h-fit"
-                :style="'width:' + carouselServicesWidth + 'rem;'"
+                :style="'width:' + carouselServicesWidth + 'rem; transform: translateX(1.4rem)'"
               >
                 <b-skeleton
                   height="22rem"
