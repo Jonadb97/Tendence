@@ -42,14 +42,9 @@ export default {
         '@nuxtjs/device',
 
     ],
-<<<<<<< HEAD
-
-
-=======
     device: {
         refreshOnResize: true
       },
->>>>>>> 22a26980d8b605b85c03050b5afe4dcda8261893
     // Modules: https://go.nuxtjs.dev/config-modules
     modules: [
         // https://go.nuxtjs.dev/axios

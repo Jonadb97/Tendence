@@ -200,7 +200,7 @@
                       'background-image: url(' +
                       url +
                       appointment.service.imageroute +
-                      '); font-weight: bolder; border-radius: 15px;'
+                      '); font-family: Mortend bold; text-color: white; color: white; text-shadow: 2px 2px black;'
                     "
                   >
                     <h2>{{ appointment.service.servicename }}</h2>
@@ -246,8 +246,9 @@
                       'background-image: url(' +
                       url +
                       appointment.service.imageroute +
-                      '); font-weight: bolder; border-radius: 15px;'
+                      '); font-family: Mortend bold; text-color: white; color: white; text-shadow: 2px 2px black;'
                     "
+                    @click="showModal(appointment)"
                   >
                     <h2>{{ appointment.service.servicename }}</h2>
                     <h2>{{ appointment.user.username }}</h2>
