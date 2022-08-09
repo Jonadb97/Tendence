@@ -1,8 +1,8 @@
 <template>
   <div id="root-component" class="">
-    <div id="main-content" class="justify-center text-center m-6 p-6" >
+    <div id="main-content" class="justify-center text-center m-6 p-6">
       <no-ssr>
-        <div id="calendar-component w-1/2" style="font-family: Mortend bold;">
+        <div id="calendar-component w-1/2" style="font-family: Mortend bold">
           <b-datepicker
             v-model="selectedDate"
             size="is-medium"
@@ -16,7 +16,7 @@
         </div>
       </no-ssr>
 
-      <div class="calendar" style="font-family: Mortend bold;">
+      <div class="calendar" style="font-family: Mortend bold">
         <div class="timeline">
           <div class="spacer"></div>
           <div v-for="hour in hours" :key="hour" class="time-marker">
@@ -59,7 +59,7 @@
         size="is-large"
         icon-left="calendar"
         icon-right="plus"
-        style="border-width: 3px; border-radius: 24px; font-family: Mazzard;"
+        style="border-width: 3px; border-radius: 24px; font-family: Mazzard"
         @click="isModalActive = true"
       />
 
@@ -71,7 +71,7 @@
         aria-role="dialog"
         aria-label="Example Modal"
         close-button-aria-label="Close"
-        style="font-family: Mazzard;"
+        style="font-family: Mazzard"
         aria-modal
       >
         <template>
@@ -182,6 +182,7 @@ export default {
 
   data() {
     return {
+      isLoading: false,
       isModalActive: false,
       url: this.$auth.$storage.getLocalStorage('url'),
       isLoadingTimetable: true,
@@ -211,6 +212,11 @@ export default {
     getAppointments() {
       return this.appointments
     },
+  },
+  created() {
+    this.$nextTick(function () {
+      this.loading = false
+    })
   },
   mounted() {
     this.fetchTimetable()

@@ -364,6 +364,7 @@ export default {
     const today = new Date()
     return {
       slideSetPreviousAppointments: 0,
+      isLoading: false,
       open: true,
       overlay: false,
       fullheight: true,
@@ -401,6 +402,11 @@ export default {
       ],
       modalSelectedOptions: 'Elija una opción',
     }
+  },
+  created() {
+    this.$nextTick(function () {
+      this.loading = false
+    })
   },
   mounted() {
     this.fetchAppointments()

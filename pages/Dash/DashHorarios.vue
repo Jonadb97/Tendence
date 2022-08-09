@@ -25,10 +25,12 @@
                 :mobile-cards="hasMobileCards"
                 :narrowed="isNarrowed"
               >
-                <b-table-column v-slot="props" field="day" label="Día" centered >
-                  <span 
-                  name="dayTag"
-                  class="tag" style="font-family: Mortend bold">
+                <b-table-column v-slot="props" field="day" label="Día" centered>
+                  <span
+                    name="dayTag"
+                    class="tag"
+                    style="font-family: Mortend bold"
+                  >
                     {{ props.row.day }}
                   </span>
                 </b-table-column>
@@ -64,7 +66,7 @@
                 label="Agregar nuevo horario"
                 type="is-success"
                 outlined
-                style='border-width: 3px; border-radius: 24px'
+                style="border-width: 3px; border-radius: 24px"
                 pack="mdi"
                 icon-left="clock"
                 icon-right="plus"
@@ -139,7 +141,12 @@
               icon="calendar-clock"
               @click="activeTab = 1"
             >
-              <b-table hoverable :data="holidays" :loading="isLoadingHolidays" :sticky-header="stickyHeaders">
+              <b-table
+                hoverable
+                :data="holidays"
+                :loading="isLoadingHolidays"
+                :sticky-header="stickyHeaders"
+              >
                 <b-table-column
                   v-slot="props"
                   field="date"
@@ -175,7 +182,7 @@
                 class="my-6"
                 type="is-success"
                 outlined
-                style='border-width: 3px; border-radius: 24px;;'
+                style="border-width: 3px; border-radius: 24px ;"
                 pack="mdi"
                 icon-left="clock"
                 icon-right="plus"
@@ -260,8 +267,10 @@ export default {
   // Hay que fetchear la fecha y hora para ponerlos reactivos en el card de turnos pendientes y los anteriores
   data() {
     return {
+      isLoading: false,
       url: this.$auth.$storage.getLocalStorage('url'),
-      urlFrontDash: this.$auth.$storage.getLocalStorage('urlFront') + '/Dash/DashHorarios',
+      urlFrontDash:
+        this.$auth.$storage.getLocalStorage('urlFront') + '/Dash/DashHorarios',
       open: true,
       isNarrowed: true,
       hasMobileCards: true,
@@ -313,17 +322,22 @@ export default {
       isLoadingHolidays: true,
     }
   },
+  created() {
+    this.$nextTick(function () {
+      this.loading = false
+    })
+  },
   mounted() {
     this.fetchTimetable()
     this.fetchHolidays()
     this.getTags()
   },
   methods: {
-      dialogPop(message) {
-        message = ''
-        this.$toast.show(message)
-      },
-     pushDash() {
+    dialogPop(message) {
+      message = ''
+      this.$toast.show(message)
+    },
+    pushDash() {
       const router = window.$nuxt.$router
       router.push('/Dash/DashHorarios')
       this.$nuxt.refresh()
@@ -389,23 +403,23 @@ export default {
       this.$buefy.dialog.confirm({
         message: '¿Desea definir este día?',
         type: 'is-dark',
-        onConfirm: () => 
-        axios
-        .post(this.url + '/timetable', {
-          day: dayIndex,
-          startofshift: start,
-          endofshift: end,
-        })
-        .then((response) => {
-          if (response.status === 200) {
-            this.isLoadingTimetable = true
-            this.isModalTimetableActive = false
-            this.fetchTimetable()
-            this.pushDash()
-            this.message('Día definido correctamente')
-          }
-        })
-        })
+        onConfirm: () =>
+          axios
+            .post(this.url + '/timetable', {
+              day: dayIndex,
+              startofshift: start,
+              endofshift: end,
+            })
+            .then((response) => {
+              if (response.status === 200) {
+                this.isLoadingTimetable = true
+                this.isModalTimetableActive = false
+                this.fetchTimetable()
+                this.pushDash()
+                this.message('Día definido correctamente')
+              }
+            }),
+      })
     },
     createHoliday() {
       const date = this.selectedDate
@@ -415,28 +429,27 @@ export default {
         String(date.getMonth() + 1).padStart(2, '0') +
         '-' +
         String(date.getDate()).padStart(2, '0')
-  
+
       this.$buefy.dialog.confirm({
-      message: '¿Desea definir este horario?',
-      type: 'is-dark',
-      onConfirm: () => 
-      axios
-        .post(this.url + '/holiday', {
-          date: finalDate,
-          ocassion: this.ocassion + '',
-        })
-        
-        .then((response) => {
-          if (response.status === 200) {
-            this.isLoadingHolidays = true
-            this.isModalHolidaysActive = false
-            this.fetchHolidays()
-            this.pushDash()
-            this.message('Horario creado correctamente')
-            
-          }
-        }),
-        })
+        message: '¿Desea definir este horario?',
+        type: 'is-dark',
+        onConfirm: () =>
+          axios
+            .post(this.url + '/holiday', {
+              date: finalDate,
+              ocassion: this.ocassion + '',
+            })
+
+            .then((response) => {
+              if (response.status === 200) {
+                this.isLoadingHolidays = true
+                this.isModalHolidaysActive = false
+                this.fetchHolidays()
+                this.pushDash()
+                this.message('Horario creado correctamente')
+              }
+            }),
+      })
     },
     deleteHoliday(value) {
       this.$buefy.dialog.confirm({
@@ -448,7 +461,6 @@ export default {
               data: {
                 date: value,
               },
-              
             })
             .then((response) => {
               if (response.status === 200) {
@@ -478,7 +490,11 @@ export default {
               if (response.status === 200) {
                 this.isLoadingTimetable = true
                 this.fetchTimetable()
-                this.pushDash(this.$toast.show('Eliminado correctamente', { duration: 3000 }))
+                this.pushDash(
+                  this.$toast.show('Eliminado correctamente', {
+                    duration: 3000,
+                  })
+                )
               } else {
                 this.$buefy.toast.open({
                   message: 'Error al eliminar',
@@ -494,7 +510,6 @@ export default {
 </script>
 
 <style>
-
 #footer-item-style {
   background-color: rgb(46, 46, 46);
   color: white;

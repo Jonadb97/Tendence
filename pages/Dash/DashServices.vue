@@ -295,6 +295,7 @@ export default {
 
   data() {
     return {
+      isLoading: false,
       infoHover: false,
       showServiceModal: false,
       open: true,
@@ -324,6 +325,11 @@ export default {
       serviceIdToEdit: undefined,
       disabledConfirmButton: false,
     }
+  },
+  created() {
+    this.$nextTick(function () {
+      this.loading = false
+    })
   },
   mounted() {
     this.fetchServices()

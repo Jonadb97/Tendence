@@ -201,6 +201,7 @@ export default {
   // Hay que fetchear la fecha y hora para ponerlos reactivos en el card de turnos pendientes y los anteriores
   data() {
     return {
+      isLoading: false,
       open: true,
       overlay: false,
       fullheight: true,
@@ -222,6 +223,11 @@ export default {
       newEmployeeServices: [],
       employeeIdToEdit: undefined,
     }
+  },
+  created() {
+    this.$nextTick(function () {
+      this.loading = false
+    })
   },
   mounted() {
     window.addEventListener('resize', this.onResize)
