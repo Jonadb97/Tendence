@@ -7,9 +7,8 @@
       <h1 class="text-white my-8 font-bold text-lg">GESTION DE HORARIOS:</h1>
 
       <!--- Tabla de horarios -->
-      <!--- Desktop version -->
-      <div id="horarios-desktop" media="(max-width: 800px)">
-        <div id="tab-bar" class="bg-white w-screen" style="margin-bottom: 50%">
+      <div>
+        <div id="tab-bar" class="bg-white w-screen" style="margin-bottom: 40%">
           <b-tabs id="nav-tab-bar" type="is-small" class="w-96" expanded>
             <b-tab-item
               label="Horarios"
@@ -22,6 +21,9 @@
                 hoverable
                 :data="timetable"
                 :loading="isLoadingTimetable"
+                :sticky-header="stickyHeaders"
+                :mobile-cards="hasMobileCards"
+                :narrowed="isNarrowed"
               >
                 <b-table-column v-slot="props" field="day" label="Día" centered >
                   <span 
@@ -137,7 +139,7 @@
               icon="calendar-clock"
               @click="activeTab = 1"
             >
-              <b-table hoverable :data="holidays" :loading="isLoadingHolidays">
+              <b-table hoverable :data="holidays" :loading="isLoadingHolidays" :sticky-header="stickyHeaders">
                 <b-table-column
                   v-slot="props"
                   field="date"
@@ -226,7 +228,7 @@
                       <b-button
                         label="Guardar"
                         type="is-primary"
-                        @click="createHoliday"
+                        @click="createHoliday()"
                       />
                     </footer>
                   </div>
@@ -259,7 +261,10 @@ export default {
   data() {
     return {
       url: this.$auth.$storage.getLocalStorage('url'),
+      urlFrontDash: this.$auth.$storage.getLocalStorage('urlFront') + '/Dash/DashHorarios',
       open: true,
+      isNarrowed: true,
+      hasMobileCards: true,
       overlay: false,
       fullheight: true,
       fullwidth: false,
@@ -270,6 +275,7 @@ export default {
       schedule: [],
       isLoadingTimetable: true,
       timetable: [],
+      stickyHeaders: true,
       columnsTimetable: [
         {
           field: 'day',
@@ -313,6 +319,17 @@ export default {
     this.getTags()
   },
   methods: {
+      dialogPop(message) {
+        message = ''
+        this.$toast.show(message)
+      },
+     pushDash() {
+      const router = window.$nuxt.$router
+      router.push('/Dash/DashHorarios')
+      this.$nuxt.refresh()
+      this.$forceUpdate()
+      window.location.assign(this.urlFrontDash)
+    },
     fetchTimetable() {
       axios.get(this.url + '/timetable', {}).then((response) => {
         if (response.status === 200) {
@@ -369,8 +386,11 @@ export default {
         ':' +
         String(this.endTime.getMinutes()).padStart(2, '0') +
         ':00'
-
-      axios
+      this.$buefy.dialog.confirm({
+        message: '¿Desea definir este día?',
+        type: 'is-dark',
+        onConfirm: () => 
+        axios
         .post(this.url + '/timetable', {
           day: dayIndex,
           startofshift: start,
@@ -381,7 +401,10 @@ export default {
             this.isLoadingTimetable = true
             this.isModalTimetableActive = false
             this.fetchTimetable()
+            this.pushDash()
+            this.message('Día definido correctamente')
           }
+        })
         })
     },
     createHoliday() {
@@ -392,23 +415,32 @@ export default {
         String(date.getMonth() + 1).padStart(2, '0') +
         '-' +
         String(date.getDate()).padStart(2, '0')
-
+  
+      this.$buefy.dialog.confirm({
+      message: '¿Desea definir este horario?',
+      type: 'is-dark',
+      onConfirm: () => 
       axios
         .post(this.url + '/holiday', {
           date: finalDate,
           ocassion: this.ocassion + '',
         })
+        
         .then((response) => {
           if (response.status === 200) {
             this.isLoadingHolidays = true
             this.isModalHolidaysActive = false
             this.fetchHolidays()
+            this.pushDash()
+            this.message('Horario creado correctamente')
+            
           }
+        }),
         })
     },
     deleteHoliday(value) {
       this.$buefy.dialog.confirm({
-        message: 'Esta seguro?',
+        message: '¿Está seguro?',
         type: 'is-dark',
         onConfirm: () => {
           axios
@@ -416,20 +448,16 @@ export default {
               data: {
                 date: value,
               },
+              
             })
             .then((response) => {
               if (response.status === 200) {
-                this.$buefy.toast.open({
-                  message: 'Eliminado correctamente',
-                  type: 'is-dark',
-                })
                 this.isLoadingHolidays = true
                 this.fetchHolidays()
+                this.pushDash()
+                this.message('Eliminado correctamente')
               } else {
-                this.$buefy.toast.open({
-                  message: 'Error al eliminar',
-                  type: 'is-dark',
-                })
+                this.$toast.show('Error al eliminar', { duration: 3000 })
               }
             })
         },
@@ -448,12 +476,9 @@ export default {
             })
             .then((response) => {
               if (response.status === 200) {
-                this.$$toast.toast.open({
-                  message: 'Eliminado correctamente',
-                  type: 'is-dark',
-                })
                 this.isLoadingTimetable = true
                 this.fetchTimetable()
+                this.pushDash(this.$toast.show('Eliminado correctamente', { duration: 3000 }))
               } else {
                 this.$buefy.toast.open({
                   message: 'Error al eliminar',

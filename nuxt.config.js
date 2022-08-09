@@ -39,10 +39,17 @@ export default {
         // https://go.nuxtjs.dev/tailwindcss
         '@nuxtjs/tailwindcss',
         '@nuxtjs/fontawesome',
+        '@nuxtjs/device',
 
     ],
+<<<<<<< HEAD
 
 
+=======
+    device: {
+        refreshOnResize: true
+      },
+>>>>>>> 22a26980d8b605b85c03050b5afe4dcda8261893
     // Modules: https://go.nuxtjs.dev/config-modules
     modules: [
         // https://go.nuxtjs.dev/axios
@@ -51,6 +58,7 @@ export default {
         'nuxt-buefy',
         '@nuxtjs/auth',
         '@nuxtjs/toast',
+        'vue-scrollto/nuxt',
     ],
 
     // Axios module configuration: https://go.nuxtjs.dev/config-axios

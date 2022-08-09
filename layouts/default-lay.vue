@@ -50,7 +50,6 @@
 .footer {
   background-image: linear-gradient(to right, rgb(40, 40, 40), rgb(20, 20, 20));
   padding: 2rem 1.2rem 4rem;
-  border-top: 1px solid white;
 }
 }
 
@@ -59,6 +58,11 @@
     display: none;
     visibility: hidden;
   }
+}
+
+.carousel-arrow > span {
+  height: 64px;
+  width: 64px;
 }
 
 h1, h2, h3 ,h4 {

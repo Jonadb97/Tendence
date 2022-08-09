@@ -6,12 +6,19 @@
     >
       <!-- Carrousel turnos recientes -->
 
-      <h1 class="my-6 font-bold text-xl text-white" style="font-family: Mortend bold;">SERVICIOS:</h1>
+      <h1
+        class="my-6 font-bold text-xl text-white"
+        style="font-family: Mortend bold"
+      >
+        SERVICIOS:
+      </h1>
       <div class="h-fit" :style="'width:' + carouselServicesWidth + 'rem;'">
         <b-carousel-list
           v-model="slideSetServices"
           :data="services"
           :items-to-show="slidesToShowServices"
+          :arrow="true"
+          :arrow-hover="false"
         >
           <template #item="service">
             <div class="p-4 m-4 flex justify-center">
@@ -26,28 +33,42 @@
                 "
                 @click="editService(service.id)"
               >
-                            <div 
-              id="info-description"
-              @mouseenter="infoHover = true"
-              @mouseleave="infoHover = false"
-               >
-                <b-icon
-                pack="mdi"
-                icon="information"
-                type="is-light"
-                class="m-2 hover:scale-150"
-                style="position: absolute; top: 0px; right: 0px;"
-                
-                ></b-icon>
                 <div
-                v-show="infoHover"
-                style="position: absolute; top: 2rem; right: 0px; background-color: #212121; color: #f7f7f7; padding: 4px; border-radius: 5px; font-family: Mazzard;"
-                > {{ service.description }} </div>
-              </div>
+                  id="info-description"
+                  @mouseenter="infoHover = true"
+                  @mouseleave="infoHover = false"
+                >
+                  <b-icon
+                    pack="mdi"
+                    icon="information"
+                    type="is-light"
+                    class="m-2 hover:scale-150"
+                    style="position: absolute; top: 0px; right: 0px"
+                  ></b-icon>
+                  <div
+                    v-show="infoHover"
+                    style="
+                      position: absolute;
+                      top: 2rem;
+                      right: 0px;
+                      background-color: #212121;
+                      color: #f7f7f7;
+                      padding: 4px;
+                      border-radius: 5px;
+                      font-family: Mazzard;
+                    "
+                  >
+                    {{ service.description }}
+                  </div>
+                </div>
                 <div class="p-2 absolute bottom-0 left-0">
                   <h5
                     class="text-white bm-4 font-bold text-left"
-                    style="font-size: xx-large; font-family: Mortend bold; text-transform: uppercase;"
+                    style="
+                      font-size: xx-large;
+                      font-family: Mortend bold;
+                      text-transform: uppercase;
+                    "
                   >
                     {{ service.servicename }}
                   </h5>
@@ -90,7 +111,7 @@
           icon-left="account-cash"
           outlined
           class="button is-primary is-medium m-4"
-          style="border-width: 3px; border-radius: 24px; font-family: Mazzard;"
+          style="border-width: 3px; border-radius: 24px; font-family: Mazzard"
           @click="isComponentModalActive = true"
         >
           Nuevo servicio
@@ -101,163 +122,164 @@
           has-modal-card
           type="is-dark"
         >
-            <div class="modal-card" style="width: auto; font-family: Mazzard">
-              <header
-                class="modal-card-head"
-                style="background-color: rgb(46, 46, 46)"
-              >
-                <p class="modal-card-title" style="color: white">
-                  Agregar nuevo servicio
-                </p>
-              </header>
-              <section
-                class="modal-card-body"
-                style="background-color: rgb(46, 46, 46); color: white"
-              >
-                <b-field
-                  label="Nombre del servicio"
-                  type="is-light"
-                  class="text-white"
-                >
-                  <b-input
-                    v-model="newServiceName"
-                    type="text is-light"
-                    :value="newServiceName"
-                    placeholder="Servicio"
-                    required
-                  >
-                  </b-input>
-                </b-field>
-                <b-field>
-                  <b-image
-                    v-if="generatedUrl != undefined"
-                    :src="generatedUrl"
-                    alt="A random image"
-                    ratio="6by4"
-                  ></b-image>
-                </b-field>
-
-                <b-field label="Foto de perfil" type="is-dark">
-                  <b-upload
-                    v-model="imageFile"
-                    accept=".jpg,.png"
-                    drag-drop
-                    expanded
-                    required
-                    validation-message="Seleccione un archivo .png o .jpg"
-                    @input="imageUploaded"
-                  >
-                    <section class="section">
-                      <div class="content has-text-centered">
-                        <p>
-                          <b-icon icon="upload" size="is-large"></b-icon>
-                        </p>
-                        <p>Haz clic o arrastra la imagen..</p>
-                      </div>
-                    </section>
-                  </b-upload>
-                </b-field>
-
-                <b-field
-                  label="Precio del servicio"
-                  type="is-light"
-                  class="text-white"
-                >
-                  <b-icon
-                    pack="mdi"
-                    type="is-light"
-                    icon="cash"
-                    size="is-medium"
-                    class="m-2"
-                    style="margin-bottom: 8px"
-                  ></b-icon>
-                  <b-numberinput
-                    v-model="newServicePrice"
-                    type="number; is-light"
-                    step="100"
-                    placeholder="Precio"
-                    required
-                    :min="0"
-                  >
-                  </b-numberinput>
-                </b-field>
-                <b-field
-                  label="Duración del servicio en minutos"
-                  type="is-light"
-                  class="text-white font-bold m-2"
-                >
-                  <b-icon
-                    pack="mdi"
-                    class="m-2"
-                    type="is-light"
-                    icon="clock"
-                    size="is-medium"
-                    style="margin-bottom: 8px"
-                  ></b-icon>
-                  <b-numberinput
-                    v-model="newServiceDuration"
-                    type="number; is-light"
-                    :value="newServiceDuration"
-                    maxlength="2"
-                    step="10"
-                    placeholder="Duración"
-                    :min="0"
-                    required
-                  >
-                  </b-numberinput>
-                  Min.
-                </b-field>
-                <b-field
-                  label="Descripción del servicio"
-                  type="is-light"
-                  class="text-white"
-                >
-                  <b-input
-                    v-model="newServiceDescription"
-                    type="textarea"
-                    maxlength="100"       
-                    :value="newServiceDescription"
-                    placeholder="Descripción"
-                    required
-                  >
-                  </b-input>
-                </b-field>
-              </section>
-              <footer
-                class="modal-card-foot"
-                style="background-color: rgb(46, 46, 46); color: white"
-              >
-            <button
-              class="button"
-              type="button; is-light"
-              @click="isComponentModalActive = false"
+          <div class="modal-card" style="width: auto; font-family: Mazzard">
+            <header
+              class="modal-card-head"
+              style="background-color: rgb(46, 46, 46)"
             >
-              Volver
-            </button>
-            <b-button
-              v-if="serviceIdToEdit !== undefined"
-              class="button"
-              type="is-danger"
-              @click="deleteService"
+              <p class="modal-card-title" style="color: white">
+                Agregar nuevo servicio
+              </p>
+            </header>
+            <section
+              class="modal-card-body"
+              style="background-color: rgb(46, 46, 46); color: white"
             >
-              Eliminar servicio
-            </b-button>
-            
-            <button 
-              class="button is-primary" 
-              :disabled="disabledConfirmButton"
-              :loading="disabledConfirmButton"
-              @click="finish" 
-              >Confirmar</button>
+              <b-field
+                label="Nombre del servicio"
+                type="is-light"
+                class="text-white"
+              >
+                <b-input
+                  v-model="newServiceName"
+                  type="text is-light"
+                  :value="newServiceName"
+                  placeholder="Servicio"
+                  required
+                >
+                </b-input>
+              </b-field>
+              <b-field>
+                <b-image
+                  v-if="generatedUrl != undefined"
+                  :src="generatedUrl"
+                  alt="A random image"
+                  ratio="6by4"
+                ></b-image>
+              </b-field>
+
+              <b-field label="Foto de perfil" type="is-dark">
+                <b-upload
+                  v-model="imageFile"
+                  accept=".jpg,.png"
+                  drag-drop
+                  expanded
+                  required
+                  validation-message="Seleccione un archivo .png o .jpg"
+                  @input="imageUploaded"
+                >
+                  <section class="section">
+                    <div class="content has-text-centered">
+                      <p>
+                        <b-icon icon="upload" size="is-large"></b-icon>
+                      </p>
+                      <p>Haz clic o arrastra la imagen..</p>
+                    </div>
+                  </section>
+                </b-upload>
+              </b-field>
+
+              <b-field
+                label="Precio del servicio"
+                type="is-light"
+                class="text-white"
+              >
+                <b-icon
+                  pack="mdi"
+                  type="is-light"
+                  icon="cash"
+                  size="is-medium"
+                  class="m-2"
+                  style="margin-bottom: 8px"
+                ></b-icon>
+                <b-numberinput
+                  v-model="newServicePrice"
+                  type="number; is-light"
+                  step="100"
+                  placeholder="Precio"
+                  required
+                  :min="0"
+                >
+                </b-numberinput>
+              </b-field>
+              <b-field
+                label="Duración del servicio en minutos"
+                type="is-light"
+                class="text-white font-bold m-2"
+              >
+                <b-icon
+                  pack="mdi"
+                  class="m-2"
+                  type="is-light"
+                  icon="clock"
+                  size="is-medium"
+                  style="margin-bottom: 8px"
+                ></b-icon>
+                <b-numberinput
+                  v-model="newServiceDuration"
+                  type="number; is-light"
+                  :value="newServiceDuration"
+                  maxlength="2"
+                  step="10"
+                  placeholder="Duración"
+                  :min="0"
+                  required
+                >
+                </b-numberinput>
+                Min.
+              </b-field>
+              <b-field
+                label="Descripción del servicio"
+                type="is-light"
+                class="text-white"
+              >
+                <b-input
+                  v-model="newServiceDescription"
+                  type="textarea"
+                  maxlength="100"
+                  :value="newServiceDescription"
+                  placeholder="Descripción"
+                  required
+                >
+                </b-input>
+              </b-field>
+            </section>
+            <footer
+              class="modal-card-foot"
+              style="background-color: rgb(46, 46, 46); color: white"
+            >
+              <button
+                class="button"
+                type="button; is-light"
+                @click="isComponentModalActive = false"
+              >
+                Volver
+              </button>
+              <b-button
+                v-if="serviceIdToEdit !== undefined"
+                class="button"
+                type="is-danger"
+                @click="deleteService"
+              >
+                Eliminar servicio
+              </b-button>
+
+              <button
+                class="button is-primary"
+                :disabled="disabledConfirmButton"
+                :loading="disabledConfirmButton"
+                @click="finish"
+              >
+                Confirmar
+              </button>
             </footer>
-            
-            </div>
+          </div>
         </b-modal>
       </section>
-          <FooterComp
-      class="w-screen bottom-0"
-      style="width: 100%; position: absolute; bottom: 0"
-    ></FooterComp>
+      <FooterComp
+        class="w-screen bottom-0"
+        style="width: 100%; position: absolute; bottom: 0"
+      ></FooterComp>
     </div>
   </div>
 </template>
@@ -307,7 +329,6 @@ export default {
     this.fetchServices()
     console.log(this.url)
     window.addEventListener('resize', this.onResize)
-    
   },
   methods: {
     fetchServices() {
@@ -361,24 +382,28 @@ export default {
       console.log(this.newServiceDuration)
       console.log(this.newServicePrice)
       this.disabledConfirmButton = true
-      axios.post(this.url + '/services', {
-          servicename: this.newServiceName,
-          description: this.newServiceDescription,
-          duration: this.newServiceDuration,
-          price: this.newServicePrice,
-        },
-        {
-          headers: {
-            auth: this.$auth.$storage.getLocalStorage('token'),
+      axios
+        .post(
+          this.url + '/services',
+          {
+            servicename: this.newServiceName,
+            description: this.newServiceDescription,
+            duration: this.newServiceDuration,
+            price: this.newServicePrice,
+          },
+          {
+            headers: {
+              auth: this.$auth.$storage.getLocalStorage('token'),
+            },
           }
-        })
+        )
         .then((response) => {
           this.disabledConfirmButton = false
           if (response.status === 200) {
             this.isComponentModalActive = false
             this.$toast.show('¡Servicio creado!')
             this.fetchServices()
-          }else{
+          } else {
             console.log(response)
             this.$toast.show('¡Oops! algo salió mal')
           }
@@ -390,16 +415,15 @@ export default {
         type: 'is-dark',
         onConfirm: () => {
           axios
-            .delete(this.url + '/services/'+this.serviceIdToEdit, {
-                headers: {
-                  auth: this.$auth.$storage.getLocalStorage('token'),
-                },
+            .delete(this.url + '/services/' + this.serviceIdToEdit, {
+              headers: {
+                auth: this.$auth.$storage.getLocalStorage('token'),
+              },
             })
             .then((response) => {
-              
               if (response.status === 200) {
                 this.fetchServices()
-                this.isComponentModalActive = false  
+                this.isComponentModalActive = false
                 this.$buefy.toast.open({
                   message: 'Eliminado correctamente',
                   type: 'is-dark',

@@ -24,11 +24,23 @@
 
             <nuxt-link to="/NuevoTurno/NuevoTurnoForm">
         <b-button
-          v-show="auth.loggedIn"
+          v-show="auth.loggedIn && $device.isDesktop"
           class="flex mx-auto py-2 my-4"
           type="is-success"
           pack="mdi"
           size="is-large"
+          outlined
+          icon-left="clipboard-plus-outline"
+          icon-right="plus"
+          label="Agendar nuevo turno"
+          style="border-width: 3px; border-radius: 24px"
+        />
+        <b-button
+          v-show="auth.loggedIn && $device.isMobile"
+          class="flex mx-auto py-2 my-4"
+          type="is-success"
+          pack="mdi"
+          size="is-medium"
           outlined
           icon-left="clipboard-plus-outline"
           icon-right="plus"
@@ -50,13 +62,16 @@ export default {
     }
   },
 
+
+// URL FRONT PROD: https://tendence.herokuapp.com
+// URL FRONT DEV: http://192.168.0.6:3000
   mounted() {
     const auth = this.$auth
     auth.$storage.setLocalStorage(
       'url',
       'https://api-tendence-testing.herokuapp.com'
     )
-    auth.$storage.setLocalStorage('urlFront', 'https://tendence.herokuapp.com')
+    auth.$storage.setLocalStorage('urlFront', 'http://192.168.0.6:3000')
   },
   methods: {},
 }

@@ -7,7 +7,10 @@
     >
       <!-- <h1 class="font-bold text-2xl my-6 text-white"> {{ $auth.user + " - " + $auth.$storage.getLocalStorage('id')}} </h1> -->
       <!-- Card turno pendiente actual -->
-      <h1 class="font-bold text-xl text-white" style="margin-top: 24px; font-family: 'Mortend bold'">
+      <h1
+        class="font-bold text-xl text-white"
+        style="margin-top: 24px; font-family: 'Mortend bold'"
+      >
         TURNOS PENDIENTES:
       </h1>
 
@@ -16,6 +19,8 @@
           v-model="slideSetAppointments"
           :data="appointments"
           :items-to-show="slidesToShow"
+          :arrow="true"
+          :arrow-hover="false"
         >
           <template #item="appointment">
             <div class="p-4 m-4 flex justify-left">
@@ -26,11 +31,12 @@
                   'background-image: url(' +
                   url +
                   appointment.service.imageroute +
-                  '); width:18rem; height:22rem; font-family: Mortend bold; text-transform: uppercase;'
+                  '); width:18rem; height:22rem; font-family: Mortend bold; '
                 "
+                @click="showModal(appointment)"
               >
                 <div
-                  id="info-description"
+                  :id="'info-description'"
                   @mouseenter="infoHover = true"
                   @mouseleave="infoHover = false"
                 >
@@ -60,7 +66,11 @@
                 <div class="p-2 absolute bottom-0 left-0">
                   <h5
                     class="text-white bm-4 font-bold text-left"
-                    style="font-size: xx-large;font-family: Mortend bold"
+                    style="
+                      font-size: xx-large;
+                      font-family: Mortend bold;
+                      text-transform: uppercase;
+                    "
                   >
                     {{ appointment.service.servicename }}
                   </h5>
@@ -93,7 +103,7 @@
                   </p>
                   <p
                     class="text-white text-left font-bold"
-                    style="font-size: 1.2rem; font-family: Mazzard;"
+                    style="font-size: 1.2rem; font-family: Mazzard"
                   >
                     <b-icon
                       pack="mdi"
@@ -104,7 +114,7 @@
                   </p>
                   <p
                     class="text-white text-left font-bold"
-                    style="font-size: 1.2rem; font-family: Mazzard;"
+                    style="font-size: 1.2rem; font-family: Mazzard"
                   >
                     <b-icon
                       pack="mdi"
@@ -138,36 +148,43 @@
 
       <!-- Carrousel turnos anteriores -->
 
-      <h1 class="my-6 font-bold text-white text-xl" style="font-family: Mortend bold;">TURNOS ANTERIORES:</h1>
+      <h1
+        class="my-6 font-bold text-white text-xl"
+        style="font-family: Mortend bold"
+      >
+        TURNOS ANTERIORES:
+      </h1>
 
       <div class="h-fit" :style="'width:' + carouselWidth + 'rem;'">
         <b-carousel-list
           v-model="slideSetRecord"
           :data="record"
           :items-to-show="slidesToShow"
+          :arrow="true"
+          :arrow-hover="false"
         >
           <template #item="appointment">
             <div class="p-4 m-4 flex justify-center">
               <p class="text-white font-bold text-left my-2">
                 <button
                   :id="'service-slide-' + appointment.id"
-                  class="bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0 hover:"
+                  class="opacity-75 bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0 hover:opacity-100"
                   :style="
                     'background-image: url(' +
                     url +
                     appointment.service.imageroute +
-                    '); width:18rem; height:22rem; font-family: Mortend bold; text-transform: uppercase;'
+                    '); width:16rem; height:22rem; font-family: Mortend bold; text-transform: uppercase;'
                   "
                 >
                   <div class="p-2 absolute bottom-0 left-0">
                     <b-icon
-                    icon="check-bold"
-                    pack="mdi"
-                    size="is-large"
-                    class="m-auto scale-150 animate-bounce"
+                      icon="check-bold"
+                      pack="mdi"
+                      size="is-large"
+                      class="m-auto scale-150 animate-bounce"
                     ></b-icon>
                     <h5
-                      class="text-white bm-4 font-bold text-left "
+                      class="text-white bm-4 font-bold text-left"
                       style="
                         font-size: 1.5rem;
                         font-family: sans-serif;
@@ -191,6 +208,69 @@
         </b-carousel-list>
       </div>
     </div>
+    <no-ssr>
+      <section>
+        <b-modal :active.sync="isCardModalActive" has-modal-card type="is-dark">
+          <div
+            v-if="modalAppointment !== undefined"
+            class="modal-card"
+            style="width: auto"
+          >
+            <header
+              class="modal-card-head"
+              style="background-color: rgb(46, 46, 46)"
+            >
+              <p
+                class="modal-card-title"
+                style="color: white; font-family: Mortend Bold; text-transform: uppercase;"
+              >
+                TENES UN {{ modalAppointment.service.servicename }}
+              </p>
+            </header>
+
+            <section
+              class="modal-card-body"
+              style="background-color: rgb(46, 46, 46)"
+            >
+            <b-field>
+              <p class="subtitle is-4" style="color: white">
+                {{ modalAppointment.service.description }}
+
+              </p>
+            </b-field>
+              <b-field>
+                <p class="subtitle is-4" style="color: white">
+                  Con: {{ modalAppointment.employee.name }}
+                </p>
+              </b-field>
+              <b-field>
+                <p class="subtitle is-4" style="color: white">
+                  A las: {{ modalAppointment.time }} HS
+                </p>
+              </b-field>
+            </section>
+            <footer
+              class="modal-card-foot"
+              style="background-color: rgb(46, 46, 46); color: white"
+            >
+              <button class="button is-danger" pack="mdi" icon-right="exclamation-thick" @click="cancelAppointment">
+                Cancelar turno
+              </button>
+              <button
+                class="button"
+                type="button; is-dark"
+                @click="isCardModalActive = false, clearModal()"
+              >
+                Volver
+              </button>
+              <button class="button is-primary" pack="mdi" icon-right="check-bold" @click="confirmAppointment">
+                Confirmar
+              </button>
+            </footer>
+          </div>
+        </b-modal>
+      </section>
+    </no-ssr>
   </div>
 </template>
 
@@ -207,6 +287,8 @@ export default {
   data() {
     return {
       infoHover: false,
+      isCardModalActive: false,
+      modalAppointment: undefined,
       appointments: [],
       futureAppointments: [],
       url: this.$auth.$storage.getLocalStorage('url'),
@@ -225,6 +307,42 @@ export default {
     this.getUserRecord()
   },
   methods: {
+    cancelAppointment() {
+      this.$buefy.dialog.confirm({
+      message: '¿Está seguro?',
+        type: 'is-dark',
+        onConfirm: () => {
+         axios
+        .post(this.url + '/appointment/finishAppointment', {
+          appointmentId: this.modalAppointment.id,
+          appointmentState: 'Cancelado',
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            this.isCardModalActive = false
+            this.$buefy.toast.open({
+              message: 'Turno actualizado',
+              type: 'is-dark',
+            })
+            this.fetchAppointments()
+            this.fetchConfirmedAppointments()
+            this.clearModal()
+          }
+        })
+        },
+      })
+      
+    },
+    clearModal() {
+      this.isCardModalActive = false
+      this.modalAppointment = undefined
+
+    }
+    ,
+    showModal(appointment) {
+      this.modalAppointment = appointment
+      this.isCardModalActive = true
+    },
     getFutureAppointments() {
       const now = Date.now()
       axios

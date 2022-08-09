@@ -158,33 +158,7 @@
           </b-field>
         </b-collapse>
 
-        <b-field label="Contraseña" :type="passwordType">
-          <b-input
-            v-model="logindata.inputPassword"
-            type="password"
-            password-reveal
-            max-length="25"
-            rounded
-            @blur="checkPassword"
-          >
-          </b-input>
-        </b-field>
-        <b-field
-          label="Confirmar Contraseña"
-          :type="passwordType"
-          :message="passwordMessage"
-        >
-          <b-input
-            v-model="passwordRepeat"
-            type="password"
-            password-reveal
-            max-length="25"
-            rounded
-            @blur="checkPassword"
-          >
-          </b-input>
-        </b-field>
-
+        
         <div
           class="flex-row text-center justify-center items-center mx-auto py-4"
         >

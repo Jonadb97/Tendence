@@ -5,135 +5,180 @@
     class="text-white flex flex-col justify-center items-center text-center"
   >
     <v-app v-show="!loading">
-    <!-- Servicios -->
-    <b-steps
-      v-model="activeStep"
-      class="my-6"
-     :has-navigation="false">
-    <b-step-item label="">
-    <div id="service-section" >
-      <h1 id="top" class="font-bold inline-flex flex-row my-2 text-xl" style="font-family: 'Mortend bold';">
-      ¿QUE TE VAS A HACER?
-      </h1>
-      <no-ssr>
-        <div id="service-carrousel" class="h-fit" :style="'width:' + carouselServicesWidth + 'rem;'">
-        <b-skeleton height="22rem" width="18rem" :active="isLoadingServices"></b-skeleton>
-          <b-carousel-list
-            v-model="slideSetServices"
-            :data="services"
-            :items-to-show="slidesToShowServices"
-          >
-            <template #item="service">
-            
-              <div class="p-4 m-4 flex justify-center">
-                <button
-                  :id="'service-slide-' + service.id"
-                  class="bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0 hover:"
-                  :style="
-                    'background-image: url(' +
-                    url +
-                    service.imageroute +
-                    '); width:18rem; height:22rem; '
-                  "
-                  @click="selectService(service.id)"
-                >
-                                            <div 
-                id="info-description"
-                @mouseenter="infoHover = true"
-                @mouseleave="infoHover = false"
-                >
-                  <b-icon
-                  pack="mdi"
-                  icon="information"
-                  type="is-light"
-                  class="m-2 hover:scale-150"
-                  style="position: absolute; top: 0px; right: 0px;"
-                  
-                  ></b-icon>
-                  <div
-                  v-show="infoHover"
-                  style="position: absolute; top: 2rem; right: 0px; background-color: #212121; color: #f7f7f7; padding: 4px; border-radius: 5px;font-family: 'Mazzard';"
-                  > {{ service.description }} </div>
-
-                </div>
-                  <div class="p-2 absolute bottom-0 left-0">
-                    <h5
-                    class="text-white bm-4 font-bold text-left"
-                    style="font-size: xx-large; font-family: 'Mortend bold'; text-transform: uppercase;"
-                    >
-                      {{ service.servicename }}
-                    </h5>
-                    <p
-                    class="text-white text-left"
-                    style="font-size: x-large; font-family: 'Mazzard';"
-                  ><b-icon
-                      pack="mdi"
-                      icon="clock"
-                      class="clock text-white text-center"
-                    ></b-icon>
-                    {{ service.duration }} Minutos
-                  </p>
-                                <p
-                    class="text-white text-left font-bold"
-                    style="font-size: x-large; font-family: 'Mazzard';"
-                  ><b-icon
-                      pack="mdi"
-                      icon="cash-multiple"
-                      class=" text-white text-center"
-                    ></b-icon>
-                    {{ service.price }}
-                  </p>
-                  </div>
-                </button>
-              </div>
-            </template>
-          </b-carousel-list>
-        </div>
-      </no-ssr>
-    </div>
-    </b-step-item>
-
-    <!--  Barberos  -->
-    <b-step-item label="">
-    <h1 class="font-bold inline-flex flex-row my-2 text-xl" style="font-family: 'Mortend bold';">¿CON QUIEN?</h1>
-
-    <no-ssr>
-      <div id="employee-carrousel" class="h-fit" :style="'width:' + carouselEmployeesWidth + 'rem;'">
-      <b-skeleton height="22rem" width="18rem" :active="isLoadingEmployees"></b-skeleton>
-        <b-carousel-list
-          v-model="slideSetEmployee"
-          :data="employees"
-          :items-to-show="slidesToShowEmployees"
-        >
-          <template #item="employee">
-            <div class="p-4 m-4 flex justify-center">
-              <button
-                :id="'employee-slide-' + employee.id"
-                class="bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0 hover:"
-                :style="
-                  'background-image: url(' +
-                  url +
-                  employee.imageroute +
-                  '); height:24rem; width:18rem;'
-                "
-                @click="selectEmployee(employee.id)"
+      <!-- Servicios -->
+      <b-steps v-model="activeStep" class="my-6" :has-navigation="false">
+        <b-step-item label="">
+          <div id="service-section">
+            <h1
+              id="top"
+              class="font-bold inline-flex flex-row my-2 text-xl"
+              style="font-family: 'Mortend bold'"
+            >
+              ¿QUE TE VAS A HACER?
+            </h1>
+            <no-ssr>
+              <div
+                id="service-carrousel"
+                class="h-fit"
+                :style="'width:' + carouselServicesWidth + 'rem; transform: translateX(1.4rem)'"
               >
-                <div class="p-2 absolute bottom-0 left-0">
-                  <h5
-                    class="text-white bm-4 font-bold text-center"
-                    style="font-size: xx-medium; font-family: 'Mortend bold'; text-align: center;"
-                  >
-                    {{ employee.name }}
-                  </h5>
-                </div>
-              </button>
-            </div>
-          </template>
-        </b-carousel-list>
-      </div>
-    </no-ssr>
-    </b-step-item>
+                <b-skeleton
+                  height="22rem"
+                  width="18rem"
+                  :active="isLoadingServices"
+                ></b-skeleton>
+                <b-carousel-list
+                  v-model="slideSetServices"
+                  :data="services"
+                  :items-to-show="slidesToShowServices"
+                  :arrow="true"
+                  :arrow-hover="false"
+                >
+                  <template #item="service">
+                    <div class="p-4 m-4 flex justify-center">
+                      <button
+                        :id="'service-slide-' + service.id"
+                        class="bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0 hover:"
+                        :style="
+                          'background-image: url(' +
+                          url +
+                          service.imageroute +
+                          '); width:18rem; height:22rem; '
+                        "
+                        @click="selectService(service.id)"
+                      >
+                        <div
+                          id="info-description"
+                          @mouseenter="infoHover = true"
+                          @mouseleave="infoHover = false"
+                        >
+                          <b-icon
+                            pack="mdi"
+                            icon="information"
+                            type="is-light"
+                            class="m-2 hover:scale-150"
+                            style="position: absolute; top: 0px; right: 0px"
+                          ></b-icon>
+                          <div
+                            v-show="infoHover"
+                            style="
+                              position: absolute;
+                              top: 2rem;
+                              right: 0px;
+                              background-color: #212121;
+                              color: #f7f7f7;
+                              padding: 4px;
+                              border-radius: 5px;
+                              font-family: 'Mazzard';
+                            "
+                          >
+                            {{ service.description }}
+                          </div>
+                        </div>
+                        <div class="p-2 absolute bottom-0 left-0">
+                          <h5
+                            class="text-white bm-4 font-bold text-left"
+                            style="
+                              font-size: xx-large;
+                              font-family: 'Mortend bold';
+                              text-transform: uppercase;
+                            "
+                          >
+                            {{ service.servicename }}
+                          </h5>
+                          <p
+                            class="text-white text-left"
+                            style="font-size: x-large; font-family: 'Mazzard'"
+                          >
+                            <b-icon
+                              pack="mdi"
+                              icon="clock"
+                              class="clock text-white text-center"
+                            ></b-icon>
+                            {{ service.duration }} Minutos
+                          </p>
+                          <p
+                            class="text-white text-left font-bold"
+                            style="font-size: x-large; font-family: 'Mazzard'"
+                          >
+                            <b-icon
+                              pack="mdi"
+                              icon="cash-multiple"
+                              class="text-white text-center"
+                            ></b-icon>
+                            {{ service.price }}
+                          </p>
+                        </div>
+                      </button>
+                    </div>
+                  </template>
+                </b-carousel-list>
+              </div>
+            </no-ssr>
+          </div>
+        </b-step-item>
 
+        <!--  Barberos  -->
+        <b-step-item label="">
+          <h1
+            class="font-bold inline-flex flex-row my-2 text-xl"
+            style="font-family: 'Mortend bold'"
+          >
+            ¿CON QUIEN?
+          </h1>
+
+          <no-ssr>
+            <div
+              id="employee-carrousel"
+              class="h-fit"
+              :style="'width:' + carouselEmployeesWidth + 'rem;'"
+            >
+              <b-skeleton
+                height="22rem"
+                width="18rem"
+                :active="isLoadingEmployees"
+              ></b-skeleton>
+              <b-carousel-list
+                v-model="slideSetEmployee"
+                :data="employees"
+                :items-to-show="slidesToShowEmployees"
+                :arrow="true"
+                :arrow-hover="false"
+              >
+                <template #item="employee">
+                  <div class="p-4 m-4 flex justify-center">
+                    <button
+                      :id="'employee-slide-' + employee.id"
+                      class="bg-cover bg-center content-end rounded-lg shadow-lg grayscale transform transition duration-500 hover:scale-110 hover:grayscale-0 hover:"
+                      :style="
+                        'background-image: url(' +
+                        url +
+                        employee.imageroute +
+                        '); height:24rem; width:18rem;'
+                      "
+                      @click="selectEmployee(employee.id)"
+                    >
+                      <div class="p-2 absolute bottom-0 left-0">
+                        <h5
+                          class="text-white bm-4 font-bold text-center"
+                          style="
+                            font-size: xx-medium;
+                            font-family: 'Mortend bold';
+                            text-align: center;
+                          "
+                        >
+                          {{ employee.name }}
+                        </h5>
+                      </div>
+                    </button>
+                  </div>
+                </template>
+              </b-carousel-list>
+            </div>
+          </no-ssr>
+        </b-step-item>
+
+<<<<<<< HEAD
     <!-- Componentes calendar -->
     <b-step-item label="">
       <b-field>
@@ -174,23 +219,129 @@
         </div>
       </div>
     </no-ssr>
+=======
+        <!-- Componentes calendar -->
+        <b-step-item label="">
+          <b-field>
+            <h1
+              class="font-bold inline-flex flex-row my-2 text-xl"
+              style="font-family: 'Mortend bold'"
+            >
+              ¿PARA CUANDO?
+            </h1>
+          </b-field>
+          <no-ssr>
+            <!-- CALENDAR DESKTOP -->
+>>>>>>> 22a26980d8b605b85c03050b5afe4dcda8261893
 
-    <div class="flex-row items-center justify-center self-center mx-auto py-4">
-      <b-button
-        id="confirmarTurno"
-        class="flex mx-auto py-2"
-        type="is-success"
-        outlined
-        size="is-large"
-        icon-right="book-check"
-        label="Agendar turno"
-        style="border-width: 3px;border-radius: 24px"
-        :disabled="disabledFinalButton"
-        @click="confirm"
-      />
-    </div>
-    </b-step-item>
-    </b-steps>
+            <div
+              v-show="$device.isDesktop"
+              id="calendar-component"
+              class="inline-flex"
+            >
+              <div>
+                <b-datepicker
+                  v-model="selectedDate"
+                  inline
+                  size="is-medium"
+                  :unselectable-days-of-week="unselectableDaysOfWeek"
+                  :unselectable-dates="unselectableDates"
+                  :min-date="startDate"
+                  :max-date="endDate"
+                  :editable="false"
+                  @input="getDayAppointments"
+                >
+                </b-datepicker>
+                <br />
+              </div>
+              <div class="pl-4" style="width: 12rem">
+                <b-table
+                  v-scroll-to="{ el: '#confirmarTurno' }"
+                  :data="freeSchedules"
+                  :columns="freeScheduleColumns"
+                  :selected.sync="selectedTime"
+                  :scrollable="false"
+                  :loading="isLoadingTimepicker"
+                  :sticky-header="true"
+                  :mobile-cards="false"
+                  hoverable
+                  style="width: auto; overflow: hidden"
+                  height="430"
+                  @click="changeTime"
+                >
+                </b-table>
+              </div>
+            </div>
+
+            <!-- CALENDAR MOBILE -->
+
+            <div
+              v-show="$device.isMobile"
+              id="calendar-component"
+              class="flex-col justify-center items-center w-screen"
+              style="width: 75vw"
+            >
+              <div>
+                <b-datepicker
+                  id="calendarTable"
+                  v-model="selectedDate"
+                  v-scroll-to="{ el: '#hourTable' }"
+                  inline
+                  size="is-small"
+                  style="width: 75vw"
+                  class="self-center"
+                  :unselectable-days-of-week="unselectableDaysOfWeek"
+                  :unselectable-dates="unselectableDates"
+                  :min-date="startDate"
+                  :max-date="endDate"
+                  :editable="false"
+                  @input="getDayAppointments"
+                  @click="moveToHour"
+                >
+                </b-datepicker>
+                <br />
+              </div>
+              <div id="hourTable" class="p-auto m-auto">
+                <b-table
+                  v-scroll-to="{ el: '#confirmarTurno' }"
+                  size="is-small"
+                  class="self-center"
+                  :data="freeSchedules"
+                  :columns="freeScheduleColumns"
+                  :selected.sync="selectedTime"
+                  :narrowed="true"
+                  :scrollable="false"
+                  :loading="isLoadingTimepicker"
+                  :sticky-header="true"
+                  :mobile-cards="false"
+                  hoverable
+                  style="width: 75vw; transform: translateX(2rem)"
+                  height="430"
+                  @click="changeTime"
+                >
+                </b-table>
+              </div>
+            </div>
+          </no-ssr>
+
+          <div
+            class="flex-row items-center justify-center self-center mx-auto py-4"
+          >
+            <b-button
+              id="confirmarTurno"
+              class="flex my-6 mx-auto py-2 animate-pulse"
+              type="is-success"
+              outlined
+              size="is-large"
+              icon-right="book-check"
+              label="Agendar turno"
+              style="border-width: 3px; border-radius: 24px"
+              :disabled="disabledFinalButton"
+              @click="confirm"
+            />
+          </div>
+        </b-step-item>
+      </b-steps>
     </v-app>
 
     <div class="flex-row items-center justify-center self-center mx-auto py-4">
@@ -201,45 +352,46 @@
         size="is-large"
         icon-right="book-cancel"
         label="Cancelar"
-        style="border-width: 3px;border-radius: 24px;"
+        style="border-width: 3px; border-radius: 24px"
         @click="redirectHome"
       />
     </div>
 
     <!-- Separador para que haya espacio y se vea lindo -->
     <div id="footer-space" class="h-48"></div>
+    <script src="https://cdn.jsdelivr.net/npm/vue-scrollto"></script>
   </div>
-
 </template>
 
 <script>
 import axios from 'axios'
+import scrollto from 'vue-scrollto'
 
 export default {
   data() {
     return {
-      loading:true,
-      activeStep:0,
+      loading: true,
+      activeStep: 0,
       infoHover: false,
       allEmployees: [],
       employees: [],
       services: [],
       freeSchedules: [],
-      freeScheduleColumns:[
+      freeScheduleColumns: [
         {
           field: 'hour',
           label: 'HH',
-          width:60,
-          numeric: true
+          width: 60,
+          numeric: true,
         },
         {
           field: 'minutes',
           label: 'MM',
-          width:60,
-          numeric: true
-        }
+          width: 60,
+          numeric: true,
+        },
       ],
-      selectedTime:undefined,
+      selectedTime: undefined,
       url: this.$auth.$storage.getLocalStorage('url'),
       carousel: 0,
       carousels: [],
@@ -262,11 +414,11 @@ export default {
       holidays: [],
       unselectableDaysOfWeek: [],
       isLoadingTimepicker: false,
-      disabledFinalButton:true,
+      disabledFinalButton: true,
     }
   },
   created() {
-    this.$nextTick(function() {
+    this.$nextTick(function () {
       this.loading = false
     })
   },
@@ -277,8 +429,12 @@ export default {
     this.fetchServices()
     this.fetchSelectableDates()
   },
-  
+
   methods: {
+    moveToHour() {
+      const firstScrollTo = scrollto('hourTable')
+      firstScrollTo()
+    },
     onResize() {
       const windowWidth = document.documentElement.clientWidth
       const rems = windowWidth / 16
@@ -316,7 +472,11 @@ export default {
               this.url + '/appointment',
               {
                 date: finalDate,
-                time: this.selectedTime.hour + ':' + this.selectedTime.minutes + ':00',
+                time:
+                  this.selectedTime.hour +
+                  ':' +
+                  this.selectedTime.minutes +
+                  ':00',
                 employeeId: this.selectedEmployee.id,
                 serviceId: this.selectedService.id,
                 userId: this.$auth.$storage.getLocalStorage('id'),
@@ -361,21 +521,22 @@ export default {
     },
     fetchSelectableDates() {
       axios.get(this.url + '/timetable/dateRange').then((response) => {
-        const allDays = [0,1,2,3,4,5,6]
+        const allDays = [0, 1, 2, 3, 4, 5, 6]
         if (response.status === 200) {
           this.startDate = new Date(response.data.startDate)
           this.endDate = new Date(response.data.endDate)
-          this.unselectableDaysOfWeek = allDays.filter(dia => !(response.data.availableDays.includes(dia+"")));
-          this.holidays = response.data.holidays.map(
-            function(d){
-              return d.date
+          this.unselectableDaysOfWeek = allDays.filter(
+            (dia) => !response.data.availableDays.includes(dia + '')
+          )
+          this.holidays = response.data.holidays.map(function (d) {
+            return d.date
           })
           console.log(this.holidays)
         }
       })
     },
     selectService(id) {
-      // animation for carrousel 
+      // animation for carrousel
       if (this.selectedService !== undefined) {
         const previousSlide = document.getElementById(
           'service-slide-' + this.selectedService.id
@@ -385,24 +546,28 @@ export default {
       }
       const slide = document.getElementById('service-slide-' + id)
       slide.style.filter = 'grayscale(0)'
-      this.selectedService = this.services.find(service=>service.id===id)
-      this.activeStep=this.activeStep+1
+      this.selectedService = this.services.find((service) => service.id === id)
+      this.activeStep = this.activeStep + 1
 
       // filter employees
       this.clearSelectedEmployee()
-      this.employees = this.allEmployees.filter((employee)=>{
-        const services = employee.services.map((service)=>{return service.id})
-        return services.includes(this.selectedService.id)
+      this.employees = this.allEmployees.filter((employee) => {
+        const services = employee.services.map((service) => {
+          return service.id
         })
+        return services.includes(this.selectedService.id)
+      })
     },
     selectEmployee(id) {
       this.clearSelectedEmployee()
       const slide = document.getElementById('employee-slide-' + id)
       slide.style.filter = 'grayscale(0%)'
-      this.selectedEmployee = this.allEmployees.find(employee=>employee.id === id)
-      this.activeStep=this.activeStep+1
+      this.selectedEmployee = this.allEmployees.find(
+        (employee) => employee.id === id
+      )
+      this.activeStep = this.activeStep + 1
     },
-    clearSelectedEmployee(){
+    clearSelectedEmployee() {
       if (this.selectedEmployee !== undefined) {
         const previousSlide = document.getElementById(
           'employee-slide-' + this.selectedEmployee.id
@@ -415,40 +580,42 @@ export default {
     getDayAppointments(date) {
       this.disabledFinalButton = true
       this.selectedTime = undefined
-      if(this.selectedEmployee !== undefined && this.selectedService !== undefined){
+      if (
+        this.selectedEmployee !== undefined &&
+        this.selectedService !== undefined
+      ) {
         this.isLoadingTimepicker = true
-        this.selectedTime= undefined
+        this.selectedTime = undefined
         const selectedDate =
-        String(date.getFullYear()).padStart(2, '0') +
-        '-' +
-        String(date.getMonth() + 1).padStart(2, '0') +
-        '-' +
-        String(date.getDate()).padStart(2,'0')
+          String(date.getFullYear()).padStart(2, '0') +
+          '-' +
+          String(date.getMonth() + 1).padStart(2, '0') +
+          '-' +
+          String(date.getDate()).padStart(2, '0')
 
-        axios.post(this.url + '/timetable/freeschedules', 
-      {
-        date: selectedDate,
-        serviceDuration: this.selectedService.duration,
-        employeeId: this.selectedEmployee.id
-      }).then((response) => 
-      {
-        if (response.status === 200) {
-          this.freeSchedules = response.data
-          this.isLoadingTimepicker = false
-        }
-      })
+        axios
+          .post(this.url + '/timetable/freeschedules', {
+            date: selectedDate,
+            serviceDuration: this.selectedService.duration,
+            employeeId: this.selectedEmployee.id,
+          })
+          .then((response) => {
+            if (response.status === 200) {
+              this.freeSchedules = response.data
+              this.isLoadingTimepicker = false
+            }
+          })
       }
-      
     },
 
-    unselectableDates(day){
+    unselectableDates(day) {
       const date =
         String(day.getFullYear()).padStart(2, '0') +
         '-' +
         String(day.getMonth() + 1).padStart(2, '0') +
         '-' +
         String(day.getDate()).padStart(2, '0')
-      
+
       return this.holidays.includes(date)
     },
     confirmAppointment() {},
@@ -456,9 +623,9 @@ export default {
       const router = window.$nuxt.$router
       router.push('/')
     },
-    changeTime(){
-      this.disabledFinalButton=false
-    }
+    changeTime() {
+      this.disabledFinalButton = false
+    },
   },
 }
 </script>
@@ -475,5 +642,8 @@ export default {
 #carrousel-barberos {
   width: 50%;
 }
-
+.table-wrapper has-sticky-header {
+  overflow: hidden;
+  display: none;
+}
 </style>

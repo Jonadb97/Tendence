@@ -4,7 +4,7 @@
       id="main-content"
       class="flex flex-col justify-center items-center text-center"
     >
-      <div id="serach-bar" class="m-2" style="width: 24rem;">
+      <div id="serach-bar" class="m-2" style="width: 24rem">
         <b-input
           pack="mdi"
           icon-right="magnify"
@@ -17,10 +17,15 @@
           <template #trigger="{ active }">
             <b-button
               type="is-primary"
-              class="m-2 text-white px-4"
+              class="m-2 text-white px-8 py-4"
               outlined
               icon-left="account-search"
-              style='width: 12rem;border-radius: 24px; border-width: 3px;color: white'
+              style="
+                width: 12rem;
+                border-radius: 24px;
+                border-width: 3px;
+                color: white;
+              "
               :icon-right="active ? 'menu-up' : 'menu-down'"
             >
               {{ selectedEmployee }}
@@ -29,7 +34,7 @@
           <b-dropdown-item
             aria-role="listitem"
             value="Todos los barberos"
-            class="px-4"
+            class="px-8 py-4"
             @click="applyFilterEmployees()"
           >
             Todos los Barberos
@@ -45,14 +50,24 @@
             {{ employee.name }}
           </b-dropdown-item>
         </b-dropdown>
-        <b-dropdown class="m-0" v-model="selectedService" aria-role="list" style="">
+        <b-dropdown
+          v-model="selectedService"
+          class="m-0"
+          aria-role="list"
+          style=""
+        >
           <template #trigger="{ active }">
             <b-button
               type="is-primary"
               class="m-2 text-white px-4"
               icon-left="account-details"
               outlined
-              style='width: 12rem;border-radius: 24px; border-width: 3px; color: white'
+              style="
+                width: 12rem;
+                border-radius: 24px;
+                border-width: 3px;
+                color: white;
+              "
               :icon-right="active ? 'menu-up' : 'menu-down'"
             >
               {{ selectedService }}
@@ -87,7 +102,7 @@
             placeholder=""
             icon="calendar-today"
             trap-focus
-            style="color: black;"
+            style="color: black"
             @input="changeDate()"
           >
           </b-datepicker>
@@ -102,16 +117,15 @@
             icon="calendar-alert"
             @click="activeTab = 0"
           >
-            <div v-show="previousappointments < 1" style="color: white;">
+            <div v-show="previousappointments < 1" style="color: white">
               <h1 class="text-5xl font-bold m-2">Oops!</h1>
               <h1 class="text-xl font-bold m-2">parece que no hay turnos</h1>
               <b-icon
-              class="text-5xl m-2"
-              pack="mdi"
-              icon="calendar-search"
-              size="is-large"
+                class="text-5xl m-2"
+                pack="mdi"
+                icon="calendar-search"
+                size="is-large"
               ></b-icon>
-
             </div>
             <div class="grid-card-container">
               <div
@@ -127,16 +141,18 @@
                   <div
                     class="grid-card bg-cover bg-center content-end rounded-xl shadow-lg grayscale transform transition duration-500 hover:scale-110"
                     :style="
-                  'background-image: url(' +
-                  url +
-                  appointment.service.imageroute +
-                  '); font-family: Mortend bold; text-color: white; color: white; text-shadow: 2px 2px black;'
-                "
+                      'background-image: url(' +
+                      url +
+                      appointment.service.imageroute +
+                      '); font-family: Mortend bold; text-color: white; color: white; text-shadow: 2px 2px black;'
+                    "
                     @click="showModal(appointment)"
                   >
                     <h2>{{ appointment.service.servicename }}</h2>
-                    Para: <p>{{ appointment.user.username }}</p>
-                    Con: <p>{{ appointment.employee.name }}</p>
+                    Para:
+                    <p>{{ appointment.user.username }}</p>
+                    Con:
+                    <p>{{ appointment.employee.name }}</p>
                     <b-icon
                       pack="mdi"
                       type="is-light"
@@ -157,16 +173,16 @@
             icon="calendar-clock"
             @click="activeTab = 1"
           >
-           <div v-show="nextappointments < 1" style="color: white;">
+            <div v-show="nextappointments < 1" style="color: white">
               <h1 class="text-5xl font-bold m-2">Oops!</h1>
               <h1 class="text-xl font-bold m-2">parece que no hay turnos</h1>
               <b-icon
-              class="text-5xl m-2"
-              pack="mdi"
-              icon="calendar-search"
-              size="is-large"
+                class="text-5xl m-2"
+                pack="mdi"
+                icon="calendar-search"
+                size="is-large"
               ></b-icon>
-           </div>
+            </div>
             <div class="grid-card-container">
               <div
                 v-for="(row, index) in nextappointments"
@@ -179,9 +195,7 @@
                   class="columna"
                 >
                   <div
-                    class="grid-card bg-cover bg-center content-end rounded-xl shadow-lg transform transition duration-500 text-white font-bold 
-                    
-                    hover:scale-110 text-xl"
+                    class="grid-card bg-cover bg-center content-end rounded-xl shadow-lg transform transition duration-500 text-white font-bold hover:scale-110 text-xl"
                     :style="
                       'background-image: url(' +
                       url +
@@ -205,16 +219,16 @@
             icon="calendar-multiple-check"
             @click="activeTab = 2"
           >
-                     <div v-show="confirmedAppointmentsRows < 1" style="color: white;">
+            <div v-show="confirmedAppointmentsRows < 1" style="color: white">
               <h1 class="text-5xl font-bold m-2">Oops!</h1>
               <h1 class="text-xl font-bold m-2">parece que no hay turnos</h1>
               <b-icon
-              class="text-5xl m-2"
-              pack="mdi"
-              icon="calendar-search"
-              size="is-large"
+                class="text-5xl m-2"
+                pack="mdi"
+                icon="calendar-search"
+                size="is-large"
               ></b-icon>
-           </div>
+            </div>
             <div class="grid-card-container">
               <div
                 v-for="(row, index) in confirmedAppointmentsRows"
@@ -227,15 +241,12 @@
                   class="columna"
                 >
                   <div
-                    class="grid-card bg-cover bg-center content-end rounded-xl shadow-lg transform transition duration-500 text-white font-bold 
-                    
-                    hover:scale-110 text-xl"
+                    class="grid-card bg-cover bg-center content-end rounded-xl shadow-lg transform transition duration-500 text-white font-bold hover:scale-110 text-xl"
                     :style="
                       'background-image: url(' +
                       url +
                       appointment.service.imageroute +
                       '); font-weight: bolder; border-radius: 15px;'
-                      
                     "
                   >
                     <h2>{{ appointment.service.servicename }}</h2>
@@ -249,95 +260,93 @@
           </b-tab-item>
         </b-tabs>
         <no-ssr>
-
-        <section>
-          <b-modal
-            :active.sync="isCardModalActive"
-            has-modal-card
-            type="is-dark">
-            <div
-              v-if="modalAppointment !== undefined"
-              class="modal-card"
-              style="width:auto"
+          <section>
+            <b-modal
+              :active.sync="isCardModalActive"
+              has-modal-card
+              type="is-dark"
             >
-              <header
-                class="modal-card-head"
-                style="background-color: rgb(46, 46, 46)"
+              <div
+                v-if="modalAppointment !== undefined"
+                class="modal-card"
+                style="width: auto"
               >
-                <p class="modal-card-title" style="color: white">
-                  {{ modalAppointment.service.servicename }}
-                </p>
-              </header>
-
-              <section
-                class="modal-card-body"
-                style="background-color: rgb(46, 46, 46)"
-              >
-                <b-field>
-                  <b-dropdown v-model="modalSelectedOptions" aria-role="list">
-                    <template #trigger="{ active }">
-                      <b-button
-                        type="is-primary"
-                        class="m-2"
-                        value="Elija una opción"
-                        :icon-right="active ? 'menu-up' : 'menu-down'"
-                      >
-                        {{ modalSelectedOptions }}
-                      </b-button>
-                    </template>
-
-                    <b-dropdown-item
-                      v-for="option in modalAppointmentOptions"
-                      :key="option.value"
-                      aria-role="listitem"
-                      :value="option.label"
-                    >
-                      {{ option.label }}
-                    </b-dropdown-item>
-                  </b-dropdown>
-                </b-field>
-                <b-field>
-                  <p class="subtitle is-4" style="color: white">
-                    Con: {{ modalAppointment.employee.name }}
-                  </p>
-                </b-field>
-                <b-field>
-                  <p class="subtitle is-4" style="color: white">
-                    Hora: {{ modalAppointment.time }}
-                  </p>
-                </b-field>
-                <b-field>
-                  <p class="subtitle is-4" style="color: white">
-                    Cliente: {{ modalAppointment.user.username }}
-                  </p>
-                </b-field>
-                <b-field> </b-field>
-              </section>
-              <footer
-                class="modal-card-foot"
-                style="background-color: rgb(46, 46, 46); color: white"
-              >
-                <button
-                  class="button"
-                  type="button; is-dark"
-                  @click="isCardModalActive = false"
+                <header
+                  class="modal-card-head"
+                  style="background-color: rgb(46, 46, 46)"
                 >
-                  Volver
-                </button>
-                <button class="button is-primary" @click="confirmAppointment">
-                  Confirmar
-                </button>
-              </footer>
-            </div>
-          </b-modal>
-        </section>
-      </no-ssr>
+                  <p class="modal-card-title" style="color: white">
+                    {{ modalAppointment.service.servicename }}
+                  </p>
+                </header>
+
+                <section
+                  class="modal-card-body"
+                  style="background-color: rgb(46, 46, 46)"
+                >
+                  <b-field>
+                    <b-dropdown v-model="modalSelectedOptions" aria-role="list">
+                      <template #trigger="{ active }">
+                        <b-button
+                          type="is-primary"
+                          class="m-2"
+                          value="Elija una opción"
+                          :icon-right="active ? 'menu-up' : 'menu-down'"
+                        >
+                          {{ modalSelectedOptions }}
+                        </b-button>
+                      </template>
+
+                      <b-dropdown-item
+                        v-for="option in modalAppointmentOptions"
+                        :key="option.value"
+                        aria-role="listitem"
+                        :value="option.label"
+                      >
+                        {{ option.label }}
+                      </b-dropdown-item>
+                    </b-dropdown>
+                  </b-field>
+                  <b-field>
+                    <p class="subtitle is-4" style="color: white">
+                      Con: {{ modalAppointment.employee.name }}
+                    </p>
+                  </b-field>
+                  <b-field>
+                    <p class="subtitle is-4" style="color: white">
+                      Hora: {{ modalAppointment.time }}
+                    </p>
+                  </b-field>
+                  <b-field>
+                    <p class="subtitle is-4" style="color: white">
+                      Cliente: {{ modalAppointment.user.username }}
+                    </p>
+                  </b-field>
+                  <b-field> </b-field>
+                </section>
+                <footer
+                  class="modal-card-foot"
+                  style="background-color: rgb(46, 46, 46); color: white"
+                >
+                  <button
+                    class="button"
+                    type="button; is-dark"
+                    @click="isCardModalActive = false"
+                  >
+                    Volver
+                  </button>
+                  <button class="button is-primary" @click="confirmAppointment">
+                    Confirmar
+                  </button>
+                </footer>
+              </div>
+            </b-modal>
+          </section>
+        </no-ssr>
       </div>
       <FooterComp class="w-screen"></FooterComp>
     </div>
-    
   </div>
-  
 </template>
 
 <script>
@@ -398,7 +407,7 @@ export default {
   },
 
   methods: {
-        formatDate(value) {
+    formatDate(value) {
       if (value) {
         return moment(String(value)).format('DD/MM/YYYY')
       }
