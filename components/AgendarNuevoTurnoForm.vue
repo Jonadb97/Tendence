@@ -178,48 +178,6 @@
           </no-ssr>
         </b-step-item>
 
-<<<<<<< HEAD
-    <!-- Componentes calendar -->
-    <b-step-item label="">
-      <b-field>
-    <h1 class="font-bold inline-flex flex-row my-2 text-xl" style="font-family: 'Mortend bold';">¿PARA CUANDO?</h1>
-    </b-field>
-    <no-ssr>
-      <div id="calendar-component" class="inline-flex w-auto">
-        <div>
-          <b-datepicker
-            v-model="selectedDate"
-            inline
-            size="is-medium"
-            :unselectable-days-of-week="unselectableDaysOfWeek"
-            :unselectable-dates="unselectableDates"
-            :min-date="startDate"
-            :max-date="endDate"
-            :editable="false"
-            @input="getDayAppointments">
-          </b-datepicker>
-          <br>
-        </div>
-        <div class="pl-4" style="width: 96px">
-          <b-table
-            :data="freeSchedules"
-            :columns="freeScheduleColumns"
-            :selected.sync="selectedTime"
-            :narrowed="true"
-            :scrollable="false"
-            :loading="isLoadingTimepicker"
-            :sticky-header="true"
-            :mobile-cards="false"
-            hoverable
-            class="w-auto"
-            height="430"
-            width="96px"
-            @click="changeTime">
-          </b-table>
-        </div>
-      </div>
-    </no-ssr>
-=======
         <!-- Componentes calendar -->
         <b-step-item label="">
           <b-field>
@@ -232,7 +190,6 @@
           </b-field>
           <no-ssr>
             <!-- CALENDAR DESKTOP -->
->>>>>>> 22a26980d8b605b85c03050b5afe4dcda8261893
 
             <div
               v-show="$device.isDesktop"
